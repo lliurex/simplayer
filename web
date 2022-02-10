@@ -258,7 +258,7 @@ class MainWindow(QMainWindow):
             spacer.setSizePolicy(QSizePolicy.Expanding,QSizePolicy.Preferred)
             self.objects.get('toolbar').addWidget(spacer)
 
-            for d in ['debug1','debug2','code']:
+            for d in ['flash','debug1','debug2','code']:
                 self.add_button(d)
 
         self.page = QWebEnginePage()
@@ -350,8 +350,8 @@ class MainWindow(QMainWindow):
         url_txt = url.toString()
         # current_history_url = '' if self.history_index == -1 else self.history[self.history_index].toString()
 
-        self.backButton.setEnabled(self.webEngineView.history().canGoBack())
-        self.forwardButton.setEnabled(self.webEngineView.history().canGoForward())
+        self.objects.get('button_back').setEnabled(self.webEngineView.history().canGoBack())
+        self.objects.get('button_forward').setEnabled(self.webEngineView.history().canGoForward())
 
         self.load_url(url)
 
