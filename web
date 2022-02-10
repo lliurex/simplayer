@@ -231,6 +231,7 @@ class MainWindow(QMainWindow):
         self.mapping = {
             'debug1' : "chrome://gpu",
             'debug2' : 'http://webglreport.com/',
+            'flash' : 'https://condor.depaul.edu/sjost/hci430/flash-examples/Examples1/Examples1.htm',
             'code' : lambda : self.webEngineView.page().toHtml(lambda x: print(BeautifulSoup(x,features="lxml").prettify()) or self.debug_history()),
             'back' : lambda : self.load_back(),
             'forward': lambda : self.load_forward()
@@ -243,33 +244,22 @@ class MainWindow(QMainWindow):
         self.server.server_started.connect(self.set_local_port)
 
         self.setWindowTitle('Phet activities')
+        self.objects = {}
 
-        self.toolBar = QToolBar(self)
-        self.addToolBar(self.toolBar)
-        self.toolBar.setFloatable(False)
-        self.toolBar.setMovable(False)
-        self.homeButton = QAction(QIcon(QPixmap(f'{IMAGE_DIR}/buttons/home.svg')),'home',self.toolBar)
-        self.homeButton.triggered.connect(self.buttonPushed)
-        self.toolBar.addAction(self.homeButton)
-        self.backButton = QAction(QIcon(QPixmap(f'{IMAGE_DIR}/buttons/back.svg')),'back',self.toolBar)
-        self.backButton.triggered.connect(self.buttonPushed)
-        self.toolBar.addAction(self.backButton)
-        self.forwardButton = QAction(QIcon(QPixmap(f'{IMAGE_DIR}/buttons/forward.svg')),'forward',self.toolBar)
-        self.forwardButton.triggered.connect(self.buttonPushed)
-        self.toolBar.addAction(self.forwardButton)
+        self.objects.setdefault('toolbar',QToolBar(self))
+        self.addToolBar(self.objects.get('toolbar'))
+        self.objects.get('toolbar').setFloatable(False)
+        self.objects.get('toolbar').setMovable(False)
+
+        for key in ['home','back','forward']:
+            self.add_button(key=key)
         if DEBUG:
             spacer = QWidget()
             spacer.setSizePolicy(QSizePolicy.Expanding,QSizePolicy.Preferred)
-            self.toolBar.addWidget(spacer)
-            self.debug1Button = QAction(QIcon(QPixmap(f'{IMAGE_DIR}/buttons/debug1.svg')),'debug1',self.toolBar)
-            self.debug1Button.triggered.connect(self.buttonPushed)
-            self.toolBar.addAction(self.debug1Button)
-            self.debug2Button = QAction(QIcon(QPixmap(f'{IMAGE_DIR}/buttons/debug2.svg')),'debug2',self.toolBar)
-            self.debug2Button.triggered.connect(self.buttonPushed)
-            self.toolBar.addAction(self.debug2Button)
-            self.debug3Button = QAction(QIcon(QPixmap(f'{IMAGE_DIR}/buttons/code.svg')),'code',self.toolBar)
-            self.debug3Button.triggered.connect(self.buttonPushed)
-            self.toolBar.addAction(self.debug3Button)
+            self.objects.get('toolbar').addWidget(spacer)
+
+            for d in ['debug1','debug2','code']:
+                self.add_button(d)
 
         self.page = QWebEnginePage()
         self.webEngineView = QWebEngineView()
@@ -278,6 +268,25 @@ class MainWindow(QMainWindow):
         self.webEngineView.page().loadFinished.connect(self.loadFinished)
 
         self.setCentralWidget(self.webEngineView)
+
+    def add_button(self,key=None):
+        if key:
+            nameobject = f'button_{key}'
+            if nameobject in self.objects:
+                print('Warning: {key} object already defined, can\'t add')
+                return
+            image = f'{IMAGE_DIR}/buttons/{key}.svg'
+            icon = None
+            if os.path.isfile(image):
+                icon = QIcon(QPixmap(image))
+            else:
+                print(f'Warning: Missing image {image}')
+                icon = self.style().standardIcon(QStyle.SP_DesktopIcon)
+            toolbar = self.objects.get('toolbar')
+            action = QAction(icon,key,toolbar)
+            action.triggered.connect(self.buttonPushed)
+            self.objects.setdefault(nameobject,action)
+            toolbar.addAction(action)
 
     @Slot(str)
     def buttonPushed(self,*args,**kwargs):
