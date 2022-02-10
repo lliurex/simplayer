@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
+import shutil
 import sys, os, time
-import socketserver
 from http.server import SimpleHTTPRequestHandler,BaseHTTPRequestHandler,ThreadingHTTPServer,HTTPServer
 from threading import Thread
 import json
@@ -16,7 +16,8 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from PySide2.QtWebEngineWidgets import *
 
-import urllib.parse
+import urllib3
+import tarfile, tempfile
 
 try:
     from bs4 import BeautifulSoup
@@ -29,6 +30,32 @@ DEBUG_REQUESTS=False
 LIBRARY_DIR='/home/lliurex/tmp'
 IMAGE_DIR=f'{LIBRARY_DIR}/images'
 RESOURCE_DIR=f'{LIBRARY_DIR}/resources'
+FLASH_PPAPI=f'{LIBRARY_DIR}/untracked/2libpepflashplayer.so'
+
+if os.path.isfile(FLASH_PPAPI):
+    sys.argv.append(f'--no-sandbox')
+    sys.argv.append(f'--ppapi-flash-path={FLASH_PPAPI}')
+    print('Running without sandbox, flash available')
+
+def download_libs():
+    if os.path.isfile(FLASH_PPAPI):
+        return
+    url='http://ftp.eq.uc.pt/software/Linux/deb-multimedia/pool/non-free/p/pepper-flash-player/flashplayer-chromium_32.0.0.465-dmo1_amd64.deb'
+    try:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with urllib3.PoolManager().request('GET',url, preload_content=False) as fp1:
+                with open(f'{tmpdir}/file.deb','wb') as fp2:
+                    shutil.copyfileobj(fp1,fp2)
+                    os.system(f'/usr/bin/ar x {tmpdir}/file.deb --output {tmpdir}')
+                    tar = tarfile.open(name=f'{tmpdir}/data.tar.xz',mode='r:xz')
+                    for member in (m for m in tar.getmembers() if m.isfile() and os.path.basename(m.name) == 'libpepflashplayer.so'):
+                        with open(FLASH_PPAPI,'wb') as fp3:
+                            shutil.copyfileobj(tar.extractfile(member),fp3)
+            pass
+    except Exception as e:
+        print(f'{str(e)}')
+        pass
+
 
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self,*args,**kwargs):
@@ -229,10 +256,13 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowIcon(QIcon('favicon.ico'))
         self.mapping = {
-            'debug1' : "chrome://gpu",
-            'debug2' : 'http://webglreport.com/',
-            'flash' : 'https://condor.depaul.edu/sjost/hci430/flash-examples/Examples1/Examples1.htm',
-            'code' : lambda : self.webEngineView.page().toHtml(lambda x: print(BeautifulSoup(x,features="lxml").prettify()) or self.debug_history()),
+            'debug_gpu-flags' : "chrome://gpu",
+            'debug_webgl-report' : 'http://webglreport.com/',
+            'debug_flash-test1' : 'https://condor.depaul.edu/sjost/hci430/flash-examples/Examples1/Examples1.htm',
+            'debug_flash-version' : 'http://embed-swf.org/flash-player-version.php',
+            'debug_flash-test2' : 'https://www.ultrasounds.com/',
+            'debug_download' : lambda : download_libs(),
+            'debug_code' : lambda : self.webEngineView.page().toHtml(lambda x: print(BeautifulSoup(x,features="lxml").prettify()) or self.debug_history()),
             'back' : lambda : self.load_back(),
             'forward': lambda : self.load_forward()
         }
@@ -257,12 +287,9 @@ class MainWindow(QMainWindow):
             spacer = QWidget()
             spacer.setSizePolicy(QSizePolicy.Expanding,QSizePolicy.Preferred)
             self.objects.get('toolbar').addWidget(spacer)
-
-            for d in ['flash','debug1','debug2','code']:
+            for d in sorted((x for x in self.mapping if 'debug_' in x)):
                 self.add_button(d)
 
-        self.page = QWebEnginePage()
-        self.webEngineView = QWebEngineView()
         self.webEngineView = WebEngine(self)
         self.webEngineView.page().urlChanged.connect(self.urlChanged)
         self.webEngineView.page().loadFinished.connect(self.loadFinished)
@@ -272,6 +299,8 @@ class MainWindow(QMainWindow):
     def add_button(self,key=None):
         if key:
             nameobject = f'button_{key}'
+            toolbar = self.objects.get('toolbar')
+
             if nameobject in self.objects:
                 print('Warning: {key} object already defined, can\'t add')
                 return
@@ -282,8 +311,16 @@ class MainWindow(QMainWindow):
             else:
                 print(f'Warning: Missing image {image}')
                 icon = self.style().standardIcon(QStyle.SP_DesktopIcon)
-            toolbar = self.objects.get('toolbar')
-            action = QAction(icon,key,toolbar)
+                toolbar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+
+            if 'debug_' in key:
+                key = key.split('debug_')[1]
+                action = QAction(icon,key,toolbar)
+                action.setData(f'debug_{key}')
+            else:
+                action = QAction(icon,key,toolbar)
+                action.setData(key)
+
             action.triggered.connect(self.buttonPushed)
             self.objects.setdefault(nameobject,action)
             toolbar.addAction(action)
@@ -293,7 +330,7 @@ class MainWindow(QMainWindow):
         try:
             who = kwargs.get('who')
             if not who:
-                who=self.sender().text()
+                who=self.sender().data()
             destination = self.mapping.get(who)
             if isinstance(destination,type(lambda x:x)):
                 destination()
