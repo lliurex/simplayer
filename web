@@ -1,0 +1,386 @@
+#!/usr/bin/env python3
+
+import sys, os, time
+import socketserver
+from http.server import SimpleHTTPRequestHandler,BaseHTTPRequestHandler,ThreadingHTTPServer,HTTPServer
+from threading import Thread
+import json
+
+# from PySide2.QtCore import (QUrl, Signal, Slot, QObject, QSize, Qt)
+# from PySide2.QtGui import (QIcon,QPixmap)
+# from PySide2.QtWidgets import (QApplication, QAction, QLineEdit, QMainWindow, QPushButton, QToolBar)
+# from PySide2.QtWebEngineWidgets import (QWebEngineSettings, QWebEngineView, QWebEnginePage)
+
+from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
+from PySide2.QtWebEngineWidgets import *
+
+import urllib.parse
+
+try:
+    from bs4 import BeautifulSoup
+except:
+    pass
+
+
+DEBUG=True
+DEBUG_REQUESTS=False
+LIBRARY_DIR='/home/lliurex/tmp'
+IMAGE_DIR=f'{LIBRARY_DIR}/images'
+RESOURCE_DIR=f'{LIBRARY_DIR}/resources'
+
+class Handler(SimpleHTTPRequestHandler):
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,directory=LIBRARY_DIR,**kwargs)
+
+    # def translate_path(self, path, *args):
+    #     return super().translate_path(path, *args)
+
+    def do_GET(self,*args):
+        content = None
+        basename = os.path.basename(self.path)
+        if basename:
+            if 'home?' == basename[:5]:
+                key = basename.split('?')[1]
+                if key:
+                    content = self.server.spider.get_html(type_html=key).encode('utf8')
+        elif self.path == '/':
+            content = self.server.spider.get_html(type_html='home').encode('utf8')
+
+        if content:
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(content)
+        else:
+            try:
+                super().do_GET(*args)
+            except Exception as e:
+                try:
+                    self.send_error(429)
+                except Exception as e2:
+                    pass
+                # print(f'Fail request {self.path}')
+
+    # def list_directory(self, path):
+    #     return super().list_directory(path)
+
+    def log_message(self, format, *args):
+        if DEBUG_REQUESTS:
+            return super().log_message(format, *args)
+
+class CustomTCPServer(ThreadingHTTPServer):
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        self.spider = Spider()
+
+class HttpServer(QObject):
+    server_started = Signal(str)
+    def __init__(self):
+        super().__init__()
+        self.thread_server = Thread(target=self.start_server,name='http_server',daemon=True)
+        self.thread_server.start()
+
+    def start_server(self):
+        while True:
+            try:
+                with CustomTCPServer(("",0),Handler) as httpd:
+                    p = httpd.server_address[1]
+                    self.server_started.emit(str(p))
+                    httpd.serve_forever()
+            except Exception as e:
+                pass
+
+class Spider(QObject):
+    def __init__(self):
+        self.basedir = LIBRARY_DIR
+        self.cache = {}
+        self.css = '''\
+html{
+    background-color: beige;
+}
+body{
+    margin: 0px;
+    padding: 20px;
+}
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: 200px;
+    grid-gap: 10px;
+}
+grid-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+grid-item img{
+    object-fit: cover;
+    height: 200px;
+    display:block;
+}'''
+        self.projects = {}
+        self.categories = {}
+        super().__init__()
+        self.search_projects()
+        self.search_categories()
+
+    def search_projects(self):
+        for x in (d for d in os.listdir(RESOURCE_DIR) if os.path.isdir(f'{RESOURCE_DIR}/{d}')):
+            prj = f'{RESOURCE_DIR}/{x}'
+            try:
+                f = json.load(open(os.path.join(prj,'meta.json'),'r'))
+                self.projects.setdefault(prj,f)
+            except Exception as e:
+                pass
+
+    def search_categories(self):
+        imagedir = f'{self.basedir}/images/categories'
+        for x in (f for f in os.listdir(imagedir) if os.path.basename(f).split('.')[-1] == 'svg' and os.path.isfile(os.path.join(imagedir,f))):
+            self.categories.setdefault(os.path.basename(x).split('.')[0],os.path.join(self.basedir,x))
+
+    def get_html(self,*args,**kwargs):
+        type_html = kwargs.get('type_html')
+        show = 'home'
+        if type_html and type_html in self.categories:
+            show = type_html
+        out = self.cache.get(show)
+        if out:
+            return out
+        if show == 'home':
+            content = self.index_html()
+            self.cache.setdefault(show,content)
+        else:
+            content = self.category_html(show=show)
+            self.cache.setdefault(show,content)
+        return content
+
+    def category_html(self,*args,**kwargs):
+        body = self.body(*args,**kwargs)
+        return f"<html><head><style>{self.css}</style></head><body>{body}</body></html>"
+
+    def index_html(self,*args,**kwargs):
+        body = self.index_body(*args,**kwargs)
+        return f"<html><head><style>{self.css}</style></head><body>{body}</body></html>"
+
+    def body(self,*args,**kwargs):
+        items = self.items(*args,**kwargs)
+        return f"<div class='wrapper'>{items}</div>"
+
+    def index_body(self,*args,**kwargs):
+        items = self.index_items(*args,**kwargs)
+        return f"<div class='wrapper'>{items}</div>"
+
+    def items(self,*args,**kwargs):
+        category = kwargs.get('show')
+        items = []
+        for k,v in self.projects.items():
+            if str(category).lower() in str(v.get('category')).lower().split(','):
+                htmlpath = os.path.join(os.path.relpath(k,self.basedir),v.get('html'))
+                bannerpath = os.path.join(os.path.relpath(k,self.basedir),v.get('banner'))
+                items.append(f'<grid-item><a href="{htmlpath}"><img src="{bannerpath}"/></a></grid-item>')
+        return '\n'.join(items)
+
+    def index_items(self,*args,**kwargs):
+        items = []
+        for k,v in self.categories.items():
+            name = k
+            bannerpath = os.path.relpath(v,self.basedir)
+            items.append(f'<grid-item><a href="home?{name}"><img src="images/categories/{bannerpath}"/></a></grid-item>')
+        return '\n'.join(items)
+
+
+class WebEngine(QWebEngineView):
+    def __init__(self,*args,**kwargs):
+        super(WebEngine,self).__init__(*args,**kwargs)
+        self.initSettings()
+    def initSettings(self):
+        pagesettings = QWebEngineSettings.globalSettings()
+        settings = [QWebEngineSettings.WebGLEnabled, QWebEngineSettings.Accelerated2dCanvasEnabled, QWebEngineSettings.PluginsEnabled]
+        for s in settings:
+            b = pagesettings.testAttribute(s)
+            pagesettings.setAttribute(s,True)
+            a = pagesettings.testAttribute(s)
+            if b != a and DEBUG:
+                print(f'{s} activated!')
+
+class MainWindow(QMainWindow):
+    server_started = Signal(str)
+
+    def debug_history(self):
+        # n=0
+        # for x in self.history:
+        #     s=''
+        #     if n == self.history_index:
+        #         s='*'
+        #     print(f'{s}{n}: {x}')
+        #     n+=1
+        n=0
+        h = self.webEngineView.history()
+        cur = h.currentItemIndex()
+        for x in h.items():
+            s=""
+            if h == cur:
+                s="*"
+            print(f'{s}{n}:{x.url().toString()}')
+            n+=1
+
+    def __init__(self):
+        super().__init__()
+        self.setWindowIcon(QIcon('favicon.ico'))
+        self.mapping = {
+            'debug1' : "chrome://gpu",
+            'debug2' : 'http://webglreport.com/',
+            'code' : lambda : self.webEngineView.page().toHtml(lambda x: print(BeautifulSoup(x,features="lxml").prettify()) or self.debug_history()),
+            'back' : lambda : self.load_back(),
+            'forward': lambda : self.load_forward()
+        }
+
+        self.local_server_port = None
+        # self.history = []
+        # self.history_index = -1
+        self.server = HttpServer()
+        self.server.server_started.connect(self.set_local_port)
+
+        self.setWindowTitle('Phet activities')
+
+        self.toolBar = QToolBar(self)
+        self.addToolBar(self.toolBar)
+        self.toolBar.setFloatable(False)
+        self.toolBar.setMovable(False)
+        self.homeButton = QAction(QIcon(QPixmap(f'{IMAGE_DIR}/buttons/home.svg')),'home',self.toolBar)
+        self.homeButton.triggered.connect(self.buttonPushed)
+        self.toolBar.addAction(self.homeButton)
+        self.backButton = QAction(QIcon(QPixmap(f'{IMAGE_DIR}/buttons/back.svg')),'back',self.toolBar)
+        self.backButton.triggered.connect(self.buttonPushed)
+        self.toolBar.addAction(self.backButton)
+        self.forwardButton = QAction(QIcon(QPixmap(f'{IMAGE_DIR}/buttons/forward.svg')),'forward',self.toolBar)
+        self.forwardButton.triggered.connect(self.buttonPushed)
+        self.toolBar.addAction(self.forwardButton)
+        if DEBUG:
+            spacer = QWidget()
+            spacer.setSizePolicy(QSizePolicy.Expanding,QSizePolicy.Preferred)
+            self.toolBar.addWidget(spacer)
+            self.debug1Button = QAction(QIcon(QPixmap(f'{IMAGE_DIR}/buttons/debug1.svg')),'debug1',self.toolBar)
+            self.debug1Button.triggered.connect(self.buttonPushed)
+            self.toolBar.addAction(self.debug1Button)
+            self.debug2Button = QAction(QIcon(QPixmap(f'{IMAGE_DIR}/buttons/debug2.svg')),'debug2',self.toolBar)
+            self.debug2Button.triggered.connect(self.buttonPushed)
+            self.toolBar.addAction(self.debug2Button)
+            self.debug3Button = QAction(QIcon(QPixmap(f'{IMAGE_DIR}/buttons/code.svg')),'code',self.toolBar)
+            self.debug3Button.triggered.connect(self.buttonPushed)
+            self.toolBar.addAction(self.debug3Button)
+
+        self.page = QWebEnginePage()
+        self.webEngineView = QWebEngineView()
+        self.webEngineView = WebEngine(self)
+        self.webEngineView.page().urlChanged.connect(self.urlChanged)
+        self.webEngineView.page().loadFinished.connect(self.loadFinished)
+
+        self.setCentralWidget(self.webEngineView)
+
+    @Slot(str)
+    def buttonPushed(self,*args,**kwargs):
+        try:
+            who = kwargs.get('who')
+            if not who:
+                who=self.sender().text()
+            destination = self.mapping.get(who)
+            if isinstance(destination,type(lambda x:x)):
+                destination()
+            else:
+                if destination:
+                    self.load_url(QUrl(destination))
+                else:
+                    self.load_url(f'{self.get_docroot()}home?{who}')
+        except Exception as e:
+            pass
+
+    @Slot(str)
+    def set_local_port(self,port=None):
+        if port is not None:
+            self.local_server_port = port
+        self.buttonPushed(who='home')
+
+    def get_docroot(self):
+        if self.local_server_port:
+            return f'http://localhost:{self.local_server_port}/'
+        return None
+
+    def load_back(self):
+        # if self.history_index > 0:
+        #     self.history_index-=1
+        #     self.load_url(self.history[self.history_index])
+        self.webEngineView.back()
+        # self.webEngineView.page().triggerAction(QWebEnginePage.Back)
+
+
+    def load_forward(self):
+        # if self.history_index < len(self.history)-1:
+        #     self.history_index+=1
+        #     self.load_url(self.history[self.history_index])
+        self.webEngineView.forward()
+        # self.webEngineView.page().triggerAction(QWebEnginePage.Forward)
+
+    def load_url(self,url):
+        if not isinstance(url,QUrl):
+            url = QUrl(url)
+        if DEBUG:
+            print(f'Loading url {url.toString()} {"Valid!" if url.isValid() else "Not valid!"}')
+        self.webEngineView.load(url)
+
+    # def load(self):
+    #     url = QUrl.fromUserInput(self.addressLineEdit.text())
+    #     if url.isValid():
+    #         self.webEngineView.load(url)
+
+    def loadFinished(self, status):
+        pass
+
+    def urlChanged(self, url):
+        url_txt = url.toString()
+        # current_history_url = '' if self.history_index == -1 else self.history[self.history_index].toString()
+
+        self.backButton.setEnabled(self.webEngineView.history().canGoBack())
+        self.forwardButton.setEnabled(self.webEngineView.history().canGoForward())
+
+        self.load_url(url)
+
+        if DEBUG:
+            print(f'URL changed {url_txt}')
+
+        # if self.history_index == -1:
+        #     self.history.append(url)
+        #     self.history_index+=1
+        # elif self.history_index < len(self.history)-1:
+        #     if current_history_url != url_txt and url_txt != root_url:
+        #         self.history = self.history[:self.history_index+1]
+        #         self.history.append(url)
+        #         self.history_index = len(self.history)-1
+        # elif url_txt != root_url and url_txt != current_history_url:
+        #     self.history.append(url)
+        #     self.history_index+=1
+
+        # if self.history_index == len(self.history)-1:
+        #     if self.forwardButton.isEnabled():
+        #         self.forwardButton.setEnabled(False)
+        # elif not self.forwardButton.isEnabled():
+        #     self.forwardButton.setEnabled(True)
+        # if self.history_index > 0:
+        #     if not self.backButton.isEnabled():
+        #         self.backButton.setEnabled(True)
+        # elif self.backButton.isEnabled():
+        #     self.backButton.setEnabled(False)
+
+if __name__ == '__main__':
+    # QApplication.setAttribute(Qt.AA_UseOpenGLES,True)
+    # QApplication.setAttribute(Qt.AA_UseSoftwareOpenGL,True)
+    # QApplication.setAttribute(Qt.AA_ShareOpenGLContexts,True)
+    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling,True)
+    app = QApplication(sys.argv)
+    mainWin = MainWindow()
+    availableGeometry = mainWin.screen().availableGeometry()
+    #mainWin.resize(availableGeometry.width() * 2 / 3, availableGeometry.height() * 2 / 3)
+    mainWin.resize(1024,768)
+    mainWin.show()
+    sys.exit(app.exec_())
