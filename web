@@ -193,7 +193,7 @@ class TemplateManager():
         if not name:
             return ''
         tpl = self.environment.get_template('swf.tpl')
-        content = tpl.render(html={'rufflepath':'ruffle/ruffle.js','swf':name})
+        content = tpl.render(html={'rufflepath':'/ruffle/ruffle.js','swf':name})
         pass
         return content
 
@@ -242,7 +242,7 @@ class MainWindow(QMainWindow):
             'debug_flash-version' : 'http://embed-swf.org/flash-player-version.php',
             'debug_flash-test2' : 'https://www.ultrasounds.com/',
             'debug_download' : lambda : download_libs(),
-            'debug_swf': lambda: self.load_url(f'{self.get_docroot()}/swf?diza.swf'),
+            'debug_swf': lambda: self.load_url(f'{self.get_docroot()}/resources/diza/swf?diza.swf'),
             'debug_code' : lambda : self.webEngineView.page().toHtml(lambda x: print(BeautifulSoup(x,features="lxml").prettify()) or self.debug_history()),
             'debug_ruffle': 'https://ruffle.rs/demo/',
             'back' : lambda : self.load_back(),
