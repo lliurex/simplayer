@@ -19,6 +19,8 @@ from PySide2.QtWebEngineWidgets import *
 import urllib3
 import tarfile, tempfile
 
+from jinja2 import Environment, FileSystemLoader
+
 try:
     from bs4 import BeautifulSoup
 except:
@@ -26,16 +28,16 @@ except:
 
 
 DEBUG=True
-DEBUG_REQUESTS=False
+DEBUG_REQUESTS=True
+FIXED_PORT=16666
+USE_CACHE=True
 LIBRARY_DIR='/home/lliurex/tmp'
 IMAGE_DIR=f'{LIBRARY_DIR}/images'
+TEMPLATE_DIR=f'{LIBRARY_DIR}/templates'
 RESOURCE_DIR=f'{LIBRARY_DIR}/resources'
-FLASH_PPAPI=f'{LIBRARY_DIR}/untracked/2libpepflashplayer.so'
-
-if os.path.isfile(FLASH_PPAPI):
-    sys.argv.append(f'--no-sandbox')
-    sys.argv.append(f'--ppapi-flash-path={FLASH_PPAPI}')
-    print('Running without sandbox, flash available')
+FLASH_PPAPI_DIR=f'{LIBRARY_DIR}/untracked'
+FLASH_PPAPI_FILES=['libpepflashplayer.so','manifest.json']
+FLASH_PPAPI=f'{FLASH_PPAPI_DIR}/libpepflashplayer.so'
 
 def download_libs():
     if os.path.isfile(FLASH_PPAPI):
@@ -48,14 +50,13 @@ def download_libs():
                     shutil.copyfileobj(fp1,fp2)
                     os.system(f'/usr/bin/ar x {tmpdir}/file.deb --output {tmpdir}')
                     tar = tarfile.open(name=f'{tmpdir}/data.tar.xz',mode='r:xz')
-                    for member in (m for m in tar.getmembers() if m.isfile() and os.path.basename(m.name) == 'libpepflashplayer.so'):
-                        with open(FLASH_PPAPI,'wb') as fp3:
+                    for member in (m for m in tar.getmembers() if m.isfile() and os.path.basename(m.name) in ['libpepflashplayer.so','manifest.json']):
+                        with open(f'{FLASH_PPAPI_DIR}/{os.path.basename(member.name)}','wb') as fp3:
                             shutil.copyfileobj(tar.extractfile(member),fp3)
             pass
     except Exception as e:
         print(f'{str(e)}')
         pass
-
 
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self,*args,**kwargs):
@@ -71,9 +72,12 @@ class Handler(SimpleHTTPRequestHandler):
             if 'home?' == basename[:5]:
                 key = basename.split('?')[1]
                 if key:
-                    content = self.server.spider.get_html(type_html=key).encode('utf8')
+                    content = self.server.tm.get_html(type_html=key).encode('utf8')
+            if 'swf?' == basename[:4]:
+                key = basename.split('?')[1]
+                content = self.server.tm.get_html(type_html='swf',name=key).encode('utf8')
         elif self.path == '/':
-            content = self.server.spider.get_html(type_html='home').encode('utf8')
+            content = self.server.tm.get_html(type_html='home').encode('utf8')
 
         if content:
             self.send_response(200)
@@ -99,7 +103,8 @@ class Handler(SimpleHTTPRequestHandler):
 class CustomTCPServer(ThreadingHTTPServer):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
-        self.spider = Spider()
+        # self.spider = Spider()
+        self.tm = TemplateManager()
 
 class HttpServer(QObject):
     server_started = Signal(str)
@@ -111,44 +116,24 @@ class HttpServer(QObject):
     def start_server(self):
         while True:
             try:
-                with CustomTCPServer(("",0),Handler) as httpd:
+                port = 0
+                if FIXED_PORT:
+                    port = FIXED_PORT
+                with CustomTCPServer(("",port),Handler) as httpd:
                     p = httpd.server_address[1]
                     self.server_started.emit(str(p))
                     httpd.serve_forever()
             except Exception as e:
                 pass
 
-class Spider(QObject):
+class TemplateManager():
     def __init__(self):
         self.basedir = LIBRARY_DIR
         self.cache = {}
-        self.css = '''\
-html{
-    background-color: beige;
-}
-body{
-    margin: 0px;
-    padding: 20px;
-}
-.wrapper {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    grid-template-rows: 200px;
-    grid-gap: 10px;
-}
-grid-item{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-grid-item img{
-    object-fit: cover;
-    height: 200px;
-    display:block;
-}'''
+        self.loader = FileSystemLoader(searchpath=TEMPLATE_DIR)
+        self.environment = Environment(loader=self.loader)
         self.projects = {}
         self.categories = {}
-        super().__init__()
         self.search_projects()
         self.search_categories()
 
@@ -164,58 +149,53 @@ grid-item img{
     def search_categories(self):
         imagedir = f'{self.basedir}/images/categories'
         for x in (f for f in os.listdir(imagedir) if os.path.basename(f).split('.')[-1] == 'svg' and os.path.isfile(os.path.join(imagedir,f))):
-            self.categories.setdefault(os.path.basename(x).split('.')[0],os.path.join(self.basedir,x))
+            self.categories.setdefault(os.path.basename(x).split('.')[0],os.path.relpath(os.path.join(self.basedir,x),self.basedir))
 
     def get_html(self,*args,**kwargs):
         type_html = kwargs.get('type_html')
         show = 'home'
         if type_html and type_html in self.categories:
             show = type_html
-        out = self.cache.get(show)
+        elif type_html == 'swf':
+            name = kwargs.get('name')
+            show = f'swf_{name}'
+
+        out = None
+        if USE_CACHE:
+            out = self.cache.get(show)
+
         if out:
             return out
         if show == 'home':
             content = self.index_html()
-            self.cache.setdefault(show,content)
+        elif type_html == 'swf':
+            content = self.swf_html(name=name)
         else:
             content = self.category_html(show=show)
-            self.cache.setdefault(show,content)
+        self.cache.setdefault(show,content)
+        return content
+
+    def index_html(self):
+        tpl = self.environment.get_template('index.tpl')
+        items = dict([ (f'home?{k}',f'images/categories/{k}.svg') for k in self.categories.keys() ])
+        content = tpl.render(categories=items)
         return content
 
     def category_html(self,*args,**kwargs):
-        body = self.body(*args,**kwargs)
-        return f"<html><head><style>{self.css}</style></head><body>{body}</body></html>"
-
-    def index_html(self,*args,**kwargs):
-        body = self.index_body(*args,**kwargs)
-        return f"<html><head><style>{self.css}</style></head><body>{body}</body></html>"
-
-    def body(self,*args,**kwargs):
-        items = self.items(*args,**kwargs)
-        return f"<div class='wrapper'>{items}</div>"
-
-    def index_body(self,*args,**kwargs):
-        items = self.index_items(*args,**kwargs)
-        return f"<div class='wrapper'>{items}</div>"
-
-    def items(self,*args,**kwargs):
         category = kwargs.get('show')
-        items = []
-        for k,v in self.projects.items():
-            if str(category).lower() in str(v.get('category')).lower().split(','):
-                htmlpath = os.path.join(os.path.relpath(k,self.basedir),v.get('html'))
-                bannerpath = os.path.join(os.path.relpath(k,self.basedir),v.get('banner'))
-                items.append(f'<grid-item><a href="{htmlpath}"><img src="{bannerpath}"/></a></grid-item>')
-        return '\n'.join(items)
+        tpl = self.environment.get_template('categories.tpl')
+        items = dict([ (f'{os.path.relpath(k,self.basedir)}/{v.get("html")}',f'{os.path.relpath(k,self.basedir)}/{v.get("banner")}') for k,v in self.projects.items() if category in v.get('category').split(',') ])
+        content = tpl.render(items=items)
+        return content
 
-    def index_items(self,*args,**kwargs):
-        items = []
-        for k,v in self.categories.items():
-            name = k
-            bannerpath = os.path.relpath(v,self.basedir)
-            items.append(f'<grid-item><a href="home?{name}"><img src="images/categories/{bannerpath}"/></a></grid-item>')
-        return '\n'.join(items)
-
+    def swf_html(self,*args,**kwargs):
+        name = kwargs.get('name')
+        if not name:
+            return ''
+        tpl = self.environment.get_template('swf.tpl')
+        content = tpl.render(html={'rufflepath':'ruffle/ruffle.js','swf':name})
+        pass
+        return content
 
 class WebEngine(QWebEngineView):
     def __init__(self,*args,**kwargs):
@@ -262,7 +242,9 @@ class MainWindow(QMainWindow):
             'debug_flash-version' : 'http://embed-swf.org/flash-player-version.php',
             'debug_flash-test2' : 'https://www.ultrasounds.com/',
             'debug_download' : lambda : download_libs(),
+            'debug_swf': lambda: self.load_url(f'{self.get_docroot()}/swf?diza.swf'),
             'debug_code' : lambda : self.webEngineView.page().toHtml(lambda x: print(BeautifulSoup(x,features="lxml").prettify()) or self.debug_history()),
+            'debug_ruffle': 'https://ruffle.rs/demo/',
             'back' : lambda : self.load_back(),
             'forward': lambda : self.load_forward()
         }
@@ -371,6 +353,8 @@ class MainWindow(QMainWindow):
     def load_url(self,url):
         if not isinstance(url,QUrl):
             url = QUrl(url)
+        scheme=url.scheme()
+        url = QUrl(scheme+':'+os.path.normpath(url.toString(QUrl.FormattingOptions(QUrl.RemoveScheme))))
         if DEBUG:
             print(f'Loading url {url.toString()} {"Valid!" if url.isValid() else "Not valid!"}')
         self.webEngineView.load(url)
@@ -417,16 +401,23 @@ class MainWindow(QMainWindow):
         #         self.backButton.setEnabled(True)
         # elif self.backButton.isEnabled():
         #     self.backButton.setEnabled(False)
+        pass
 
 if __name__ == '__main__':
     # QApplication.setAttribute(Qt.AA_UseOpenGLES,True)
     # QApplication.setAttribute(Qt.AA_UseSoftwareOpenGL,True)
     # QApplication.setAttribute(Qt.AA_ShareOpenGLContexts,True)
+    download_libs()
+    if os.path.isfile(FLASH_PPAPI):
+        sys.argv.append('--no-sandbox')
+        sys.argv.append(f'--ppapi-flash-path={FLASH_PPAPI}')
+        sys.argv.append('--ppapi-flash-version=32.0.0.151')
+        print('Running without sandbox, flash available')
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling,True)
     app = QApplication(sys.argv)
     mainWin = MainWindow()
     availableGeometry = mainWin.screen().availableGeometry()
     #mainWin.resize(availableGeometry.width() * 2 / 3, availableGeometry.height() * 2 / 3)
-    mainWin.resize(1024,768)
+    mainWin.resize(1280,1024)
     mainWin.show()
     sys.exit(app.exec_())
