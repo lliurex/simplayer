@@ -183,9 +183,20 @@ class TemplateManager():
 
     def category_html(self,*args,**kwargs):
         category = kwargs.get('show')
+        color = '#f5f5dc'
+        if category == 'math':
+            color = '#ff0000'
+        elif category == 'earth-science':
+            color = '#82553c'
+        elif category == 'biology':
+            color = '#00ff00'
+        elif category == 'physics':
+            color = '#0000ff'
+        elif category == 'chemistry':
+            color = '#820082'
         tpl = self.environment.get_template('categories.tpl')
-        items = dict([ (f'{os.path.relpath(k,self.basedir)}/{v.get("html")}',f'{os.path.relpath(k,self.basedir)}/{v.get("banner")}') for k,v in self.projects.items() if category in v.get('category').split(',') ])
-        content = tpl.render(items=items)
+        items = [ (f'{os.path.relpath(k,self.basedir)}/{v.get("html")}',f'{os.path.relpath(k,self.basedir)}/{v.get("banner")}',v.get('name')) for k,v in self.projects.items() if category in v.get('category').split(',') ]
+        content = tpl.render(items=items,color=color)
         return content
 
     def swf_html(self,*args,**kwargs):

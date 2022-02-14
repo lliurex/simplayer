@@ -4,10 +4,11 @@
 </head>
 <body>
 <div class="wrapper">
-{% for link,banner in items.items() -%}
+{% for link,banner,name in items -%}
 <grid-item>
 <a href="{{ link }}">
 <img src="{{ banner }}"/>
+<span class="title">{{name}}</span>
 </a>
 </grid-item>
 {% endfor %}
