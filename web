@@ -30,7 +30,7 @@ except:
 DEBUG=True
 DEBUG_REQUESTS=True
 FIXED_PORT=16666
-USE_CACHE=True
+USE_CACHE=False
 LIBRARY_DIR='/home/lliurex/tmp'
 IMAGE_DIR=f'{LIBRARY_DIR}/images'
 TEMPLATE_DIR=f'{LIBRARY_DIR}/templates'
@@ -177,7 +177,7 @@ class TemplateManager():
 
     def index_html(self):
         tpl = self.environment.get_template('index.tpl')
-        items = dict([ (f'home?{k}',f'images/categories/{k}.svg') for k in self.categories.keys() ])
+        items = [ (f'home?{k}',f'images/categories/{k}.svg',f'{k}') for k in self.categories.keys() ]
         content = tpl.render(categories=items)
         return content
 

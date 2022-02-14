@@ -1,16 +1,18 @@
 <html>
 <head>
-{% include 'style.tpl' %}
+{% include 'accordion.tpl' %}
 </head>
 <body>
-<div class="wrapper">
-{% for link,image in categories.items() -%}
-<grid-item>
+<div class="container">
+{% for link,image,name in categories -%}
+<div class="card">
 <a href="{{ link }}">
 <img src="{{ image }}"/>
+<div class="card__head">{{name}}</div>
 </a>
-</grid-item>
+</div>
 {% endfor %}
 </div>
 </body>
 </html>
+
