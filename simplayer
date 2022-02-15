@@ -74,6 +74,7 @@ class Handler(SimpleHTTPRequestHandler):
                 if key:
                     if key == 'gltest=no':
                         self.server.http_server.webgl_detection.emit('NO')
+                        self.server.tm.set_webgl_enabled(False)
                     else:
                         self.server.http_server.webgl_detection.emit('YES')
                     content = self.server.tm.get_html(type_html=key).encode('utf8')
@@ -139,6 +140,7 @@ class HttpServer(QObject):
 
 class TemplateManager():
     def __init__(self):
+        self.webgl_enabled = True
         self.basedir = LIBRARY_DIR
         self.cache = {}
         self.loader = FileSystemLoader(searchpath=TEMPLATE_DIR)
@@ -147,6 +149,10 @@ class TemplateManager():
         self.categories = {}
         self.search_projects()
         self.search_categories()
+
+    def set_webgl_enabled(self,status):
+        self.webgl_enabled=status
+        self.cache = {}
 
     def search_projects(self):
         for x in (d for d in os.listdir(RESOURCE_DIR) if os.path.isdir(f'{RESOURCE_DIR}/{d}')):
@@ -211,7 +217,7 @@ class TemplateManager():
         elif category == 'chemistry':
             color = '#820082'
         tpl = self.environment.get_template('categories.tpl')
-        items = [ (f'{os.path.relpath(k,self.basedir)}/{v.get("html")}',f'{os.path.relpath(k,self.basedir)}/{v.get("banner")}',v.get('name')) for k,v in self.projects.items() if category in v.get('category').split(',') ]
+        items = [ (f'{os.path.relpath(k,self.basedir)}/{v.get("html")}',f'{os.path.relpath(k,self.basedir)}/{v.get("banner")}',v.get('name')) for k,v in self.projects.items() if category in v.get('category').split(',') and ( self.webgl_enabled == False and 'webgl' not in v.get('require'))]
         content = tpl.render(items=items,color=color)
         return content
 
