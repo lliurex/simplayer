@@ -177,7 +177,7 @@ class TemplateManager():
 
     def index_html(self):
         tpl = self.environment.get_template('index.tpl')
-        items = [ (f'home?{k}',f'images/categories/{k}.svg',f'{k}') for k in self.categories.keys() ]
+        items = [ (f'home?{k}',f'images/categories/{k}.svg',f'{k}') for k in sorted(self.categories.keys()) ]
         content = tpl.render(categories=items)
         return content
 
@@ -211,7 +211,14 @@ class TemplateManager():
 class WebEngine(QWebEngineView):
     def __init__(self,*args,**kwargs):
         super(WebEngine,self).__init__(*args,**kwargs)
-        self.initSettings()
+        #self.initSettings()
+        print(f'Acceleration is : {self.checkSettings()}')
+    
+    def checkSettings(self):
+        pagesettings = QWebEngineSettings.globalSettings()
+        setting = QWebEngineSettings.WebGLEnabled
+        return pagesettings.testAttribute(setting)
+
     def initSettings(self):
         pagesettings = QWebEngineSettings.globalSettings()
         settings = [QWebEngineSettings.WebGLEnabled, QWebEngineSettings.Accelerated2dCanvasEnabled, QWebEngineSettings.PluginsEnabled]
@@ -245,14 +252,14 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setWindowIcon(QIcon('favicon.ico'))
+        self.setWindowIcon(QIcon(f'{LIBRARY_DIR}/resources/favicon.ico'))
         self.mapping = {
             'debug_gpu-flags' : "chrome://gpu",
             'debug_webgl-report' : 'http://webglreport.com/',
             'debug_flash-test1' : 'https://condor.depaul.edu/sjost/hci430/flash-examples/Examples1/Examples1.htm',
             'debug_flash-version' : 'http://embed-swf.org/flash-player-version.php',
             'debug_flash-test2' : 'https://www.ultrasounds.com/',
-            'debug_download' : lambda : download_libs(),
+            # 'debug_download' : lambda : download_libs(),
             'debug_swf': lambda: self.load_url(f'{self.get_docroot()}/resources/diza/swf?diza.swf'),
             'debug_code' : lambda : self.webEngineView.page().toHtml(lambda x: print(BeautifulSoup(x,features="lxml").prettify()) or self.debug_history()),
             'debug_ruffle': 'https://ruffle.rs/demo/',
@@ -418,12 +425,12 @@ if __name__ == '__main__':
     # QApplication.setAttribute(Qt.AA_UseOpenGLES,True)
     # QApplication.setAttribute(Qt.AA_UseSoftwareOpenGL,True)
     # QApplication.setAttribute(Qt.AA_ShareOpenGLContexts,True)
-    download_libs()
-    if os.path.isfile(FLASH_PPAPI):
-        sys.argv.append('--no-sandbox')
-        sys.argv.append(f'--ppapi-flash-path={FLASH_PPAPI}')
-        sys.argv.append('--ppapi-flash-version=32.0.0.151')
-        print('Running without sandbox, flash available')
+    # download_libs()
+    # if os.path.isfile(FLASH_PPAPI):
+    #     sys.argv.append('--no-sandbox')
+    #     sys.argv.append(f'--ppapi-flash-path={FLASH_PPAPI}')
+    #     sys.argv.append('--ppapi-flash-version=32.0.0.151')
+    #     print('Running without sandbox, flash available')
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling,True)
     app = QApplication(sys.argv)
     mainWin = MainWindow()

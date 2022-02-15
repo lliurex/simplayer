@@ -1,4 +1,4 @@
-<script type="text/javascript" src="include/jquery.min.js"></script>
+<script type="text/javascript" src="jquery/jquery.min.js"></script>
 <style>
 .filter{
     height:50px;

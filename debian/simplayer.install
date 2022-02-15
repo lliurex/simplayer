@@ -1,3 +1,5 @@
+resources /usr/lib/simplayer/
 images /usr/lib/simplayer/
-templates /usr/lib/simplayer/
+templates/*.tpl /usr/lib/simplayer/templates/
 simplayer /usr/bin/
+
