@@ -1,13 +1,11 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: simplayer
-Upstream-Contact: <preferred name and address to reach the upstream project>
-Source: <url://example.com>
+Upstream-Name: simplayer-flash-activities
 
-Files: resources/*.swf
+Files: resources/*/*.swf
 Copyright: 2010 ecolaweb.com
 License: CC-BY-SA
 
-Files: debian/*
+Files: debian/* resources/*/meta.json resources/*/*.png
 Copyright: 2022 M.Angel Juan <m.angel.juan@gmail.com>
 License: GPL-3.0+
 
