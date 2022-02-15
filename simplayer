@@ -31,32 +31,32 @@ DEBUG=True
 DEBUG_REQUESTS=True
 FIXED_PORT=16666
 USE_CACHE=False
-LIBRARY_DIR='/home/lliurex/tmp'
+LIBRARY_DIR='/usr/lib/simplayer'
 IMAGE_DIR=f'{LIBRARY_DIR}/images'
 TEMPLATE_DIR=f'{LIBRARY_DIR}/templates'
 RESOURCE_DIR=f'{LIBRARY_DIR}/resources'
-FLASH_PPAPI_DIR=f'{LIBRARY_DIR}/untracked'
-FLASH_PPAPI_FILES=['libpepflashplayer.so','manifest.json']
-FLASH_PPAPI=f'{FLASH_PPAPI_DIR}/libpepflashplayer.so'
+#FLASH_PPAPI_DIR=f'{LIBRARY_DIR}/untracked'
+#FLASH_PPAPI_FILES=['libpepflashplayer.so','manifest.json']
+#FLASH_PPAPI=f'{FLASH_PPAPI_DIR}/libpepflashplayer.so'
 
-def download_libs():
-    if os.path.isfile(FLASH_PPAPI):
-        return
-    url='http://ftp.eq.uc.pt/software/Linux/deb-multimedia/pool/non-free/p/pepper-flash-player/flashplayer-chromium_32.0.0.465-dmo1_amd64.deb'
-    try:
-        with tempfile.TemporaryDirectory() as tmpdir:
-            with urllib3.PoolManager().request('GET',url, preload_content=False) as fp1:
-                with open(f'{tmpdir}/file.deb','wb') as fp2:
-                    shutil.copyfileobj(fp1,fp2)
-                    os.system(f'/usr/bin/ar x {tmpdir}/file.deb --output {tmpdir}')
-                    tar = tarfile.open(name=f'{tmpdir}/data.tar.xz',mode='r:xz')
-                    for member in (m for m in tar.getmembers() if m.isfile() and os.path.basename(m.name) in ['libpepflashplayer.so','manifest.json']):
-                        with open(f'{FLASH_PPAPI_DIR}/{os.path.basename(member.name)}','wb') as fp3:
-                            shutil.copyfileobj(tar.extractfile(member),fp3)
-            pass
-    except Exception as e:
-        print(f'{str(e)}')
-        pass
+# def download_libs():
+#     if os.path.isfile(FLASH_PPAPI):
+#         return
+#     url='http://ftp.eq.uc.pt/software/Linux/deb-multimedia/pool/non-free/p/pepper-flash-player/flashplayer-chromium_32.0.0.465-dmo1_amd64.deb'
+#     try:
+#         with tempfile.TemporaryDirectory() as tmpdir:
+#             with urllib3.PoolManager().request('GET',url, preload_content=False) as fp1:
+#                 with open(f'{tmpdir}/file.deb','wb') as fp2:
+#                     shutil.copyfileobj(fp1,fp2)
+#                     os.system(f'/usr/bin/ar x {tmpdir}/file.deb --output {tmpdir}')
+#                     tar = tarfile.open(name=f'{tmpdir}/data.tar.xz',mode='r:xz')
+#                     for member in (m for m in tar.getmembers() if m.isfile() and os.path.basename(m.name) in ['libpepflashplayer.so','manifest.json']):
+#                         with open(f'{FLASH_PPAPI_DIR}/{os.path.basename(member.name)}','wb') as fp3:
+#                             shutil.copyfileobj(tar.extractfile(member),fp3)
+#             pass
+#     except Exception as e:
+#         print(f'{str(e)}')
+#         pass
 
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self,*args,**kwargs):
