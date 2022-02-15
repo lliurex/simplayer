@@ -72,10 +72,16 @@ class Handler(SimpleHTTPRequestHandler):
             if 'home?' == basename[:5]:
                 key = basename.split('?')[1]
                 if key:
+                    if key == 'gltest=no':
+                        self.server.http_server.webgl_detection.emit('NO')
+                    else:
+                        self.server.http_server.webgl_detection.emit('YES')
                     content = self.server.tm.get_html(type_html=key).encode('utf8')
             if 'swf?' == basename[:4]:
                 key = basename.split('?')[1]
                 content = self.server.tm.get_html(type_html='swf',name=key).encode('utf8')
+            if 'webgl?' == basename[:6]:
+                content = self.server.tm.check_webgl().encode('utf8')
         elif self.path == '/':
             content = self.server.tm.get_html(type_html='home').encode('utf8')
 
@@ -100,14 +106,19 @@ class Handler(SimpleHTTPRequestHandler):
         if DEBUG_REQUESTS:
             return super().log_message(format, *args)
 
-class CustomTCPServer(ThreadingHTTPServer):
+class CustomTCPServer(ThreadingHTTPServer,QObject):
     def __init__(self,*args,**kwargs):
+        self.http_server = kwargs.get('http_server')
+        if self.http_server:
+               kwargs.pop('http_server')
         super().__init__(*args,**kwargs)
         # self.spider = Spider()
         self.tm = TemplateManager()
 
 class HttpServer(QObject):
     server_started = Signal(str)
+    webgl_detection = Signal(str)
+
     def __init__(self):
         super().__init__()
         self.thread_server = Thread(target=self.start_server,name='http_server',daemon=True)
@@ -119,7 +130,7 @@ class HttpServer(QObject):
                 port = 0
                 if FIXED_PORT:
                     port = FIXED_PORT
-                with CustomTCPServer(("",port),Handler) as httpd:
+                with CustomTCPServer(("",port),Handler,http_server=self) as httpd:
                     p = httpd.server_address[1]
                     self.server_started.emit(str(p))
                     httpd.serve_forever()
@@ -175,6 +186,11 @@ class TemplateManager():
         self.cache.setdefault(show,content)
         return content
 
+    def check_webgl(self):
+        tpl = self.environment.get_template('checkwebgl.tpl')
+        content = tpl.render()
+        return content
+
     def index_html(self):
         tpl = self.environment.get_template('index.tpl')
         items = [ (f'home?{k}',f'images/categories/{k}.svg',f'{k}') for k in sorted(self.categories.keys()) ]
@@ -211,13 +227,13 @@ class TemplateManager():
 class WebEngine(QWebEngineView):
     def __init__(self,*args,**kwargs):
         super(WebEngine,self).__init__(*args,**kwargs)
-        #self.initSettings()
-        print(f'Acceleration is : {self.checkSettings()}')
+        self.initSettings()
+        #print(f'Acceleration is : {self.checkSettings()}')
     
-    def checkSettings(self):
-        pagesettings = QWebEngineSettings.globalSettings()
-        setting = QWebEngineSettings.WebGLEnabled
-        return pagesettings.testAttribute(setting)
+    # def checkSettings(self):
+    #     pagesettings = QWebEngineSettings.globalSettings()
+    #     setting = QWebEngineSettings.WebGLEnabled
+    #     return pagesettings.testAttribute(setting)
 
     def initSettings(self):
         pagesettings = QWebEngineSettings.globalSettings()
@@ -258,7 +274,7 @@ class MainWindow(QMainWindow):
             'debug_webgl-report' : 'http://webglreport.com/',
             'debug_flash-test1' : 'https://condor.depaul.edu/sjost/hci430/flash-examples/Examples1/Examples1.htm',
             'debug_flash-version' : 'http://embed-swf.org/flash-player-version.php',
-            'debug_flash-test2' : 'https://www.ultrasounds.com/',
+            'debug_webgl-detect' : lambda: self.load_url(f'{self.get_docroot()}/webgl?'),
             # 'debug_download' : lambda : download_libs(),
             'debug_swf': lambda: self.load_url(f'{self.get_docroot()}/resources/diza/swf?diza.swf'),
             'debug_code' : lambda : self.webEngineView.page().toHtml(lambda x: print(BeautifulSoup(x,features="lxml").prettify()) or self.debug_history()),
@@ -272,6 +288,8 @@ class MainWindow(QMainWindow):
         # self.history_index = -1
         self.server = HttpServer()
         self.server.server_started.connect(self.set_local_port)
+        self.server.webgl_detection.connect(self.set_webgl_detection)
+        self.webgl_enabled = True
 
         self.setWindowTitle('Phet activities')
         self.objects = {}
@@ -346,7 +364,13 @@ class MainWindow(QMainWindow):
     def set_local_port(self,port=None):
         if port is not None:
             self.local_server_port = port
-        self.buttonPushed(who='home')
+        self.load_url(f'{self.get_docroot()}/webgl?')
+        # self.buttonPushed(who='home')
+    
+    @Slot(str)
+    def set_webgl_detection(self,status=None):
+        if status == 'NO':
+            self.webgl_enabled = False
 
     def get_docroot(self):
         if self.local_server_port:
