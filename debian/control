@@ -1,4 +1,4 @@
-Source: simplayer
+Source: simplayer-flash-activities
 Section: utils
 Priority: optional
 Maintainer: M.Angel Juan <m.angel.juan@gmail.com>
@@ -7,24 +7,6 @@ Standards-Version: 4.4.1
 Homepage: https://github.com/lliurex/simplayer
 Vcs-Browser: https://github.com/lliurex/simplayer
 Vcs-Git: https://github.com/lliurex/simplayer
-
-Package: simplayer
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, simplayer-ruffle, libjs-jquery, simplayer-phet-activities-es, simplayer-flash-activities
-Description: Browser for educational activities
- Browser for educational activities
-
-Package: simplayer-ruffle
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Ruffle javascript library
- Ruffle is a javascript emulator for flash objects
-
-Package: simplayer-phet-activities-es
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Educational simulations collection
- Educational simulations with offline usage
 
 Package: simplayer-flash-activities
 Architecture: any
