@@ -1,4 +1,4 @@
-Source: simplayer-phet-activities-es
+Source: simplayer-circuit
 Section: utils
 Priority: optional
 Maintainer: M.Angel Juan <m.angel.juan@gmail.com>
@@ -8,11 +8,11 @@ Homepage: https://github.com/lliurex/simplayer
 Vcs-Browser: https://github.com/lliurex/simplayer
 Vcs-Git: https://github.com/lliurex/simplayer
 
-Package: simplayer-phet-activities-es
+Package: simplayer-circuit
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Educational simulations collection
- Educational simulations with offline usage
+Description: Educational simulations circuit simulator
+ Circuit simulator for simplayer
 
 
 

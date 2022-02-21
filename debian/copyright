@@ -1,10 +1,11 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: simplayer-phet-activities-es
-Source: https://github.com/phetsims
+Upstream-Name: simplayer-circuit
+Source: https://github.com/pfalstad/circuitjs1
 
 Files: resources/*
-Copyright: 2022 University of Colorado Boulder <phethelp@colorado.edu>
-License: GPL-3.0+
+Copyright: 2022 Paul Falstad <http://www.falstad.com>
+Copyright: 2022 Iain Sharp <http://lishprojects.com>
+License: GPL-2.0+
 
 Files: debian/*
 Copyright: 2022 M.Angel Juan <m.angel.juan@gmail.com>

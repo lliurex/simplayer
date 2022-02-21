@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+import subprocess
+import json
+import sys
+import re
+
+headers1 = '-H "User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:92.0) Gecko/20100101 Firefox/92.0" -H "Origin: https://salt.gva.es" -H "Referer: https://salt.gva.es/"'
+headers2 = '-H "x-api-key: eddd4e6820ff6e4d3f033cc0bcd63f45" -H "aplicacion: SALT" -H "Authorization: Basic c2FsdHVzdTpwd2RwYWkx"'
+headers3 = '-H "Content-Type: application/json"'
+
+baseurl = 'https://innovacion-mov.gva.es/pai_bus_inno/SALT/SaltService_REST_v2_00/api'
+url1= f'{baseurl}/token'
+url2= f'{baseurl}/translate'
+
+def translate(text):
+    if not text:
+        return
+    # paramjson = subprocess.check_output(f'curl -sSL {headers1} {headers2} {url1}',shell=True)
+    # params = json.loads(paramjson)
+    query = {'data' : text, 'marks': False, 'mode': 'spa-cat_valencia'}
+    query = json.dumps(query,ensure_ascii=False)
+    response = subprocess.check_output(f'curl -sSL -X POST {headers1} {headers2} {headers3} -d \'{query}\' {url2}',shell=True)
+    return json.loads(response).get('data')
+
+if __name__ == '__main__':
+    # for x in sys.argv[1:]:
+    #    print(translate(x))
+    l1=[]
+    l2=[]
+    l3=[]
+    with open('locale_ca.txt') as fp:
+        for line in fp.readlines():
+            m = re.findall('["]([^"]+)["]=["]([^"]+)["]',line)
+            if m and len(m) == 1 and len(m[0])==2:
+                l1.append(f'{m[0][0]}')
+                l2.append(f'{m[0][1]}')
+    total = len(l1)
+    chunk = 50
+    try:
+        for ini in list(range(0,total,chunk)):
+            print(f'{ini}->{ini+chunk}')
+            data = '\n'.join(l2[ini:ini+chunk])
+            # 
+            # testing without net operations
+            # trs = '\n'.join(l2[ini:ini+chunk])
+            #
+            trs = translate(data)
+            for tr in trs.split('\n'):
+                l3.append(tr)
+    except Exception as e:
+        pass
+    with open('new_locale.txt','w') as fp2:
+        lines = []
+        for i in range(len(l1)):
+            lines.append(f'"{l1[i]}"="{l3[i]}"\n')
+        fp2.writelines(lines)
+    pass
