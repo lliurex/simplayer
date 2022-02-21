@@ -19,6 +19,7 @@ grid-item{
 }
 grid-item img{
     /* object-fit: cover; */
+    width: 30vw;
     height: 20vw;
     display:block;
     filter: opacity(50%);
