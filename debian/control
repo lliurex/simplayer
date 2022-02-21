@@ -1,4 +1,4 @@
-Source: simplayer-phet-activities-es
+Source: simplayer-phet-activities
 Section: utils
 Priority: optional
 Maintainer: M.Angel Juan <m.angel.juan@gmail.com>
@@ -8,7 +8,7 @@ Homepage: https://github.com/lliurex/simplayer
 Vcs-Browser: https://github.com/lliurex/simplayer
 Vcs-Git: https://github.com/lliurex/simplayer
 
-Package: simplayer-phet-activities-es
+Package: simplayer-phet-activities
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Educational simulations collection
