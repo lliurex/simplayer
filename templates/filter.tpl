@@ -25,7 +25,7 @@
                     if (this.value.length != 0){
                         let filter_value = this.value
                         $("grid-item a span.title").each(function(){
-                            if ($(this).text().indexOf(filter_value) == -1){
+                            if ($(this).text().toLowerCase().indexOf(filter_value.toLowerCase()) == -1){
                                 $(this).parent().parent().hide()
                             }
                         })
