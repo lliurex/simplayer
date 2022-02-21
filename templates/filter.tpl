@@ -14,23 +14,25 @@
 }
 </style>
 <script>
+    var filter_size = 0
     $(document).ready(function(){
         $("#filterbox").bind('input propertychange',
             function(){
-                    if (this.value.length < 2){
-                        $("grid-item").each(function(i,v){
-                        // console.log($(v).attr('name')+' activated')
+                    $("grid-item").each(function(i,v){
                         $(v).show()
-                        })
-                    }else{
-                        $("grid-item:not([name*="+this.value+"])").each(function(i,v){
-                            // console.log($(v).attr('name')+' disabled')
-                            $(v).hide()
+                    })
+
+                    if (this.value.length != 0){
+                        let filter_value = this.value
+                        $("grid-item a span.title").each(function(){
+                            if ($(this).text().indexOf(filter_value) == -1){
+                                $(this).parent().parent().hide()
+                            }
                         })
                     }
-
+                    
+                    filter_size = this.value.length
                 }
         )
     })
-
 </script>
