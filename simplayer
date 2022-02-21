@@ -5,6 +5,7 @@ import sys, os, time
 from http.server import SimpleHTTPRequestHandler,BaseHTTPRequestHandler,ThreadingHTTPServer,HTTPServer
 from threading import Thread
 import json
+import locale
 
 # from PySide2.QtCore import (QUrl, Signal, Slot, QObject, QSize, Qt)
 # from PySide2.QtGui import (QIcon,QPixmap)
@@ -26,6 +27,12 @@ try:
 except:
     pass
 
+LANG, ENCODING = locale.getdefaultlocale()
+
+if 'ca_ES' in LANG:
+    LANG='ca'
+else:
+    LANG='es'
 
 DEBUG=True
 DEBUG_REQUESTS=True
@@ -217,7 +224,7 @@ class TemplateManager():
         elif category == 'chemistry':
             color = '#820082'
         tpl = self.environment.get_template('categories.tpl')
-        items = [ (f'{os.path.relpath(k,self.basedir)}/{v.get("html")}',f'{os.path.relpath(k,self.basedir)}/{v.get("banner")}',v.get('name')) for k,v in self.projects.items() if category in v.get('category').split(',') and ( (self.webgl_enabled == False and 'webgl' not in v.get('require')) or self.webgl_enabled )]
+        items = [ (f'{os.path.relpath(k,self.basedir)}/{v.get(f"html_{LANG}")}',f'{os.path.relpath(k,self.basedir)}/{v.get(f"banner_{LANG}")}',v.get(f'name_{LANG}')) for k,v in self.projects.items() if category in v.get('category').split(',') and ( (self.webgl_enabled == False and 'webgl' not in v.get('require')) or self.webgl_enabled )]
         content = tpl.render(items=items,color=color)
         return content
 
@@ -461,6 +468,8 @@ if __name__ == '__main__':
     #     sys.argv.append(f'--ppapi-flash-path={FLASH_PPAPI}')
     #     sys.argv.append('--ppapi-flash-version=32.0.0.151')
     #     print('Running without sandbox, flash available')
+    if DEBUG:
+        print(f'LANG={LANG}')
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling,True)
     app = QApplication(sys.argv)
     mainWin = MainWindow()
