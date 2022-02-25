@@ -2,7 +2,13 @@
 
 import shutil
 import sys, os, time
-from http.server import SimpleHTTPRequestHandler,BaseHTTPRequestHandler,ThreadingHTTPServer,HTTPServer
+from http.server import SimpleHTTPRequestHandler,BaseHTTPRequestHandler
+try:
+    from http.server import ThreadingHTTPServer as HTTPServer
+    print('Using threaded http-server')
+except:
+    from http.server import HTTPServer
+    print('Using simple http-server')
 from threading import Thread
 import json
 import locale
@@ -67,7 +73,11 @@ RESOURCE_DIR=f'{LIBRARY_DIR}/resources'
 
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self,*args,**kwargs):
-        super().__init__(*args,directory=LIBRARY_DIR,**kwargs)
+        try:
+            super().__init__(*args,directory=LIBRARY_DIR,**kwargs)
+        except:
+            os.chdir(LIBRARY_DIR)
+            super().__init__(*args,**kwargs)
 
     # def translate_path(self, path, *args):
     #     return super().translate_path(path, *args)
@@ -114,7 +124,7 @@ class Handler(SimpleHTTPRequestHandler):
         if DEBUG_REQUESTS:
             return super().log_message(format, *args)
 
-class CustomTCPServer(ThreadingHTTPServer,QObject):
+class CustomTCPServer(HTTPServer,QObject):
     def __init__(self,*args,**kwargs):
         self.http_server = kwargs.get('http_server')
         if self.http_server:
@@ -473,7 +483,10 @@ if __name__ == '__main__':
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling,True)
     app = QApplication(sys.argv)
     mainWin = MainWindow()
-    availableGeometry = mainWin.screen().availableGeometry()
+    try:
+        availableGeometry = mainWin.screen().availableGeometry()
+    except:
+        availableGeometry = mainWin.geometry()
     #mainWin.resize(availableGeometry.width() * 2 / 3, availableGeometry.height() * 2 / 3)
     mainWin.resize(1280,1024)
     mainWin.show()
