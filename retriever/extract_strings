@@ -4,7 +4,7 @@ import json
 import sys
 
 PROJECTS={}
-SPACER="@@@"
+SPACER="¬"
 
 def printerr(*argc):
     for x in argc:
@@ -59,12 +59,12 @@ for project in PROJECTS.keys():
                 PROJECTS[project][lang].setdefault(key," ")
                 # print(f'missing {lang} key {key} on {project}')
 PROJECTS=change_characters(PROJECTS)
-print(f'PROJECT_NAME{SPACER}KEY{SPACER}ENGLISH_TRANSLATION{SPACER}SPANISH_TRANSLATION{SPACER}VALENCIAN_TRANSLATION{SPACER}')
+print(f'PROJECT_NAME{SPACER}KEY{SPACER}ENGLISH_TRANSLATION{SPACER}SPANISH_TRANSLATION{SPACER}VALENCIAN_TRANSLATION')
 for project in PROJECTS.keys():
     for key in PROJECTS[project]['en'].keys():
         en_key=PROJECTS[project]['en'][key]
         es_key=PROJECTS[project]['es'][key]
         ca_key=PROJECTS[project]['ca'][key]
-        print(f'{project}{SPACER}{key}{SPACER}{en_key}{SPACER}{es_key}{SPACER}{ca_key}{SPACER}')
+        print(f'{project}{SPACER}{key}{SPACER}{en_key}{SPACER}{es_key}{SPACER}{ca_key}')
 
 
