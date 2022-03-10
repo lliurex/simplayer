@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+import glob
+import json
+import sys
+
+PROJECTS={}
+SPACER="@@@"
+
+def printerr(*argc):
+    for x in argc:
+        sys.stderr.write(f"{x}\n")
+        sys.stderr.flush()
+
+def change_characters(thing):
+    if isinstance(thing,dict):
+        keys = [ key for key in thing.keys() if "\n" in key ]
+        for key in keys:
+            replaced = key.replace("\n",'\\n')
+            printerr(f'Replaced key: {replaced}')
+            thing.setdefault(replaced,thing[key])
+            del thing[key]
+        keys = [ key for key in thing.keys() if "\r" in key ]
+        for key in keys:
+            replaced = key.replace("\r",'')
+            printerr(f'Replaced key: {replaced}')
+            thing.setdefault(replaced,thing[key])
+            del thing[key]
+        for key in thing.keys():
+            thing[key]=change_characters(thing[key])
+        return thing
+    else:
+        if isinstance(thing,str):
+            if "\n" in thing:
+                thing=thing.replace("\n",'\\n')
+                printerr(f'Replaced value:{thing}')
+            if "\r" in thing:
+                thing=thing.replace("\r",'')
+                printerr(f'Replaced value:{thing}')
+        else:
+            printerr(f'Unknown type {thing}')
+        return thing
+
+all_string_files=glob.glob('**/*-strings_*.json',recursive=True)
+for strfile in all_string_files:
+    filename=strfile.split('/')[-1]
+    lang=filename.replace('.json','')[-2:]
+    if lang not in ['en','es','ca']:
+        continue
+    project=filename.replace(f'-strings_{lang}.json','')
+    PROJECTS.setdefault(f'{project}',{'en':{},'es':{},'ca':{}})
+    with open(strfile,'r') as fp:
+        data=json.load(fp)
+        for key in data.keys():
+            PROJECTS[project][lang].setdefault(key,str(data.get(key).get('value')).strip())
+for project in PROJECTS.keys():
+    for key in PROJECTS[project]['en']:
+        for lang in ['es','ca']:
+            if key not in PROJECTS[project][lang]:
+                PROJECTS[project][lang].setdefault(key," ")
+                # print(f'missing {lang} key {key} on {project}')
+PROJECTS=change_characters(PROJECTS)
+print(f'PROJECT_NAME{SPACER}KEY{SPACER}ENGLISH_TRANSLATION{SPACER}SPANISH_TRANSLATION{SPACER}VALENCIAN_TRANSLATION{SPACER}')
+for project in PROJECTS.keys():
+    for key in PROJECTS[project]['en'].keys():
+        en_key=PROJECTS[project]['en'][key]
+        es_key=PROJECTS[project]['es'][key]
+        ca_key=PROJECTS[project]['ca'][key]
+        print(f'{project}{SPACER}{key}{SPACER}{en_key}{SPACER}{es_key}{SPACER}{ca_key}{SPACER}')
+
+
