@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+
+import os
+import shutil
+import json
+
+TR_DIR='../translations'
+TR_FILE='phet.csv'
+SPACER='¬'
+REPO_DIR='./retriever_data/repos'
+BABEL_DIR='babel'
+
+PROJECTS={}
+
+if os.path.isfile(f'{TR_DIR}/{TR_FILE}'):
+    with open(f'{TR_DIR}/{TR_FILE}','r') as fp:
+        lines = fp.readlines()
+        lines.pop(0)
+        for line in lines:
+            project,key,eng,spa,ca=line.strip().split(SPACER)
+            PROJECTS.setdefault(project,{})
+            PROJECTS[project].setdefault(key,{'en':eng,'es':spa,'ca':ca})
+
+for project in PROJECTS:
+    project_keys={'es':{},'ca':{}}
+    for key in PROJECTS[project]:
+        for lang in project_keys.keys():
+            project_keys[lang].setdefault(key,{})
+            project_keys[lang][key].setdefault('value',PROJECTS[project][key][lang])
+            project_keys[lang][key].setdefault('history',[])
+
+    project_dir=f'{REPO_DIR}/{BABEL_DIR}/{project}'
+    if not os.path.isdir(project_dir):
+        os.mkdir(project_dir)
+
+    for lang in ['es','ca','es_ES']:
+        translation_file=f'{project_dir}/{project}-strings_{lang}.json'
+        backup_file=f'{project_dir}/backup-{project}-strings_{lang}.json'
+        if os.path.isfile(translation_file) and not os.path.isfile(backup_file):
+            shutil.move(translation_file,backup_file)
+        with open(translation_file,'w') as fp:
+            l=lang
+            if lang == 'es_ES':
+                l='es'
+            json.dump(project_keys[l],fp)
