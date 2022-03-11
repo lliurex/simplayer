@@ -60,8 +60,8 @@ for project in PROJECTS.keys():
                 # print(f'missing {lang} key {key} on {project}')
 PROJECTS=change_characters(PROJECTS)
 print(f'PROJECT_NAME{SPACER}KEY{SPACER}ENGLISH_TRANSLATION{SPACER}SPANISH_TRANSLATION{SPACER}VALENCIAN_TRANSLATION')
-for project in PROJECTS.keys():
-    for key in PROJECTS[project]['en'].keys():
+for project in sorted(PROJECTS.keys()):
+    for key in sorted(PROJECTS[project]['en'].keys()):
         en_key=PROJECTS[project]['en'][key]
         es_key=PROJECTS[project]['es'][key]
         ca_key=PROJECTS[project]['ca'][key]
