@@ -69,8 +69,8 @@ area-model-common¬levelPrompt.twoProducts¬Find the partial products.¬Encuentr
 area-model-common¬partialProducts¬Partial products¬Productos parciales¬
 area-model-common¬partition¬Partition¬Partición¬
 area-model-common¬product¬Product¬Producto¬
-area-model-common¬scorePrefix¬Score:¬ ¬
-area-model-common¬screen.decimals¬Decimals¬ ¬
+area-model-common¬scorePrefix¬Score:¬Puntuación:¬
+area-model-common¬screen.decimals¬Decimals¬Decimales¬
 area-model-common¬screen.explore¬Explore¬Explorar¬
 area-model-common¬screen.game¬Game¬Juego¬
 area-model-common¬screen.generic¬Generic¬Genérico¬
@@ -150,19 +150,19 @@ balloons-and-static-electricity¬BalloonApplet.ShowAllCharges¬Show all charges�
 balloons-and-static-electricity¬BalloonApplet.ShowChargeDifferences¬Show charge differences¬Mostrar las diferencias de la carga¬
 balloons-and-static-electricity¬BalloonApplet.ShowNoCharges¬Show no charges¬No mostrar ninguna carga¬
 balloons-and-static-electricity¬balloons-and-static-electricity.title¬Balloons and Static Electricity¬Globos y electricidad estática¬
-balloons-and-static-electricity¬grabOrReleaseBalloonHeading¬Grab or Release Balloon¬ ¬
-balloons-and-static-electricity¬grabOrReleaseBalloonLabel¬Grab or release balloon¬ ¬
-balloons-and-static-electricity¬jumpCloseToSweaterLabel¬Jump close to sweater¬ ¬
-balloons-and-static-electricity¬jumpCloseToWallLabel¬Jump to wall¬ ¬
-balloons-and-static-electricity¬jumpNearWallLabel¬Jump to near wall¬ ¬
-balloons-and-static-electricity¬jumpToCenterLabel¬Jump to center¬ ¬
-balloons-and-static-electricity¬moveGrabbedBalloonLabel¬Move grabbed balloon¬ ¬
-balloons-and-static-electricity¬moveOrJumpGrabbedBalloonHeading¬Move or Jump Grabbed Balloon¬ ¬
-balloons-and-static-electricity¬moveSlowerLabel¬Move slower¬ ¬
+balloons-and-static-electricity¬grabOrReleaseBalloonHeading¬Grab or Release Balloon¬Coger o Soltar el Globo¬
+balloons-and-static-electricity¬grabOrReleaseBalloonLabel¬Grab or release balloon¬Coger o soltar el globo¬
+balloons-and-static-electricity¬jumpCloseToSweaterLabel¬Jump close to sweater¬Saltar cerca del suéter¬
+balloons-and-static-electricity¬jumpCloseToWallLabel¬Jump to wall¬Saltar al muro¬
+balloons-and-static-electricity¬jumpNearWallLabel¬Jump to near wall¬Saltar cerca del muro¬
+balloons-and-static-electricity¬jumpToCenterLabel¬Jump to center¬Saltar al centro¬
+balloons-and-static-electricity¬moveGrabbedBalloonLabel¬Move grabbed balloon¬Mover el globo agarrado¬
+balloons-and-static-electricity¬moveOrJumpGrabbedBalloonHeading¬Move or Jump Grabbed Balloon¬Mover o Saltar el Globo Agarrado¬
+balloons-and-static-electricity¬moveSlowerLabel¬Move slower¬Mover más lentamente¬
 balloons-and-static-electricity¬removeWall¬Remove\nWall¬Eliminar\nmuro¬
 balloons-and-static-electricity¬resetBalloon¬Reset Balloon¬Reiniciar globo¬
 balloons-and-static-electricity¬resetBalloons¬Reset Balloons¬Reiniciar globos¬
-bamboo¬bamboo.title¬Bamboo Demo¬ ¬
+bamboo¬bamboo.title¬Bamboo Demo¬Demostración Bamboo¬
 beers-law-lab¬absorbance¬Absorbance¬Absorbancia¬
 beers-law-lab¬beers-law-lab.title¬Beer's Law Lab¬Lab de la ley de Beer¬
 beers-law-lab¬cobaltChloride¬Cobalt(II) chloride¬Cloruro de Cobalto¬clorur de cobalt (II)
@@ -233,22 +233,22 @@ bending-light¬velocityPattern¬{0} c¬{0} c¬
 bending-light¬water¬Water¬Agua¬Aigua
 bending-light¬wavelengthPattern¬{0} nm¬{0} nm¬torn
 bending-light¬wave¬Wave¬Onda¬Ona
-blackbody-spectrum¬b¬B¬ ¬
+blackbody-spectrum¬b¬B¬B¬
 blackbody-spectrum¬blackbody-spectrum.title¬Blackbody Spectrum¬Radiación del Cuerpo Negro¬
 blackbody-spectrum¬blackbodyTemperature¬Blackbody<br>Temperature¬Temperatura<br>del Cuerpo Negro¬
 blackbody-spectrum¬earth¬Earth¬Tierra¬
-blackbody-spectrum¬g¬G¬ ¬
+blackbody-spectrum¬g¬G¬G¬
 blackbody-spectrum¬graphValues¬Graph Values¬Graficar Valores¬
 blackbody-spectrum¬infrared¬Infrared¬Infrarrojo¬
 blackbody-spectrum¬intensity¬Intensity¬Intensidad¬
-blackbody-spectrum¬intensityUnitsLabel¬{{intensity}} W/m<sup>2</sup>¬ ¬
+blackbody-spectrum¬intensityUnitsLabel¬{{intensity}} W/m<sup>2</sup>¬{{intensity}} W/m<sup>2</sup>¬
 blackbody-spectrum¬kelvinUnits¬K¬K¬
 blackbody-spectrum¬labels¬Labels¬Etiquetas¬
 blackbody-spectrum¬lightBulb¬Light Bulb¬Bombilla¬
-blackbody-spectrum¬r¬R¬ ¬
+blackbody-spectrum¬r¬R¬R¬
 blackbody-spectrum¬siriusA¬Sirius A¬Sirius A¬
 blackbody-spectrum¬spectralPowerDensityLabel¬Spectral Power Density (MW/m²/µm)¬Densidad de Potencia Espectral (MW/m²/µm)¬
-blackbody-spectrum¬subtitleLabel¬1 µm  =  1000 nm¬ ¬
+blackbody-spectrum¬subtitleLabel¬1 µm  =  1000 nm¬1 µm  =  1000 nm¬
 blackbody-spectrum¬sun¬Sun¬Sol¬
 blackbody-spectrum¬ultraviolet¬Ultraviolet¬Ultravioleta¬
 blackbody-spectrum¬visible¬Visible¬Visible¬
@@ -341,25 +341,25 @@ build-an-atom¬stableSlashUnstable¬Stable/Unstable¬Estable/Inestable¬Estable 
 build-an-atom¬symbol¬Symbol¬Símbolo¬Símbol
 build-an-atom¬whatIsTheMassNumber¬What is the\nmass number?¬¿Cuál es el número másico?¬Quin és el nombre màssic?
 build-an-atom¬whatIsTheTotalCharge¬What is the\ntotal charge?¬¿Cuál es la carga total?¬Quina és la càrrega total?
-build-a-nucleus¬build-a-nucleus.title¬Build a Nucleus¬ ¬
-buoyancy¬buoyancy.title¬Buoyancy¬ ¬
-buoyancy¬screen.applications¬Applications¬ ¬
-buoyancy¬screen.explore¬Explore¬ ¬
-buoyancy¬screen.intro¬Intro¬ ¬
-buoyancy¬screen.shapes¬Shapes¬ ¬
-calculus-grapher¬calculus-grapher.title¬Calculus Grapher¬ ¬
-calculus-grapher¬reset¬Reset¬ ¬
-calculus-grapher¬screen.derivativeLab¬Derivative Lab¬ ¬
-calculus-grapher¬screen.integralLab¬Integral Lab¬ ¬
-calculus-grapher¬screen.intro¬Intro¬ ¬
-calculus-grapher¬smooth¬Smooth¬ ¬
+build-a-nucleus¬build-a-nucleus.title¬Build a Nucleus¬Construye un núcleo¬
+buoyancy¬buoyancy.title¬Buoyancy¬Flotabilidad¬
+buoyancy¬screen.applications¬Applications¬Aplicaciones¬
+buoyancy¬screen.explore¬Explore¬Explora¬
+buoyancy¬screen.intro¬Intro¬Introducción¬
+buoyancy¬screen.shapes¬Shapes¬Formas¬
+calculus-grapher¬calculus-grapher.title¬Calculus Grapher¬Gráfico de Cálculo¬
+calculus-grapher¬reset¬Reset¬Reiniciar¬
+calculus-grapher¬screen.derivativeLab¬Derivative Lab¬Lab Derivadas¬
+calculus-grapher¬screen.integralLab¬Integral Lab¬Lab Integrales¬
+calculus-grapher¬screen.intro¬Intro¬Introducción¬
+calculus-grapher¬smooth¬Smooth¬Suave¬
 capacitor-lab-basics¬barGraphs¬Bar Graphs¬Gráficos de barras¬
 capacitor-lab-basics¬capacitance¬Capacitance¬Capacitancia¬
 capacitor-lab-basics¬capacitor-lab-basics.title¬Capacitor Lab: Basics¬Lab de condensadores: Intro¬
-capacitor-lab-basics¬conventional¬Conventional¬ ¬
+capacitor-lab-basics¬conventional¬Conventional¬Convencional¬
 capacitor-lab-basics¬currentDirection¬Current Direction¬Dirección de la Corriente¬
 capacitor-lab-basics¬electricField¬Electric Field¬Campo eléctrico¬
-capacitor-lab-basics¬electrons¬Electrons¬ ¬
+capacitor-lab-basics¬electrons¬Electrons¬Electrones¬
 capacitor-lab-basics¬millimetersPattern¬{{value}} mm¬{{value}} mm¬
 capacitor-lab-basics¬millimetersSquaredPattern¬{{value}} mm<sup>2</sup>¬{{value}} mm<sup>2</sup>¬
 capacitor-lab-basics¬picoCoulombsPattern¬{{value}} pC¬{{value}} pC¬
@@ -375,16 +375,16 @@ capacitor-lab-basics¬topPlateCharge¬Top Plate Charge¬Carga de la placa superi
 capacitor-lab-basics¬voltage¬Voltage¬Voltaje¬
 capacitor-lab-basics¬voltsPattern¬{{value}} V¬{{value}} V¬
 capacitor-lab-basics¬volts.unknown¬?¬?¬
-center-and-spread¬center-and-spread.title¬Center and Spread¬ ¬
-center-and-spread¬kick10¬Kick 10¬ ¬
-center-and-spread¬kick1¬Kick 1¬ ¬
-center-and-spread¬meanAndMedianQuestion¬How does each kick influence the mean and median?¬ ¬
-center-and-spread¬medianQuestion¬What is the typical ball distance?¬ ¬
-center-and-spread¬screen.lab¬Lab¬ ¬
-center-and-spread¬screen.meanAndMedian¬Mean & Median¬ ¬
-center-and-spread¬screen.median¬Median¬ ¬
-center-and-spread¬screen.spread¬Spread¬ ¬
-center-and-spread¬spreadQuestion¬How consistent is ball distance?¬ ¬
+center-and-spread¬center-and-spread.title¬Center and Spread¬Centrar y Extender¬
+center-and-spread¬kick10¬Kick 10¬Golpea 10¬
+center-and-spread¬kick1¬Kick 1¬Golpea 1¬
+center-and-spread¬meanAndMedianQuestion¬How does each kick influence the mean and median?¬¿Cuanto influencia cada golpe en la media y mediana?¬
+center-and-spread¬medianQuestion¬What is the typical ball distance?¬¿Cual es la típica distancia a la bola?¬
+center-and-spread¬screen.lab¬Lab¬Lab¬
+center-and-spread¬screen.meanAndMedian¬Mean & Median¬Media y Mediana¬
+center-and-spread¬screen.median¬Median¬Mediana¬
+center-and-spread¬screen.spread¬Spread¬Extender¬
+center-and-spread¬spreadQuestion¬How consistent is ball distance?¬¿Como de consistente es la distancia a la bola?¬
 charges-and-fields¬angleUnit¬deg¬°¬
 charges-and-fields¬centimeterUnit¬cm¬cm¬
 charges-and-fields¬charges-and-fields.title¬Charges and Fields¬Cargas y campos¬
@@ -419,10 +419,10 @@ circuit-construction-kit-common¬battery¬Battery¬Batería¬Bateria
 circuit-construction-kit-common¬batteryResistance¬Battery Resistance¬Resistencia  de la batería¬Resistència de la bateria
 circuit-construction-kit-common¬british¬British¬Británico¬
 circuit-construction-kit-common¬capacitance¬Capacitance¬Capacitancia¬
-circuit-construction-kit-common¬capacitanceFaradsSymbol¬{{resistance}} F¬ ¬
-circuit-construction-kit-common¬capacitanceUnits¬{{capacitance}} F¬ ¬
+circuit-construction-kit-common¬capacitanceFaradsSymbol¬{{resistance}} F¬{{resistance}} F¬
+circuit-construction-kit-common¬capacitanceUnits¬{{capacitance}} F¬{{capacitance}} F¬
 circuit-construction-kit-common¬capacitor¬Capacitor¬Capacitor¬
-circuit-construction-kit-common¬circuit-construction-kit-common.title¬Circuit Construction Kit¬ ¬
+circuit-construction-kit-common¬circuit-construction-kit-common.title¬Circuit Construction Kit¬Kit para Construcción de Circuitos¬
 circuit-construction-kit-common¬coin¬Coin¬Moneda¬Moneda
 circuit-construction-kit-common¬conventional¬Conventional¬Convencional¬Convencional
 circuit-construction-kit-common¬currentChart¬Current Chart¬Gráfica de corriente¬Gràfic d'intensitat
@@ -436,22 +436,22 @@ circuit-construction-kit-common¬dollarBill¬Dollar Bill¬Billete¬Bitllet d'un 
 circuit-construction-kit-common¬electrons¬Electrons¬Electrones¬Electrons
 circuit-construction-kit-common¬eraser¬Eraser¬Borrador¬Goma d'esborrar
 circuit-construction-kit-common¬frequency¬Frequency¬Frecuencia¬Freqüència
-circuit-construction-kit-common¬frequencyHzValuePattern¬{{frequency}} Hz¬ ¬{{frequency}} Hz
+circuit-construction-kit-common¬frequencyHzValuePattern¬{{frequency}} Hz¬{{frequency}} Hz¬{{frequency}} Hz
 circuit-construction-kit-common¬fuse¬Fuse¬Fusible¬Fusible
-circuit-construction-kit-common¬fuseValue¬{{resistance}} mΩ<br><span style="font-size: 16px;">≤ {{currentRating}} A</span>¬ ¬{{resistance}} mΩ<br><span style="font-size: 16px;">≤ {{currentRating}} A</span>
+circuit-construction-kit-common¬fuseValue¬{{resistance}} mΩ<br><span style="font-size: 16px;">≤ {{currentRating}} A</span>¬{{resistance}} mΩ<br><span style="font-size: 16px;">≤ {{currentRating}} A</span>¬{{resistance}} mΩ<br><span style="font-size: 16px;">≤ {{currentRating}} A</span>
 circuit-construction-kit-common¬hand¬Hand¬Mano¬Mà
-circuit-construction-kit-common¬iec¬IEC¬ ¬
-circuit-construction-kit-common¬ieee¬IEEE¬ ¬
-circuit-construction-kit-common¬inductanceHenriesSymbol¬{{resistance}} H¬ ¬
+circuit-construction-kit-common¬iec¬IEC¬IEC¬
+circuit-construction-kit-common¬ieee¬IEEE¬IEEE¬
+circuit-construction-kit-common¬inductanceHenriesSymbol¬{{resistance}} H¬{{resistance}} H¬
 circuit-construction-kit-common¬inductance¬Inductance¬Inductancia¬
-circuit-construction-kit-common¬inductanceUnits¬{{inductance}} H¬ ¬
+circuit-construction-kit-common¬inductanceUnits¬{{inductance}} H¬{{inductance}} H¬
 circuit-construction-kit-common¬inductor¬Inductor¬Inductor¬
 circuit-construction-kit-common¬labels¬Labels¬Etiquetas¬Etiquetes
 circuit-construction-kit-common¬lightBulb¬Light Bulb¬Bombilla¬Bombeta
 circuit-construction-kit-common¬lots¬lots¬grande¬molt
 circuit-construction-kit-common¬magnitude¬Magnitude¬Magnitud¬
-circuit-construction-kit-common¬ohms¬ohms¬ ¬
-circuit-construction-kit-common¬oneSecond¬1 s¬ ¬1 s
+circuit-construction-kit-common¬ohms¬ohms¬ohms¬
+circuit-construction-kit-common¬oneSecond¬1 s¬1 s¬1 s
 circuit-construction-kit-common¬paperClip¬Paper Clip¬Clip¬Clip de paper
 circuit-construction-kit-common¬pencil¬Pencil¬Lápiz¬Llapis
 circuit-construction-kit-common¬phaseShift¬Phase Shift¬Cambio de fase¬a
@@ -484,7 +484,7 @@ circuit-construction-kit-dc¬circuit-construction-kit-dc.title¬Circuit Construc
 circuit-construction-kit-dc¬screen.intro¬Intro¬Introducción¬Intro
 circuit-construction-kit-dc¬screen.lab¬Lab¬Laboratorio¬Lab
 circuit-construction-kit-dc-virtual-lab¬circuit-construction-kit-dc-virtual-lab.title¬Circuit Construction Kit: DC - Virtual Lab¬Kit de Construcción de Circuitos: CD - Laboratorio Virtual¬Kit de Construcció de Circuit: Corrent Continu (CC) - Laboratori Virtual
-collision-lab¬approximatePattern¬~{{value}}¬ ¬~ {{value}}
+collision-lab¬approximatePattern¬~{{value}}¬~{{value}}¬~ {{value}}
 collision-lab¬balls¬Balls¬Pelotas¬Boles
 collision-lab¬centerOfMass¬Center of Mass¬Centro de Masa¬Centre de masses
 collision-lab¬changeInMomentum¬Change in Momentum¬Cambio en el Momento¬Canvi del moment
@@ -502,14 +502,14 @@ collision-lab¬momentaDiagram¬Momenta Diagram¬Diagrama de Momento¬Diagrama de
 collision-lab¬momentum¬Momentum¬Momento¬Moment
 collision-lab¬moreData¬More Data¬Más Datos¬Més dades
 collision-lab¬path¬Path¬Trayectoria¬Trajectòria
-collision-lab¬pattern.labelEqualsValueSpaceUnits¬{{label}} = {{value}} {{units}}¬ ¬{{label}} = {{value}} {{units}}
-collision-lab¬pattern.labelEqualsValueUnits¬{{label}} = {{value}}{{units}}¬ ¬{{label}} = {{value}} {{units}}
-collision-lab¬pattern.labelParenthesesUnits¬{{label}} ({{units}})¬ ¬{{label}} ({{units}})
+collision-lab¬pattern.labelEqualsValueSpaceUnits¬{{label}} = {{value}} {{units}}¬{{label}} = {{value}} {{units}}¬{{label}} = {{value}} {{units}}
+collision-lab¬pattern.labelEqualsValueUnits¬{{label}} = {{value}}{{units}}¬{{label}} = {{value}}{{units}}¬{{label}} = {{value}} {{units}}
+collision-lab¬pattern.labelParenthesesUnits¬{{label}} ({{units}})¬{{label}} ({{units}})¬{{label}} ({{units}})
 collision-lab¬pattern.range¬{{min}} to {{max}} {{units}}¬{{min}} a {{max}} {{units}}¬de {{min}} a {{max}} {{units}}
-collision-lab¬pattern.symbolSubSymbol¬{{symbol1}}<sub>{{symbol2}}</sub>¬ ¬{{symbol1}}<sub>{{symbol2}}</sub>
-collision-lab¬pattern.valueSpaceUnits¬{{value}} {{units}}¬ ¬{{value}} {{units}}
-collision-lab¬pattern.valueUnits¬{{value}}{{units}}¬ ¬{{value}} {{units}}
-collision-lab¬pattern.vectorSymbolEqualsValueSpaceUnits¬|{{symbol}}| = {{value}} {{units}}¬ ¬|{{symbol}}| = {{value}} {{units}}
+collision-lab¬pattern.symbolSubSymbol¬{{symbol1}}<sub>{{symbol2}}</sub>¬{{symbol1}}<sub>{{symbol2}}</sub>¬{{symbol1}}<sub>{{symbol2}}</sub>
+collision-lab¬pattern.valueSpaceUnits¬{{value}} {{units}}¬{{value}} {{units}}¬{{value}} {{units}}
+collision-lab¬pattern.valueUnits¬{{value}}{{units}}¬{{value}}{{units}}¬{{value}} {{units}}
+collision-lab¬pattern.vectorSymbolEqualsValueSpaceUnits¬|{{symbol}}| = {{value}} {{units}}¬|{{symbol}}| = {{value}} {{units}}¬|{{symbol}}| = {{value}} {{units}}
 collision-lab¬position¬Position¬Posición¬Posició
 collision-lab¬reflectingBorder¬Reflecting Border¬Borde Reflectante¬Vora reflectora
 collision-lab¬returnBalls¬Return Balls¬Regresar Pelotas¬Recupera les boles
@@ -519,18 +519,18 @@ collision-lab¬screen.inelastic¬Inelastic¬Inelástico¬Inelàstic
 collision-lab¬screen.intro¬Intro¬Intro¬Introducció
 collision-lab¬slip¬Slip¬Deslizarse¬lliscament
 collision-lab¬stick¬Stick¬Adherirse¬adhesió
-collision-lab¬symbol.momentum¬p¬ ¬p
-collision-lab¬symbol.velocity¬v¬ ¬v
-collision-lab¬symbol.x¬x¬ ¬x
-collision-lab¬symbol.y¬y¬ ¬y
+collision-lab¬symbol.momentum¬p¬p¬p
+collision-lab¬symbol.velocity¬v¬v¬v
+collision-lab¬symbol.x¬x¬x¬x
+collision-lab¬symbol.y¬y¬y¬y
 collision-lab¬total¬total¬total¬total
-collision-lab¬units.joules¬J¬ ¬J
-collision-lab¬units.kilogramMetersPerSecond¬kg m/s¬ ¬kg m/s
-collision-lab¬units.kilograms¬kg¬ ¬kg
-collision-lab¬units.meters¬m¬ ¬m
-collision-lab¬units.metersPerSecond¬m/s¬ ¬m/s
-collision-lab¬units.percent¬%¬ ¬%
-collision-lab¬units.seconds¬s¬ ¬s
+collision-lab¬units.joules¬J¬J¬J
+collision-lab¬units.kilogramMetersPerSecond¬kg m/s¬kg m/s¬kg m/s
+collision-lab¬units.kilograms¬kg¬kg¬kg
+collision-lab¬units.meters¬m¬m¬m
+collision-lab¬units.metersPerSecond¬m/s¬m/s¬m/s
+collision-lab¬units.percent¬%¬%¬%
+collision-lab¬units.seconds¬s¬s¬s
 collision-lab¬values¬Values¬Valores¬Valors
 collision-lab¬velocity¬Velocity¬Velocidad¬Velocitat
 color-vision¬bulbSlider.label¬Bulb Color¬Color de la lámpara¬Color de la bombeta
@@ -539,7 +539,7 @@ color-vision¬filterSlider.label¬Filter Color¬Color del filtro¬Color del filt
 color-vision¬RgbBulbsModule.title¬RGB Bulbs¬Lámparas RGB (roja, verde, azul)¬Bombetes RGB
 color-vision¬SingleBulbModule.title¬Single Bulb¬Lámpara simple¬Bombeta individual
 concentration¬concentration.title¬Concentration¬Concentración¬Concentració
-counting-common¬counting-common.title¬Counting Common¬ ¬
+counting-common¬counting-common.title¬Counting Common¬Contando Comunes¬
 curve-fitting¬adjustableFit¬Adjustable fit¬Ajuste manual¬
 curve-fitting¬aSymbol¬a¬a¬
 curve-fitting¬bestFit¬Best fit¬Mejor ajuste¬
@@ -567,63 +567,63 @@ curve-fitting¬undefined¬undefined¬indefinido¬
 curve-fitting¬values¬Values¬Valores¬
 curve-fitting¬xSymbol¬x¬x¬
 curve-fitting¬ySymbol¬y¬y¬
-density-buoyancy-common¬airVolume¬Air Volume¬ ¬
+density-buoyancy-common¬airVolume¬Air Volume¬Volumen del Aire¬
 density-buoyancy-common¬average¬Average¬Promedio¬
-density-buoyancy-common¬blockA¬Block A:¬ ¬
-density-buoyancy-common¬blockB¬Block B:¬ ¬
+density-buoyancy-common¬blockA¬Block A:¬Bloque A:¬
+density-buoyancy-common¬blockB¬Block B:¬Bloque B:¬
 density-buoyancy-common¬blocks¬Blocks¬Bloques¬
 density-buoyancy-common¬blockSet.random¬Random¬Aleatorio¬
 density-buoyancy-common¬blockSet.sameDensity¬Same Density¬Misma Densidad¬
 density-buoyancy-common¬blockSet.sameMass¬Same Mass¬Misma Masa¬
 density-buoyancy-common¬blockSet.sameVolume¬Same Volume¬Mismo Volumen¬
-density-buoyancy-common¬blockSet.set1¬Set 1¬ ¬
-density-buoyancy-common¬blockSet.set2¬Set 2¬ ¬
-density-buoyancy-common¬blockSet.set3¬Set 3¬ ¬
-density-buoyancy-common¬boatVolume¬Boat Volume¬ ¬
-density-buoyancy-common¬buoyancy¬Buoyancy¬ ¬
-density-buoyancy-common¬contact¬Contact¬ ¬
+density-buoyancy-common¬blockSet.set1¬Set 1¬Conjunto 1¬
+density-buoyancy-common¬blockSet.set2¬Set 2¬Conjunto 2¬
+density-buoyancy-common¬blockSet.set3¬Set 3¬Conjunto 3¬
+density-buoyancy-common¬boatVolume¬Boat Volume¬Volumen del Barco¬
+density-buoyancy-common¬buoyancy¬Buoyancy¬Flotabilidad¬
+density-buoyancy-common¬contact¬Contact¬Contacto¬
 density-buoyancy-common¬density¬Density¬Densidad¬
 density-buoyancy-common¬densityKgL¬Density (kg/L)¬Densidad (kg/L)¬
 density-buoyancy-common¬densityReadout¬Density (kg/L)¬Densidad (kg/L)¬
-density-buoyancy-common¬densityReadoutPattern¬{{material}}: {{density}} kg/L¬ ¬
+density-buoyancy-common¬densityReadoutPattern¬{{material}}: {{density}} kg/L¬{{material}}: {{density}} kg/L¬
 density-buoyancy-common¬densityTable¬Density Table¬Tabla de Densidades¬
-density-buoyancy-common¬fluidDensity¬Fluid Density¬ ¬
-density-buoyancy-common¬fluid¬Fluid¬ ¬
-density-buoyancy-common¬forces¬Forces¬ ¬
-density-buoyancy-common¬forceValues¬Force Values¬ ¬
+density-buoyancy-common¬fluidDensity¬Fluid Density¬Densidad del Fluido¬
+density-buoyancy-common¬fluid¬Fluid¬Fluido¬
+density-buoyancy-common¬forces¬Forces¬Fuerzas¬
+density-buoyancy-common¬forceValues¬Force Values¬Valores de la Fuerza¬
 density-buoyancy-common¬gravity.custom¬Custom¬Personalizado¬
 density-buoyancy-common¬gravity.earth¬Earth¬Tierra¬
 density-buoyancy-common¬gravity.jupiter¬Jupiter¬Júpiter¬
 density-buoyancy-common¬gravity.moon¬Moon¬Luna¬
-density-buoyancy-common¬gravity.name¬Gravity¬ ¬
+density-buoyancy-common¬gravity.name¬Gravity¬Gravedad¬
 density-buoyancy-common¬gravity.planetX¬Planet X¬Planeta X¬
-density-buoyancy-common¬height¬Height¬ ¬
-density-buoyancy-common¬kilogramsPattern¬{{kilograms}} kg¬ ¬
-density-buoyancy-common¬kilogramsPerLiterPattern¬{{value}} kg/L¬ ¬
-density-buoyancy-common¬litersPattern¬{{liters}} L¬ ¬
-density-buoyancy-common¬masses¬Masses¬ ¬
-density-buoyancy-common¬massLabel.1a¬1A¬ ¬
-density-buoyancy-common¬massLabel.1b¬1B¬ ¬
-density-buoyancy-common¬massLabel.1c¬1C¬ ¬
-density-buoyancy-common¬massLabel.1d¬1D¬ ¬
-density-buoyancy-common¬massLabel.1e¬1E¬ ¬
-density-buoyancy-common¬massLabel.2a¬2A¬ ¬
-density-buoyancy-common¬massLabel.2b¬2B¬ ¬
-density-buoyancy-common¬massLabel.2c¬2C¬ ¬
-density-buoyancy-common¬massLabel.2d¬2D¬ ¬
-density-buoyancy-common¬massLabel.2e¬2E¬ ¬
-density-buoyancy-common¬massLabel.3a¬3A¬ ¬
-density-buoyancy-common¬massLabel.3b¬3B¬ ¬
-density-buoyancy-common¬massLabel.3c¬3C¬ ¬
-density-buoyancy-common¬massLabel.3d¬3D¬ ¬
-density-buoyancy-common¬massLabel.3e¬3E¬ ¬
-density-buoyancy-common¬massLabel.a¬A¬ ¬
-density-buoyancy-common¬massLabel.b¬B¬ ¬
-density-buoyancy-common¬massLabel.c¬C¬ ¬
-density-buoyancy-common¬massLabel.d¬D¬ ¬
-density-buoyancy-common¬massLabel.e¬E¬ ¬
-density-buoyancy-common¬massLabel.primary¬A¬ ¬
-density-buoyancy-common¬massLabel.secondary¬B¬ ¬
+density-buoyancy-common¬height¬Height¬Altura¬
+density-buoyancy-common¬kilogramsPattern¬{{kilograms}} kg¬{{kilograms}} kg¬
+density-buoyancy-common¬kilogramsPerLiterPattern¬{{value}} kg/L¬{{value}} kg/L¬
+density-buoyancy-common¬litersPattern¬{{liters}} L¬{{liters}} L¬
+density-buoyancy-common¬masses¬Masses¬Masas¬
+density-buoyancy-common¬massLabel.1a¬1A¬1A¬
+density-buoyancy-common¬massLabel.1b¬1B¬1B¬
+density-buoyancy-common¬massLabel.1c¬1C¬1C¬
+density-buoyancy-common¬massLabel.1d¬1D¬1D¬
+density-buoyancy-common¬massLabel.1e¬1E¬1E¬
+density-buoyancy-common¬massLabel.2a¬2A¬2A¬
+density-buoyancy-common¬massLabel.2b¬2B¬2B¬
+density-buoyancy-common¬massLabel.2c¬2C¬2C¬
+density-buoyancy-common¬massLabel.2d¬2D¬2D¬
+density-buoyancy-common¬massLabel.2e¬2E¬2E¬
+density-buoyancy-common¬massLabel.3a¬3A¬3A¬
+density-buoyancy-common¬massLabel.3b¬3B¬3B¬
+density-buoyancy-common¬massLabel.3c¬3C¬3C¬
+density-buoyancy-common¬massLabel.3d¬3D¬3D¬
+density-buoyancy-common¬massLabel.3e¬3E¬3E¬
+density-buoyancy-common¬massLabel.a¬A¬A¬
+density-buoyancy-common¬massLabel.b¬B¬B¬
+density-buoyancy-common¬massLabel.c¬C¬C¬
+density-buoyancy-common¬massLabel.d¬D¬D¬
+density-buoyancy-common¬massLabel.e¬E¬E¬
+density-buoyancy-common¬massLabel.primary¬A¬A¬
+density-buoyancy-common¬massLabel.secondary¬B¬B¬
 density-buoyancy-common¬mass¬Mass¬Masa¬
 density-buoyancy-common¬material.air¬Air¬Aire¬
 density-buoyancy-common¬material.aluminum¬Aluminum¬Aluminio¬
@@ -645,7 +645,7 @@ density-buoyancy-common¬material.gold¬Gold¬Oro¬
 density-buoyancy-common¬material.honey¬Honey¬Miel¬
 density-buoyancy-common¬material.human¬Human¬Humano¬
 density-buoyancy-common¬material.ice¬Ice¬Hielo¬
-density-buoyancy-common¬materialInside¬Material Inside¬ ¬
+density-buoyancy-common¬materialInside¬Material Inside¬Material de Dentro¬
 density-buoyancy-common¬material.lead¬Lead¬Plomo¬
 density-buoyancy-common¬material.mercury¬Mercury¬Mercurio¬
 density-buoyancy-common¬material.name¬Material¬Material¬
@@ -661,24 +661,24 @@ density-buoyancy-common¬material.tantalum¬Tantalum¬Tantalio¬
 density-buoyancy-common¬material.titanium¬Titanium¬Titanio¬
 density-buoyancy-common¬material.water¬Water¬Agua¬
 density-buoyancy-common¬material.wood¬Wood¬Madera¬
-density-buoyancy-common¬metersPerSecondSquaredPattern¬{{value}} m/s<sup>2</sup>¬ ¬
-density-buoyancy-common¬newtonsPattern¬{{newtons}} N¬ ¬
-density-buoyancy-common¬shape.block¬Block¬ ¬
-density-buoyancy-common¬shape.cone¬Cone¬ ¬
-density-buoyancy-common¬shape.ellipsoid¬Ellipsoid¬ ¬
-density-buoyancy-common¬shape.horizontalCylinder¬Horizontal Cylinder¬ ¬
-density-buoyancy-common¬shape.invertedCone¬Inverted Cone¬ ¬
-density-buoyancy-common¬shape.verticalCylinder¬Vertical Cylinder¬ ¬
+density-buoyancy-common¬metersPerSecondSquaredPattern¬{{value}} m/s<sup>2</sup>¬{{value}} m/s<sup>2</sup>¬
+density-buoyancy-common¬newtonsPattern¬{{newtons}} N¬{{newtons}} N¬
+density-buoyancy-common¬shape.block¬Block¬Bloque¬
+density-buoyancy-common¬shape.cone¬Cone¬Cono¬
+density-buoyancy-common¬shape.ellipsoid¬Ellipsoid¬Elipsoide¬
+density-buoyancy-common¬shape.horizontalCylinder¬Horizontal Cylinder¬Cilindro Horizontal¬
+density-buoyancy-common¬shape.invertedCone¬Inverted Cone¬Cono Invertido¬
+density-buoyancy-common¬shape.verticalCylinder¬Vertical Cylinder¬Cilindro Vertical¬
 density-buoyancy-common¬volume¬Volume¬Volumen¬
-density-buoyancy-common¬whatIsTheValueOfGravity¬What is the value of gravity?¬ ¬
-density-buoyancy-common¬whatIsTheValueOfTheFluidDensity¬What is the value of the fluid density?¬ ¬
-density-buoyancy-common¬width¬Width¬ ¬
+density-buoyancy-common¬whatIsTheValueOfGravity¬What is the value of gravity?¬¿Cual es el valor de gravedad?¬
+density-buoyancy-common¬whatIsTheValueOfTheFluidDensity¬What is the value of the fluid density?¬¿Cual es el valor de densidad del fluido?¬
+density-buoyancy-common¬width¬Width¬Ancho¬
 density¬density.title¬Density¬Densidad¬
 density¬screen.compare¬Compare¬Comparar¬
 density¬screen.intro¬Intro¬Introducción¬
 density¬screen.mystery¬Mystery¬Misterio¬
 diffusion¬diffusion.title¬Diffusion¬Difusión¬
-eating-exercise-and-energy¬eating-exercise-and-energy.title¬Eating, Exercise, and Energy¬ ¬
+eating-exercise-and-energy¬eating-exercise-and-energy.title¬Eating, Exercise, and Energy¬Comida, Ejercício, y Energía¬
 energy-forms-and-changes¬a11y¬None¬ ¬
 energy-forms-and-changes¬brick¬Brick¬Ladrillo¬Maó (Argila)
 energy-forms-and-changes¬chemical¬Chemical¬Química¬Química
@@ -690,7 +690,7 @@ energy-forms-and-changes¬energySymbols¬Energy Symbols¬Símbolos de energía¬
 energy-forms-and-changes¬fastForward¬Fast Forward¬Rápido¬Augmentar ràpid
 energy-forms-and-changes¬feedMe¬Feed Me¬Alimentame¬Pedala
 energy-forms-and-changes¬formsOfEnergy¬Forms of Energy¬Formas de energía¬Formes d'energia
-energy-forms-and-changes¬generator¬Generator¬ ¬
+energy-forms-and-changes¬generator¬Generator¬Generador¬
 energy-forms-and-changes¬intro¬Intro¬Introducción¬Intro
 energy-forms-and-changes¬iron¬Iron¬Hierro¬Ferro
 energy-forms-and-changes¬light¬Light¬Lumínica¬Llum
@@ -733,22 +733,22 @@ energy-skate-park¬energies.thermal¬Thermal¬Térmica¬
 energy-skate-park¬energies.total¬Total¬Total¬
 energy-skate-park¬energy-skate-park.title¬Energy Skate Park¬Energía en la pista de patinaje¬
 energy-skate-park¬heightLabels.heightEqualsZero¬Height = 0¬Altura = 0¬
-energy-skate-park¬heightLabels.zeroM¬0 m¬ ¬
-energy-skate-park¬measuringTape.units¬m¬ ¬
-energy-skate-park¬pathSensor.energyJoulesPattern¬{{value}} J¬ ¬
+energy-skate-park¬heightLabels.zeroM¬0 m¬0 m¬
+energy-skate-park¬measuringTape.units¬m¬m¬
+energy-skate-park¬pathSensor.energyJoulesPattern¬{{value}} J¬{{value}} J¬
 energy-skate-park¬pathSensor.heightMetersPattern¬Height = {{value}} m¬Altura = {{value}} m¬
 energy-skate-park¬pathSensor.speedMetersPerSecondPattern¬Speed = {{value}} m/s¬Rapidez = {{value}} m/s¬
 energy-skate-park¬physicalControls.custom¬Custom¬Personalizado¬
 energy-skate-park¬physicalControls.friction¬Friction¬Fricción¬
 energy-skate-park¬physicalControls.gravityControls.earth¬Earth¬Tierra¬
 energy-skate-park¬physicalControls.gravityControls.gravity¬Gravity¬Gravedad¬
-energy-skate-park¬physicalControls.gravityControls.gravityMetersPerSecondSquaredPattern¬{{value}} m/s<sup>2</sup>¬ ¬
-energy-skate-park¬physicalControls.gravityControls.gravityNewtonsPerKilogramPattern¬{{value}} N/kg¬ ¬
+energy-skate-park¬physicalControls.gravityControls.gravityMetersPerSecondSquaredPattern¬{{value}} m/s<sup>2</sup>¬{{value}} m/s<sup>2</sup>¬
+energy-skate-park¬physicalControls.gravityControls.gravityNewtonsPerKilogramPattern¬{{value}} N/kg¬{{value}} N/kg¬
 energy-skate-park¬physicalControls.gravityControls.jupiter¬Jupiter¬Júpiter¬
 energy-skate-park¬physicalControls.gravityControls.moon¬Moon¬Luna¬
 energy-skate-park¬physicalControls.large¬Large¬Grande¬
 energy-skate-park¬physicalControls.lots¬Lots¬Grande¬
-energy-skate-park¬physicalControls.massControls.massKilogramsPattern¬{{value}} kg¬ ¬
+energy-skate-park¬physicalControls.massControls.massKilogramsPattern¬{{value}} kg¬{{value}} kg¬
 energy-skate-park¬physicalControls.massControls.mass¬Mass¬Masa¬
 energy-skate-park¬physicalControls.none¬None¬Ninguna¬
 energy-skate-park¬physicalControls.small¬Small¬Pequeño¬
@@ -774,7 +774,7 @@ energy-skate-park¬skaterControls.skater3MassPattern¬Skater 3 ({{value}} kg)¬P
 energy-skate-park¬skaterControls.skater4MassPattern¬Skater 4 ({{value}} kg)¬Patinador 4 ({{value}} kg)¬
 energy-skate-park¬skaterControls.skater5MassPattern¬Skater 5 ({{value}} kg)¬Patinador 5 ({{value}} kg)¬
 energy-skate-park¬speedometer.label¬Speed¬Rapidez¬
-energy-skate-park¬speedometer.metersPerSecondPattern¬{{value}} m/s¬ ¬
+energy-skate-park¬speedometer.metersPerSecondPattern¬{{value}} m/s¬{{value}} m/s¬
 energy-skate-park¬trackControls.stickToTrack¬Stick to Track¬Mantener en la pista¬
 energy-skate-park¬visibilityControls.grid¬Grid¬Cuadrícula¬
 energy-skate-park¬visibilityControls.path¬Path¬Trayectoria¬
@@ -805,14 +805,14 @@ equality-explorer¬screen.variables¬Variables¬Variables¬
 equality-explorer¬snapshots¬Snapshots¬Foto instantánea¬
 equality-explorer¬solveFor¬Solve for {{variable}}¬Resuelve para {{variable}}¬
 equality-explorer-two-variables¬equality-explorer-two-variables.title¬Equality Explorer: Two Variables¬Explorador de Igualdades: Dos variables¬
-equality-explorer-two-variables¬y¬y¬ ¬
+equality-explorer-two-variables¬y¬y¬y¬
 equality-explorer¬variables¬Variables¬Variables¬
-equality-explorer¬variable¬Variable¬Variables¬
+equality-explorer¬variable¬Variable¬Variable¬
 equality-explorer¬x¬x¬x¬
-estimation¬estimation.title¬Estimation¬ ¬
-estimation¬explore¬Explore¬ ¬
-estimation¬game¬Game¬ ¬
-estimation¬newObject¬New Object¬ ¬
+estimation¬estimation.title¬Estimation¬Estimación¬
+estimation¬explore¬Explore¬Explorar¬
+estimation¬game¬Game¬Juego¬
+estimation¬newObject¬New Object¬Nuevo Objeto¬
 expression-exchange¬allCoefficients¬All Coefficients¬Todos los coeficientes¬
 expression-exchange¬basics¬Basics¬Básico¬
 expression-exchange¬coinValues¬Coin Values¬Valor de las monedas¬
@@ -837,8 +837,8 @@ faradays-law¬faradays-law.title¬Faraday's Law¬Ley de Faraday¬Llei de Faraday
 faradays-law¬faradays-law.voltage¬voltage¬voltaje¬voltatge
 faradays-law¬faradays-law.voltmeter¬Voltmeter¬Voltímetro¬Voltímetre
 faradays-law¬keyboardHelpDialog.autoSlideGrabbedBarMagnet¬Auto-Slide Grabbed Bar Magnet¬Desplazar automáticamente el imán de barra agarrado¬Lliscament automàtic de l'imant de barra agafat
-faradays-law¬keyboardHelpDialog.autoSlideGrabbedBarMagnetText¬Auto-slide grabbed<br>magnet horizontally and<br>toggle slide direction¬ ¬Feu lliscar automàticament<br>l’imant agafat horitzontalment<br>i canvieu la direcció de la presentació.
-faradays-law¬keyboardHelpDialog.autoSlideGrabbedBarMagnetWith¬Auto-slide grabbed magnet horizontally and toggle slide direction with number keys 1, 2, or 3.¬ ¬Feu lliscar automàticament l’imant agafat horitzontalment i canvieu la direcció de la presentació amb les tecles numèriques 1, 2 o 3.
+faradays-law¬keyboardHelpDialog.autoSlideGrabbedBarMagnetText¬Auto-slide grabbed<br>magnet horizontally and<br>toggle slide direction¬Desplazar automáticamente<br>el imán ararrado horizontalmente<br>y alternar la dirección de desplazamiento.¬Feu lliscar automàticament<br>l’imant agafat horitzontalment<br>i canvieu la direcció de la presentació.
+faradays-law¬keyboardHelpDialog.autoSlideGrabbedBarMagnetWith¬Auto-slide grabbed magnet horizontally and toggle slide direction with number keys 1, 2, or 3.¬Desplazar automáticamente el imán horizontalmente y alternar la dirección de desplazamiento con las teclas numéricas 1, 2, o 3.¬Feu lliscar automàticament l’imant agafat horitzontalment i canvieu la direcció de la presentació amb les tecles numèriques 1, 2 o 3.
 faradays-law¬keyboardHelpDialog.barMagnet¬Bar Magnet¬Imán de Barra¬l'imant de barra
 faradays-law¬keyboardHelpDialog.magnet¬magnet¬imán¬l'imant
 faradays-law¬keyboardHelpDialog.moveBarMagnet¬Move Bar Magnet¬Mover el Imán de Barra¬
@@ -1036,7 +1036,7 @@ fourier-making-waves¬wavePacketCenter¬Wave Packet Center¬Centro de Paquete de
 fourier-making-waves¬wavePacket¬wave packet¬paquete de ondas¬
 fourier-making-waves¬wavePacketWidth¬Wave Packet Width¬Ancho del Paquete de Ondas¬
 fourier-making-waves¬widthIndicators¬Width Indicators¬Indicadores de ancho¬
-fraction-comparison¬fraction-comparison.title¬Fraction Comparison¬ ¬
+fraction-comparison¬fraction-comparison.title¬Fraction Comparison¬Comparación de Fracciones¬
 fraction-matcher¬fraction-matcher.title¬Fraction Matcher¬Parejas de Fracciones¬
 fraction-matcher¬fractionsTitle¬Fractions¬Fracciones¬Fraccions
 fraction-matcher¬mixedNumbersTitle¬Mixed Numbers¬Números mixtos¬
@@ -1185,56 +1185,56 @@ gene-expression-essentials¬slow¬Slow¬lenta¬
 gene-expression-essentials¬time¬Time (s)¬Tiempo (s)¬
 gene-expression-essentials¬transcribedRegion¬Transcribed<br>Region¬Región<br>Transcrita¬
 gene-expression-essentials¬yourProteinCollection¬Your Protein<br>Collection¬Tu colección<br>de Proteínas¬
-geometric-optics¬centimeters¬cm¬ ¬
-geometric-optics¬concaveLens¬Concave Lens¬ ¬
-geometric-optics¬concaveMirror¬Concave Mirror¬ ¬
-geometric-optics¬convexLens¬Convex Lens¬ ¬
-geometric-optics¬convexMirror¬Convex Mirror¬ ¬
-geometric-optics¬diameter¬Diameter¬ ¬
-geometric-optics¬direct¬direct (using Focal Length slider)¬ ¬
-geometric-optics¬flatMirror¬Flat Mirror¬ ¬
-geometric-optics¬focalLengthControl¬Focal Length control:¬ ¬
-geometric-optics¬focalPoint¬Focal Point (F)¬ ¬
-geometric-optics¬focalPoints¬Focal Points (F)¬ ¬
-geometric-optics¬geometric-optics.title¬Geometric Optics¬ ¬
-geometric-optics¬guides¬Guides¬ ¬
-geometric-optics¬indexOfRefraction¬Index of Refraction¬ ¬
-geometric-optics¬indirect¬indirect (calculated from optic parameters)¬ ¬
-geometric-optics¬keyboardHelpDialog.comboBoxOption¬combo box option¬ ¬
-geometric-optics¬keyboardHelpDialog.jumpToImage¬Jump to Image¬ ¬
-geometric-optics¬keyboardHelpDialog.jumpToLens¬Jump to Lens¬ ¬
-geometric-optics¬keyboardHelpDialog.jumpToMirror¬Jump to Mirror¬ ¬
-geometric-optics¬keyboardHelpDialog.jumpToObject¬Jump to Object or first light source¬ ¬
-geometric-optics¬keyboardHelpDialog.jumpToSecondPointOrLightSource¬Jump to Second point or light source¬ ¬
-geometric-optics¬keyboardHelpDialog.moveDraggableItems¬Move Draggable Items¬ ¬
-geometric-optics¬keyboardHelpDialog.move¬Move¬ ¬
-geometric-optics¬keyboardHelpDialog.moveSlower¬Move slower¬ ¬
-geometric-optics¬keyboardHelpDialog.removeFromToolbox¬Remove from toolbox¬ ¬
-geometric-optics¬keyboardHelpDialog.returnToToolbox¬Return to toolbox¬ ¬
-geometric-optics¬keyboardHelpDialog.rulerControls¬Ruler Controls¬ ¬
-geometric-optics¬labels¬Labels¬ ¬
-geometric-optics¬light¬Light¬ ¬
-geometric-optics¬many¬Many¬ ¬
-geometric-optics¬marginal¬Marginal¬ ¬
-geometric-optics¬none¬None¬ ¬
-geometric-optics¬object¬Object¬ ¬
-geometric-optics¬opticalAxis¬Optical Axis¬ ¬
-geometric-optics¬pencil¬Pencil¬ ¬
-geometric-optics¬penguin¬Penguin¬ ¬
-geometric-optics¬planet¬Planet¬ ¬
-geometric-optics¬principal¬Principal¬ ¬
-geometric-optics¬projectionScreen¬Screen¬ ¬
-geometric-optics¬radiusOfCurvature¬Radius of Curvature¬ ¬
-geometric-optics¬rays¬Rays¬ ¬
-geometric-optics¬realImage¬Real Image¬ ¬
-geometric-optics¬screen.lens¬Lens¬ ¬
-geometric-optics¬screen.mirror¬Mirror¬ ¬
-geometric-optics¬secondPoint¬Second Point¬ ¬
-geometric-optics¬star¬Star¬ ¬
-geometric-optics¬twoF¬2F¬ ¬
-geometric-optics¬twoFPoints¬2F Points¬ ¬
-geometric-optics¬valueCentimetersPattern¬{{value}} cm¬ ¬
-geometric-optics¬virtualImage¬Virtual Image¬ ¬
+geometric-optics¬centimeters¬cm¬cm¬
+geometric-optics¬concaveLens¬Concave Lens¬Lentes Concavas¬
+geometric-optics¬concaveMirror¬Concave Mirror¬Espejo Concavo¬
+geometric-optics¬convexLens¬Convex Lens¬Lentes Convexas¬
+geometric-optics¬convexMirror¬Convex Mirror¬Espejo Convexo¬
+geometric-optics¬diameter¬Diameter¬Diámetro¬
+geometric-optics¬direct¬direct (using Focal Length slider)¬directo (usando deslizador de Distancia Focal)¬
+geometric-optics¬flatMirror¬Flat Mirror¬Espejo Plano¬
+geometric-optics¬focalLengthControl¬Focal Length control:¬Control de Distancia Focal:¬
+geometric-optics¬focalPoint¬Focal Point (F)¬Punto Focal (F)¬
+geometric-optics¬focalPoints¬Focal Points (F)¬Puntos Focales (F)¬
+geometric-optics¬geometric-optics.title¬Geometric Optics¬Ópticas Geométricas¬
+geometric-optics¬guides¬Guides¬Guías¬
+geometric-optics¬indexOfRefraction¬Index of Refraction¬Índice de Refracción¬
+geometric-optics¬indirect¬indirect (calculated from optic parameters)¬indirecto (calculado desde los parámetros ópticos)¬
+geometric-optics¬keyboardHelpDialog.comboBoxOption¬combo box option¬opción del combobox¬
+geometric-optics¬keyboardHelpDialog.jumpToImage¬Jump to Image¬Saltar a Imágen¬
+geometric-optics¬keyboardHelpDialog.jumpToLens¬Jump to Lens¬Saltar a Lentes¬
+geometric-optics¬keyboardHelpDialog.jumpToMirror¬Jump to Mirror¬Saltar a Espejo¬
+geometric-optics¬keyboardHelpDialog.jumpToObject¬Jump to Object or first light source¬Saltar a Objeto o primera fuente de luz¬
+geometric-optics¬keyboardHelpDialog.jumpToSecondPointOrLightSource¬Jump to Second point or light source¬Saltar al Segundo punto o fuente de luz¬
+geometric-optics¬keyboardHelpDialog.moveDraggableItems¬Move Draggable Items¬Mover elementos arrastrables¬
+geometric-optics¬keyboardHelpDialog.move¬Move¬Mover¬
+geometric-optics¬keyboardHelpDialog.moveSlower¬Move slower¬Mover léntamente¬
+geometric-optics¬keyboardHelpDialog.removeFromToolbox¬Remove from toolbox¬Quitar de la caja de herramientas¬
+geometric-optics¬keyboardHelpDialog.returnToToolbox¬Return to toolbox¬Volcer a la caja de herramientas¬
+geometric-optics¬keyboardHelpDialog.rulerControls¬Ruler Controls¬Controles de Regla¬
+geometric-optics¬labels¬Labels¬Etiquetas¬
+geometric-optics¬light¬Light¬Luz¬
+geometric-optics¬many¬Many¬Muchos¬
+geometric-optics¬marginal¬Marginal¬Marginal¬
+geometric-optics¬none¬None¬Ninguno¬
+geometric-optics¬object¬Object¬Objeto¬
+geometric-optics¬opticalAxis¬Optical Axis¬Ejes Ópticos¬
+geometric-optics¬pencil¬Pencil¬Lápiz¬
+geometric-optics¬penguin¬Penguin¬Pingüino¬
+geometric-optics¬planet¬Planet¬Planeta¬
+geometric-optics¬principal¬Principal¬Principal¬
+geometric-optics¬projectionScreen¬Screen¬Pantalla¬
+geometric-optics¬radiusOfCurvature¬Radius of Curvature¬Radio de Curvatura¬
+geometric-optics¬rays¬Rays¬Rayos¬
+geometric-optics¬realImage¬Real Image¬Imágen Real¬
+geometric-optics¬screen.lens¬Lens¬Lentes¬
+geometric-optics¬screen.mirror¬Mirror¬Espejo¬
+geometric-optics¬secondPoint¬Second Point¬Segundo Punto¬
+geometric-optics¬star¬Star¬Estrella¬
+geometric-optics¬twoF¬2F¬2F¬
+geometric-optics¬twoFPoints¬2F Points¬2F Puntos¬
+geometric-optics¬valueCentimetersPattern¬{{value}} cm¬{{value}} cm¬
+geometric-optics¬virtualImage¬Virtual Image¬Imágen Virtual¬
 graphing-lines¬aCorrectEquation¬A Correct Equation:¬Una Ecuación correcta:¬
 graphing-lines¬chooseYourLevel¬Choose Your Level¬¡Elige un nivel!¬
 graphing-lines¬eraseLines¬Erase Lines¬Borra Rectas¬
@@ -1423,7 +1423,7 @@ greenhouse-effect¬temperature.units.fahrenheit¬℉¬℉¬
 greenhouse-effect¬temperature.units.kelvin¬K¬K¬
 greenhouse-effect¬temperature.units.valueUnitsPattern¬{{value}} {{units}}¬{{value}} {{units}}¬
 greenhouse-effect¬valuePercentPattern¬{{value}}%¬{{value}}%¬
-griddle¬griddle.title¬griddle demo¬ ¬
+griddle¬griddle.title¬griddle demo¬demostración griddle¬
 hookes-law¬appliedForce¬Applied Force¬Fuerza aplicada¬
 hookes-law¬appliedForceColon¬Applied Force:¬Fuerza aplicada¬
 hookes-law¬appliedForceNumber¬Applied Force {0}:¬Fuerza aplicada {0}¬
@@ -1483,7 +1483,7 @@ isotopes-and-atomic-mass¬otherIsotopesPattern¬Other<br>{0}<br>Isotopes¬Otros\
 isotopes-and-atomic-mass¬percentComposition¬Percent Composition¬Porcentaje de composición¬Percentatge de la composició
 isotopes-and-atomic-mass¬symbol¬Symbol¬Símbolo¬Símbol
 isotopes-and-atomic-mass¬thisIsotope¬This Isotope¬Este isótopo¬Aquest Isòtop
-isotopes-and-atomic-mass¬trace¬trace¬ ¬traces
+isotopes-and-atomic-mass¬trace¬trace¬traza¬traces
 john-travoltage¬a11y¬None¬ ¬
 john-travoltage¬arrowKeysMoveFoot¬<strong>Left or right arrow keys</strong> move the hand or foot.¬<strong>teclas de flechas a la izquierda o a la derecha </strong> mueven la mano o el pie¬<strong>Les tecles de fletxa esquerra o dreta</strong> mouen la mà o el peu.
 john-travoltage¬escapeKeyDescription¬<strong>Escape key</strong> closes a dialog, like this one.¬<strong>Tecla Esc</strong> cierra una ventana de diálogo, como esta ventana.¬<strong>La tecla Esc d'escapament</strong> tanca un diàleg com aquest.
@@ -1514,7 +1514,7 @@ joist¬done¬Done¬Hecho¬Fet
 joist¬ieErrorPage.ieIsNotSupported¬Internet Explorer is not supported.¬Internet Explorer no es compatible.¬Internet Explorer no és compatible amb la simulació.
 joist¬ieErrorPage.platformError¬Platform Error¬Error de plataforma¬Error de la plataforma
 joist¬ieErrorPage.useDifferentBrowser¬Please use a different browser to run this simulation.¬Utilice un navegador diferente para ejecutar esta simulación.¬Feu servir un altre navegador per reproduir la simulació.
-joist¬joist.title¬joist demo¬ ¬
+joist¬joist.title¬joist demo¬demostracion joist¬
 joist¬keyboardShortcuts.title¬Keyboard Shortcuts¬Uso del Teclado¬Dreceres de teclat
 joist¬keyboardShortcuts.toGetStarted¬to get started¬Para iniciar¬per començar
 joist¬menuItem.about¬About…¬Acerca de...¬Quant a:
@@ -1522,7 +1522,7 @@ joist¬menuItem.enhancedSound¬Enhanced Sound¬Sonido mejorado¬Millora de so
 joist¬menuItem.fullscreen¬Full Screen¬Pantalla completa¬Pantalla completa
 joist¬menuItem.getUpdate¬Check for Updates…¬Buscar actualizaciones...¬Comprova les actualitzacions...
 joist¬menuItem.options¬Options…¬Opciones¬Opcions...
-joist¬menuItem.outputLog¬Output Log¬ ¬
+joist¬menuItem.outputLog¬Output Log¬Registro de Salida¬
 joist¬menuItem.phetWebsite¬PhET Website…¬Sitio web PhET¬Lloc web del PhET…
 joist¬menuItem.reportAProblem¬Report a Problem…¬Informe un problema¬Avisa'ns d'un problema...
 joist¬menuItem.screenshot¬Screenshot¬Captura de pantalla¬Captura de pantalla
@@ -1714,38 +1714,38 @@ masses-and-springs¬thickness¬Thickness¬Grosor¬
 masses-and-springs¬totalEnergy¬Total Energy¬Energía Total¬
 masses-and-springs¬velocity¬Velocity¬Velocidad¬
 masses-and-springs¬whatIsTheValueOfGravity¬What is the value of gravity?¬¿Cuál es el valor de la gravedad?¬
-mobius¬mobius.title¬mobius demo¬ ¬
-models-of-the-hydrogen-atom¬3DView¬3D view¬ ¬
-models-of-the-hydrogen-atom¬billiardBall¬Billiard Ball¬ ¬
-models-of-the-hydrogen-atom¬bohr¬Bohr¬ ¬
-models-of-the-hydrogen-atom¬brightnessView¬brightness view¬ ¬
-models-of-the-hydrogen-atom¬classical¬Classical¬ ¬
-models-of-the-hydrogen-atom¬classicalSolarSystem¬Classical Solar System¬ ¬
-models-of-the-hydrogen-atom¬close¬Close¬ ¬
-models-of-the-hydrogen-atom¬deBroglie¬deBroglie¬ ¬
-models-of-the-hydrogen-atom¬electron¬electron¬ ¬
-models-of-the-hydrogen-atom¬electronEnergyLevel¬Electron Energy Level¬ ¬
-models-of-the-hydrogen-atom¬experiment¬Experiment¬ ¬
-models-of-the-hydrogen-atom¬fast¬fast forward¬ ¬
-models-of-the-hydrogen-atom¬hydrogenSymbol¬H¬ ¬
-models-of-the-hydrogen-atom¬legend¬Legend¬ ¬
-models-of-the-hydrogen-atom¬models-of-the-hydrogen-atom.title¬Models of the Hydrogen Atom¬ ¬
-models-of-the-hydrogen-atom¬neutron¬neutron¬ ¬
-models-of-the-hydrogen-atom¬normal¬normal speed¬ ¬
-models-of-the-hydrogen-atom¬photon¬photon¬ ¬
-models-of-the-hydrogen-atom¬photonsEmittedNm¬photons emitted / nm¬ ¬
-models-of-the-hydrogen-atom¬plumPudding¬Plum Pudding¬ ¬
-models-of-the-hydrogen-atom¬prediction¬Prediction¬ ¬
-models-of-the-hydrogen-atom¬proton¬proton¬ ¬
-models-of-the-hydrogen-atom¬quantum¬Quantum¬ ¬
-models-of-the-hydrogen-atom¬radialView¬radial view¬ ¬
-models-of-the-hydrogen-atom¬schrodinger¬Schrödinger¬ ¬
-models-of-the-hydrogen-atom¬screen.energyLevels¬Energy Levels¬ ¬
-models-of-the-hydrogen-atom¬screen.spectra¬Spectra¬ ¬
-models-of-the-hydrogen-atom¬showAbsorptionWavelengths¬Show absorption wavelengths¬ ¬
-models-of-the-hydrogen-atom¬slow¬slow motion¬ ¬
-models-of-the-hydrogen-atom¬spectrometer¬Spectrometer¬ ¬
-models-of-the-hydrogen-atom¬viewSnapshots¬View snapshots¬ ¬
+mobius¬mobius.title¬mobius demo¬Demostración Mobius¬
+models-of-the-hydrogen-atom¬3DView¬3D view¬vista 3D¬
+models-of-the-hydrogen-atom¬billiardBall¬Billiard Ball¬Bola de Billar¬
+models-of-the-hydrogen-atom¬bohr¬Bohr¬Bohr¬
+models-of-the-hydrogen-atom¬brightnessView¬brightness view¬vista de brillo¬
+models-of-the-hydrogen-atom¬classical¬Classical¬Clásico¬
+models-of-the-hydrogen-atom¬classicalSolarSystem¬Classical Solar System¬Sistema Solar Clásico¬
+models-of-the-hydrogen-atom¬close¬Close¬Cerrar¬
+models-of-the-hydrogen-atom¬deBroglie¬deBroglie¬deBroglie¬
+models-of-the-hydrogen-atom¬electron¬electron¬electrón¬
+models-of-the-hydrogen-atom¬electronEnergyLevel¬Electron Energy Level¬Nivel de Energía de Electrón¬
+models-of-the-hydrogen-atom¬experiment¬Experiment¬Experimento¬
+models-of-the-hydrogen-atom¬fast¬fast forward¬avance rápido¬
+models-of-the-hydrogen-atom¬hydrogenSymbol¬H¬H¬
+models-of-the-hydrogen-atom¬legend¬Legend¬Leyenda¬
+models-of-the-hydrogen-atom¬models-of-the-hydrogen-atom.title¬Models of the Hydrogen Atom¬Modelos del Átomo de Hidrógeno¬
+models-of-the-hydrogen-atom¬neutron¬neutron¬neutrón¬
+models-of-the-hydrogen-atom¬normal¬normal speed¬velocidad normal¬
+models-of-the-hydrogen-atom¬photon¬photon¬fotón¬
+models-of-the-hydrogen-atom¬photonsEmittedNm¬photons emitted / nm¬fotones emitidos / nm¬
+models-of-the-hydrogen-atom¬plumPudding¬Plum Pudding¬Pudding de Ciruela¬
+models-of-the-hydrogen-atom¬prediction¬Prediction¬Predicción¬
+models-of-the-hydrogen-atom¬proton¬proton¬protón¬
+models-of-the-hydrogen-atom¬quantum¬Quantum¬Cuántico¬
+models-of-the-hydrogen-atom¬radialView¬radial view¬vista radial¬
+models-of-the-hydrogen-atom¬schrodinger¬Schrödinger¬Schrödinger¬
+models-of-the-hydrogen-atom¬screen.energyLevels¬Energy Levels¬Niveles Energeticos¬
+models-of-the-hydrogen-atom¬screen.spectra¬Spectra¬Espectros¬
+models-of-the-hydrogen-atom¬showAbsorptionWavelengths¬Show absorption wavelengths¬Mostrar absorción de las longitudes de onda¬
+models-of-the-hydrogen-atom¬slow¬slow motion¬movimiento lento¬
+models-of-the-hydrogen-atom¬spectrometer¬Spectrometer¬Espectrómetro¬
+models-of-the-hydrogen-atom¬viewSnapshots¬View snapshots¬Ver instantáneas¬
 molarity¬a11y¬None¬ ¬
 molarity¬cobaltChloride¬Cobalt(II) chloride¬Cloruro de cobalto¬
 molarity¬cobaltIINitrate¬Cobalt(II) nitrate¬Nitrato de cobalto (II)¬
@@ -1913,7 +1913,7 @@ molecule-shapes¬shape.trigonalBipyramidal¬Trigonal Bipyramidal¬Bipirámide Tr
 molecule-shapes¬shape.trigonalPlanar¬Trigonal Planar¬Trigonal Plana¬Plana trigonal
 molecule-shapes¬shape.trigonalPyramidal¬Trigonal Pyramidal¬Pirámide Trigonal¬Piràmide trigonal
 molecule-shapes¬shape.tShaped¬T-shaped¬Forma de T¬En forma de "T"
-my-solar-system¬my-solar-system.title¬My Solar System¬ ¬
+my-solar-system¬my-solar-system.title¬My Solar System¬Mi Sistema Solar¬
 natural-selection¬addAMate¬Add a Mate¬Agregar un Compañero¬
 natural-selection¬addMutation¬Add Mutation¬Agregar Mutación¬
 natural-selection¬addMutations¬Add Mutations¬Agregar Mutaciones¬
@@ -1937,8 +1937,8 @@ natural-selection¬fur¬Fur¬Pelaje¬
 natural-selection¬furRecessive¬f¬p¬
 natural-selection¬generation¬Generation¬Generaciones¬
 natural-selection¬generationValue¬Generation {{value}}¬Generación {{value}}¬
-natural-selection¬greaterThanValuePercent¬>{{value}}%¬ ¬
-natural-selection¬lessThanValuePercent¬<{{value}}%¬ ¬
+natural-selection¬greaterThanValuePercent¬>{{value}}%¬>{{value}}%¬
+natural-selection¬lessThanValuePercent¬<{{value}}%¬<{{value}}%¬
 natural-selection¬limitedFood¬Limited Food¬Limitar comida¬
 natural-selection¬longTeeth¬Long Teeth¬Dientes Largos¬
 natural-selection¬memoryLimitMessage¬Congratulations!<br><br>Your bunny population has survived long enough<br>to hit the memory limit of the simulation.¬¡Felicitaciones! <br> <br> Tu población de conejos ha sobrevivido lo suficiente <br> como para alcanzar el límite de memoria de la simulación.¬
@@ -1964,7 +1964,7 @@ natural-selection¬teethRecessive¬t¬d¬
 natural-selection¬teeth¬Teeth¬Dientes¬
 natural-selection¬total¬Total¬Total¬
 natural-selection¬toughFood¬Tough Food¬Comida dura¬
-natural-selection¬valuePercent¬{{value}}%¬ ¬
+natural-selection¬valuePercent¬{{value}}%¬{{value}}%¬
 natural-selection¬values¬Values¬Valores¬
 natural-selection¬whiteFur¬White Fur¬Pelaje Blanco¬
 natural-selection¬wolves¬Wolves¬Lobos¬
@@ -1994,21 +1994,21 @@ neuron¬sodiumIon¬Sodium Ion (Na+)¬Ion de Sodio (Na+)¬
 neuron¬sodiumLeakChannel¬Sodium Leak Channel¬Canal de fuga de sodio¬
 neuron¬stimulateNeuron¬Stimulate\nNeuron¬Estimula\nneurona¬
 neuron¬units.mM¬mM¬mM¬
-normal-modes¬amplitude¬Amplitude:¬ ¬
-normal-modes¬frequency¬Frequency:¬ ¬
-normal-modes¬frequencyRatioOmegaPattern¬{{frequencyRatio}}ω₀¬ ¬
-normal-modes¬initialPositions¬Initial Positions¬ ¬
-normal-modes¬normalModeAmplitudes¬Normal Mode Amplitudes¬ ¬
-normal-modes¬normalMode¬Normal Mode:¬ ¬
-normal-modes¬normalModeSpectrum¬Normal Mode Spectrum¬ ¬
-normal-modes¬normal-modes.title¬Normal Modes¬ ¬
-normal-modes¬numberOfMasses¬Number of Masses:¬ ¬
-normal-modes¬phase¬Phase:¬ ¬
-normal-modes¬screen.oneDimension¬One Dimension¬ ¬
-normal-modes¬screen.twoDimensions¬Two Dimensions¬ ¬
-normal-modes¬showPhases¬Show Phases¬ ¬
-normal-modes¬showSprings¬Show Springs¬ ¬
-normal-modes¬zeroPositions¬Zero Positions¬ ¬
+normal-modes¬amplitude¬Amplitude:¬Amplitud:¬
+normal-modes¬frequency¬Frequency:¬Frecuencia:¬
+normal-modes¬frequencyRatioOmegaPattern¬{{frequencyRatio}}ω₀¬{{frequencyRatio}}ω₀¬
+normal-modes¬initialPositions¬Initial Positions¬Posiciones Iniciales¬
+normal-modes¬normalModeAmplitudes¬Normal Mode Amplitudes¬Modo Normal de Amplitudes¬
+normal-modes¬normalMode¬Normal Mode:¬Modo Normal:¬
+normal-modes¬normalModeSpectrum¬Normal Mode Spectrum¬Modo Normal de Espectro¬
+normal-modes¬normal-modes.title¬Normal Modes¬Modos Normales¬
+normal-modes¬numberOfMasses¬Number of Masses:¬Número de Masas:¬
+normal-modes¬phase¬Phase:¬Fase:¬
+normal-modes¬screen.oneDimension¬One Dimension¬Una dimensión¬
+normal-modes¬screen.twoDimensions¬Two Dimensions¬Dos dimensiones¬
+normal-modes¬showPhases¬Show Phases¬Mostrar Fases¬
+normal-modes¬showSprings¬Show Springs¬Mostrar Muelles¬
+normal-modes¬zeroPositions¬Zero Positions¬Cero Posiciones¬
 number-line-common¬pointsOffScale¬Points<br>off scale!¬¡Puntos fuera<br>de escala!¬Punts<br>fora de l'escala!
 number-line-common¬rangePattern¬{{lowValue}} to {{highValue}}¬{{lowValue}} a {{highValue}}¬de {{lowValue}} a {{highValue}}
 number-line-distance¬absoluteValue¬Absolute Value¬Valor absoluto¬
@@ -2037,14 +2037,14 @@ number-line-distance¬person¬person¬persona¬
 number-line-distance¬pointLabels¬Point Labels¬Etiquetas de los puntos¬
 number-line-distance¬screen.explore¬Explore¬Explora¬
 number-line-distance¬screen.generic¬Generic¬Genérico¬
-number-line-distance¬symbol.A¬A¬ ¬
-number-line-distance¬symbol.B¬B¬ ¬
-number-line-distance¬symbol.degreesCelsius¬°C¬ ¬
-number-line-distance¬symbol.east¬E¬ ¬
-number-line-distance¬symbol.meters¬m¬ ¬
+number-line-distance¬symbol.A¬A¬A¬
+number-line-distance¬symbol.B¬B¬B¬
+number-line-distance¬symbol.degreesCelsius¬°C¬°C¬
+number-line-distance¬symbol.east¬E¬E¬
+number-line-distance¬symbol.meters¬m¬m¬
 number-line-distance¬symbol.west¬W¬O¬
-number-line-distance¬symbol.x¬x¬ ¬
-number-line-distance¬symbol.y¬y¬ ¬
+number-line-distance¬symbol.x¬x¬x¬
+number-line-distance¬symbol.y¬y¬y¬
 number-line-distance¬temperatureSceneAbsoluteDistanceTemplate¬The difference in temperature is {{difference}} {{units}}.¬La diferencia de temperatura es {{difference}} {{units}}.¬
 number-line-distance¬temperatureSceneDirectedNegativeDistanceTemplate¬Location {{secondaryPointControllerLabel}} is {{difference}} {{units}} colder than location {{primaryPointControllerLabel}}.¬La ubicación {{secondaryPointControllerLabel}} está {{difference}} {{units}} más fría que la ubicación {{primaryPointControllerLabel}}¬
 number-line-distance¬temperatureSceneDirectedPositiveDistanceTemplate¬Location {{secondaryPointControllerLabel}} is {{difference}} {{units}} hotter than location {{primaryPointControllerLabel}}.¬La ubicación {{secondaryPointControllerLabel}} está {{difference}} {{units}} más caliente que la ubicación {{primaryPointControllerLabel}}.¬
@@ -2059,10 +2059,10 @@ number-line-integers¬august¬August¬Agosto¬agost
 number-line-integers¬balanceAmount¬balance of ${{value}}¬balance de ${{value}}¬saldo de {{value}} €
 number-line-integers¬balance¬Balance¬Balance¬Saldo
 number-line-integers¬comparisonStatement¬Comparison Statement¬Comparación¬Comparatiu
-number-line-integers¬currencyUnits¬$¬ ¬€
+number-line-integers¬currencyUnits¬$¬€¬€
 number-line-integers¬debtAmount¬debt of ${{value}}¬deuda de ${{value}}¬deute de {{value}}} €
 number-line-integers¬december¬December¬Diciembre¬desembre
-number-line-integers¬elevationAmount¬{{value}} m¬ ¬{{value}} m
+number-line-integers¬elevationAmount¬{{value}} m¬{{value}} m¬{{value}} m
 number-line-integers¬elevation¬Elevation¬Elevación¬Altitud
 number-line-integers¬february¬February¬Febrero¬febrer
 number-line-integers¬january¬January¬Enero¬gener
@@ -2071,7 +2071,7 @@ number-line-integers¬june¬June¬Junio¬juny
 number-line-integers¬labels¬Labels¬Etiquetas¬etiquetes
 number-line-integers¬march¬March¬Marzo¬març
 number-line-integers¬may¬May¬Mayo¬maig
-number-line-integers¬moneyAmount¬{{currencyUnit}}{{value}}¬ ¬{{value}} {{currencyUnit}}
+number-line-integers¬moneyAmount¬{{currencyUnit}}{{value}}¬{{currencyUnit}}{{value}}¬{{value}} {{currencyUnit}}
 number-line-integers¬negativeTemperatureAmount¬{{value}}° below 0¬{{value}}° bajo 0¬{{value}}° sota 0
 number-line-integers¬november¬November¬Noviembre¬novembre
 number-line-integers¬number-line-integers.title¬Number Line: Integers¬Recta Numérica: Enteros¬La recta numèrica. Enters
@@ -2083,17 +2083,17 @@ number-line-integers¬screen.explore¬Explore¬Explorar¬Explora
 number-line-integers¬screen.generic¬Generic¬Generico¬Genèric
 number-line-integers¬seaLevel¬sea level¬nivel del mar¬nivell del mar
 number-line-integers¬september¬September¬Septiembre¬setembre
-number-line-integers¬temperatureAmountCelsius¬{{value}}° C¬ ¬{{value}} °C
-number-line-integers¬temperatureAmountFahrenheit¬{{value}}° F¬ ¬{{value}} °F
-number-line-integers¬temperatureLabelCelsius¬°C¬ ¬°C
-number-line-integers¬temperatureLabelFahrenheit¬°F¬ ¬°F
+number-line-integers¬temperatureAmountCelsius¬{{value}}° C¬{{value}}° C¬{{value}} °C
+number-line-integers¬temperatureAmountFahrenheit¬{{value}}° F¬{{value}}° F¬{{value}} °F
+number-line-integers¬temperatureLabelCelsius¬°C¬°C¬°C
+number-line-integers¬temperatureLabelFahrenheit¬°F¬°F¬°F
 number-line-integers¬temperatureMapCaption¬2018 Monthly Averaged 2-Meter Temperature<br>Generated using Copernicus Climate Change Service Information (2019)¬Temperatura promedio mensual a 2 metros en el 2018 <br> generado con la información del servicio de cambio climático de Copérnico (2019)¬Temperatura mitjana mensual a 2 metres l'any 2018<br>d'acord amb la informació del Servei de Canvi Climàtic del programa europeu Copernicus (2019)
 number-line-integers¬temperature¬Temperature¬Temperatura¬Temperatura
-number-line-integers¬thermometerALabel¬A¬ ¬A
-number-line-integers¬thermometerBLabel¬B¬ ¬B
-number-line-integers¬thermometerCLabel¬C¬ ¬C
+number-line-integers¬thermometerALabel¬A¬A¬A
+number-line-integers¬thermometerBLabel¬B¬B¬B
+number-line-integers¬thermometerCLabel¬C¬C¬C
 number-line-integers¬tickMarks¬Tick Marks¬Marcas¬marques
-number-line-integers¬zeroTemperatureAmount¬{{value}}°¬ ¬{{value}}°
+number-line-integers¬zeroTemperatureAmount¬{{value}}°¬{{value}}°¬{{value}}°
 number-line-operations¬add¬add¬agregar¬
 number-line-operations¬addRemoveAssetDebtPattern¬{{addOrRemove}} {{assetOrDebt}} of {{currencyUnits}}{{value}}¬{{addOrRemove}} {{assetOrDebt}} de {{currencyUnits}}{{value}}¬
 number-line-operations¬addRemovePositiveNegativePattern¬{{addOrRemove}} {{positiveOrNegative}} {{value}}¬{{addOrRemove}} {{positiveOrNegative}} {{value}}¬
@@ -2101,7 +2101,7 @@ number-line-operations¬addRemoveZeroCurrencyPattern¬{{addOrRemove}} {{currency
 number-line-operations¬addRemoveZeroPattern¬{{addOrRemove}} 0¬{{addOrRemove}} 0¬
 number-line-operations¬asset¬asset¬bienes¬
 number-line-operations¬assets¬Assets¬Bienes¬
-number-line-operations¬currencyUnits¬$¬$¬
+number-line-operations¬currencyUnits¬$¬€¬
 number-line-operations¬currencyValuePattern¬{{sign}}{{currencyUnits}}{{value}}¬{{sign}}{{currencyUnits}}{{value}}¬
 number-line-operations¬debt¬debt¬deudas¬
 number-line-operations¬debts¬Debts¬Deudas¬
@@ -2173,20 +2173,20 @@ number-play¬twenty¬twenty¬veinte¬
 number-play¬two¬two¬dos¬
 number-play¬word¬Word¬Palabra¬
 number-play¬zero¬zero¬cero¬
-ohms-law¬ampsA¬Amps (A)¬ ¬
-ohms-law¬currentAmpUnits¬A¬ ¬
+ohms-law¬ampsA¬Amps (A)¬Amperios (A)¬
+ohms-law¬currentAmpUnits¬A¬A¬
 ohms-law¬current¬current¬corriente¬
 ohms-law¬currentSymbol¬I¬I¬
 ohms-law¬currentUnits¬mA¬mA¬
-ohms-law¬milliampsMA¬Milliamps (mA)¬ ¬
+ohms-law¬milliampsMA¬Milliamps (mA)¬Miliamperios (mA)¬
 ohms-law¬ohms-law.title¬Ohm's Law¬Ley de Ohm¬
 ohms-law¬resistance¬resistance¬resistencia¬
 ohms-law¬resistanceSymbol¬R¬R¬
-ohms-law¬units¬Units¬ ¬
+ohms-law¬units¬Units¬Unidades¬
 ohms-law¬voltageSymbol¬V¬V¬
 ohms-law¬voltageUnits¬V¬V¬
 ohms-law¬voltage¬voltage¬voltaje¬
-optics-lab¬optics-lab.title¬Optics Lab¬ ¬
+optics-lab¬optics-lab.title¬Optics Lab¬Laboratorio Óptico¬
 pendulum-lab¬acceleration¬Acceleration¬Aceleración¬
 pendulum-lab¬custom¬Custom¬Personalizar¬
 pendulum-lab¬degreesPattern¬{{degrees}}°¬{{degrees}}°¬
@@ -2335,11 +2335,11 @@ proportion-playground¬screen.explore¬Explore¬Explorar¬
 proportion-playground¬screen.predict¬Predict¬Predecir¬
 proportion-playground¬totalCost¬Total Cost¬Costo total¬
 proportion-playground¬width¬Width¬Anchura¬
-protein-synthesis¬protein-synthesis.title¬Protein Synthesis: Basics¬ ¬
+protein-synthesis¬protein-synthesis.title¬Protein Synthesis: Basics¬Síntesis de Proteinas: Básicos¬
 quadrilateral¬a11y¬None¬ ¬
-quadrilateral¬angleGuide¬Angle Guide¬ ¬
-quadrilateral¬cornerLabels¬Corner Labels¬ ¬
-quadrilateral¬quadrilateral.title¬Quadrilateral¬ ¬
+quadrilateral¬angleGuide¬Angle Guide¬Ángulo Guía¬
+quadrilateral¬cornerLabels¬Corner Labels¬Etiquetas de Esquina¬
+quadrilateral¬quadrilateral.title¬Quadrilateral¬Quadrilateral¬
 ratio-and-proportion¬a11y¬None¬ ¬
 ratio-and-proportion¬bottom¬bottom¬abajo¬
 ratio-and-proportion¬challenge1¬Challenge 1¬Desafío 1¬
@@ -2519,7 +2519,7 @@ scenery-phet¬webglWarning.contextLossReload¬Reload¬Recargar¬Recarrega
 scenery-phet¬webglWarning.ie11StencilBody¬Update Internet Explorer by installing recommended Windows Update patches.¬Actualice Internet Explorer instalando los parches recomendados de Windows Update.¬Actualitzar Internet Explorer a través dels pegats de Windows Update.
 scenery-phet¬webglWarning.title¬Running with low graphics quality¬Ejecutar con gráficos de baja caidad¬Mostrant en baixa qualitat
 scenery-phet¬zero¬zero¬cero¬
-seasons¬seasons.title¬Seasons¬ ¬
+seasons¬seasons.title¬Seasons¬Estaciones¬
 shred¬actinium¬Actinium¬Actinio¬Actini
 shred¬aluminum¬Aluminum¬Aluminio¬Alumini
 shred¬americium¬Americium¬Americio¬Americi
@@ -2700,37 +2700,37 @@ states-of-matter¬triplePoint¬triple<br>point¬punto<br>triple¬punt<br>triple
 states-of-matter¬vanderwaals¬(van der Waals)¬(Van der Waals)¬(Van der Waals)
 states-of-matter¬water¬Water¬Agua¬Aigua
 states-of-matter¬weak¬weak¬débil¬feble
-sugar-and-salt-solutions¬calciumChlorideNewLine¬Calcium¬ ¬
-sugar-and-salt-solutions¬concentration¬Concentration¬ ¬
-sugar-and-salt-solutions¬conductivity¬Conductivity¬ ¬
-sugar-and-salt-solutions¬evaporation¬Evaporation¬ ¬
-sugar-and-salt-solutions¬glucose¬Glucose¬ ¬
-sugar-and-salt-solutions¬lots¬lots¬ ¬
-sugar-and-salt-solutions¬macro¬Macro¬ ¬
-sugar-and-salt-solutions¬micro¬Micro¬ ¬
-sugar-and-salt-solutions¬none¬none¬ ¬
-sugar-and-salt-solutions¬pattern.liters¬{0}L¬ ¬
-sugar-and-salt-solutions¬pattern.litersSolution¬{0}L solution¬ ¬
-sugar-and-salt-solutions¬pattern.litersWater¬{0}L water¬ ¬
-sugar-and-salt-solutions¬pattern.molesPerLiter¬{0} mol/L¬ ¬
-sugar-and-salt-solutions¬pattern.molesPerLiterMultiline¬{0}<br>mol/L¬ ¬
-sugar-and-salt-solutions¬removeSalt¬Remove salt¬ ¬
-sugar-and-salt-solutions¬removeSolute¬Remove solute¬ ¬
-sugar-and-salt-solutions¬removeSolutes¬Remove solutes¬ ¬
-sugar-and-salt-solutions¬removeSugar¬Remove sugar¬ ¬
-sugar-and-salt-solutions¬salt¬Salt¬ ¬
-sugar-and-salt-solutions¬showValues¬Show values¬ ¬
-sugar-and-salt-solutions¬sodiumChlorideNewLine¬Sodium¬ ¬
-sugar-and-salt-solutions¬sodiumNitrateNewLine¬Sodium<br>Nitrate¬ ¬
-sugar-and-salt-solutions¬solute¬Solute¬ ¬
-sugar-and-salt-solutions¬sucrose¬Sucrose¬ ¬
-sugar-and-salt-solutions¬sugar-and-salt-solutions.title¬Sugar And Salt Solutions¬ ¬
-sugar-and-salt-solutions¬sugar¬Sugar¬ ¬
-sugar-and-salt-solutions¬water¬Water¬ ¬
+sugar-and-salt-solutions¬calciumChlorideNewLine¬Calcium¬Calcio¬
+sugar-and-salt-solutions¬concentration¬Concentration¬Concentración¬
+sugar-and-salt-solutions¬conductivity¬Conductivity¬Conductividad¬
+sugar-and-salt-solutions¬evaporation¬Evaporation¬Evaporación¬
+sugar-and-salt-solutions¬glucose¬Glucose¬Glucosa¬
+sugar-and-salt-solutions¬lots¬lots¬muchos¬
+sugar-and-salt-solutions¬macro¬Macro¬Macro¬
+sugar-and-salt-solutions¬micro¬Micro¬Micro¬
+sugar-and-salt-solutions¬none¬none¬nada¬
+sugar-and-salt-solutions¬pattern.liters¬{0}L¬{0}L¬
+sugar-and-salt-solutions¬pattern.litersSolution¬{0}L solution¬{0}L solución¬
+sugar-and-salt-solutions¬pattern.litersWater¬{0}L water¬{0}L agua¬
+sugar-and-salt-solutions¬pattern.molesPerLiter¬{0} mol/L¬{0} mol/L¬
+sugar-and-salt-solutions¬pattern.molesPerLiterMultiline¬{0}<br>mol/L¬{0}<br>mol/L¬
+sugar-and-salt-solutions¬removeSalt¬Remove salt¬Quitar sal¬
+sugar-and-salt-solutions¬removeSolute¬Remove solute¬Quitar soluto¬
+sugar-and-salt-solutions¬removeSolutes¬Remove solutes¬Quitar solutos¬
+sugar-and-salt-solutions¬removeSugar¬Remove sugar¬Quitar azucar¬
+sugar-and-salt-solutions¬salt¬Salt¬Sal¬
+sugar-and-salt-solutions¬showValues¬Show values¬Mostrar valores¬
+sugar-and-salt-solutions¬sodiumChlorideNewLine¬Sodium¬Sodio¬
+sugar-and-salt-solutions¬sodiumNitrateNewLine¬Sodium<br>Nitrate¬Nitrato<br> de Sodio¬
+sugar-and-salt-solutions¬solute¬Solute¬Soluto¬
+sugar-and-salt-solutions¬sucrose¬Sucrose¬Sacarosa¬
+sugar-and-salt-solutions¬sugar-and-salt-solutions.title¬Sugar And Salt Solutions¬Soluciones de Azucar y Sal¬
+sugar-and-salt-solutions¬sugar¬Sugar¬Azucar¬
+sugar-and-salt-solutions¬water¬Water¬Agua¬
 sun¬a11y¬None¬ ¬
-sun¬sun.title¬sun demo¬ ¬
-tambo¬tambo.title¬Tambo Demo¬ ¬
-tappi¬tappi.title¬Tappi Demo¬ ¬
+sun¬sun.title¬sun demo¬Demostración sol¬
+tambo¬tambo.title¬Tambo Demo¬Demostración Tambo¬
+tappi¬tappi.title¬Tappi Demo¬Demostración Tappi¬
 trig-tour¬angle¬angle¬Ángulo¬
 trig-tour¬cos¬cos¬cos¬
 trig-tour¬degrees¬degrees¬Grados¬
@@ -2748,7 +2748,7 @@ trig-tour¬valueUnitPattern¬{0} {1}¬{0} {1}¬
 trig-tour¬vs¬vs¬vs¬
 trig-tour¬x¬x¬x¬
 trig-tour¬y¬y¬y¬
-twixt¬twixt.title¬Twixt Demo¬ ¬
+twixt¬twixt.title¬Twixt Demo¬Demostración Twixt¬
 under-pressure¬under-pressure.title¬Under Pressure¬Bajo presión¬
 unit-rates¬apple¬Apple¬Manzana¬
 unit-rates¬apples¬Apples¬Manzanas¬
@@ -2808,8 +2808,8 @@ vector-addition¬screen.explore1D¬Explore 1D¬Explorar 1D¬
 vector-addition¬screen.explore2D¬Explore 2D¬Explorar 2D¬
 vector-addition¬screen.lab¬Lab¬Laboratorio¬
 vector-addition¬sum¬Sum¬suma¬
-vector-addition¬symbol.x¬x¬ ¬
-vector-addition¬symbol.y¬y¬ ¬
+vector-addition¬symbol.x¬x¬x¬
+vector-addition¬symbol.y¬y¬y¬
 vector-addition¬values¬Values¬valores¬
 vector-addition¬vector-addition.title¬Vector Addition¬Adición de Vectores¬
 vector-addition¬vectorValues¬Vector Values¬Valores del Vector¬
@@ -2839,16 +2839,16 @@ vegas¬selectLevel¬Select Level¬¡Elige un nivel!¬Selecciona el nivell
 vegas¬showAnswer¬Show Answer¬Mostrar la respuesta¬Mostra la resposta
 vegas¬startOver¬Start Over¬Empezar de nuevo¬Torna a començar
 vegas¬tryAgain¬Try Again¬Intenta de nuevo¬Torna-ho a provar
-vegas¬vegas.title¬vegas demo¬ ¬
+vegas¬vegas.title¬vegas demo¬Demostración Vegas¬
 vegas¬youCompletedAllLevels¬You completed all levels!¬Has completado todos los niveles!¬
 vegas¬yourNewBest¬(Your New Best!)¬(¡Nueva mejor puntuación!)¬(El teu millor actual!)
-vibe¬vibe.title¬Vibe Demo¬ ¬
+vibe¬vibe.title¬Vibe Demo¬Demostración Vibe¬
 wave-interference¬amplitude¬Amplitude¬Amplitud¬Amplitud
 wave-interference¬both¬Both¬Ambos¬Totes dues
 wave-interference¬centimetersUnits¬cm¬cm¬cm
 wave-interference¬circleDiameter¬Circle Diameter¬Diámetro del círculo¬Diàmetre del cercle
 wave-interference¬cmValue¬{{value}} cm¬{{value}} cm¬{{value}} cm
-wave-interference¬degreesValue¬{{value}} ˚¬ ¬{{value}}˚
+wave-interference¬degreesValue¬{{value}} ˚¬{{value}} ˚¬{{value}}˚
 wave-interference¬diameter¬Diameter¬Diámetro¬Diàmetre
 wave-interference¬disorder¬Disorder¬Desorden¬Desordre
 wave-interference¬distanceUnits¬{{distance}} {{units}}¬{{distance}} {{units}}¬{{distance}} {{units}}
@@ -2868,7 +2868,7 @@ wave-interference¬max¬max¬max¬màx.
 wave-interference¬millisecondConversion¬1 ms = 10<sup>-3</sup> s¬1 ms = 10<sup>-3</sup> s¬1 ms = 10<sup>-3</sup> s
 wave-interference¬millisecondsUnits¬ms¬ms¬ms
 wave-interference¬min¬min¬min¬mín.
-wave-interference¬mmValue¬{{value}} mm¬ ¬{{value}} mm
+wave-interference¬mmValue¬{{value}} mm¬{{value}} mm¬{{value}} mm
 wave-interference¬nanometersUnits¬nm¬nm¬nm
 wave-interference¬nmValue¬{{value}} nm¬{{value}} nm¬{{value}} nm
 wave-interference¬noBarrier¬No Barrier¬Sin Barrera¬Sense cap barrera
@@ -2919,7 +2919,7 @@ wave-on-a-string¬noEnd¬No End¬Sin extremo¬Sense extrem
 wave-on-a-string¬oscillate¬Oscillate¬Oscilar¬Oscil·lador
 wave-on-a-string¬patternValueUnitCm¬{0} cm¬{0} cm¬{0} cm
 wave-on-a-string¬patternValueUnitHz¬{0} Hz¬{0} Hz¬{0} Hz
-wave-on-a-string¬patternValueUnitPercentage¬{0}%¬ ¬
+wave-on-a-string¬patternValueUnitPercentage¬{0}%¬{0}%¬
 wave-on-a-string¬patternValueUnitS¬{0} s¬{0} s¬{0} s
 wave-on-a-string¬pulse¬Pulse¬Pulso¬Pols
 wave-on-a-string¬pulseWidth¬Pulse Width¬ancho del pulso¬Amplada del pols
