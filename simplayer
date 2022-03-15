@@ -34,11 +34,45 @@ except:
     pass
 
 LANG, ENCODING = locale.getdefaultlocale()
+LANG2 = os.getenv('LANG')
+LANG3 = os.getenv('LANGUAGE')
+
+if not LANG:
+    LANG=""
+if not LANG2:
+    LANG2=""
+if not LANG3:
+    LANG3=""
+
+lang_count={'en':0,'es':0,'ca':0}
 
 if 'ca_ES' in LANG:
+    lang_count['ca']+=1
+elif 'es' in LANG:
+    lang_count['es']+=1
+elif 'en' in LANG:
+    lang_count['en']+=1
+
+if 'ca_ES' in LANG2:
+    lang_count['ca']+=2
+elif 'es' in LANG2:
+    lang_count['es']+=2
+elif 'en' in LANG2:
+    lang_count['en']+=2
+
+if 'ca_ES' in LANG3:
+    lang_count['ca']+=2
+elif 'es' in LANG3:
+    lang_count['es']+=2
+elif 'en' in LANG3:
+    lang_count['en']+=2
+
+if lang_count['es'] and lang_count['es'] > lang_count['ca']:
+    LANG='es'
+elif lang_count['ca'] and lang_count['ca'] > lang_count['es']:
     LANG='ca'
 else:
-    LANG='es'
+    LANG='en'
 
 DEBUG=True
 DEBUG_REQUESTS=True
