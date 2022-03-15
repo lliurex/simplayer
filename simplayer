@@ -109,7 +109,7 @@ class Handler(SimpleHTTPRequestHandler):
     def __init__(self,*args,**kwargs):
         try:
             super().__init__(*args,directory=LIBRARY_DIR,**kwargs)
-        except:
+        except Exception as e:
             os.chdir(LIBRARY_DIR)
             super().__init__(*args,**kwargs)
 
@@ -119,6 +119,7 @@ class Handler(SimpleHTTPRequestHandler):
     def do_GET(self,*args):
         content = None
         basename = os.path.basename(self.path)
+        response_code = 200
         if basename:
             if 'home?' == basename[:5]:
                 key = basename.split('?')[1]
@@ -128,7 +129,10 @@ class Handler(SimpleHTTPRequestHandler):
                         self.server.tm.set_webgl_enabled(False)
                     else:
                         self.server.http_server.webgl_detection.emit('YES')
-                    content = self.server.tm.get_html(type_html=key).encode('utf8')
+                    if self.server.tm.main_page:
+                        content = self.server.tm.redirect(redirection=self.server.tm.main_page).encode('utf8')
+                    else:
+                        content = self.server.tm.get_html(type_html=key).encode('utf8')
             if 'swf?' == basename[:4]:
                 key = basename.split('?')[1]
                 content = self.server.tm.get_html(type_html='swf',name=key).encode('utf8')
@@ -138,9 +142,10 @@ class Handler(SimpleHTTPRequestHandler):
             content = self.server.tm.get_html(type_html='home').encode('utf8')
 
         if content:
-            self.send_response(200)
+            self.send_response(response_code)
             self.end_headers()
-            self.wfile.write(content)
+            if isinstance(content,(str,bytes)):
+                self.wfile.write(content)
         else:
             try:
                 super().do_GET(*args)
@@ -161,28 +166,29 @@ class Handler(SimpleHTTPRequestHandler):
 class CustomTCPServer(HTTPServer,QObject):
     def __init__(self,*args,**kwargs):
         self.http_server = kwargs.get('http_server')
-        if self.http_server:
-               kwargs.pop('http_server')
+        kwargs.pop('http_server')
+        self.activity = kwargs.get('activity')
+        kwargs.pop('activity')
         super().__init__(*args,**kwargs)
         # self.spider = Spider()
-        self.tm = TemplateManager()
+        self.tm = TemplateManager(activity=self.activity)
 
 class HttpServer(QObject):
     server_started = Signal(str)
     webgl_detection = Signal(str)
 
-    def __init__(self):
+    def __init__(self,*args,**kwargs):
         super().__init__()
-        self.thread_server = Thread(target=self.start_server,name='http_server',daemon=True)
+        self.thread_server = Thread(target=self.start_server,name='http_server',daemon=True,kwargs=kwargs)
         self.thread_server.start()
 
-    def start_server(self):
+    def start_server(self,*args,**kwargs):
         while True:
             try:
                 port = 0
                 if FIXED_PORT:
                     port = FIXED_PORT
-                with CustomTCPServer(("",port),Handler,http_server=self) as httpd:
+                with CustomTCPServer(("",port),Handler,http_server=self,**kwargs) as httpd:
                     p = httpd.server_address[1]
                     self.server_started.emit(str(p))
                     httpd.serve_forever()
@@ -190,7 +196,9 @@ class HttpServer(QObject):
                 pass
 
 class TemplateManager():
-    def __init__(self):
+    def __init__(self,*args,**kwargs):
+        self.main_activity=kwargs.get('activity')
+        self.main_page=''
         self.webgl_enabled = True
         self.basedir = LIBRARY_DIR
         self.cache = {}
@@ -200,6 +208,17 @@ class TemplateManager():
         self.categories = {}
         self.search_projects()
         self.search_categories()
+        self.check_main_page()
+
+    def check_main_page(self):
+        if self.main_activity:
+            for project in self.projects:
+                if self.main_activity == project.split('/')[-1]:
+                    prjdata=self.projects[project]
+                    self.main_page=f'{project}/{prjdata.get(f"html_{LANG}")}'
+                    self.main_page=self.main_page.split(LIBRARY_DIR)[-1]
+                    break
+
 
     def set_webgl_enabled(self,status):
         self.webgl_enabled=status
@@ -241,6 +260,11 @@ class TemplateManager():
         else:
             content = self.category_html(show=show)
         self.cache.setdefault(show,content)
+        return content
+
+    def redirect(self,*args,**kwargs):
+        tpl = self.environment.get_template('redirect.tpl')
+        content = tpl.render(**kwargs)
         return content
 
     def check_webgl(self):
@@ -323,7 +347,7 @@ class MainWindow(QMainWindow):
             print(f'{s}{n}:{x.url().toString()}')
             n+=1
 
-    def __init__(self):
+    def __init__(self,*args,**kwargs):
         super().__init__()
         self.setWindowIcon(QIcon(f'{LIBRARY_DIR}/resources/favicon.ico'))
         self.mapping = {
@@ -343,7 +367,7 @@ class MainWindow(QMainWindow):
         self.local_server_port = None
         # self.history = []
         # self.history_index = -1
-        self.server = HttpServer()
+        self.server = HttpServer(**kwargs)
         self.server.server_started.connect(self.set_local_port)
         self.server.webgl_detection.connect(self.set_webgl_detection)
         self.webgl_enabled = True
@@ -370,6 +394,8 @@ class MainWindow(QMainWindow):
         self.webEngineView.page().loadFinished.connect(self.loadFinished)
 
         self.setCentralWidget(self.webEngineView)
+        if kwargs.get('activity'):
+            self.objects.get('toolbar').hide()
 
     def add_button(self,key=None):
         if key:
@@ -515,8 +541,13 @@ if __name__ == '__main__':
     if DEBUG:
         print(f'LANG={LANG}')
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling,True)
+    param=""
+    for i in range(len(sys.argv)):
+        if sys.argv[i] == '-a' and i+1 < len(sys.argv):
+            param=sys.argv[i+1]
+            break
     app = QApplication(sys.argv)
-    mainWin = MainWindow()
+    mainWin = MainWindow(activity=param)
     try:
         availableGeometry = mainWin.screen().availableGeometry()
     except:
