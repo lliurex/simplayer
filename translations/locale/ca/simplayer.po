@@ -1,0 +1,68 @@
+# Catalan translations for simplayer package
+# Traduccions al català del paquet «simplayer».
+# This file is put in the public domain.
+# Automatically generated, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: simplayer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-16 15:01+0100\n"
+"PO-Revision-Date: 2022-03-16 15:01+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Detected language"
+msgstr ""
+
+msgid "Loading url"
+msgstr ""
+
+msgid "Missing image"
+msgstr ""
+
+msgid "Not valid!"
+msgstr ""
+
+msgid "Simplayer"
+msgstr ""
+
+msgid "Valid!"
+msgstr ""
+
+msgid "Warning"
+msgstr ""
+
+msgid "activated"
+msgstr ""
+
+msgid "back"
+msgstr ""
+
+msgid "biology"
+msgstr ""
+
+msgid "chemistry"
+msgstr ""
+
+msgid "earth-science"
+msgstr ""
+
+msgid "forward"
+msgstr ""
+
+msgid "home"
+msgstr ""
+
+msgid "math"
+msgstr ""
+
+msgid "object already defined, can't add"
+msgstr ""
+
+msgid "physics"
+msgstr ""

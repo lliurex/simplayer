@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta charset="UTF-8">
 {% include 'accordion.tpl' %}
 </head>
 <body>

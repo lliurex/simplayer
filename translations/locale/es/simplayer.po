@@ -1,0 +1,70 @@
+# Spanish translations for simplayer package
+# Traducciones al español para el paquete simplayer.
+# This file is put in the public domain.
+# Automatically generated, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: simplayer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-16 15:01+0100\n"
+"PO-Revision-Date: 2022-03-16 15:05+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.3\n"
+
+msgid "Detected language"
+msgstr "Idioma detectado"
+
+msgid "Loading url"
+msgstr "Cargando url"
+
+msgid "Missing image"
+msgstr "Imagen no encontrada"
+
+msgid "Not valid!"
+msgstr "No válido!"
+
+msgid "Simplayer"
+msgstr "Simplayer"
+
+msgid "Valid!"
+msgstr "Válido!"
+
+msgid "Warning"
+msgstr "Atención"
+
+msgid "activated"
+msgstr "activado"
+
+msgid "back"
+msgstr "atrás"
+
+msgid "biology"
+msgstr "biología"
+
+msgid "chemistry"
+msgstr "química"
+
+msgid "earth-science"
+msgstr "ciencias naturales"
+
+msgid "forward"
+msgstr "adelante"
+
+msgid "home"
+msgstr "inicio"
+
+msgid "math"
+msgstr "matemáticas"
+
+msgid "object already defined, can't add"
+msgstr "objecto ya definido, no se puede añadir"
+
+msgid "physics"
+msgstr "física"
