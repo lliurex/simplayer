@@ -19,7 +19,7 @@ def _(*args,**kwargs):
         print(args)
 
 try:
-    translation = gettext.translation('simplayer',localedir='/usr/share/locale',languages=['es','ca','en'],fallback=True)
+    translation = gettext.translation('simplayer',localedir='/usr/share/locale')
     if translation:
         translation.install()
         _ = translation.gettext
