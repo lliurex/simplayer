@@ -126,20 +126,20 @@ class Handler(SimpleHTTPRequestHandler):
                 if key:
                     if key == 'gltest=no':
                         self.server.http_server.webgl_detection.emit('NO')
-                        self.server.tm.set_webgl_enabled(False)
+                        self.server.http_server.tm.set_webgl_enabled(False)
                     else:
                         self.server.http_server.webgl_detection.emit('YES')
-                    if self.server.tm.main_page:
-                        content = self.server.tm.redirect(redirection=self.server.tm.main_page).encode('utf8')
+                    if self.server.http_server.tm.main_page:
+                        content = self.server.http_server.tm.redirect(redirection=self.server.http_server.tm.main_page).encode('utf8')
                     else:
-                        content = self.server.tm.get_html(type_html=key).encode('utf8')
+                        content = self.server.http_server.tm.get_html(type_html=key).encode('utf8')
             if 'swf?' == basename[:4]:
                 key = basename.split('?')[1]
-                content = self.server.tm.get_html(type_html='swf',name=key).encode('utf8')
+                content = self.server.http_server.tm.get_html(type_html='swf',name=key).encode('utf8')
             if 'webgl?' == basename[:6]:
-                content = self.server.tm.check_webgl().encode('utf8')
+                content = self.server.http_server.tm.check_webgl().encode('utf8')
         elif self.path == '/':
-            content = self.server.tm.get_html(type_html='home').encode('utf8')
+            content = self.server.http_server.tm.get_html(type_html='home').encode('utf8')
 
         if content:
             self.send_response(response_code)
@@ -167,11 +167,7 @@ class CustomTCPServer(HTTPServer,QObject):
     def __init__(self,*args,**kwargs):
         self.http_server = kwargs.get('http_server')
         kwargs.pop('http_server')
-        self.activity = kwargs.get('activity')
-        kwargs.pop('activity')
         super().__init__(*args,**kwargs)
-        # self.spider = Spider()
-        self.tm = TemplateManager(activity=self.activity)
 
 class HttpServer(QObject):
     server_started = Signal(str)
@@ -179,6 +175,9 @@ class HttpServer(QObject):
 
     def __init__(self,*args,**kwargs):
         super().__init__()
+        self.activity = kwargs.get('activity')
+        kwargs.pop('activity')
+        self.tm = TemplateManager(activity=self.activity)
         self.thread_server = Thread(target=self.start_server,name='http_server',daemon=True,kwargs=kwargs)
         self.thread_server.start()
 
@@ -394,7 +393,7 @@ class MainWindow(QMainWindow):
         self.webEngineView.page().loadFinished.connect(self.loadFinished)
 
         self.setCentralWidget(self.webEngineView)
-        if kwargs.get('activity'):
+        if self.server.tm.main_page:
             self.objects.get('toolbar').hide()
 
     def add_button(self,key=None):
