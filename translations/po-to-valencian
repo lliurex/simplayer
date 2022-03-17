@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+import subprocess, pipes
+import json
+import sys
+import re
+import os
+import shutil
+import requests
+
+baseurl = 'https://innovacion-mov.gva.es/pai_bus_inno/SALT/SaltService_REST_v2_00/api'
+url1= f'{baseurl}/token'
+url2= f'{baseurl}/translate'
+
+def translate(text):
+    if not text:
+        return
+    headers={
+        'User-Agent':'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:92.0) Gecko/20100101 Firefox/92.0',
+        'Origin':'https://salt.gva.es',
+        'Referer': 'https://salt.gva.es/',
+        'x-api-key': 'eddd4e6820ff6e4d3f033cc0bcd63f45',
+        'aplicacion': 'SALT',
+        'Authorization': 'Basic c2FsdHVzdTpwd2RwYWkx',
+        'Content-Type': 'application/json'
+    }
+    query = {'data' : text, 'marks': False, 'mode': 'spa-cat_valencia'}
+    response = requests.post(url2,json=query,headers=headers)
+    return json.loads(response.content).get('data')
+
+if __name__ == '__main__':
+    filename=""
+    if len(sys.argv) == 2:
+        filename=sys.argv[1]
+    else:
+        print(f'{sys.argv[0]} spanish.po')
+        sys.exit(1)
+    if not os.path.isfile(filename):
+        print(f'{filename} not found!')
+        sys.exit(1)
+    translations={}
+    with open(filename) as fp:
+        lines=fp.readlines()
+        for line in range(len(lines)):
+            m_id = re.findall('^msgid\s+["]([^"]+)["]\s*$',lines[line].strip())
+            if m_id and line+1 < len(lines):
+                m_str=re.findall('^msgstr\s+["]([^"]*)["]\s*$',lines[line+1].strip())
+                if m_str:
+                    translations.setdefault(m_id[0],m_str[0])
+                else:
+                    translations.setdefault(m_id[0],'')
+    spanish = [v for k,v in translations.items() if v ]
+    spanish.sort()
+    total = len(spanish)
+    chunk = 50
+    try:
+        for ini in list(range(0,total,chunk)):
+            data = '\n'.join(spanish[ini:ini+chunk])
+            #
+            # testing without net operations
+            # trs = '\n'.join(l2[ini:ini+chunk])
+            #
+            trs = translate(data)
+            i=0
+            sorted_translations=sorted(translations)
+            for tr in trs.split('\n'):
+                key=spanish[i]
+                i+=1
+                for k in sorted_translations:
+                    if translations[k]==key:
+                        translations[k]=tr
+                        break
+    except Exception as e:
+        pass
+
+    with open(filename,'r') as fp_r:
+        lines=fp_r.readlines()
+        for line in range(len(lines)):
+            m_id = re.findall('^msgid\s+["]([^"]+)["]\s*$',lines[line].strip())
+            if m_id:
+                translated=translations.get(m_id[0])
+                if not translated:
+                    translated=""
+                print(lines[line].strip())
+                print(f'msgstr "{translated}"')
+            else:
+                m_str=re.findall('^msgstr\s+["]([^"]+)["]\s*$',lines[line].strip())
+                if m_str:
+                    pass
+                else:
+                    print(lines[line].strip())
