@@ -2,4 +2,6 @@ resources /usr/lib/simplayer/
 images /usr/lib/simplayer/
 templates/*.tpl /usr/lib/simplayer/templates/
 simplayer /usr/bin/
-translations/locale/* /usr/share/locale/
+translations/locale/es/*.mo /usr/share/locale/es/LC_MESSAGES/
+translations/locale/ca/*.mo /usr/share/locale/ca/LC_MESSAGES/
+translations/locale/en/*.mo /usr/share/locale/en/LC_MESSAGES/
