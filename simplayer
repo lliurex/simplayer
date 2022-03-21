@@ -450,7 +450,7 @@ class MainWindow(QMainWindow):
             who = kwargs.get('who')
             if not who:
                 who=self.sender().data()
-            destination = self.mapping.get(who)
+            destination = self.mapping.get(_(who))
             if isinstance(destination,type(lambda x:x)):
                 destination()
             else:
