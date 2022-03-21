@@ -5,3 +5,5 @@ simplayer /usr/bin/
 translations/locale/es/*.mo /usr/share/locale/es/LC_MESSAGES/
 translations/locale/ca/*.mo /usr/share/locale/ca/LC_MESSAGES/
 translations/locale/en/*.mo /usr/share/locale/en/LC_MESSAGES/
+resources/net.lliurex.simplayer.desktop /usr/share/applications/
+resources/simplayer.svg /usr/share/icons/lliurex/apps/48/
