@@ -1,0 +1,62 @@
+<p class="introduction">
+Simulation of an asteroid orbiting a moon using the
+<a href="../explain/physics-engine-en.html">2D Rigid Body Physics Engine</a>.
+</p>
+
+<p>See if you can find the asteroid initial velocity that results in a nearly circular
+orbit without collisions.
+</p>
+
+<!--
+<p class="instructions">
+You can change parameters such as gravity, moon mass, asteroid mass, initial asteroid velocity, damping, and elasticity of collisions.
+</p>  
+<ul>
+   Ovalness:  ratio of moon's width to height.  A value of 1.0 gives a circle. (effective only after reset).
+  Moon Spin:  initial rotational velocity of the moon (effective only after reset).
+  <li>Velocity:  initial vertical velocity of asteroid  (effective only after reset).</li>
+  <li>Elasticity:  1.0 gives perfectly elastic collisions;  0 gives inelastic collisions.</li>
+  <li>Damping:  slows moving objects according to their velocity.</li>
+</ul>
+-->
+
+<div class="centered_image" style="max-width: 50em;">
+<img src="phobos.jpg" width="422" height="293" alt="">
+<p>Mars moon Phobos</p>
+</div>
+
+<p><em>Why does Phobos have parallel lines etched into its surface?</em> </p>
+
+<p>This simulation was suggested by Kenneth Ramsley at Brown University in 2011 regarding
+his ideas about the Mars moon Phobos. You can see these lines in the photo above. Ken's
+idea is that Phobos would occasionally capture a small asteroid which would orbit
+Phobos but keep bumping into it, similar to what is seen in the above simulation.
+See the Space.com article (May 2014)
+<a href="http://www.space.com/25971-mars-moon-phobos-grooves-origin.html">
+How the Mars Moon Phobos Got Its Grooves</a>
+</p>
+
+<p>Although it looks like the large moon in the simulation is stationary, it is actually
+moving. This is because the asteroid exerts a small gravitational pull on the large
+moon. You can confirm that the large moon is moving in a couple of ways:
+</p>
+
+<ul>
+  <li>Turn on the "pan-zoom" checkbox and click the "+" button to zoom in till you see
+  the center of the moon up very close.</li>
+  
+  <li>Set the graph to see the moon's position: choose "moon y position" and "moon x
+  position" for the variables to graph.</li>
+</ul>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/MarsMoonApp.js">open source code</a>,
+<a href="../develop/docs/myphysicslab.sims.engine2D.MarsMoonApp.html">documentation</a> and a
+<a href="../develop/build/sims/engine2D/MarsMoonApp-en.html">simple-compiled version</a>
+which is <a href="../develop/docs/Customizing.html">more customizable</a>.
+</p>
+
+
+<p id="page_history" style="clear: both;">
+  This web page was first published January 2011.
+</p>

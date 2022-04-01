@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<title lang="ca">myPhysicsLab What Is A Differential Equation?</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+</head>
+<body>
+
+<h1 lang="ca">What Is A Differential Equation?</h1>
+
+<div id="header_nav">
+<a class="nav_link"
+   href="classify-diff-eq-ca.html">next</a>
+</div>
+<ul id="header_bar">
+</ul>
+
+<p class="introduction">A differential equation can look pretty intimidating, with lots of fancy math symbols. But the idea behind it is actually fairly simple:</p>
+
+<blockquote><em>A differential equation states how a rate of change (a "differential") in one variable is related to other variables.<br>
+</em></blockquote>
+
+
+<p>For example, the <a href="../SingleSpringApp/SingleSpringApp-ca.html">Single Spring simulation</a> has two variables: the position of the block, <span class="html-math inline-math">
+<i>x</i>
+</span>, and its velocity, <span class="html-math inline-math">
+<i>v</i>
+</span>. Each of those variables has a differential equation saying how that variable evolves over time. The differential equation for position <span class="html-math inline-math">
+<i>x</i>
+</span> is</p>
+
+<p class="html-math display-equation">
+<i>x</i>' = <i>v</i>
+</p>
+
+<p>where <span class="html-math inline-math">
+<i>x</i>'
+</span> indicates the derivative of <span class="html-math inline-math">
+<i>x</i>
+</span> with respect to time (the rate of change of <span class="html-math inline-math">
+<i>x</i>
+</span>). This equation says</p>
+
+<blockquote>
+<em>the rate of change of position is equal to the velocity</em>
+</blockquote>
+
+<p>That's sort of an obvious statement. Hang on, the next equation is more interesting:</p>
+
+<p>The amount of stretch in the spring is directly related to the position of the block, <span class="html-math inline-math">
+<i>x</i>
+</span>. You can see the details on the Single Spring simulation page, but using Newton's Law <span class="html-math inline-math">
+<i>F</i> = <i>m</i> <i>a</i>
+</span> we are able to write the differential equation for the velocity <span class="html-math inline-math">
+<i>v</i>
+</span> as</p>
+
+<p class="html-math display-equation">
+<i>v</i>' = &minus;<i>k</i> <i>x</i>
+</p>
+
+<p>where  <span class="html-math inline-math">
+<i>k</i>
+</span> is the spring constant (how stiff the spring is). This equation says</p>
+
+<blockquote>
+<em>the rate of change of velocity is inversely proportional to the position</em>
+</blockquote>
+
+<p>For instance, when the position is zero (ie. the spring is neither stretched nor compressed) then the velocity is not changing. This makes sense, because the spring is not exerting a force at that moment.</p>
+
+<p>
+On the other hand, when the position is large (ie. the string is very much stretched or compressed) then the rate of change of the velocity is large, because the spring is exerting a lot of force.</p>
+
+
+
+
+<h2>What is a Solution to a Differential Equation?</h2>
+
+<p>When you begin learning mathematics, you work on getting solutions to equations like</p>
+
+<p class="html-math display-equation">
+<i>x</i><sup>2</sup> + 2 <i>x</i> + 1 = 0
+</p>
+
+
+<p>which has a solution  <span class="html-math inline-math">
+<i>x</i> = &minus;1
+</span> For a differential equation, the solution is not a single value, but a <strong><em>function</em></strong>. The task is to find a function whose various derivatives fit the differential equation over a long span of time. For example,</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i>'' + 2 <i>x</i>' + <i>x</i> = 0
+
+</td><td class="equation-number">(1)</td></tr></table>
+
+
+<p>is a differential equation where the goal is to find a function  <span class="html-math inline-math">
+<i>x</i>(<i>t</i>)
+</span> which, when you plug the function and its derivatives into the differential equation, the equation holds <em>for any time  <span class="html-math inline-math">
+<i>t</i>
+</span></em>.</p>
+
+
+<p>The <em>general solution</em> for the previous equation happens to be</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i>(<i>t</i>) = <i>a</i> <i>e</i><sup>&minus;<i>t</i></sup> + <i>b</i> <i>t</i> <i>e</i><sup>&minus;<i>t</i></sup>
+
+</td><td class="equation-number">(2)</td></tr></table>
+
+
+<p>where  <span class="html-math inline-math">
+<i>e</i>=2.71828...
+</span> and  <span class="html-math inline-math">
+<i>a</i>, <i>b</i>
+</span> are undetermined constants. It is easy to confirm that you have a solution: just plug the solution in to the differential equation! For our example, we find the first and second derivatives (see the <a href="math-refresh-ca.html#derivatives">math refresher</a> for how to find these derivatives... it's pretty easy!):</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i>'(<i>t</i>) = (<i>b</i> &minus; <i>a</i>)<i>e</i><sup>&minus;<i>t</i></sup> &minus; <i>b</i> <i>t</i> <i>e</i><sup>&minus;<i>t</i></sup>
+
+</td><td class="equation-number">(3)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i>''(<i>t</i>) = (<i>a</i> &minus; 2 <i>b</i>)<i>e</i><sup>&minus;<i>t</i></sup> + <i>b</i> <i>t</i> <i>e</i><sup>&minus;<i>t</i></sup>
+
+</td><td class="equation-number">(4)</td></tr></table>
+
+
+<p>Now plug these equations (2), (3), and (4) into the left side of the differential equation (1), and do the algebra:</p>
+
+<p class="html-math display-equation">
+<i>x</i>'' + 2 <i>x</i>' + <i>x</i> =
+</p>
+
+<p class="html-math display-equation">
+= ((<i>a</i> &minus; 2 <i>b</i>)<i>e</i><sup>&minus;<i>t</i></sup> + <i>b</i> <i>t</i> <i>e</i><sup>&minus;<i>t</i></sup>)
++ 2((<i>b</i> &minus; <i>a</i>)<i>e</i><sup>&minus;<i>t</i></sup> &minus; <i>b</i> <i>t</i> <i>e</i><sup>&minus;<i>t</i></sup>)
++ (<i>a</i> <i>e</i><sup>&minus;<i>t</i></sup> + <i>b</i> <i>t</i> <i>e</i><sup>&minus;<i>t</i></sup>)
+</p>
+
+<p class="html-math display-equation">
+= (<i>a</i> &minus; 2 <i>b</i> + 2 <i>b</i> &minus; 2 <i>a</i> + <i>a</i>)<i>e</i><sup>&minus;<i>t</i></sup>
++ (<i>b</i> &minus; 2 <i>b</i> +<i>b</i>) <i>t</i> <i>e</i><sup>&minus;<i>t</i></sup>
+</p>
+
+<p class="html-math display-equation">
+= 0
+</p>
+
+
+<p>Therefore the solution (2) satisfies the differential equation (1) for any values of  <span class="html-math inline-math">
+<i>a</i>, <i>b</i>
+</span>.</p>
+
+<p>
+The solution is called the <em>general solution</em> because we have not yet applied a particular set of <em>initial conditions</em>.</p>
+
+
+
+
+<h2>Initial Conditions</h2>
+
+<p>In the above example we are left with undetermined constants  <span class="html-math inline-math">
+<i>a</i>, <i>b</i>
+</span>. How do we find out what they are? They are set according to the <em>initial conditions</em> which are the particular starting values of the variables. For example, with the Single Spring simulation the initial conditions are the starting position and velocity of the block at time <span class="html-math inline-math">
+<i>t</i> = 0
+</span>.</p>
+
+<p>For the example problem above, we might have initial conditions specifying position <span class="html-math inline-math">
+<i>x</i>
+</span> and velocity <span class="html-math inline-math">
+<i>x</i>'
+</span> at time  <span class="html-math inline-math">
+<i>t</i> = 0
+</span> as follows</p>
+
+<p class="html-math display-equation">
+<i>x</i>(0) = 1<br>
+<i>x</i>'(0) = 0
+</p>
+
+
+<p>Then we can plug  <span class="html-math inline-math">
+<i>t</i> = 0
+</span> into equations (2) and (3) above to find the values of the constants  <span class="html-math inline-math">
+<i>a</i>, <i>b</i>
+</span></p>
+
+<p class="html-math display-equation">
+<i>x</i>(0) = <i>a</i> + 0 = 1
+</p>
+
+<p class="html-math display-equation">
+<i>x</i>'(0) = (<i>b</i> &minus; <i>a</i>) &minus; 0 = 0
+</p>
+
+
+<p>and therefore we find that  <span class="html-math inline-math">
+<i>a</i> = <i>b</i> = 1
+</span> and the <em>particular solution</em> is</p>
+
+<p class="html-math display-equation">
+<i>x</i>(<i>t</i>) = <i>e</i><sup>&minus;<i>t</i></sup> + <i>t</i> <i>e</i><sup>&minus;<i>t</i></sup>
+</p>
+
+
+<p>This solution is called the <em>particular solution</em> because it applies only to the particular initial conditions that we have chosen.</p>
+
+<p>More information on Differential Equations:</p>
+
+<ul>
+    <li><a href="classify-diff-eq-ca.html">Classifying Types of Differential Equations</a></li>
+</ul>
+
+<p id="page_history">
+  This web page was first published June 2001.
+</p>
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+  <a class="nav_link" href="classify-diff-eq-ca.html">next</a>
+</div>
+</body>
+</html>

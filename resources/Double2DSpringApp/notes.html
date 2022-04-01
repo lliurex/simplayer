@@ -1,0 +1,163 @@
+<p class="introduction">
+This simulation shows two objects connected by springs and suspended from an anchor
+point. The objects are able to move in 2 dimensions and gravity operates. The anchor
+point is moveable.
+</p>
+
+<p class="instructions">
+You can drag either mass with your mouse. You can also drag the top anchor point. Click
+the "reset" button to put the masses in a resting equilibrium. Try changing parameters
+such as gravity, mass, spring stiffness, and friction (damping).
+</p>
+
+<p>The math behind the simulation is shown below.  Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/Double2DSpringApp.js">open source code</a>,
+<a href="../develop/docs/myphysicslab.sims.springs.Double2DSpringApp.html">documentation</a> and a
+<a href="../develop/build/sims/springs/Double2DSpringApp-en.html">simple-compiled version</a>
+which is <a href="../develop/docs/Customizing.html">more customizable</a>.
+</p>
+
+<h2>Physics</h2>
+
+<p>An immoveable (but draggable) anchor point has two spring2 and bobs hanging below
+and swinging in two dimensions. We regard the bobs as point masses. We label the upper
+spring and bob as number 1, the lower spring and bob as number 2.</p>
+
+<div class="image" style="width: 156px;">
+<br>
+<br>
+<img src="spring_dbl_2d.gif" width="156" height="169" alt=""><br>
+Double 2D Spring<br>Variables
+</div>
+
+<div style="margin-left:165px;">
+
+<p>Define the following variables:</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>&theta;</i> =
+</span> angle (<span class="html-math inline-math">
+0=
+</span>vertical)</li>
+    <li><span class="html-math inline-math">
+S =
+</span> spring stretch (displacement from rest length)</li>
+    <li><span class="html-math inline-math">
+L =
+</span> length of spring</li>
+    <li><span class="html-math inline-math">
+u =
+</span> position of bob</li>
+    <li><span class="html-math inline-math">
+v = u'= 
+</span> velocity of bob</li>
+    <li><span class="html-math inline-math">
+a = u''= 
+</span> acceleration of bob</li>
+    <li><span class="html-math inline-math">
+F =
+</span> net force on a bob</li>
+</ul>
+
+<p>Define some constants:</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+R =
+</span> rest length of spring</li>
+    <li><span class="html-math inline-math">
+T =
+</span> position of anchor point</li>
+    <li><span class="html-math inline-math">
+m =
+</span> mass of bob</li>
+    <li><span class="html-math inline-math">
+k =
+</span> spring constant</li>
+    <li><span class="html-math inline-math">
+b =
+</span> damping constant</li>
+    <li><span class="html-math inline-math">
+g =
+</span> gravitational constant</li>
+</ul>
+
+<p>Note that for this simulation the vertical dimension increases downwards.</p>
+
+</div>
+
+<p>Here are the equations of motion.  The derivation is similar to that given for the
+<a href="2d-spring-en.html">Single 2D Spring</a>.</p>
+
+<p class="html-math display-equation">
+<i>F</i><sub>1<i>x</i></sub> = <i>m</i><sub>1</sub> <i>a</i><sub>1<i>x</i></sub> = &minus;<i>k</i><sub>1</sub> <i>S</i><sub>1</sub> sin <i>&theta;</i><sub>1</sub> &minus; <i>b</i><sub>1</sub> <i>v</i><sub>1<i>x</i></sub> + <i>k</i><sub>2</sub> <i>S</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub><br>
+<i>F</i><sub>1<i>y</i></sub> = <i>m</i><sub>1</sub> <i>a</i><sub>1<i>y</i></sub> = &minus;<i>k</i><sub>1</sub> <i>S</i><sub>1</sub> cos <i>&theta;</i><sub>1</sub> &minus; <i>b</i><sub>1</sub> <i>v</i><sub>1<i>y</i></sub> + <i>k</i><sub>2</sub> <i>S</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub> + <i>m</i><sub>1</sub> g<br>
+<i>F</i><sub>2<i>x</i></sub> = <i>m</i><sub>2</sub> <i>a</i><sub>2<i>x</i></sub> = &minus;<i>k</i><sub>2</sub> <i>S</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub> &minus; <i>b</i><sub>2</sub> <i>v</i><sub>2<i>x</i></sub><br>
+<i>F</i><sub>2<i>y</i></sub> = <i>m</i><sub>2</sub> <i>a</i><sub>2<i>y</i></sub> = &minus;<i>k</i><sub>2</sub> <i>S</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub> &minus; <i>b</i><sub>2</sub> <i>v</i><sub>2<i>y</i></sub> + <i>m</i><sub>2</sub> g
+</p>
+
+<p>The spring stretch <span class="html-math inline-math">
+<i>S<sub>n</sub></i>
+</span> and angles <span class="html-math inline-math">
+<i><i>&theta;</i><sub>n</sub></i>
+</span> are
+functions of the positions <span class="html-math inline-math">
+<i>u<sub>n</sub></i>
+</span> of the bobs as follows:
+</p>
+
+<p class="html-math display-equation">
+<i>L</i><sub>1</sub> = &radic;((<i>u</i><sub>1<i>x</i></sub> &minus; <i>T<sub>x</sub></i>)<sup>2</sup> + (<i>u</i><sub>1<i>y</i></sub> &minus; <i>T<sub>y</sub></i>)<sup>2</sup>)<br>
+<i>L</i><sub>2</sub> = &radic;((<i>u</i><sub>2<i>x</i></sub> &minus; <i>u</i><sub>1<i>x</i></sub>)<sup>2</sup> + (<i>u</i><sub>2<i>y</i></sub> &minus; <i>u</i><sub>1<i>x</i></sub>)<sup>2</sup>)<br>
+<i>S</i><sub>1</sub> = <i>L</i><sub>1</sub> &minus; <i>R</i><sub>1</sub><br>
+<i>S</i><sub>2</sub> = <i>L</i><sub>2</sub> &minus; <i>R</i><sub>2</sub><br>
+cos <i>&theta;</i><sub>1</sub> = (<i>u</i><sub>1<i>y</i></sub> &minus; <i>T<sub>y</sub></i>)/<i>L</i><sub>1</sub><br>
+sin <i>&theta;</i><sub>1</sub> = (<i>u</i><sub>1<i>x</i></sub> &minus; <i>T<sub>x</sub></i>)/<i>L</i><sub>1</sub><br>
+cos <i>&theta;</i><sub>2</sub> = (<i>u</i><sub>2<i>y</i></sub> &minus; <i>u</i><sub>1<i>y</i></sub>)/<i>L</i><sub>2</sub><br>
+sin <i>&theta;</i><sub>2</sub> = (<i>u</i><sub>2<i>x</i></sub> &minus; <i>u</i><sub>1<i>x</i></sub>)/<i>L</i><sub>2</sub>
+</p>
+
+
+
+
+<h2>Numerical Solution</h2>
+
+<p>To solve the equations of motion numerically, so that we can drive the simulation,
+we use the <a href="../explain/runge-kutta-en.html">Runge Kutta method</a>
+for solving sets of ordinary differential equations. We need to convert the four second
+order equations of motion to eight first order equations.</p>
+
+<p class="html-math display-equation">
+<i>u</i><sub>1<i>x</i></sub>' = <i>v</i><sub>1<i>x</i></sub><br>
+<i>u</i><sub>1<i>y</i></sub>' = <i>v</i><sub>1<i>y</i></sub><br>
+<i>u</i><sub>2<i>x</i></sub>' = <i>v</i><sub>2<i>x</i></sub><br>
+<i>u</i><sub>2<i>y</i></sub>' = <i>v</i><sub>2<i>y</i></sub><br>
+<i>v</i><sub>1<i>x</i></sub>' = &minus;(<i>k</i><sub>1</sub>/<i>m</i><sub>1</sub>) <i>S</i><sub>1</sub> sin <i>&theta;</i><sub>1</sub> &minus; (<i>b</i><sub>1</sub>/<i>m</i><sub>1</sub>) <i>v</i><sub>1<i>x</i></sub> + (<i>k</i><sub>2</sub>/<i>m</i><sub>1</sub>) <i>S</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub><br>
+<i>v</i><sub>1<i>y</i></sub>' = &minus;(<i>k</i><sub>1</sub>/<i>m</i><sub>1</sub>) <i>S</i><sub>1</sub> cos <i>&theta;</i><sub>1</sub> &minus; (<i>b</i><sub>1</sub>/<i>m</i><sub>1</sub>) <i>v</i><sub>1<i>y</i></sub> + (<i>k</i><sub>2</sub>/<i>m</i><sub>1</sub>) <i>S</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub> + g<br>
+<i>v</i><sub>2<i>x</i></sub>' = &minus;(<i>k</i><sub>2</sub>/<i>m</i><sub>2</sub>) <i>S</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub> &minus; (<i>b</i><sub>2</sub>/<i>m</i><sub>2</sub>) <i>v</i><sub>2<i>x</i></sub><br>
+<i>v</i><sub>2<i>y</i></sub>' = &minus;(<i>k</i><sub>2</sub>/<i>m</i><sub>2</sub>) <i>S</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub> &minus; (<i>b</i><sub>2</sub>/<i>m</i><sub>2</sub>) <i>v</i><sub>2<i>y</i></sub> + g
+</p>
+
+<p>We keep in mind that the spring stretch <span class="html-math inline-math">
+<i>S<sub>n</sub></i>
+</span> and angles
+<span class="html-math inline-math">
+<i><i>&theta;</i><sub>n</sub></i>
+</span> are functions of the position of the bob
+<span class="html-math inline-math">
+<i>u<sub>n</sub></i>
+</span> as given previously.</p>
+
+
+
+<!--h2>TO DO:</h2>
+
+<ul>
+  <li>Does Y really increase downwards??? It doesn't in the graph, so should change
+     the equations here to match what the sim is doing.</li>
+</ul-->
+
+<p id="page_history">
+  This web page was first published April 2001.
+</p>

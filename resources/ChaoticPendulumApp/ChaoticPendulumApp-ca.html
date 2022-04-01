@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Pèndol Caòtic</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+
+  <h1>Pèndol Caòtic</h1>
+
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gràfic</li>
+  <li class="time_graph">Gràfic de temps</li>
+  <li class="multi_graph">Gràfic múltiple</li>
+</ul>
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<script type="text/javascript" async
+  src="../MathJax-2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<h2>About</h2>
+
+<p class="introduction">
+A damped driven pendulum is a chaotic system. In a chaotic system the future behavior
+is highly dependent on the exact value of the initial conditions. A tiny change in
+initial conditions can cause huge changes after a short period of time.</p>
+
+<p class="instructions"> Click the "Sim" tab to access parameters such as: drive
+amplitude, frequency, mass, gravity, and damping. You can drag the pendulum with your
+mouse to change the starting position.</p>
+
+<p>The buttons below set parameters so the simulation is either in a loop or in a
+chaotic state; the drive amplitude is different in each case and shown in parenthesis.
+It takes around a minute to settle into a loop.</p>
+
+<form name="form1" onsubmit="return false;">
+    <input type="button" value="single loop (1.35)"  onClick="setSimParams(1.35)">
+    <input type="button" value="double loop (1.45)"  onClick="setSimParams(1.45)">
+    <input type="button" value="quadruple loop (1.47)"  onClick="setSimParams(1.47)">
+    <input type="button" value="chaos (1.50)"  onClick="setSimParams(1.50)">
+    <br>
+    <input type="button" value="single loop (0.9)"  onClick="setSimParams(0.9)">
+    <input type="button" value="double loop (1.07)"  onClick="setSimParams(1.07)">
+    <input type="button" value="chaos (1.15)"  onClick="setSimParams(1.15)">
+</form>
+
+<p>The math behind the simulation is shown below.  Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/PendulumApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+
+<h2>The Damped Driven Pendulum</h2>
+
+<p>The pendulum is subject to frictional damping, meaning that it will slow down over
+time if there is no driving force. To see this try setting the drive amplitude to zero,
+so the only forces are damping and gravity.</p>
+
+<p>The driving force is shown as a curved arrow in the simulation. The length of the
+arrow corresponds to the amount of torque (twisting force) at a given moment. The
+direction of the arrow, clockwise or counter-clockwise, shows the direction of this
+applied force. You can change the amplitude (strength) of the driving force or its
+frequency (how often it switches directions).</p>
+
+<p>Not all combinations of the parameters (length, gravity, drive amplitude, drive
+frequency, damping) will lead to chaos. Many combinations result in simpler repeating
+behavior. Click the "single loop" button above to see this. You'll need to wait about a
+minute for the simulation to settle into the loop.</p>
+
+<p>There is a phenomenon known as <i>period doubling</i> or <i>bifurcation</i> where
+slowly increasing one of the parameters, such as drive amplitude, causes the number of
+loops in the repeating behavior to double. Some of the above buttons change the drive
+amplitude gradually so that you see this period doubling occur. For example, you get a
+single loop with drive amplitude of 1.35, a double loop with 1.45, a quadruple loop
+with 1.47, and eventually you get chaos at 1.50.</p>
+
+<p>After enough period doublings occur, the system becomes chaotic. Click one of the
+buttons labelled "chaos" to set the parameters and see this. A curious thing about this
+chaotic behavior is that it is not entirely random. While you can't predict the exact
+state of the system at a given time in the future, it is possible to show that the
+system will follow an elaborate pattern, These patterns are <em>fractals</em>, which
+are patterns that repeat themselves when you magnify them.</p>
+
+<h2>Physics</h2>
+
+<div class="image" style="width: 95px;">
+<img src="pendulum_2.gif" width="71" height="92" alt=""><br>
+pendulum variables
+</div>
+
+<div style="margin-left: 98px;">
+<p>The pendulum is modeled as a point mass at the end of a massless rod. The damping
+(friction) is proportional to the angular velocity of the pendulum. There is also an
+external driving force which provides a periodic torque (twist). Define the following
+variables:</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>&theta;</i> =
+</span> angle of pendulum (<span class="html-math inline-math">
+0 =
+</span> vertical)</li>
+    <li><span class="html-math inline-math">
+<i>&omega;</i> = <i>&theta;'</i> =
+</span> angular velocity</li>
+    <li><span class="html-math inline-math">
+<i>R</i> =
+</span> length of rod</li>
+    <li><span class="html-math inline-math">
+<i>m</i> =
+</span> mass of pendulum</li>
+    <li><span class="html-math inline-math">
+<i>g</i> =
+</span> gravitational constant</li>
+    <li><span class="html-math inline-math">
+<i>b</i> =
+</span> damping (friction) constant</li>
+    <li><span class="html-math inline-math">
+<i>A</i> =
+</span> amplitude of driving force</li>
+    <li><span class="html-math inline-math">
+<i>k</i> =
+</span> constant related to frequency of driving force</li>
+    <li><span class="html-math inline-math">
+<i>t</i> =
+</span> time in seconds</li>
+</ul>
+</div>
+
+<p>We will derive the equation of motion for the pendulum using the rotational analog
+of Newton's second law for motion about a fixed axis, which is</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>I</i> <i>&alpha;</i> = &sum; <i>&tau;</i>
+
+</td><td class="equation-number">(1)</td></tr></table>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+&sum; <i>&tau;</i> =
+</span> sum of applied torques</li>
+    <li><span class="html-math inline-math">
+<i>I</i> =
+</span> rotational inertia</li>
+    <li><span class="html-math inline-math">
+<i>&alpha;</i> = <i>&theta;''</i> =
+</span> angular acceleration</li>
+</ul>
+
+<p>The rotational inertia about the pivot is <span class="html-math inline-math">
+<i>I</i> = <i>m</i> <i>R</i><sup>2</sup>
+</span>. Torque can be
+calculated as the vector cross product of the position vector and the force.</p>
+
+<ul class="vars">
+    <li>torque due to gravity is <span class="html-math inline-math">
+<i>&tau;</i> = &minus;<i>R</i> <i>m</i> <i>g</i> sin <i>&theta;</i>
+</span>.</li>
+    <li>torque due to friction is <span class="html-math inline-math">
+<i>&tau;</i> = &minus;<i>b</i> <i>&omega;</i>
+</span>.</li>
+    <li>torque due to driving force is <span class="html-math inline-math">
+<i>&tau;</i> = <i>A</i> cos(<i>k</i> <i>t</i>)
+</span>.</li>
+</ul>
+
+<p>So equation (1) becomes</p>
+
+<p class="html-math display-equation">
+<i>m</i> <i>R</i><sup>2</sup> <i>&alpha;</i> = &minus;<i>R</i> <i>m</i> <i>g</i> sin <i>&theta;</i> &minus;
+<span class="nobr"><i>b</i> <i>&omega;</i></span> +
+<span class="nobr"><i>A</i> cos(<i>k</i> <i>t</i>)</span>
+</p>
+
+<p>which we can write as</p>
+
+<div class="emphasized display_equation">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>&theta;''</i> = &minus; <sup><i>g</i></sup>&frasl;<sub><i>R</i></sub>&nbsp; sin <i>&theta;</i> + &nbsp;
+        </td><td>
+            &minus;<i>b</i> <i>&theta;'</i> + <i>A</i> cos(<i>k</i> <i>t</i>)
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>m</i> <i>R</i><sup>2</sup>
+        </td>
+    </tr>
+</table>
+<!-- LaTeX version of the above:
+  \theta'' = -\frac{g}{R}  \sin(\theta) + \frac{ - b \; \theta' + A \cos(k \; t) }{m \; R^2}
+-->
+
+</div>
+
+<p>This is the equation of motion for the driven damped pendulum.</p>
+
+
+
+
+
+<h2 id="numerical">Numerical Solution</h2>
+
+<p>To solve the equation of motion numerically, so that we can run the simulation, we
+use the <a href="../explain/runge-kutta-ca.html">Runge Kutta method</a>
+for solving sets of ordinary differential equations. First we define a variable for the
+angular velocity <span class="html-math inline-math">
+<i>&omega;</i> = <i>&theta;'</i>
+</span>. We also add an equation for time because time
+appears explicitly in the equations in the driving force <span class="html-math inline-math">
+<i>A</i> cos(<i>k</i> <i>t</i>)
+</span>. Then
+we can write the second order equation above as three first order equations.</p>
+
+<p class="html-math display-equation">
+<i>t</i>' = 1
+</p>
+
+<p class="html-math display-equation">
+<i>&theta;'</i> = <i>&omega;</i>
+</p>
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>&omega;'</i> = &minus; <sup><i>g</i></sup>&frasl;<sub><i>R</i></sub> sin <i>&theta;</i> + &nbsp;
+        </td><td>
+            &minus;<i>b</i> <i>&omega;</i> + <i>A</i> cos(<i>k</i> <i>t</i>)
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>m</i> <i>R</i><sup>2</sup>
+        </td>
+    </tr>
+</table>
+</div>
+
+
+<p>This is the form needed for using the Runge-Kutta algorithm.</p>
+
+<!--h2>TO DO</h2>
+<ul>
+  <li>Add picture of the completed chaotic graph</li>
+</ul-->
+
+<p id="page_history">
+  This web page was first published September 2001.
+</p>
+
+<script src="PendulumApp-ca.js"></script>
+
+<script>
+  var setSimParams = function(amplitude) {
+    app.eval('DRIVE_AMPLITUDE='+amplitude+';DRIVE_FREQUENCY='+(2/3)
+    +';DAMPING=0.5;GRAVITY=1;LENGTH=1;MASS=1;ANGLE=0;ANGLE_VELOCITY=0;');
+  };
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makePendulumApp(elem_ids);
+    app.defineNames('app');
+    app.eval('TAB_LAYOUT.LAYOUT="sim+graph";X_Y_GRAPH_LINE.DRAW_MODE=dots;');
+    setSimParams(1.15);
+    window.addEventListener('pageshow', function(event){
+	app.start();
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 3; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    app.setup();
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+<script>
+  // separate script tag, runs even if error occurs in earlier script tag
+  app.start();
+</script>
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+
+<title>Pèndol Movible</title>
+
+<script type="text/javascript" async
+  src="../MathJax-2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+  <h1>Pèndol Movible</h1>
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gràfic</li>
+  <li class="time_graph">Gràfic de temps</li>
+  <li class="multi_graph">Gràfic múltiple</li>
+</ul>
+
+
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+Physics-based simulation of a pendulum attached to a moveable support point or "anchor
+block". The support point is assumed to be so massive that it is not affected by the
+pendulum.
+</p>
+
+<p class="instructions">
+You can drag the anchor block or pendulum with your mouse. Change parameters like
+gravity, pendulum length, damping, etc. The amplitude and frequency parameters apply a
+periodic up/down vibrating force.
+</p>
+
+<p>Try dragging the anchor point by clicking near it with your mouse. Whip it around
+quickly back and forth -- does the pendulum behave like you would expect?
+</p>
+
+<p>The math behind the simulation is shown below.  Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/MoveablePendulumApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+
+
+<h2>Two Simulations in One</h2>
+
+<p>There are two separate but related simulations happening here:</p>
+
+<ol>
+<li>The movement of the anchor block is modeled as a point mass that is free to move in
+x and y directions, with heavy damping (friction) and no gravity. This way, the user
+can drag the anchor block as desired, using a simple "rubber band" type of force
+between the mouse position and the anchor block. Also other external driving forces can
+be periodically applied to the block. We assume that the mass of the anchor block is
+much greater than the mass of the pendulum, that for calculating the anchor block
+dynamics, we can ignore the motion of the pendulum.</li>
+
+<li>The pendulum takes the movement of the anchor point as a given. The pendulum has
+gravity and damping values that are independent of those used for the anchor block
+simulation.</li>
+</ol>
+
+
+
+<h2 id="kinematics">Kinematics of the Moveable Pendulum</h2>
+
+<div class="image" style="width: 200px;">
+<img src="moveable_pendulum_3.png"     width="180" height="180" alt="" ><br>
+pendulum variables<br>
+<br>
+</div>
+
+<div style="margin-left: 210px;">
+<p>Kinematics means the relations of the parts of the device, without regard to forces.
+In kinematics we are only trying to find expressions for the position, velocity, and
+acceleration in terms of the variables that specify the state of the device.</p>
+
+<ul class="vars">
+    <li>\( (x_0, y_0) = \) position of anchor point</li>
+    <li>\( (x_1, y_1) = \) position of pendulum bob</li>
+    <li>\( R = \) length of rod (constant)</li>
+    <li>\( \theta = \) angle of pendulum (\( \theta = 0 \) corresponds to vertical
+       downwards, counter-clockwise is positive)</li>
+    <li>\( \theta' =  \) angular velocity</li>
+    <li>\( \theta'' =  \) angular acceleration</li>
+</ul>
+</div>
+
+<p style="clear: both;">We regard \( y \) as increasing upwards. Begin by using simple
+trigonometry to write expressions for the pendulum position \( x_1, y_1 \) in terms of
+the angle \( \theta \) and position of the anchor point \( x_0, y_0 \).</p>
+
+<p>$$x_1 = x_0 + R \sin (\theta) \tag{1}$$</p>
+<p>$$y_1 = y_0 - R \cos(\theta) \tag{2}$$</p>
+
+<p>The velocity is the derivative with respect to time of the position.</p>
+
+<p>
+$$x_1' = x_0' + \theta' R \cos(\theta) \tag{3}$$
+</p>
+<p>
+$$y_1' = y_0' + \theta' R \sin(\theta) \tag{4}$$
+</p>
+
+<p>The acceleration is the second derivative with respect to time.</p>
+
+<p>
+$$x_1'' = x_0'' - \theta'^2 R \sin(\theta) + \theta'' R \cos(\theta) \tag{5}$$
+</p>
+
+<p>
+$$y_1'' = y_0'' + \theta'^2 R \cos(\theta) + \theta'' R \sin(\theta) \tag{6}$$
+</p>
+
+
+
+
+
+<h2>Forces in the Moveable Pendulum</h2>
+
+<div class="image" style="width: 200px;">
+<img src="moveable_pendulum_2.png"     width="180" height="180" alt="">
+<br>
+free body diagram
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<!-- 284 x 259 -->
+<img src="moveable_pendulum_1.png"     width="180" height="180" alt="">
+<br>
+damping force F<sub>d</sub>
+<br><br>
+</div>
+
+<div style="margin-left:210px;">
+
+<p>We treat the pendulum bob as a point particle. Drawing the free body diagram for the
+pendulum bob lets us write an expression for the net force acting on it. Define these
+variables:</p>
+
+<ul class="vars">
+    <li>\( T = \) tension in the rod</li>
+    <li>\( m = \) mass of pendulum</li>
+    <li>\( g = \) gravitational constant</li>
+    <li>\( b = \) damping (friction) constant</li>
+    <li>\( F_d =  \) damping force</li>
+</ul>
+
+<p>The forces on the pendulum bob are the tension in the rod \( T \), the damping force
+\( F_d \), and gravity \( -m\;g \). We write separate equations for the horizontal and
+vertical forces, since they can be treated independently. The net force on the mass is
+the sum of these.</p>
+
+<p>We can read off from the free body diagram (at left) that the force - acceleration
+equations (from Newton's \( \mathbf{F} = m \mathbf{a} \)) will be:</p>
+
+<p>$$ m \; x_1''= - T \sin(\theta) + F_d \cos(\theta)$$</p>
+
+<p>$$ m \; y_1''= T  \cos(\theta) + F_d \sin(\theta) - m \; g$$</p>
+
+<p>We only need to find the damping force. We assume the damping force is given by the
+following simple law, which relates the torque to opposite of the angular velocity:</p>
+
+<p>$$\tau = - b \; \theta'$$</p>
+
+<p>One way to imagine the damping force is as a tiny circular spring around the joint
+where the pendulum attaches to the anchor point; it doesn't matter how long the
+pendulum is, the same twisting torque is applied. (This is different to how the
+engine2D system works, where damping is associated with absolute movement through space
+as well as with rotation.)</p>
+
+</div>
+
+<p style="clear: both;">We learn from a physics text book that "The torque acting on
+the particle with respect to the origin O is defined in terms of the vector (cross)
+product of r and F as"</p>
+
+<p>$$\tau = \mathbf{r} \times \mathbf{F}$$</p>
+
+<p>One way to look at the above equation: for a given torque, you can use less force at
+a longer arm length R, or more force for a short arm length R. "Torque is a vector
+quantity. Its magnitude is given by</p>
+
+<p>$$|\tau| = r F \sin(\gamma)$$</p>
+
+<p>where \( \gamma \) is the angle between \( \mathbf{F} \) and \( \mathbf{F} \).
+In our case \( \gamma = \pm \pi/2 \), it is always \( \pm 90 \) degrees. We can now
+write the following expressions for the magnitude of the torque:</p>
+
+<p>$$|\tau| = R F = -b \theta' $$</p>
+
+<p>Solving for the damping force then gives</p>
+
+<p>$$F_d = -\frac{b}{R} \theta'$$</p>
+
+<p>The above is only the magnitude of the damping force.   An expression that gives the full directionality of the damping force as a vector is</p>
+
+<p>$$\mathbf{F}_d = -\frac{b}{R} \theta' (\cos(\theta) \mathbf{i} + \sin(\theta) \mathbf{j})$$</p>
+
+
+<p>Now we can add all the forces: the tension T in the rod, the damping force, and
+gravity, and express them in 2 dimensional cartesian coordinates, x and y. Here we show
+the net force and use Newton's law \( \mathbf{F} = m \; \mathbf{a} \).</p>
+
+<p>
+$$ m \; x_1''= - T \sin(\theta) - \frac{b}{R} \theta' \cos(\theta) \tag{7}$$
+</p>
+
+<p>
+$$ m \; y_1''= T  \cos(\theta) - \frac{b}{R} \theta' \sin(\theta) - m \; g \tag{8}$$
+</p>
+
+
+
+
+
+
+
+<h2>Direct Method for Finding Equations of Motion</h2>
+
+<p>Now we do some algebraic manipulations with the goal of finding the equation of
+motion for the pendulum, which will be an expression for \( \theta'' \) in terms of
+\( \theta, \theta' \). Multiply equation (7) by \( \cos(\theta) \) and equation (8) by
+\(\sin(\theta)\).</p>
+
+<p>
+$$ \cos(\theta) m \; x_1''= - T \sin(\theta) \cos(\theta) - \frac{b}{R} \theta' \cos^2(\theta) \tag{9}$$
+</p>
+
+<p>
+$$ \sin(\theta) m \; y_1''= T \sin(\theta) \cos(\theta) - \frac{b}{R} \theta' \sin^2(\theta) - m \; g \; \sin(\theta) \tag{10}$$
+</p>
+
+<p>Add those two equations to get</p>
+
+<p>
+$$ \cos(\theta) \;m\; x_1'' + \sin(\theta) m \; y_1''= - \frac{b}{R} \theta' - m \; g \; \sin(\theta) \tag{11}$$
+</p>
+
+<p>Next, substitute equations (5) and (6) for \( x_1'' \) and \( y_1'' \)</p>
+
+<p>
+$$\begin{multline}
+\cos(\theta) \;m \Bigl(x_0'' - \theta'^2 R \sin(\theta) + \theta'' R \cos(\theta) \Bigr)\\
++ \sin(\theta) m \Bigl(y_0'' + \theta'^2 R \cos(\theta) + \theta'' R \sin(\theta) \Bigr)\\
+= - \frac{b}{R} \theta' - m \; g \; \sin(\theta)
+\end{multline} \tag{12}$$
+</p>
+
+<p>which simplifies to</p>
+
+<p>
+$$\cos(\theta) \;m\; x_0'' + \sin(\theta) m \;y_0'' + m\; R\; \theta'' = - \frac{b}{R} \theta' - m\; g\; \sin(\theta) \tag{13}$$
+</p>
+
+<p>Rearranging this gives the equation of motion for the moveable pendulum</p>
+
+<div class="emphasized">
+
+<p>
+$$\theta'' = -\frac{\cos(\theta)}{R} x_0'' - \frac{\sin(\theta)}{R} y_0'' - \frac{b}{m R^2} \theta' - \frac{g}{R} \sin(\theta) \tag{14}$$
+</p>
+</div>
+
+<p>The first two terms are from the motion of the anchor point, \( (x_0, y_0) \). Note
+that we regard the motion of the anchor point as a "given" here, in line with our
+assumption that the anchor block is much more massive than the pendulum. The next
+section considers the separate simulation of the anchor block motion.</p>
+
+<p>The next term, \( -\frac{b}{m R^2} \theta' \) is from the damping force.</p>
+
+<p>The last term \( -(g/R) \sin(\theta) \) is the gravity driving forcing.</p>
+
+
+
+
+
+<h2 id="anchor-block-dynamics">Anchor Block Dynamics</h2>
+
+<div class="image" style="width: 200px;">
+<img src="moveable_pendulum_4.png"     width="200" height="240" alt="">
+<br>
+anchor block forces
+<br><br>
+</div>
+
+<div style="margin-left:210px;">
+
+
+<p>The anchor block has its own separate dynamics from the pendulum. Because we assume
+that the mass of the anchor block is much greater than the mass of the pendulum, we
+ignore the effect of the pendulum's motion on the anchor block. We model the anchor
+block as a point mass that is subject to a strong damping force, to the mouse "rubber
+band" force, and to an optional vertical oscillating force.</p>
+
+<ul class="vars">
+    <li>\( b_0 = \) damping on the anchor point's motion</li>
+    <li>\( k = \) stiffness of the mouse "rubber band" force (\( k=0 \) when mouse is not pressed)</li>
+    <li>\( d = \) distance from anchor center of mass to mouse point</li>
+    <li>\( \gamma = \) angle from anchor point to mouse (\( \gamma = 0 \) means that the mouse is due right of anchor point)</li>
+    <li>\( A = \) amplitude of vertical oscillating force</li>
+    <li>\( \omega = \) frequency (roughly) of vertical oscillating force</li>
+</ul>
+
+<p>The damping force is \( -b_0 \mathbf{v_0} \) where \( \mathbf{v_0} = (x_0', y_0') \)
+is the velocity of the anchor block.</p>
+
+<p>The oscillating vertical force is \( A \sin(\omega t) \) where \( t = \) time. The
+parameters \( A \) and \( \omega \) are available to be set in the controls for the
+simulation above (the parameters are named <i>amplitude</i> and <i>omega</i>).</p>
+
+</div>
+
+<p style="clear: both;">The rubber band mouse force is modeled as a spring with zero
+rest length; it has magnitude of \( k \; d \) and the direction is along the line from
+the anchor block to the mouse at an angle of \( \gamma \).</p>
+
+
+<p>Combining these forces with Newton's law \( \mathbf{F} = m \; \mathbf{a} \), we can
+write the equations of motion for the anchor point:</p>
+
+<div class="emphasized">
+<p>
+$$x_0'' = -b_0 x_0' + k  d \cos(\gamma) \tag{15}$$
+</p>
+
+<p>
+$$y_0'' = -b_0 y_0' + k  d \sin(\gamma) + A \sin(\omega t) \tag{16}$$
+</p>
+</div>
+
+<p>(We left out any mention of the mass of the anchor block, we can assume that mass is 1).</p>
+
+<p>Note that we can write the following simpler expressions for the mouse force:</p>
+
+<p>$$k d \cos(\gamma) = k (\text{mouse}_x - x_0)$$</p>
+
+<p>$$k d \sin(\gamma) = k (\text{mouse}_y - y_0)$$</p>
+
+<p>Notice that equations (15) and (16) have no influence from the pendulum angle
+\( \theta \). This means that the anchor point is not affected by the motion of the
+pendulum at all. This is reasonable since we are told that the anchor point is much
+more massive than the pendulum.</p>
+
+<p>Between equations (14), (15), and (16) we have our mathematical model of the
+moveable pendulum.</p>
+
+<p>Essentially we made only one small simple change in the kinematics in equations (1)
+and (2), which was to add in \( x_0 \) and \( y_0 \). This is the real mathematical
+difference to the standard
+<a href="../PendulumApp/PendulumApp-ca.html">pendulum derivation</a>.
+In that other derivation, we assumed that the anchor point is fixed (and so we could
+take the short cut of the fixed axis theorem).</p>
+
+
+
+
+<h2>Numerical Solution</h2>
+
+<p>Equations (14), (15), and (16) are now close to the form needed for the
+<a href="../explain/runge-kutta-ca.html">Runge Kutta method</a>. The final
+step is convert these three 2nd order equations into six 1st order equations. Define
+the following first derivatives as independent variables:</p>
+
+<ul class="vars">
+    <li>\( \Omega = \theta' \) angular velocity</li>
+    <li>\( v_{x_0} = x_0' \) velocity in x direction of anchor point</li>
+    <li>\( v_{y_0} = y_0' \) velocity in y direction of anchor point</li>
+</ul>
+
+<p>Then we can write the six 1st order equations:</p>
+
+<!-- To left-align equations: use \begin{multline} \end{multline} -->
+
+$$\begin{multline}
+\theta' = \Omega
+\end{multline}$$
+
+$$\begin{multline}
+\Omega' = -\frac{\cos(\theta)}{R} v_{x_0}' - \frac{\sin(\theta)}{R} v_{y_0}' - \frac{b}{m R^2} \Omega - \frac{g}{R} \sin(\theta)
+\end{multline}$$
+
+$$\begin{multline}
+x_0' = v_{x_0}
+\end{multline}$$
+
+$$\begin{multline}
+v_{x_0}' = -b_0 v_{x_0} + k (\text{mouse}_x - x_0)
+\end{multline}$$
+
+$$\begin{multline}
+y_0' = v_{y_0}
+\end{multline}$$
+
+$$\begin{multline}
+v_{y_0}' = -b_0 v_{y_0} + k (\text{mouse}_y - y_0) + A \sin(\omega t)
+\end{multline}$$
+
+
+<p>Given initial conditions (starting values) for the six variables, we can integrate
+these differential equations over time to see the evolution of the system.</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="MoveablePendulumApp-en.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeMoveablePendulumApp(elem_ids);
+    app.defineNames('app');
+    app.eval('DRIVE_AMPLITUDE=0;');
+    window.addEventListener('pageshow', function(event){
+      app.start();
+      // Unfortunately it takes about 1500 ms for MathJax to finish rendering this page.
+      // To avoid animation glitch, wait till MathJax is finished.
+      app.eval('RUNNING=false;');
+      setTimeout(app.eval.bind(app, 'RUNNING=true;'), 1500);
+      // set language menu to correct language
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 3; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    app.setup();
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+<script>
+  // separate script tag, runs even if error occurs in earlier script tag
+  app.start();
+</script>
+</body>
+</html>

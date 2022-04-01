@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Muelle Simple</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+
+<h1>Muelle Simple</h1>
+
+<ul id="header_bar" class="horiz_tabs">
+
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gráfico</li>
+  <li class="time_graph">Gráfico de tiempo</li>
+  <li class="multi_graph">Gráfico múltiple</li>
+</ul>
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+
+<script type="text/javascript" async
+  src="../MathJax-2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<h2>About</h2>
+<p class="introduction">
+This simulation shows a single mass on a spring, which is connected to
+a wall. This is an example of a simple linear oscillator.
+</p>
+
+<p class="instructions">
+You can change mass, spring stiffness, and
+friction (damping). You can drag the mass with your mouse to change the starting
+position.
+</p>
+
+<p>The math behind the simulation is shown below.  Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/SingleSpringApp.js">open source code</a>,
+</p>
+
+
+<h2>Puzzles</h2>
+
+<p>Try using the graph and changing parameters like mass or spring
+stiffness to answer these questions:</p>
+
+<ul>
+    <li>What is the relationship between acceleration and position?</li>
+
+    <li>How do mass or spring stiffness affect the relationship between
+    acceleration and position?</li>
+
+    <li>How do mass or spring stiffness affect the period or frequency of
+    the oscillation?</li>
+</ul>
+
+<p>You'll find the <a href="#answers">answers</a> below.</p>
+
+<h2>Physics</h2>
+
+<p>We define the following variables and constants</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>x</i> =
+</span> position of the block</li>
+    <li><span class="html-math inline-math">
+<i>v</i> = <i>x</i>' =
+</span> velocity of the block</li>
+    <li><span class="html-math inline-math">
+<i>m</i> =
+</span> mass of the block</li>
+    <li><span class="html-math inline-math">
+<i>R</i> =
+</span> rest length of the spring</li>
+    <li><span class="html-math inline-math">
+<i>k</i> =
+</span> spring stiffness</li>
+    <li><span class="html-math inline-math">
+<i>b</i> =
+</span> damping constant (friction)</li>
+</ul>
+
+<p>A spring generates a force proportional to how far it is stretched
+(and acting in the opposite direction to the stretch)</p>
+
+<p class="html-math display-equation">
+<i>F</i><sub>spring</sub> = &minus;<i>k</i> &times; stretch
+</p>
+
+<p>If we adjust the coordinate system so that <span class="html-math inline-math">
+<i>x</i> = 0
+</span> corresponds
+to the spring being unstretched, then the stretch of the spring is simply equal to
+<span class="html-math inline-math">
+<i>x</i>
+</span>. The spring force becomes</p>
+
+<p class="html-math display-equation">
+<i>F</i><sub>spring</sub> = &minus; <i>k</i> <i>x</i>
+</p>
+
+<p>In addition, there is a damping (friction) force that resists the motion. It is
+proportional to the velocity. So we add <span class="html-math inline-math">
+<i>F</i><sub>damping</sub> = &minus;<i>b</i> <i>v</i>
+</span> to
+get the total force</p>
+
+<p class="html-math display-equation">
+<i>F</i> = <i>F</i><sub>spring</sub> + <i>F</i><sub>damping</sub> = &minus; <i>k</i> <i>x</i> &minus; <i>b</i> <i>v</i>
+</p>
+
+<p>Combining this with Newton's law of motion <span class="html-math inline-math">
+<i>F</i> = <i>m</i> <i>a</i>
+</span>, and the definition of
+acceleration as the second derivative of position <span class="html-math inline-math">
+<i>a</i> = <i>x</i>''
+</span> we have the
+<a href="../explain/what-is-a-diff-eq-es.html">differential equation</a>:</p>
+
+<p class="html-math display-equation">
+<i>m</i> <i>x</i>'' = &minus;<i>k</i> <i>x</i> &minus; <i>b</i> <i>v</i>
+</p>
+
+<p>or equivalently:</p>
+
+<table class="html-math numbered-equation"><tr><td class="emphasized">
+<i>x</i>'' = &minus; <sup><i>k</i></sup>&frasl;<sub><i>m</i></sub> <i>x</i> &minus; <sup><i>b</i></sup>&frasl;<sub><i>m</i></sub> <i>x</i>'
+
+</td><td class="equation-number">(1)</td></tr></table>
+
+<p>Equation (1) is the equation of motion for the spring, defining exactly what happens
+over time.</p>
+
+
+<p>You can actually see equation (1) visually if you turn on the graph in the
+simulation. Suppose there is no damping (set damping to zero). Then if you set the graph
+on the simulation to plot acceleration against position, you will get a straight line,
+with slope <span class="html-math inline-math">
+= &minus;<i>k</i>/<i>m</i>
+</span>. So if you increase the stiffness of the spring, the
+line becomes steeper. If you increase the mass, the line becomes less steep.</p>
+
+
+
+
+<h2 id="numerical-solution">Numerical Solution</h2>
+
+<p>To solve this equation numerically (ie. by computer) we use the
+<a href="../explain/runge-kutta-es.html">Runge-Kutta method</a>.  To do so we need to convert the
+<a href="../explain/classify-diff-eq-es.html">second order</a> differential equation (1) into a set
+of first order differential equations. Note that we can write the acceleration as the
+first derivative of velocity: <span class="html-math inline-math">
+<i>x</i>'' = <i>v</i>'
+</span>. Therefore we can express equation (1)
+as a system of two first order differential equations:</p>
+
+<p class="html-math display-equation">
+<i>x</i>' = <i>v</i>
+</p>
+
+<p class="html-math display-equation">
+<i>v</i>' = &minus; <sup><i>k</i></sup>&frasl;<sub><i>m</i></sub> <i>x</i> &minus; <sup><i>b</i></sup>&frasl;<sub><i>m</i></sub> <i>v</i>
+</p>
+
+<p>This is the form that we need in order to use the Runge-Kutta method for
+<a href="../explain/numerical-solution-es.html">numerically solving</a> the differential
+equation.</p>
+
+
+<p>To begin the simulation, we initialize the two variables <span class="html-math inline-math">
+<i>x</i>,<i>v</i>
+</span> for their
+value at time <span class="html-math inline-math">
+<i>t</i>=0
+</span>. Then we use the Runge-Kutta algorithm to calculate the
+values of <span class="html-math inline-math">
+<i>x</i>,<i>v</i>
+</span> after a short time interval, and this continues
+indefinitely.</p>
+
+
+
+
+<h2 id="analytic">Analytic Solution</h2>
+
+<p>An <a href="../explain/numerical-solution-es.html#analytic">analytic solution</a> uses mathematics to
+find the solution instead of the brute force of the computer. The advantage is that we
+can get some more insight from the analytic solution, instead of having to analyze
+zillions of numbers that come from a numerical solution.</p>
+
+
+<p>With no damping (<span class="html-math inline-math">
+<i>b</i> = 0
+</span>) and the block initially not moving, the analytic
+solution is given by</p>
+
+<p>$$x(t) = x_0 \cos(\sqrt{k/m} \; t)$$</p>
+
+<p>where <span class="html-math inline-math">
+<i>x<sub>0</sub></i> =
+</span> initial position of the block and <span class="html-math inline-math">
+<i>t</i> =
+</span> time. The period
+of the oscillation is the time it takes to repeat. From the solution we see that the
+oscillation repeats when \(\sqrt{k/m} \; t = 2 \pi\), and so the period is
+</p>
+
+<p>$$t = 2 \pi \sqrt{m/k}$$</p>
+
+
+<p>The frequency is the inverse of the period:</p>
+
+<p>$$frequency = \frac{1}{2 \pi} \sqrt{k/m}$$</p>
+
+<p>So we predict that</p>
+
+<ul>
+    <li>increasing mass by 4 times doubles the period and halves the frequency;</li>
+    <li>increasing spring stiffness by 4 times halves the period and doubles the
+        frequency;</li>
+</ul>
+
+<p>You can check these predictions by modifying the parameters on the simulation (you'll
+need a stopwatch to time the frequency).</p>
+
+
+<p>You can view a page with the <a href="../explain/spring-analytic-es.html">derivation of the
+analytic solution</a>.</p>
+
+
+
+
+
+
+<h2 id="answers">Puzzle Answers</h2>
+
+<p class="question">What is the relationship between acceleration and position?</p>
+
+<div class="answer">
+
+<p>Answer: It is a <a href="../explain/classify-diff-eq-es.html#linear">linear</a> relationship as
+given by the equation</p>
+
+<p class="html-math display-equation">
+<i>x</i>'' = &minus; <sup><i>k</i></sup>&frasl;<sub><i>m</i></sub> <i>x</i>
+</p>
+
+<p>where <span class="html-math inline-math">
+<i>x</i> =
+</span> position, <span class="html-math inline-math">
+<i>x</i>'' =
+</span> acceleration, <span class="html-math inline-math">
+<i>m</i> =
+</span> mass, and
+<span class="html-math inline-math">
+<i>k</i> =
+</span> spring stiffness.</p>
+</div>
+
+<p class="question">
+How do mass or spring stiffness affect the relationship between acceleration and
+position?</p>
+
+<div class="answer">
+<p>Answer:  From the equation</p>
+
+<p class="html-math display-equation">
+<i>x</i>'' = &minus; <sup><i>k</i></sup>&frasl;<sub><i>m</i></sub> <i>x</i>
+</p>
+
+<p>we know that there is a simple linear relationship between acceleration and
+position. The mass and spring stiffness affect the slope of this line.</p>
+
+<ul class="answer">
+    <li>Increasing mass makes the line <em>less steep</em>.</li>
+    <li>Increasing spring stiffness makes the line <em>steeper</em>.</li>
+</ul>
+</div>
+
+<p class="question">
+How do mass or spring stiffness affect the period or frequency of the oscillation?<br>
+</p>
+
+<div class="answer">
+<p>Answer:  The <a href="#analytic">analytic solution</a> is</p>
+
+<p>$$x(t) = x_0 \cos(\sqrt{k/m} \; t)$$</p>
+
+<p>and the frequency is given by</p>
+
+<p>$$frequency = \frac{1}{2 \pi} \sqrt{k/m}$$</p>
+
+<p>So we predict that</p>
+
+<ul class="answer">
+    <li>increasing mass by 4 times doubles the period and halves the frequency;</li>
+    <li>increasing spring stiffness by 4 times halves the period and doubles the
+        frequency;</li>
+</ul>
+</div>
+
+<!--p>TO DO:</p>
+
+<ul>
+  <li>Back to simple graph (without overlapping timelines).  Or?  Maybe keep that graph
+    to demonstrate the meaning of phase graph?</li>
+  <li>Fix the energy graph to show work done</li>
+  <li>References:  Give links to related Wikipedia or other pages</li>
+  <li>Rewrite the intro...</li>
+</ul-->
+
+<p id="page_history">
+  This web page was first published April 2001.
+</p>
+
+
+
+<script src="SingleSpringApp-es.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeSingleSpringApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 2; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+<script>
+  app.eval('');
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

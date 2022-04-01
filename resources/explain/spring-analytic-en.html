@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title lang="en">myPhysicsLab Analytic Solution for Single Spring</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+
+<script type="text/javascript" async
+  src="../MathJax-2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head>
+<body>
+
+<h1 lang="en">Analytic Solution for Single Spring</h1>
+
+<div id="header_nav">
+</div>
+<ul id="header_bar">
+</ul>
+
+<p class="introduction">We seek a solution <span class="html-math inline-math">
+<i>x</i>(<i>t</i>)
+</span> that satisfies the differential equation</p>
+
+<p class="html-math display-equation">
+<i>x</i>''(<i>t</i>) = &minus; <sup><i>k</i></sup>&frasl;<sub><i>m</i></sub> <i>x</i>(<i>t</i>)
+</p>
+
+<p>where</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>x</i> =
+</span> position of the block</li>
+    <li><span class="html-math inline-math">
+<i>t</i> =
+</span> time</li>
+    <li><span class="html-math inline-math">
+<i>k</i> =
+</span> spring stiffness</li>
+    <li><span class="html-math inline-math">
+<i>m</i> =
+</span> mass of the block</li>
+</ul>
+
+<p>and the initial conditions</p>
+
+
+<p class="html-math display-equation">
+<i>x</i>(0) = <i>x</i><sub>0</sub> <span class="text">&nbsp; the position at time zero</span>
+</p>
+
+<p class="html-math display-equation">
+<i>x</i>'(0) = <i>v</i><sub>0</sub> <span class="text">&nbsp; the velocity at time zero</span>
+</p>
+
+<p>For convenience we first define a new constant</p>
+
+<p class="html-math display-equation">
+<i>c</i> = &radic;(<i>k</i>/<i>m</i>)
+</p>
+
+<p>so the differential equation becomes</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i>''(<i>t</i>) = &minus;<i>c</i><sup>2</sup> <i>x</i>(<i>t</i>)
+
+</td><td class="equation-number">(1)</td></tr></table>
+
+
+<p>We <a href="../explain/classify-diff-eq-en.html#order">classify</a> this differential equation as <em>second order linear</em>. It is second order because there is a second derivative: <span class="html-math inline-math">
+<i>x</i>''
+</span>. It is linear because all the functions or derivatives of <span class="html-math inline-math">
+<i>x</i>
+</span> appear by themselves, only multiplied by a constant. To solve equations of this type, begin by assuming the solution is of the form</p>
+
+<p class="html-math display-equation">
+<i>x</i>(<i>t</i>) = <i>e</i> <sup><i>r</i> <i>t</i></sup>
+</p>
+
+
+<p>where <span class="html-math inline-math">
+<i>r</i>
+</span> is a constant, but possibly a complex number. The other constant <span class="html-math inline-math">
+<i>e</i>
+</span> is the well-known mathematical exponential constant <span class="html-math inline-math">
+<i>e</i> = 2.718...
+</span> which has nice properties for doing calculus.  We plug this proposed solution into the differential equation (1) and get</p>
+
+<p class="html-math display-equation">
+<i>r</i><sup>2</sup> <i>e</i> <sup><i>r</i> <i>t</i></sup> = &minus;<i>c</i><sup>2</sup> <i>e</i> <sup><i>r</i> <i>t</i></sup>
+</p>
+
+
+<p>where we took the second derivative of <span class="html-math inline-math">
+<i>e</i> <sup><i>r</i> <i>t</i></sup>
+</span> to get the left hand side. Since <span class="html-math inline-math">
+<i>e</i> <sup><i>r</i> <i>t</i></sup>
+</span> is never equal to zero, we can divide it out of this equation to get</p>
+
+<p class="html-math display-equation">
+<i>r</i><sup>2</sup> = &minus;<i>c</i><sup>2</sup>
+</p>
+
+<p>Since <span class="html-math inline-math">
+<i>c</i> &gt; 0
+</span> the solution involves complex
+numbers and we have two values for <span class="html-math inline-math">
+<i>r</i>
+</span></p>
+
+<p class="html-math display-equation">
+<i>r</i> = &plusmn;<i>c</i> <i>i</i>
+</p>
+
+<p>where <span class="html-math inline-math">
+<i>i</i> = &radic;&minus;1
+</span>. We then have two solutions</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i><sub>1</sub>(<i>t</i>) = <i>e</i> <sup><i>i</i> <i>c</i> <i>t</i></sup>
+
+</td><td class="equation-number">(2a)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i><sub>2</sub>(<i>t</i>) = <i>e</i> <sup>&minus;<i>i</i> <i>c</i> <i>t</i></sup>
+
+</td><td class="equation-number">(2b)</td></tr></table>
+
+
+<p>Try plugging either of these solutions into the differential equation (1) and you will see that they work!  Remember that <span class="html-math inline-math">
+<i>i</i>
+</span> is just a constant number.  Then the <a href="../explain/math-refresh-en.html#derivatives">rules for differentiation</a> of exponential functions give us:</p>
+
+<p class="html-math display-equation">
+<i>x</i><sub>1</sub>'(<i>t</i>) = (<i>i</i> <i>c</i>)<i>e</i> <sup><i>i</i> <i>c</i> <i>t</i></sup><br>
+<i>x</i><sub>1</sub>''(<i>t</i>) = (<i>i</i> <i>c</i>) <sup>2</sup> <i>e</i> <sup><i>i</i> <i>c</i> <i>t</i></sup> = &minus;<i>c</i><sup>2</sup> <i>x</i><sub>1</sub>(<i>t</i>)
+</p>
+
+
+<p>which matches the original differential equation (1).  You might not know what it means to have an imaginary number as an exponent.  If so, read on...</p>
+
+
+
+
+
+<h2>Non-imaginary Solution</h2>
+
+<p>To return from the world of imaginary (complex) numbers we use Euler's
+formula:</p>
+
+<p class="html-math display-equation">
+<i>e</i> <sup><i>i</i> <i>z</i></sup> = cos <i>z</i> + <i>i</i> sin <i>z</i>
+</p>
+
+
+<p>Applying Euler's formula to our solutions &ndash; equations (2a) and (2b) &ndash; we have</p>
+
+<p class="html-math display-equation">
+<i>x</i><sub>1</sub>(<i>t</i>) = <i>e</i> <sup><i>i</i> <i>c</i> <i>t</i></sup> = cos(<i>c</i> <i>t</i>) + <i>i</i> sin(<i>c</i> <i>t</i>)
+</p>
+
+<p class="html-math display-equation">
+<i>x</i><sub>2</sub>(<i>t</i>) = <i>e</i> <sup>&minus;<i>i</i> <i>c</i> <i>t</i></sup> = cos(&minus;<i>c</i> <i>t</i>) + <i>i</i> sin(&minus;<i>c</i> <i>t</i>)
+</p>
+
+
+<p>Using some basic trig identities we can simplify the second
+solution to be</p>
+
+<p class="html-math display-equation">
+<i>x</i><sub>2</sub>(<i>t</i>) = cos(<i>c</i> <i>t</i>) &minus; <i>i</i> sin(<i>c</i> <i>t</i>)
+</p>
+
+
+
+<p>We still have the imaginary number <span class="html-math inline-math">
+<i>i</i>
+</span> in these
+solutions.  But now we can use a general property of linear
+differential equations:</p>
+
+<blockquote><em>a linear combination of solutions is also a solution</em></blockquote>
+
+<p>A linear combination of things is simply the sum of those things
+multiplied by constants. For example a linear combination of <span class="html-math inline-math">
+<i>x</i>, <i>y</i>, <i>z</i>
+</span> could be</p>
+
+<p class="html-math display-equation">
+2 <i>x</i> &minus; 0.333 <i>y</i> + 13 <i>z</i>
+</p>
+
+
+<p>So we can form the following linear combinations which are also solutions but don't involve <span class="html-math inline-math">
+<i>i</i>
+</span>:</p>
+
+<p class="html-math display-equation">
+<sup>1</sup>&frasl;<sub>2</sub> <i>x</i><sub>1</sub>(<i>t</i>) + <sup>1</sup>&frasl;<sub>2</sub> <i>x</i><sub>2</sub>(<i>t</i>) = cos(<i>c</i> <i>t</i>)<br>
+&minus; <sup><i>i</i></sup>&frasl;<sub>2</sub> <i>x</i><sub>1</sub>(<i>t</i>) + <sup><i>i</i></sup>&frasl;<sub>2</sub> <i>x</i><sub>2</sub>(<i>t</i>) = sin(<i>c</i> <i>t</i>)
+</p>
+
+
+<p>(remember that <span class="html-math inline-math">
+<i>i</i>
+</span> is just a constant like any
+other number, so we can use it to form linear combinations). Now
+the general solution to the differential equation is given by a linear
+combination of the above solutions:</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i>(<i>t</i>) = <i>a</i> cos(<i>c</i> <i>t</i>) + <i>b</i> sin (<i>c</i> <i>t</i>)
+
+</td><td class="equation-number">(3)</td></tr></table>
+
+
+<p>where <span class="html-math inline-math">
+<i>a</i>, <i>b</i>
+</span> are any constants.  You can check that this still satisfies equation (1) by plugging it in.</p>
+
+
+
+
+<h2>Satisfying the Initial Conditions</h2>
+
+<p>We still need to satisfy the initial conditions. Using equation (3) above, the first initial condition <span class="html-math inline-math">
+<i>x</i>(0) = <i>x</i><sub>0</sub>
+</span> becomes</p>
+
+<p class="html-math display-equation">
+<i>a</i> cos(0) + <i>b</i> sin(0) = <i>x</i><sub>0</sub><br>
+<i>a</i> = <i>x</i><sub>0</sub>
+</p>
+
+
+<p>To evaluate the second initial condition <span class="html-math inline-math">
+<i>x</i>'(0) = <i>v</i><sub>0</sub>
+</span> let's first calculate the derivative of our solution in equation (3).</p>
+
+<p class="html-math display-equation">
+<i>x</i>'(<i>t</i>) = &minus;<i>a</i> <i>c</i> sin(<i>c</i> <i>t</i>) + <i>b</i> <i>c</i> cos(<i>c</i> <i>t</i>)
+</p>
+
+
+<p>Now we can evaluate this at time <span class="html-math inline-math">
+<i>t</i> = 0
+</span> and use
+the second initial condition</p>
+
+<p class="html-math display-equation">
+&minus;<i>a</i> <i>c</i> sin(0) + <i>b</i> <i>c</i> cos(0) = <i>v</i><sub>0</sub><br>
+<i>b</i> <i>c</i> = <i>v</i><sub>0</sub><br>
+<i>b</i> = <sup><i>v</i><sub>0</sub> </sup>&frasl;<sub><i>c</i></sub>
+</p>
+
+
+<p>Now we've found the particular <span class="html-math inline-math">
+<i>a</i>, <i>b</i>
+</span> which match the initial conditions.  So the particular solution is</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i>(<i>t</i>) = <i>x</i><sub>0</sub> cos(<i>c</i> <i>t</i>) + <sup><i>v</i><sub>0</sub> </sup>&frasl;<sub><i>c</i></sub> sin(<i>c</i> <i>t</i>)
+
+</td><td class="equation-number">(4)</td></tr></table>
+
+
+
+
+<h2>Check the Solution</h2>
+
+<p>We will check that equation (4) is the solution by plugging it into the differential equation (1).</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i>''(<i>t</i>) = &minus;<i>c</i><sup>2</sup> <i>x</i>(<i>t</i>)
+
+</td><td class="equation-number">(1)</td></tr></table>
+
+<p>First we find the derivatives of equation (4).</p>
+
+<p class="html-math display-equation">
+<i>x</i>'(<i>t</i>) = &minus;<i>x</i><sub>0</sub> <i>c</i> sin(<i>c</i> <i>t</i>) + <i>v</i><sub>0</sub> cos(<i>c</i> <i>t</i>)<br>
+<i>x</i>''(<i>t</i>) = &minus;<i>x</i><sub>0</sub> <i>c</i><sup>2</sup>cos(<i>c</i> <i>t</i>) &minus; <i>v</i><sub>0</sub> <i>c</i> sin(<i>c</i> <i>t</i>)
+</p>
+
+
+<p>This is the left hand side of equation (1). Now let's calculate the right hand side.</p>
+
+<p class="html-math display-equation">
+&minus;<i>c</i><sup>2</sup> <i>x</i>(<i>t</i>) = &minus;<i>c</i><sup>2</sup> <span class="bigg">(</span><i>x</i><sub>0</sub> cos(<i>c</i> <i>t</i>) + <sup><i>v</i><sub>0</sub> </sup>&frasl;<sub><i>c</i></sub> sin(<i>c</i> <i>t</i>)<span class="bigg">)</span><br>
+= &minus;<i>c</i><sup>2</sup> <i>x</i><sub>0</sub> cos(<i>c</i> <i>t</i>) &minus; <i>v</i><sub>0</sub> <i>c</i> sin(<i>c</i> <i>t</i>)
+</p>
+
+
+<p>and so we see that both sides match &ndash; so our solution (4) satisfies the differential equation (1).</p>
+
+
+
+<h2>Another Form of the Solution</h2>
+
+<p>The solution we found,</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i>(<i>t</i>) = <i>x</i><sub>0</sub> cos(<i>c</i> <i>t</i>) + <sup><i>v</i><sub>0</sub> </sup>&frasl;<sub><i>c</i></sub> sin(<i>c</i> <i>t</i>)
+
+</td><td class="equation-number">(4)</td></tr></table>
+
+<p>may be puzzling to you, because if you played with the
+simulation you will see that no matter what you do to it, it always
+exhibits a simple sine motion. Yet the above solution seems to
+be more complex than that. The answer to the puzzle is that the
+solution can be simplified to just a sine function using a
+<a href="trig-identity-en.html">trig identity</a>.
+You get a sine function whose phase is shifted. Assuming <span class="html-math inline-math">
+<i>v</i><sub>0</sub> &ne; 0
+</span>, we get:</p>
+
+<p>$$x(t) = \sqrt{x_0^2 + (v_0/c)^2} \; \sin \left( c t + \tan^{-1} \frac{c x_0}{v_0} \right)$$</p>
+
+<p>So we can see that the behavior is always a simple sine motion.  If
+the velocity is non-zero at the start, then the sine wave is phase
+shifted.</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<p class="introduction">
+Physics-based simulation of a vibrating double pendulum whose support point is
+oscillating rapidly up and down. Surprisingly, the inverted position where the pendulum
+stands straight up is stable. </p>
+
+<p class="instructions">
+Click near the pendulum to reposition it. The anchor point is also dragable. You can
+set gravity, frequency of oscillation, magnitude of oscillation, and damping
+(friction). </p>
+
+<p>Experiments to try:</p>
+
+<ul>
+  <li>Disturb one of the pendulums from its stable inverted position. Can it recover?
+  How far can you disturb it?</li>
+
+  <li>What if the masses are equal? Does that make the inverted position less
+  stable?</li>
+
+  <li>When the pendulums are in some random position, how hard is it to get them back
+  to inverted?</li>
+
+  <li>What is the slowest frequency that still has the stable inverted position?</li>
+
+  <li>What is the range of amplitude that still has the stable inverted position?</li>
+
+  <li>For a faster or slower frequency, does the range of amplitude change?</li>
+
+  <li>Does the strength of gravity affect whether the inverted pendulum is stable?</li>
+</ul>
+
+<p>The math for this simulation is similar to the
+<a href="moveable-double-pendulum-en.html">Moveable Double Pendulum</a> except that there
+is a periodic force for oscillating the anchor point. We assume the anchor/support
+point is so massive compared to the pendulum that it is not affected by the motion of
+the pendulums. </p>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/MoveableDoublePendulumApp.js">open source code</a>,
+<a href="../develop/docs/myphysicslab.sims.pendulum.MoveableDoublePendulumApp.html">documentation</a> and a
+<a href="../develop/build/sims/pendulum/MoveableDoublePendulumApp-en.html">simple-compiled version</a>
+which is <a href="../develop/docs/Customizing.html">more customizable</a>.
+</p>
+
+
+<p>Most of the references on the internet for a double inverted pendulum are for a
+different set up, where the double pendulum is attached to a moveable cart, similar to
+the
+<a href="cart-pendulum-en.html">cart + pendulum</a> simulation. Also most of the these
+references are concerned with control theory for making an autonomous "brain" that can
+balance the inverted pendulum. In contrast, the experiment shown here uses only
+vertical vibration of the support point to make the inverted position stable. </p>
+
+
+<!--h2>TO DO:</h2>
+<ul>
+  <li>Show equations?</li>
+
+    <li>Links to other simulations and articles?</li>
+
+    <li>Perhaps better to separate the "dragable anchor" from the "vibrating anchor".
+    Combining them makes it complex/ambiguous as to what is anchor behavior for
+    vibrating anchor.</li>
+
+</ul-->

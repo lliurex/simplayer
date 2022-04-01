@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Col·lisió de Molls</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+
+<h1>Col·lisió de Molls</h1>
+
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gràfic</li>
+  <li class="time_graph">Gràfic de temps</li>
+  <li class="multi_graph">Gràfic múltiple</li>
+</ul>
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+This simulation explores using small stiff springs to do collision handling.
+
+<p class="instructions">
+You can change the number of blocks (from 1 to 3) and their starting positions. You can
+change parameters such as mass, spring stiffness, spring length and damping (friction).
+You can apply a spring force with your mouse to any block.
+</p>
+
+<p>An advantage of using small stiff springs to do collision handling is that you don't
+have to
+<a href="../CollideBlocksApp/CollideBlocksApp-ca.html#collisions">back up in time</a>
+after detecting a collision. A disadvantage is that you have to take very small time
+steps, at least when objects are close enough to be capable of colliding. Small time
+steps are needed because the springs are stiff and small.
+</p>
+
+<p>Using springs for collision handling is also discussed on the page about
+<a href="../CollisionCombo/CollisionCombo-ca.html">Multiple Simultaneous Collisions</a>.
+</p>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/CollideSpringApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+<p id="page_history">
+  This web page was first published November 2016.
+</p>
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="CollideSpringApp-ca.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeCollideSpringApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 0; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+    app.eval('SIM_CANVAS.BACKGROUND="white"',/*output=*/false)
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

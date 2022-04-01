@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Double Pendulum</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+  <h1>Double Pendulum</h1>
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Sim</li>
+  <li class="graph ">Graph</li>
+  <li class="time_graph">Time Graph</li>
+  <li class="multi_graph">Multi Graph</li>
+</ul>
+
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<script type="text/javascript" async
+  src="../MathJax-2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<h2>About</h2>
+
+<p class="introduction">
+This is a simulation of a double pendulum. For large motions it is a chaotic system,
+but for small motions it is a simple linear system. </p>
+
+<p class="instructions">
+You can change parameters in the simulation such as mass, gravity, and length of rods.
+You can drag the pendulum with your mouse to change the starting position. </p>
+
+<p>The math behind the simulation is shown below.  Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/DoublePendulumApp.js">open source code</a>,
+and a
+simple-compiled version
+which is more customizable.
+</p>
+
+
+<p>For small angles, a pendulum behaves like a
+<a href="../explain/classify-diff-eq-en.html#linear">linear</a> system (see
+<a href="../PendulumApp/PendulumApp-en.html">Simple Pendulum</a>).
+When the angles are small in the Double Pendulum, the system behaves like the linear
+<a href="../DoubleSpringApp/DoubleSpringApp-en.html">Double Spring</a>.
+In the graph, you can see similar
+<a href="http://mathworld.wolfram.com/LissajousCurve.html">Lissajous curves</a>
+being generated.  This is because the motion is determined by simple sine and cosine
+functions.
+</p>
+
+<p>For large angles, the pendulum is non-linear and the phase graph becomes much more
+complex. You can see this by dragging one of the masses to a larger angle and letting
+go.</p>
+
+<p>We regard the pendulum rods as being massless and rigid. We regard the pendulum
+masses as being point masses. The derivation of the equations of motion is shown below,
+using the direct Newtonian method.</p>
+
+<h2 id="kinematics">Kinematics of the Double Pendulum</h2>
+
+<div class="image" style="width: 110px;">
+<img src="dbl_pendulum.gif"     width="104" height="176"
+alt="double pendulum variables" >
+</div>
+
+<div style="margin-left:115px; max-width: 45em;">
+<p>Kinematics means the relations of the parts of the device, without regard to forces.
+In kinematics we are only trying to find expressions for the position, velocity, and
+acceleration in terms of the variables that specify the state of the device.
+</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>x</i> =
+</span> horizontal position of pendulum mass</li>
+    <li><span class="html-math inline-math">
+<i>y</i> =
+</span> vertical position of pendulum mass</li>
+    <li><span class="html-math inline-math">
+<i>&theta;</i> =
+</span> angle of pendulum (0 = vertical downwards,
+         counter-clockwise is positive)</li>
+    <li><span class="html-math inline-math">
+<i>L</i> =
+</span> length of rod (constant)</li>
+</ul>
+</div>
+
+<div style="clear: both;">
+<p>We place the origin at the pivot point of the upper pendulum. We regard
+<span class="html-math inline-math">
+<i>y</i>
+</span> as increasing upwards. We indicate the upper pendulum by subscript 1,
+and the lower by subscript 2. Begin by using simple trigonometry to write expressions
+for the positions <span class="html-math inline-math">
+<i>x</i><sub>1</sub>, <i>y</i><sub>1</sub>, <i>x</i><sub>2</sub>, <i>y</i><sub>2</sub>
+</span> in terms of the angles <span class="html-math inline-math">
+<i>&theta;</i><sub>1</sub>, <i>&theta;</i><sub>2</sub>
+</span>.
+</p>
+
+<p class="html-math display-equation">
+<i>x</i><sub>1</sub> = <i>L</i><sub>1</sub> sin <i>&theta;</i><sub>1</sub>
+</p>
+<p class="html-math display-equation">
+<i>y</i><sub>1</sub> = &minus;<i>L</i><sub>1</sub> cos <i>&theta;</i><sub>1</sub>
+</p>
+<p class="html-math display-equation">
+<i>x</i><sub>2</sub> = <i>x</i><sub>1</sub> + <i>L</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub>
+</p>
+<p class="html-math display-equation">
+<i>y</i><sub>2</sub> = <i>y</i><sub>1</sub> &minus; <i>L</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub>
+</p>
+
+<p>The velocity is the derivative with respect to time of the position.</p>
+
+<p class="html-math display-equation">
+<i>x</i><sub>1</sub>' = <i>&theta;</i><sub>1</sub>' <i>L</i><sub>1</sub> cos <i>&theta;</i><sub>1</sub>
+</p>
+<p class="html-math display-equation">
+<i>y</i><sub>1</sub>' = <i>&theta;</i><sub>1</sub>' <i>L</i><sub>1</sub> sin <i>&theta;</i><sub>1</sub>
+</p>
+<p class="html-math display-equation">
+<i>x</i><sub>2</sub>' = <i>x</i><sub>1</sub>' + <i>&theta;</i><sub>2</sub>' <i>L</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub>
+</p>
+<p class="html-math display-equation">
+<i>y</i><sub>2</sub>' = <i>y</i><sub>1</sub>' + <i>&theta;</i><sub>2</sub>' <i>L</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub>
+</p>
+
+<p>The acceleration is the second derivative.</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i><sub>1</sub>'' = &minus;<i>&theta;</i><sub>1</sub>'<sup>2</sup> <i>L</i><sub>1</sub> sin <i>&theta;</i><sub>1</sub> + <i>&theta;</i><sub>1</sub>'' <i>L</i><sub>1</sub> cos <i>&theta;</i><sub>1</sub>
+
+</td><td class="equation-number">(1)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>y</i><sub>1</sub>'' = <i>&theta;</i><sub>1</sub>'<sup>2</sup> <i>L</i><sub>1</sub> cos <i>&theta;</i><sub>1</sub> + <i>&theta;</i><sub>1</sub>'' <i>L</i><sub>1</sub> sin <i>&theta;</i><sub>1</sub>
+
+</td><td class="equation-number">(2)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i><sub>2</sub>'' = <i>x</i><sub>1</sub>'' &minus; <i>&theta;</i><sub>2</sub>'<sup>2</sup> <i>L</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub> + <i>&theta;</i><sub>2</sub>'' <i>L</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub>
+
+</td><td class="equation-number">(3)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>y</i><sub>2</sub>'' = <i>y</i><sub>1</sub>'' + <i>&theta;</i><sub>2</sub>'<sup>2</sup> <i>L</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub> + <i>&theta;</i><sub>2</sub>'' <i>L</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub>
+
+</td><td class="equation-number">(4)</td></tr></table>
+</div>
+
+
+
+
+
+<h2>Forces in the Double Pendulum</h2>
+
+<div class="image" style="width: 100px;">
+<img src="dbl_pendulum_m1.gif"     width="96" height="211"
+alt="forces in upper mass of double pendulum">
+<br>
+upper mass
+<br><br>
+<img src="dbl_pendulum_m2.gif"     width="81" height="199"
+alt="forces in lower mass of double pendulum">
+<br>
+lower mass
+</div>
+
+<div style="margin-left:110px; max-width: 45em;">
+
+<p>We treat the two pendulum masses as point particles. Begin by drawing the free body
+diagram for the upper mass and writing an expression for the net force acting on it.
+Define these variables: </p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>T</i> =
+</span> tension in the rod</li>
+    <li><span class="html-math inline-math">
+<i>m</i> =
+</span> mass of pendulum</li>
+    <li><span class="html-math inline-math">
+<i>g</i> =
+</span> gravitational constant</li>
+</ul>
+
+<p>The forces on the upper pendulum mass are the tension in the upper rod <span class="html-math inline-math">
+<i>T</i><sub>1</sub>
+</span>,
+the tension in the lower rod <span class="html-math inline-math">
+<i>T</i><sub>2</sub>
+</span>, and gravity <span class="html-math inline-math">
+&minus;<i>m</i><sub>1</sub> <i>g</i>
+</span>. We write
+separate equations for the horizontal and vertical forces, since they can be treated
+independently. The net force on the mass is the sum of these. Here we show the net
+force and use Newton's law <span class="html-math inline-math">
+<i>F</i> = <i>m a</i>
+</span>. </p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>m</i><sub>1</sub> <i>x</i><sub>1</sub>'' = &minus;<i>T</i><sub>1</sub> sin <i>&theta;</i><sub>1</sub> + <i>T</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub>
+
+</td><td class="equation-number">(5)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>m</i><sub>1</sub> <i>y</i><sub>1</sub>'' = <i>T</i><sub>1</sub> cos <i>&theta;</i><sub>1</sub> &minus; <i>T</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub> &minus;
+<span class="nobr"><i>m</i><sub>1</sub> <i>g</i></span>
+
+</td><td class="equation-number">(6)</td></tr></table>
+
+
+<p>For the lower pendulum, the forces are the tension in the lower rod <span class="html-math inline-math">
+<i>T</i><sub>2</sub>
+</span>, and
+gravity <span class="html-math inline-math">
+&minus;<i>m</i><sub>2</sub> <i>g</i>
+</span>. </p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>m</i><sub>2</sub> <i>x</i><sub>2</sub>'' = &minus;<i>T</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub>
+
+</td><td class="equation-number">(7)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>m</i><sub>2</sub> <i>y</i><sub>2</sub>'' = <i>T</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub> &minus; <i>m</i><sub>2</sub> <i>g</i>
+
+</td><td class="equation-number">(8)</td></tr></table>
+
+<p>In relating these equations to the diagrams, keep in mind that in the example
+diagram <span class="html-math inline-math">
+<i>&theta;</i><sub>1</sub>
+</span> is positive and <span class="html-math inline-math">
+<i>&theta;</i><sub>2</sub>
+</span> is negative, because of the convention
+that a counter-clockwise angle is positive.</p>
+</div>
+
+
+
+
+
+<h2>Direct Method for Finding Equations of Motion</h2>
+
+<p>Now we do some algebraic manipulations with the goal of finding expressions for
+<span class="html-math inline-math">
+<i>&theta;</i><sub>1</sub>'', <i>&theta;</i><sub>2</sub>''
+</span> in terms of <span class="html-math inline-math">
+<i>&theta;</i><sub>1</sub>, <i>&theta;</i><sub>1</sub>', <i>&theta;</i><sub>2</sub>, <i>&theta;</i><sub>2</sub>'
+</span>. Begin by solving equations
+(7), (8) for <span class="html-math inline-math">
+<i>T</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub>
+</span> and <span class="html-math inline-math">
+<i>T</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub>
+</span> and then substituting into
+equations (5) and (6).
+</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>m</i><sub>1</sub> <i>x</i><sub>1</sub>'' = &minus;<i>T</i><sub>1</sub> sin <i>&theta;</i><sub>1</sub> &minus; <i>m</i><sub>2</sub> <i>x</i><sub>2</sub>''
+
+</td><td class="equation-number">(9)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>m</i><sub>1</sub> <i>y</i><sub>1</sub>'' = <i>T</i><sub>1</sub> cos <i>&theta;</i><sub>1</sub> &minus; <i>m</i><sub>2</sub> <i>y</i><sub>2</sub>'' &minus; <i>m</i><sub>2</sub> <i>g</i> &minus;
+<span class="nobr"><i>m</i><sub>1</sub> <i>g</i></span>
+
+</td><td class="equation-number">(10)</td></tr></table>
+
+<p>Multiply equation (9) by <span class="html-math inline-math">
+cos <i>&theta;</i><sub>1</sub>
+</span> and equation (10) by <span class="html-math inline-math">
+sin <i>&theta;</i><sub>1</sub>
+</span> and
+rearrange to get
+</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>T</i><sub>1</sub> sin <i>&theta;</i><sub>1</sub> cos <i>&theta;</i><sub>1</sub> = &minus;cos <i>&theta;</i><sub>1</sub> (<i>m</i><sub>1</sub> <i>x</i><sub>1</sub>'' +
+<span class="nobr"><i>m</i><sub>2</sub> <i>x</i><sub>2</sub>'')</span>
+
+</td><td class="equation-number">(11)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>T</i><sub>1</sub> sin <i>&theta;</i><sub>1</sub> cos <i>&theta;</i><sub>1</sub> = sin <i>&theta;</i><sub>1</sub> (<i>m</i><sub>1</sub> <i>y</i><sub>1</sub>'' + <i>m</i><sub>2</sub> <i>y</i><sub>2</sub>'' +
+<span class="nobr"><i>m</i><sub>2</sub> <i>g</i></span> +
+<span class="nobr"><i>m</i><sub>1</sub> <i>g</i>)</span>
+
+</td><td class="equation-number">(12)</td></tr></table>
+
+<p>This leads to the equation
+</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+sin <i>&theta;</i><sub>1</sub> (<i>m</i><sub>1</sub> <i>y</i><sub>1</sub>'' + <i>m</i><sub>2</sub> <i>y</i><sub>2</sub>'' + <i>m</i><sub>2</sub> <i>g</i> +
+<span class="nobr"><i>m</i><sub>1</sub> <i>g</i>)</span> =
+<span class="nobr">&minus;cos <i>&theta;</i><sub>1</sub> (<i>m</i><sub>1</sub> <i>x</i><sub>1</sub>'' + <i>m</i><sub>2</sub> <i>x</i><sub>2</sub>'')</span>
+
+</td><td class="equation-number">(13)</td></tr></table>
+
+<p>Next, multiply equation (7) by <span class="html-math inline-math">
+cos <i>&theta;</i><sub>2</sub>
+</span> and equation (8) by <span class="html-math inline-math">
+sin <i>&theta;</i><sub>2</sub>
+</span> and
+rearrange to get
+</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>T</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub> = &minus;cos <i>&theta;</i><sub>2</sub> (<i>m</i><sub>2</sub> <i>x</i><sub>2</sub>'')
+
+</td><td class="equation-number">(14)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>T</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub> = sin <i>&theta;</i><sub>2</sub> (<i>m</i><sub>2</sub> <i>y</i><sub>2</sub>'' + <i>m</i><sub>2</sub> <i>g</i>)
+
+</td><td class="equation-number">(15)</td></tr></table>
+
+<p>which leads to</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+sin <i>&theta;</i><sub>2</sub> (<i>m</i><sub>2</sub> <i>y</i><sub>2</sub>'' + <i>m</i><sub>2</sub> <i>g</i>) = &minus;cos <i>&theta;</i><sub>2</sub> (<i>m</i><sub>2</sub> <i>x</i><sub>2</sub>'')
+
+</td><td class="equation-number">(16)</td></tr></table>
+
+<p>Next we need to use a computer algebra program to solve equations (13) and (16) for
+<span class="html-math inline-math">
+<i>&theta;</i><sub>1</sub>'', <i>&theta;</i><sub>2</sub>''
+</span> in terms of <span class="html-math inline-math">
+<i>&theta;</i><sub>1</sub>, <i>&theta;</i><sub>1</sub>', <i>&theta;</i><sub>2</sub>, <i>&theta;</i><sub>2</sub>'
+</span>. Note that we also include the
+definitions given by equations (1-4), so that we have 2 equations (13, 16) and 2
+unknowns (<span class="html-math inline-math">
+<i>&theta;</i><sub>1</sub>'', <i>&theta;</i><sub>2</sub>''
+</span>). The result is somewhat complicated, but is easy enough
+to program into the computer.</p>
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>&theta;</i><sub>1</sub>''&nbsp;=&nbsp;
+        </td><td>
+            &minus;<i>g</i> (2 <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>) sin <i>&theta;</i><sub>1</sub> &minus; <i>m</i><sub>2</sub> <i>g</i> sin(<i>&theta;</i><sub>1</sub> &minus; 2 <i>&theta;</i><sub>2</sub>) &minus;
+            2 sin(<i>&theta;</i><sub>1</sub> &minus; <i>&theta;</i><sub>2</sub>) <i>m</i><sub>2</sub> (<i>&theta;</i><sub>2</sub>'<sup>2</sup> <i>L</i><sub>2</sub> + <i>&theta;</i><sub>1</sub>'<sup>2</sup> <i>L</i><sub>1</sub> cos(<i>&theta;</i><sub>1</sub> &minus; <i>&theta;</i><sub>2</sub>))
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>L</i><sub>1</sub> (2 <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub> &minus; <i>m</i><sub>2</sub> cos(2 <i>&theta;</i><sub>1</sub> &minus; 2 <i>&theta;</i><sub>2</sub>))
+        </td>
+    </tr>
+</table>
+
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>&theta;</i><sub>2</sub>''&nbsp;=&nbsp;
+        </td><td>
+            2 sin(<i>&theta;</i><sub>1</sub> &minus; <i>&theta;</i><sub>2</sub>) (<i>&theta;</i><sub>1</sub>'<sup>2</sup> <i>L</i><sub>1</sub> (<i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>) + <i>g</i>(<i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>) cos <i>&theta;</i><sub>1</sub>
+            + <i>&theta;</i><sub>2</sub>'<sup>2</sup> <i>L</i><sub>2</sub> <i>m</i><sub>2</sub> cos(<i>&theta;</i><sub>1</sub> &minus; <i>&theta;</i><sub>2</sub>))
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>L</i><sub>2</sub> (2 <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub> &minus; <i>m</i><sub>2</sub> cos(2 <i>&theta;</i><sub>1</sub> &minus; 2 <i>&theta;</i><sub>2</sub>))
+        </td>
+    </tr>
+</table>
+</div>
+
+<p>These are the equations of motion for the double pendulum.</p>
+
+
+
+
+
+<h2>Numerical Solution</h2>
+
+<p>The above equations are now close to the form needed for the
+<a href="../explain/runge-kutta-en.html">Runge Kutta method</a>. The final
+step is convert these two 2nd order equations into four 1st order equations. Define the
+first derivatives as separate variables:</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>&omega;</i><sub>1</sub> =
+</span> angular velocity of top rod</li>
+    <li><span class="html-math inline-math">
+<i>&omega;</i><sub>2</sub> =
+</span> angular velocity of bottom rod</li>
+</ul>
+
+<p>Then we can write the four 1st order equations:</p>
+
+<p class="html-math display-equation">
+<i>&theta;</i><sub>1</sub>' = <i>&omega;</i><sub>1</sub>
+</p>
+<p class="html-math display-equation">
+<i>&theta;</i><sub>2</sub>' = <i>&omega;</i><sub>2</sub>
+</p>
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>&omega;</i><sub>1</sub>'&nbsp;=&nbsp;
+        </td><td>
+            &minus;<i>g</i> (2 <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>) sin <i>&theta;</i><sub>1</sub> &minus; <i>m</i><sub>2</sub> <i>g</i> sin(<i>&theta;</i><sub>1</sub> &minus; 2 <i>&theta;</i><sub>2</sub>) &minus;
+            2 sin(<i>&theta;</i><sub>1</sub> &minus; <i>&theta;</i><sub>2</sub>) <i>m</i><sub>2</sub> (<i>&omega;</i><sub>2</sub><sup>2</sup> <i>L</i><sub>2</sub> + <i>&omega;</i><sub>1</sub><sup>2</sup> <i>L</i><sub>1</sub> cos(<i>&theta;</i><sub>1</sub> &minus; <i>&theta;</i><sub>2</sub>))
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>L</i><sub>1</sub> (2 <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub> &minus; <i>m</i><sub>2</sub> cos(2 <i>&theta;</i><sub>1</sub> &minus; 2 <i>&theta;</i><sub>2</sub>))
+        </td>
+    </tr>
+</table>
+
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>&omega;</i><sub>2</sub>'&nbsp;=&nbsp;
+        </td><td>
+            2 sin(<i>&theta;</i><sub>1</sub>&minus;<i>&theta;</i><sub>2</sub>) (<i>&omega;</i><sub>1</sub><sup>2</sup> <i>L</i><sub>1</sub> (<i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>) + <i>g</i>(<i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>) cos <i>&theta;</i><sub>1</sub>
+            + <i>&omega;</i><sub>2</sub><sup>2</sup> <i>L</i><sub>2</sub> <i>m</i><sub>2</sub> cos(<i>&theta;</i><sub>1</sub> &minus; <i>&theta;</i><sub>2</sub>))
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>L</i><sub>2</sub> (2 <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub> &minus; <i>m</i><sub>2</sub> cos(2 <i>&theta;</i><sub>1</sub> &minus; 2 <i>&theta;</i><sub>2</sub>))
+        </td>
+    </tr>
+</table>
+</div>
+
+<p>This is now exactly the form needed to plug in to the Runge-Kutta method for
+numerical solution of the system.</p>
+
+<p id="page_history">
+  This web page was first published February 2002.
+</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="DoublePendulumApp-en.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeDoublePendulumApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 0; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<!--script>
+  app.eval('TAB_LAYOUT.LAYOUT="sim+graph";');
+</script-->
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

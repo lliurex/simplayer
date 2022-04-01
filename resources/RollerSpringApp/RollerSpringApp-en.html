@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Roller Coaster with Spring</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+
+  <h1>Roller Coaster with Spring</h1>
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Sim</li>
+  <li class="graph ">Graph</li>
+  <li class="time_graph">Time Graph</li>
+  <li class="multi_graph">Multi Graph</li>
+</ul>
+
+
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+Physics-based simulation of a ball on a roller coaster (or a marble on a track) where
+the ball is also attached to a spring.
+</p>
+
+<p class="instructions">
+You can change the track shape by clicking a button below.
+You can drag the spring anchor point or drag the ball to change the starting position.
+Try modifying gravity, damping or spring stiffness.
+</p>
+
+<p>The math behind the simulation is shown below.  Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/roller/RollerSpringApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+<table>
+<tr style="text-align: center;">
+<td onClick="set_track('HUMP')">
+<img src="track_hump.gif"  width="75" height="64" alt=""><br>hump</td>
+
+<td onClick="set_track('LOOP')">
+<img src="track_loop.gif"  width="82" height="62" alt=""><br>loop-the-loop</td>
+
+<td onClick="set_track('CIRCLE')">
+<img src="track_circle.gif"  width="67" height="63" alt=""><br>circle</td>
+
+<td onClick="set_track('LEMNISCATE')">
+<img src="track_infinity.gif"  width="98" height="47" alt=""><br>Lemniscate</td>
+
+<td onClick="set_track('OVAL')">
+<img src="track_oval.gif"  width="49" height="66" alt=""><br>oval</td>
+
+<td onClick="set_track('SPIRAL')">
+<img src="track_spiral.gif"  width="61" height="69" alt=""><br>spiral</td>
+</tr>
+</table>
+
+<h2 id="physics">Physics of the Roller Coaster with Spring</h2>
+
+<p>This simulation is a variation of the <a href="../RollerSingleApp/RollerSingleApp-en.html#physics">Simple
+Roller Coaster</a>, please see that page for more information on the physics and how
+the simulation is done. The only difference here is that the spring force is added to
+the differential equation.
+</p>
+
+<div class="image" style="width:173px;">
+<br>
+<img src="track_force2.gif" width="173" height="169" alt=""><br>
+    roller coaster forces
+</div>
+
+<div style="margin-left:175px; max-width: 40em;">
+
+<p>Define the following variables:</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+(<i>p<sub>x</sub></i>, <i>p<sub>y</sub></i>)
+</span> = position of ball in 2 dimensional space</li>
+    <li><span class="html-math inline-math">
+(<i>q<sub>x</sub></i>, <i>q<sub>y</sub></i>)
+</span> = fixed end of spring</li>
+    <li><span class="html-math inline-math">
+<i>k</i> =
+</span> slope of track at point <span class="html-math inline-math">
+P
+</span></li>
+    <li><span class="html-math inline-math">
+<i>R</i> =
+</span> rest length of spring</li>
+    <li><span class="html-math inline-math">
+<i>c</i> =
+</span> stiffness of spring (constant)</li>
+    <li><span class="html-math inline-math">
+<i>&theta;</i> =
+</span> angle between the spring and tangent vector</li>
+    <li><span class="html-math inline-math">
+<i>m</i> =
+</span> mass</li>
+    <li><span class="html-math inline-math">
+<i>g</i> =
+</span> gravity constant</li>
+</ul>
+</div>
+
+<p style="clear:both;">
+The width and height of the spring is given by:
+</p>
+
+<p class="html-math display-equation">
+<i>s<sub>x</sub></i> = <i>q<sub>x</sub></i> &minus; <i>p<sub>x</sub></i> <br>
+<i>s<sub>y</sub></i> = <i>q<sub>y</sub></i> &minus; <i>p<sub>y</sub></i>
+</p>
+
+<p>The length of the spring is then <span class="html-math inline-math">
+&radic;(<i>s<sub>x</sub></i><sup>2</sup> + <i>s<sub>y</sub></i><sup>2</sup>)
+</span>. The magnitude
+of the spring force is <span class="html-math inline-math">
+<i>c</i> (&radic;(<i>s<sub>x</sub></i><sup>2</sup> + <i>s<sub>y</sub></i><sup>2</sup>) &minus; <i>R</i>)
+</span>. The
+direction of the spring force is towards vec(Q), the fixed end of the spring. The
+component of the spring force that is parallel to the track is</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>F</i> = cos(<i>&theta;</i>) <i>c</i> (&radic;(<i>s<sub>x</sub></i><sup>2</sup> + <i>s<sub>y</sub></i><sup>2</sup>) &minus; <i>R</i>)
+
+</td><td class="equation-number">(1)</td></tr></table>
+
+<p>It is this parallel-to-the-track component of the spring force that will accelerate
+the ball along the track. Consider a couple of cases to convince yourself of this: If
+the spring is perpendicular to the track, then <span class="html-math inline-math">
+<i>&theta;</i> &asymp; 90&deg;
+</span> and
+<span class="html-math inline-math">
+cos(<i>&theta;</i>) &asymp; 0
+</span> so the spring doesn't accelerate the ball. Conversely, if
+<span class="html-math inline-math">
+<i>&theta;</i> &asymp; 0
+</span> then the spring will accelerate the ball in the positive track
+direction. Or, if <span class="html-math inline-math">
+<i>&theta;</i> &asymp; 180&deg;
+</span> then the spring accelerates the ball in
+the negative track direction.
+</p>
+
+<p>We can find <span class="html-math inline-math">
+cos(<i>&theta;</i>)
+</span> by using the formula for the angle between two vectors
+<span class="html-math inline-math">
+<span class="vector">A</span>, <span class="vector">B</span>
+</span>
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            cos <i>&theta;</i> = &nbsp;
+        </td><td>
+            <span class="vector">A</span> &middot; <span class="vector">B</span>
+        </td>
+    </tr><tr>
+        <td class="upper_line" >
+            |<span class="vector">A</span>| |<span class="vector">B</span>|
+        </td>
+    </tr>
+</table>
+</div>
+
+<p>where the numerator is the dot product, and the denominator is the product of the
+magnitudes. Define our two vectors by</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<span class="vector">A</span> = (1, <i>k</i>)
+</span> the slope vector, pointing in the direction of
+       increasing <span class="html-math inline-math">
+p
+</span></li>
+    <li><span class="html-math inline-math">
+<span class="vector">B</span> = (<i>s<sub>x</sub></i>, <i>s<sub>y</sub></i>)
+</span> a vector in the direction of the spring force
+</ul>
+
+<p>This leads to</p>
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            cos <i>&theta;</i> = &nbsp;
+        </td><td>
+            <i>s<sub>x</sub></i> + <i>k</i> <i>s<sub>y</sub></i>
+        </td>
+    </tr><tr>
+        <td class="upper_line" >
+            &radic;(1 + <i>k</i><sup>2</sup>) &nbsp; &radic;(<i>s<sub>x</sub></i><sup>2</sup> + <i>s<sub>y</sub></i><sup>2</sup>)
+        </td>
+    </tr>
+</table>
+</div>
+
+<p>Put this expression into equation (1) and combine with the gravity and friction
+forces developed for the Simple Roller Coaster to get</p>
+
+<table class="html-math numbered-equation"><tr><td class="emphasized">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>a</i> = &nbsp;
+        </td><td>
+            &minus;<i>g</i> <i>k</i>
+        </td><td rowspan="2">
+            &nbsp; &minus; <sup><i>b</i></sup>&frasl;<sub><i>m</i></sub> <i>v</i> + &nbsp;
+        </td><td>
+            <i>c</i> (&radic;(<i>s<sub>x</sub></i><sup>2</sup> + <i>s<sub>y</sub></i><sup>2</sup>) &minus; <i>R</i>) (<i>s<sub>x</sub></i> + <i>k</i> <i>s<sub>y</sub></i>)
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            &radic;(1 + <i>k</i><sup>2</sup>)
+        </td><td class="upper_line">
+            <i>m</i> &radic;(1 + <i>k</i><sup>2</sup>) &nbsp; &radic;(<i>s<sub>x</sub></i><sup>2</sup> + <i>s<sub>y</sub></i><sup>2</sup>)
+        </td>
+    </tr>
+</table>
+
+</td><td class="equation-number">(2)</td></tr></table>
+
+<p>where <span class="html-math inline-math">
+<i>b</i> =
+</span> damping constant and <span class="html-math inline-math">
+<i>v</i> =
+</span> velocity. Keep in mind that
+the slope <span class="html-math inline-math">
+<i>k</i>
+</span> and spring stretch <span class="html-math inline-math">
+<i>s<sub>x</sub></i>, <i>s<sub>y</sub></i>
+</span> are functions of the position
+<span class="html-math inline-math">
+<i>p</i>
+</span>.
+</p>
+
+<p>Besides this change to the force equation, the simulation is similar to the
+<a href="../RollerSingleApp/RollerSingleApp-en.html#physics">Simple Roller Coaster</a>. Please see that page
+for more information on how the simulation is implemented.
+</p>
+
+<p id="page_history">
+  This web page was first published June 2002.
+</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="RollerSpringApp-en.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeRollerSpringApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 0; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

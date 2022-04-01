@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Blocs Xocant</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+  <h1>Blocs Xocant</h1>
+
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gràfic</li>
+  <li class="time_graph">Gràfic de temps</li>
+  <li class="multi_graph">Gràfic múltiple</li>
+</ul>
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<script type="text/javascript" async
+  src="../MathJax-2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<h2>About</h2>
+
+<p class="instructions">
+You can change parameters such as mass, spring stiffness, and friction (damping). You
+can drag either block with your mouse to change the starting positions.
+</p>
+
+<p>The math behind the simulation is shown below.  Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/CollideBlocksApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+<h2 id="momentum">Collisions and Conservation of Momentum</h2>
+
+<p>The spring and block on the left use the same model as the
+<a href="../SingleSpringApp/SingleSpringApp-ca.html">single spring simulation</a>.
+For a collision with the wall, we
+simply reverse the velocity. For collisions between moving blocks we use the law of
+conservation of momentum to determine the new velocities.
+</p>
+
+<p>Define the following variables:</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>v</i><sub>1i</sub>, <i>v</i><sub>2i</sub> =
+</span> initial (pre-collision) velocity of blocks</li>
+    <li><span class="html-math inline-math">
+<i>v</i><sub>1f</sub>, <i>v</i><sub>2f</sub> =
+</span> final (post-collision) velocity of blocks</li>
+    <li><span class="html-math inline-math">
+<i>v</i><sub>cm</sub> =
+</span> velocity of center of mass</li>
+    <li><span class="html-math inline-math">
+<i>v</i><sub>1cm</sub>, <i>v</i><sub>2cm</sub> =
+</span> velocity of blocks in center of mass frame</li>
+    <li><span class="html-math inline-math">
+<i>m</i><sub>1</sub>, <i>m</i><sub>2</sub> =
+</span> mass of blocks</li>
+    <li><span class="html-math inline-math">
+<i>p</i><sub>i</sub>, <i>p</i><sub>f</sub> =
+</span> initial and final momentum of system of blocks</li>
+</ul>
+
+<p>We find the velocity of the center of mass of the 2-block system.</p>
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>v</i><sub>cm</sub> = &nbsp;
+        </td><td>
+            <i>m</i><sub>1</sub> <i>v</i><sub>1i</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2i</sub>
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>
+        </td>
+    </tr>
+</table>
+</div>
+
+<p>Next we find the velocity of each block in the coordinate system (frame) that is
+moving along with the center of mass.</p>
+
+<p class="html-math display-equation">
+<i>v</i><sub>1cm</sub> = <i>v</i><sub>1i</sub> &minus; <i>v</i><sub>cm</sub><br>
+<i>v</i><sub>2cm</sub> = <i>v</i><sub>2i</sub> &minus; <i>v</i><sub>cm</sub>
+</p>
+
+<p>Next we reflect (reverse) each velocity in this center of mass frame, and translate
+back to the stationary coordinate system.</p>
+
+<p class="html-math display-equation">
+<i>v</i><sub>1f</sub> = &minus;(<i>v</i><sub>1i</sub> &minus; <i>v</i><sub>cm</sub>) + <i>v</i><sub>cm</sub><br>
+<i>v</i><sub>2f</sub> = &minus;(<i>v</i><sub>2i</sub> &minus; <i>v</i><sub>cm</sub>) + <i>v</i><sub>cm</sub>
+</p>
+
+<p>If you fully expand the above you get</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>v</i><sub>1f</sub> = &minus;<i>v</i><sub>1i</sub> + &nbsp;
+        </td><td>
+            2(<i>m</i><sub>1</sub> <i>v</i><sub>1i</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2i</sub>)
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>
+        </td>
+    </tr>
+</table>
+
+</td><td class="equation-number">(1)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>v</i><sub>2f</sub> = &minus;<i>v</i><sub>2i</sub> + &nbsp;
+        </td><td>
+            2(<i>m</i><sub>1</sub> <i>v</i><sub>1i</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2i</sub>)
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>
+        </td>
+    </tr>
+</table>
+
+</td><td class="equation-number">(2)</td></tr></table>
+
+<p>As a check, we can calculate the pre- and post- collision momentum, which should be
+the same.</p>
+
+<p class="html-math display-equation">
+<i>p</i><sub>i</sub> = <i>m</i><sub>1</sub> <i>v</i><sub>1i</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2i</sub><br>
+<i>p</i><sub>f</sub> = <i>m</i><sub>1</sub> <i>v</i><sub>1f</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2f</sub>
+</p>
+
+
+<p>If you expand <span class="html-math inline-math">
+<i>p</i><sub>f</sub>
+</span> using equations (1) and (2) and simplify you will see that
+<span class="html-math inline-math">
+<i>p</i><sub>f</sub> = <i>p</i><sub>i</sub>
+</span> as expected.</p>
+
+
+
+
+<h2 id="collisions">Handling Collisions in Software</h2>
+
+<div class="image" style="width: 175px;">
+<img src="collision.gif" width="172" height="228" alt="">
+<br>
+<br>
+simulation of two balls colliding
+</div>
+
+<div style="margin-left: 180px; max-width: 40em;">
+
+<p>Simulations on the computer are discrete in the sense that time advances in
+"chunks", not smoothly. In the diagram, we calculated the state of the world at time
+<span class="html-math inline-math">
+<i>t</i> = 10.0
+</span> and then at time <span class="html-math inline-math">
+<i>t</i> = 10.1
+</span>. But the collision
+happened sometime inbetween. So by the time we detect a collision, the objects are
+overlapping each other -- a physically impossible state.</p>
+
+<p>The simulations on this website handle collisions as follows:</p>
+
+<ul>
+
+  <li>Detect that a collision occurred</li>
+
+  <li>Re-run the simulation to very close to (but just before) the time of collision.
+     The time of collision is found by a binary search process.</li>
+
+  <li>Handle the collision by modifying the state of the simulation, such as fixing
+     the velocities as described above.</li>
+
+  <li>Continue to run the simulation up to the current 'now' time.  If additional
+     collisions happen they are handled in the same way.</li>
+
+</ul>
+
+</div>
+
+<p style="clear:both;">
+If you are not running the simulation in real time, you can take as long as you want to
+get as much accuracy as desired. But for a real time simulation, you may need to accept
+lower accuracy or use some fancier programming. For example, instead of using trial and
+error to find the time of collision, you could try to predict the time of collision
+based on the state of the system.</p>
+
+
+<p>Other examples of simulations with collision handling are
+<a href="../RollerFlightApp/RollerFlightApp-ca.html#collision_time">Roller Coaster with Flight</a>,
+<a href="../Molecule1App/Molecule1App-ca.html">Molecule 2</a> and
+<a href="../ImpulseApp/ImpulseApp-ca.html">Rigid Body Collisions</a>.
+</p>
+
+<p id="page_history">
+  This web page was first published April 2001.
+</p>
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="CollideBlocksApp-ca.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeCollideBlocksApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 3; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

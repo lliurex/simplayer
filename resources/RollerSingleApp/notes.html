@@ -1,0 +1,656 @@
+<p class="introduction">
+    If you had first-year physics in college, you probably solved lots of problems with a
+    ball rolling down a flat inclined plane. Did you ever wonder how to solve for the
+    motion with a curved surface instead? Of course the same principles apply, but the
+    forces are changing as the slope changes. So the math gets a bit more interesting!
+    </p>
+
+    <p class="instructions">
+    You can change the track shape by clicking a button below. You can drag the ball with
+    your mouse to change the starting position. Try modifying gravity or damping.
+    </p>
+
+    <p class="instructions">
+    The "custom" track choice displays a track created from the JavaScript expressions in
+    the X-equation and Y-equation text areas, using the variable "t". The track will be
+    created between the specified start and finish t values.
+    </p>
+
+
+    <p>The math behind the simulation is shown below.  Also available are:
+    <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/roller/RollerSingleApp.js">open source code</a>,
+    <a href="../develop/docs/myphysicslab.sims.roller.RollerSingleApp.html">documentation</a> and a
+    <a href="../develop/build/sims/roller/RollerSingleApp-en.html">simple-compiled version</a>
+    which is <a href="../develop/docs/Customizing.html">more customizable</a>.
+    </p>
+
+    <table>
+    <tr style="text-align: center;">
+    <td onClick="set_track('HUMP')">
+    <img src="track_hump.gif"  width="75" height="64" alt=""><br>hump</td>
+
+    <td onClick="set_track('LOOP')">
+    <img src="track_loop.gif"  width="82" height="62" alt=""><br>loop-the-loop</td>
+
+    <td onClick="set_track('CIRCLE')">
+    <img src="track_circle.gif"  width="67" height="63" alt=""><br>circle</td>
+
+    <td onClick="set_track('LEMNISCATE')">
+    <img src="track_infinity.gif"  width="98" height="47" alt=""><br>Lemniscate</td>
+
+    <td onClick="set_track('OVAL')">
+    <img src="track_oval.gif"  width="49" height="66" alt=""><br>oval</td>
+
+    <td onClick="set_track('SPIRAL')">
+    <img src="track_spiral.gif"  width="61" height="69" alt=""><br>spiral</td>
+    </tr>
+    </table>
+
+    <h2>Custom Roller Coaster</h2>
+
+    <p>If you select the "custom" track then you can change the shape of the roller coaster
+    by parametric equations for <span class="html-math inline-math">
+    <i>X</i>
+    </span> and <span class="html-math inline-math">
+    <i>Y</i>
+    </span> as JavaScript expressions
+    involving <span class="html-math inline-math">
+    <i>t</i>
+    </span>. The shape is determined by those equations where the value of
+    <span class="html-math inline-math">
+    <i>t</i>
+    </span> goes between the start and finish <span class="html-math inline-math">
+    <i>t</i>
+    </span> values that are specified.</p>
+
+    <p>For example, you can make a circle by specifying:</p>
+
+    <pre>
+      X-equation: Math.cos(t)
+      Y-equation: Math.sin(t)
+      start-t: 1.57  (this is pi/2)
+      finish-t: 7.85  (this is 5*pi/2)
+    </pre>
+
+    <p>Assuming the increment between values of <span class="html-math inline-math">
+    <i>t</i>
+    </span> is 0.01, the points on the shape
+    are found by a process like this:</p>
+
+    <pre>
+      x = Math.cos(1.57), y = Math.sin(1.57)
+      x = Math.cos(1.58), y = Math.sin(1.58)
+      ...
+      x = Math.cos(7.84), y = Math.sin(7.84)
+      x = Math.cos(7.85), y = Math.sin(7.85)
+    </pre>
+
+    <p>Here is another equation to try:</p>
+
+    <pre>
+      X-equation: t
+      Y-equation: t*Math.cos(3*t)
+      start-t: -8
+      finish-t: 8
+    </pre>
+
+    <p>You can use the JavaScript <code>?:</code> ternary operator to provide two equations
+    over different ranges.</p>
+
+    <pre>
+      X-equation: t
+      Y-equation: t > 0 ? t : -t
+      start-t: -3
+      finish-t: 3
+    </pre>
+
+
+    <h2>Is It Correct?  Using Energy to Decide</h2>
+
+    <p>How can we decide whether this simulation is correct? We know that the ball should
+    not spontaneously gain energy, nor mysteriously lose energy. So we can look for
+    situations that may violate this constraint. </p>
+
+    <p>Try dragging the ball to a certain height on a curve, and letting go. If damping
+    (friction) is set to <span class="html-math inline-math">
+    0
+    </span>, the ball should reach the same height on the track
+    again and again. It shouldn't gain or lose height at the moment that it reverses
+    direction. At that moment the velocity is zero, and all the energy is gravitational
+    (potential) energy.
+    </p>
+
+    <p>Here is a more sensitive test: Click on the circle track. With damping set to
+    <span class="html-math inline-math">
+    0
+    </span>, move the ball to the apex of the circle and let the ball go. When you
+    release the ball it has zero velocity, and only potential (gravitational) energy. The
+    ball will fall to one side and then roll back up the other side to almost where you
+    released it from. It should then reverse direction and fall the other way.
+    </p>
+
+    <p>If instead the ball crosses over the top of the circle, you know that it has gained
+    some energy because it will have non-zero velocity at the top of the circle. This shows
+    the simulation is imperfect.
+    </p>
+
+    <p>To observe the energy directly, click the "show energy" checkbox. The energy shown
+    is the sum of the kinetic and gravitational energy.</p>
+
+    <p class="html-math display-equation">
+    <span class="text">kinetic energy</span> = <sup>1</sup>&frasl;<sub>2</sub> <i>m</i> <i>v</i><sup>2</sup> <br>
+    <span class="text">gravitational energy</span> = <i>m</i> <i>g</i> <i>y</i>
+    </p>
+
+    <p>where <span class="html-math inline-math">
+    <i>m</i> =
+    </span> mass, <span class="html-math inline-math">
+    <i>v</i> =
+    </span> velocity, <span class="html-math inline-math">
+    <i>g</i> =
+    </span> gravity constant, and
+    <span class="html-math inline-math">
+    <i>y</i> =
+    </span> vertical position. With damping off, total energy should remain constant.
+    Instead, you will see the energy fluctuating quite a bit. This is due to some shortcuts
+    used in the simulation programming. For example, we use a table to represent the curve
+    (see below) and the slope at a given point is approximated somewhat crudely.
+    </p>
+
+    <p>You can see that a simulation like this involves tradeoffs between correctness,
+    display speed, and programming effort.</p>
+
+
+
+    <h2 id="physics">Physics of the Simple Roller Coaster</h2>
+
+    <div class="image" style="width:147px;">
+    <img src="track_force.gif" width="147" height="155" alt=""><br>
+        roller coaster variables
+    </div>
+
+    <div style="margin-left:150px; max-width: 40em;">
+
+    <p>A ball moves along a curved track. We assume that the ball cannot leave the track,
+    but is free to move along its length. We have two variables</p>
+
+    <ul class="vars">
+        <li><span class="html-math inline-math">
+    <i>p</i> =
+    </span> position on the track (measured by path length along the
+           track)</li>
+        <li><span class="html-math inline-math">
+    <i>v</i> =
+    </span> velocity</li>
+    </ul>
+
+    <p>We pick some point on the track to be position <span class="html-math inline-math">
+    <i>p</i> = 0
+    </span> and pick a direction
+    along the track to be positive. Then the position is equal to the length of the track,
+    from the origin to that point.</p>
+
+    <p>The gravity force on the ball is shown in the diagram as <span class="html-math inline-math">
+    <i>m</i> <i>g</i>
+    </span> pointing
+    downwards. The component of this force that is parallel to the track is what causes the
+    ball to accelerate. The steeper the track, the faster the acceleration.
+    </p>
+
+    </div>
+
+    <p style="clear:both;">
+    Let <span class="html-math inline-math">
+    <i>k</i>
+    </span> be the slope of the track at this point. Let <span class="html-math inline-math">
+    <i>&theta;</i>
+    </span> be the angle
+    between the gravity <a href="http://mathworld.wolfram.com/Vector.html">vector</a> and
+    the slope vector (the slope vector points in the direction where <span class="html-math inline-math">
+    <i>p</i>
+    </span> increases).
+    Then we can write the force equation for gravity as</p>
+
+    <table class="html-math numbered-equation">
+    <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+    <i>F</i> = <i>m</i> <i>a</i> = <i>m</i> <i>g</i> cos <i>&theta;</i>
+
+    </td><td class="equation-number">(1)</td></tr></table>
+
+    <p>where <span class="html-math inline-math">
+    <i>m</i> =
+    </span> mass, <span class="html-math inline-math">
+    <i>a</i> =
+    </span> acceleration, and <span class="html-math inline-math">
+    <i>g</i> =
+    </span> the
+    gravitational constant. If we add a damping force that is proportional to
+    the velocity we get</p>
+
+    <table class="html-math numbered-equation">
+    <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+    <i>F</i> = <i>m</i> <i>a</i> = <i>m</i> <i>g</i> cos <i>&theta;</i> &minus; <i>b</i> <i>v</i>
+
+    </td><td class="equation-number">(2)</td></tr></table>
+
+    <p>where <span class="html-math inline-math">
+    <i>b</i>
+    </span> is a constant determining the amount of damping. We can find
+    <span class="html-math inline-math">
+    cos <i>&theta;</i>
+    </span> by using the formula for the angle between two vectors
+    <span class="html-math inline-math">
+    <span class="vector">A</span>, <span class="vector">B</span>
+    </span></p>
+
+    <div class="html-math table-equation">
+    <table class="fraction">
+        <tr>
+            <td rowspan="2">
+                cos <i>&theta;</i> = &nbsp;
+            </td><td>
+                <span class="vector">A</span> &middot; <span class="vector">B</span>
+            </td>
+        </tr><tr>
+            <td class="upper_line" >
+                |<span class="vector">A</span>| |<span class="vector">B</span>|
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <p>where the numerator is the
+    <a href="http://mathworld.wolfram.com/DotProduct.html">dot product</a>, and the
+    denominator is the product of the
+    <a href="http://mathworld.wolfram.com/Vector.html">lengths</a>.
+    Note that we indicate vectors with <span class="html-math inline-math">
+    <span class="vector">bold</span>
+    </span> letters here. Define our two
+    vectors by</p>
+
+    <ul class="vars">
+        <li><span class="html-math inline-math">
+    <span class="vector">A</span> = (1, <i>k</i>)
+    </span> the slope vector, pointing in the direction of
+           increasing <span class="html-math inline-math">
+    <i>p</i>
+    </span></li>
+
+        <li><span class="html-math inline-math">
+    <span class="vector">B</span> = (0, &minus;<i>m</i> <i>g</i>)
+    </span> the gravity vector</li>
+    </ul>
+
+    <p>This leads to</p>
+
+    <div class="html-math table-equation">
+    <table class="fraction">
+        <tr>
+            <td rowspan="2">
+                cos <i>&theta;</i> = &nbsp;
+            </td><td>
+                &minus;<i>k</i> <i>m</i> <i>g</i>
+            </td><td rowspan="2">
+                &nbsp; = &nbsp;
+            </td><td>
+                &minus;<i>k</i>
+            </td>
+        </tr><tr>
+            <td class="upper_line">
+                <i>m</i> <i>g</i> &radic;(1 + <i>k</i><sup>2</sup>)
+            </td><td class="upper_line">
+                &radic;(1 + <i>k</i><sup>2</sup>)
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <p>Now we can write equation (2) as</p>
+
+    <table class="html-math numbered-equation"><tr><td class="emphasized">
+    <table class="fraction">
+        <tr>
+            <td rowspan="2">
+                <i>a</i> = &nbsp;
+            </td><td>
+                &minus;<i>g</i> <i>k</i>
+            </td><td rowspan="2">
+                &nbsp; &minus; <sup><i>b</i></sup>&frasl;<sub><i>m</i></sub> <i>v</i>
+            </td>
+        </tr><tr>
+            <td class="upper_line">
+                &radic;(1 + <i>k</i><sup>2</sup>)
+            </td>
+        </tr>
+    </table>
+
+    </td><td class="equation-number">(3)</td></tr></table>
+
+    <p>where we keep in mind that the slope <span class="html-math inline-math">
+    <i>k</i>
+    </span> is really a function of position
+    <span class="html-math inline-math">
+    <i>k</i>(<i>p</i>)
+    </span>. That is, given the position, we need to find the slope at that point.
+    This is the equation of motion for the roller coaster.</p>
+
+
+
+
+
+
+    <h2 id="numerics">Numerical Simulation</h2>
+
+    <p>The two equations needed for the <a href="../explain/runge-kutta-en.html">Runge-Kutta numerical
+    solver</a> are given by:</p>
+
+    <p class="html-math display-equation">
+    <i>p</i>' = <i>v</i>
+    </p>
+
+    <div class="html-math table-equation">
+    <table class="fraction">
+        <tr>
+            <td rowspan="2">
+                <i>v</i>' = &nbsp;
+            </td><td>
+                &minus;<i>g</i> <i>k</i>(<i>p</i>)
+            </td><td rowspan="2">
+                &nbsp; &minus; <sup><i>b</i></sup>&frasl;<sub><i>m</i></sub> <i>v</i>
+            </td>
+        </tr><tr>
+            <td class="upper_line">
+                &radic;(1 + <i>k</i>(<i>p</i>)<sup>2</sup>)
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <p>Here we indicate that the slope <span class="html-math inline-math">
+    <i>k</i>
+    </span> is a function of position <span class="html-math inline-math">
+    <i>p</i>
+    </span> by
+    the notation <span class="html-math inline-math">
+    <i>k</i>(<i>p</i>)
+    </span>.
+    </p>
+
+    <p>There is a small additional complication in that the track can loop around. This
+    requires us to determine whether the path is increasing (in the sense of increasing
+    <span class="html-math inline-math">
+    <i>p</i>
+    </span>) to the left or to the right. This affects the direction of the slope vector
+    and can change the sign of <span class="html-math inline-math">
+    cos <i>&theta;</i>
+    </span>. This enters into the first term of equation
+    (3) as a possible multiplication by <span class="html-math inline-math">
+    &minus;1
+    </span>.
+    </p>
+
+    <p>Finally, vertical lines need a special treatment, because the slope is infinite
+    there. When we detect that the slope is vertical, equation (3) becomes:</p>
+
+    <p class="html-math display-equation">
+    <i>a</i> = &minus;<i>g</i> &minus; <sup><i>b</i></sup>&frasl;<sub><i>m</i></sub> <i>v</i>
+    </p>
+
+
+
+
+
+    <h2 id="curve_length">Measuring the Length of a Curve</h2>
+
+    <p>To program this simulation on the computer we need to find the relationships
+    between:</p>
+
+    <ul class="vars">
+        <li><span class="html-math inline-math">
+    <i>p</i> =
+    </span> position (measured by path length)</li>
+        <li><span class="html-math inline-math">
+    <i>k</i> =
+    </span> slope of the track</li>
+        <li><span class="html-math inline-math">
+    (<i>x</i>, <i>y</i>) =
+    </span> position in 2 dimensional space</li>
+    </ul>
+
+    <p>For the correctness of the simulation, the most important relationship is
+    <span class="html-math inline-math">
+    <i>p</i> &rarr; <i>k</i>
+    </span> because this is used in the differential equation, represented by
+    the function <span class="html-math inline-math">
+    <i>k</i>(<i>p</i>)
+    </span>. The other relationships can be less exact because they are
+    only used to update the graphics or for user input. For example, the relation
+    <span class="html-math inline-math">
+    <i>p</i> &rarr; (<i>x</i>, <i>y</i>)
+    </span> is used to update the graphics. And the relation
+    <span class="html-math inline-math">
+    (<i>x</i>, <i>y</i>) &rarr; <i>p</i>
+    </span> is used for dragging the ball.
+    </p>
+
+    <p>Suppose that the curve can be defined parametrically by two functions
+    <span class="html-math inline-math">
+    <i>x</i>(<i>t</i>), <i>y</i>(<i>t</i>)
+    </span>. That is, to sweep out the curve we increase the variable
+    <span class="html-math inline-math">
+    <i>t</i>
+    </span> from <span class="html-math inline-math">
+    0
+    </span> to some value. And for each value of <span class="html-math inline-math">
+    <i>t</i>
+    </span> we can find
+    the position of the curve from the functions <span class="html-math inline-math">
+    <i>x</i>(<i>t</i>), <i>y</i>(<i>t</i>)
+    </span>. For example, a
+    circle can be defined parametrically by</p>
+
+    <p class="html-math display-equation">
+    <i>x</i>(<i>t</i>) = cos <i>t</i><br>
+    <i>y</i>(<i>t</i>) = sin <i>t</i>
+    </p>
+
+    <p>where <span class="html-math inline-math">
+    <i>t</i>
+    </span> varies from <span class="html-math inline-math">
+    0
+    </span> to <span class="html-math inline-math">
+    2&pi;
+    </span>. In two dimensions, the
+    length of a curve can be determined by the path integral</p>
+
+    <p>$$p = \int
+      \sqrt{\left( \frac{dx}{dt} \right)^2 + \left( \frac{dy}{dt} \right)^2} dt$$</p>
+
+
+    <p>where the limits of integration are the starting and ending value of <span class="html-math inline-math">
+    <i>t</i>
+    </span>
+    corresponding to the points you want to measure between.
+    </p>
+
+    <p>We can try to solve the path integral analytically to get the needed relations. For
+    some curves this is easily done. For the circle, the path integral is especially
+    simple:</p>
+
+    <p class="html-math display-equation">
+    <i>p</i> = <span class="bigg">&int; &radic;</span> (sin<sup>2</sup><i>t</i> + cos<sup>2</sup><i>t</i>) <i>dt</i>
+       = <span class="bigg">&int;</span> 1 <i>dt</i> = <i>t</i>
+    </p>
+
+    <p>But for most curves the integral is too difficult to solve. For example, the "hump"
+    curve in the simulation is defined by a simple polynomial</p>
+
+    <p class="html-math display-equation">
+    <i>x</i>(<i>t</i>) = <i>t</i> <br>
+    <i>y</i>(<i>t</i>) = 3 &minus; <sup>7</sup>&frasl;<sub>6</sub> <i>t</i> <sup>2</sup> + <sup>1</sup>&frasl;<sub>6</sub> <i>t</i> <sup>4</sup>
+    </p>
+
+    <p>But this leads to the following nasty integral which even a computer algebra program
+    cannot solve.</p>
+
+    <p>$$p = \int \frac{1}{3} \sqrt{9 + 49 t^2 - 28 t^4 + 4 t^6} \; dt$$</p>
+
+    <p>Faced with difficult integrals, we instead take an approximate numerical approach
+    and construct a table to represent the curve, as explained below.</p>
+
+
+
+
+
+    <h2 id="table">Representing the Curve with a Table</h2>
+
+    <p>Here is how we construct a table to represent the curve. Assume we have the
+    functions <span class="html-math inline-math">
+    <i>x</i>(<i>t</i>), <i>y</i>(<i>t</i>)
+    </span> which describe the curve parametrically. Suppose we
+    want the curve to be defined from <span class="html-math inline-math">
+    <i>t</i> = &minus;3
+    </span> to <span class="html-math inline-math">
+    <i>t</i> = 3
+    </span>. Then we
+    start forming a table that would look something like this:</p>
+
+    <div class="centered">
+    <table style="width:300px;">
+    <tr class="eqn">
+        <th>T</th>
+        <th>P</th>
+        <th>X</th>
+        <th>Y</th>
+    </tr>
+    <tr>
+        <td>--3</td>
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>--2.99</td>
+        <td>0.014142</td>
+        <td>0.99</td>
+        <td>2.01</td>
+    </tr>
+    <tr>
+        <td>--2.98</td>
+        <td>0.028284</td>
+        <td>0.98</td>
+        <td>2.02</td>
+    </tr>
+    <tr>
+        <td>. . .</td>
+        <td>. . .</td>
+        <td>. . .</td>
+        <td>. . .</td>
+    </tr>
+    </table>
+    </div>
+
+    <p>Each row of the table represents a point on the curve. T is the the value that
+    varies when defining the curve. P is the length of the path from the starting point. X
+    and Y are the locations of each point.</p>
+
+    <p>The table is constructed by starting with <span class="html-math inline-math">
+    <i>t</i> = &minus;3
+    </span> and setting
+    <span class="html-math inline-math">
+    <i>p</i> = 0
+    </span>. We then find <span class="html-math inline-math">
+    <i>x</i>, <i>y</i>
+    </span> from the equations
+    <span class="html-math inline-math">
+    <i>x</i>(&minus;3), <i>y</i>(&minus;3)
+    </span>. To add each row, we increase <span class="html-math inline-math">
+    <i>t</i>
+    </span> by some
+    small increment (here the increment is 0.01) and use the function that defines the
+    curve to find the corresponding point <span class="html-math inline-math">
+    <i>x</i>(<i>t</i>), <i>y</i>(<i>t</i>)
+    </span>.</p>
+
+    <p>We can then find <span class="html-math inline-math">
+    <i>p</i>
+    </span> either by numerically evaluating the path integral
+    (see <a href="roller-single-en.html#curve_length">measuring curve length</a> above), or as a cruder and
+    simpler method we can just increase <span class="html-math inline-math">
+    <i>p</i>
+    </span> by the linear distance to the previous
+    <span class="html-math inline-math">
+    <i>x</i>, <i>y</i>
+    </span> point. The simulation here uses the simple method (a refinement would be
+    to fit a polynomial to 3 or 4 neighboring points).</p>
+
+    <p>Once we have the table, we can implement a function that maps <span class="html-math inline-math">
+    <i>p</i> &rarr; <i>k</i>
+    </span>,
+    that is it maps the position along the path <span class="html-math inline-math">
+    <i>p</i>
+    </span> to the slope <span class="html-math inline-math">
+    <i>k</i>
+    </span> at that
+    point. This can be done quickly by using a binary search algorithm, since the
+    <span class="html-math inline-math">
+    <i>p</i>
+    </span> values are all sorted. Suppose that <span class="html-math inline-math">
+    <i>p</i>
+    </span> is closest to the
+    <span class="html-math inline-math">
+    <i>i</i>-th
+    </span> value in the table, so that <span class="html-math inline-math">
+    P[<i>i</i>] &lt; <i>p</i> &lt; P[<i>i</i>+1]
+    </span> where
+    <span class="html-math inline-math">
+    P
+    </span> represents the list of <span class="html-math inline-math">
+    <i>p</i>
+    </span> values in the table. Then an approximate
+    value for the slope <span class="html-math inline-math">
+    <i>k</i>
+    </span> is given by</p>
+
+    <div class="html-math table-equation">
+    <table class="fraction">
+        <tr>
+            <td rowspan="2">
+                <i>k</i> = &nbsp;
+            </td><td>
+                Y[<i>i</i>+1] &minus; Y[<i>i</i>]
+            </td>
+        </tr><tr>
+            <td class="upper_line">
+                X[<i>i</i>+1] &minus; X[<i>i</i>]
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <p>where <span class="html-math inline-math">
+    X, Y
+    </span> are the tables of <span class="html-math inline-math">
+    <i>x</i>, <i>y</i>
+    </span> values. Similar methods can be
+    used for finding the relation <span class="html-math inline-math">
+    <i>p</i> &rarr; (<i>x</i>, <i>y</i>)
+    </span>. For slightly better accuracy
+    we can use a polynomial interpolation of the 4 points in the table that are nearest to
+    the value of <span class="html-math inline-math">
+    <i>p</i>
+    </span> we are seeking.
+    </p>
+
+    <p>The routine that maps <span class="html-math inline-math">
+    (<i>x</i>, <i>y</i>) &rarr; <i>p</i>
+    </span> is used less frequently and doesn't
+    need to be as efficient. This simulation uses a linear search through the entire table
+    to find the point in the table that minimizes the distance from the given
+    <span class="html-math inline-math">
+    (<i>x</i>, <i>y</i>)
+    </span> to the curve.</p>
+
+    <p id="page_history">
+      This web page was first published April 2002.
+    </p>

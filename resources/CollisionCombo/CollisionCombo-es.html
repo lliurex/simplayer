@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title lang="es">Multiple Simultaneous Collisions</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+
+<!--Collision Handling Methods
+* Kollision Bearbeitung Methoden
+-->
+
+<h1>Multiple Simultaneous Collisions</h1>
+
+<div id="header_nav">
+</div>
+<ul id="header_bar">
+</ul>
+
+
+<!--p><b>(TO DO: ADD REFERENCE TO PAGE ABOUT JOINTS WHEN WE HAVE ONE.)</b></p-->
+
+<p class="introduction">This page explains how the
+<a href="../explain/physics-engine-es.html">2D Rigid Body Physics Engine</a>.
+deals with multiple simultaneous collisions. The summary points are:
+</p>
+
+<ul>
+  <li>Collisions are chosen randomly and handled one at a time, until there are no
+  collisions remaining.</li>
+
+  <li>The collision impulses and their resulting effects are accumulated until all
+  collisions are resolved (without leaving the collision handling routine).</li>
+
+  <li>Joints are a special case, they are handled via a "simultaneous" collision
+  method.</li>
+
+  <li>Square-on collisions involving rectangular shapes are perhaps not correct.</li>
+</ul>
+
+
+
+<p>The simulations discussed here use simplified rules to determine the result of a
+collision. A more exact simulation would model the deformation of the colliding bodies
+on a very small time scale. But that would require much more complex software and
+models, and would not run interactively in real-time.
+</p>
+
+<p>The bottom line: although there isn't a single perfect solution, for most purposes
+the <a href="#serial">serial collision handling</a> method works pretty well.</p>
+
+<p>The book <i>Physics-Based Animation</i> by Erleben, Sporring, Henriksen, and Dohlmann
+discusses several approaches to handling collisions. In comparing two of the methods
+considered below, they write (on page 153):
+</p>
+
+<p class="quote">
+We cannot really talk about one method being more correct or better than the other
+because it is possible to set up physical configurations of colliding rigid bodies
+where one of the methods computes the wanted motion and the other does not and vice
+versa.
+</p>
+
+<h2>Single Collisions</h2>
+
+<p>The theory of rigid body collisions is described at
+<a href="../ImpulseApp/ImpulseApp-es.html#collision_physics">Physics of Collision for Rigid Bodies in 2
+Dimensions</a>. That describes a single collision between two bodies at one collision
+point.</p>
+
+<p>The key idea is that we can find a
+<a href="../ImpulseApp/ImpulseApp-es.html#collision_impulse">collision impulse</a> which reverses the
+collision such that the final relative velocity between the bodies, <span class="html-math inline-math">
+<i>v<sub>f</sub></i>
+</span>, after
+the collision is some multiple of the initial relative velocity, <span class="html-math inline-math">
+<i>v<sub>i</sub></i>
+</span>.
+</p>
+
+<div id="equation1">
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>v<sub>f</sub></i> = &minus;<i>e</i> <i>v<sub>i</sub></i>
+
+</td><td class="equation-number">(1)</td></tr></table>
+</div>
+
+<p>The velocity here is the speed at which the gap distance between the objects is
+changing &ndash; <em>their velocity relative to each other</em> (not the absolute speed
+of the objects relative to the fixed background).</p>
+
+<ul>
+  <li>Negative relative velocity means the objects are colliding: the gap between them
+  is becoming smaller.</li>
+
+  <li>Positive relative velocity means the objects are separating: the gap between them
+  is becoming larger.</li>
+</ul>
+
+<p>The elasticity <span class="html-math inline-math">
+<i>e</i>
+</span> is a constant between 0 and 1 that indicates how "bouncy"
+the collision is, where <span class="html-math inline-math">
+<i>e</i> = 1
+</span> means perfectly elastic and <span class="html-math inline-math">
+<i>e</i> = 0
+</span> means
+completely inelastic.
+<!--For <span class="html-math inline-math">
+<i>e</i> = 1
+</span> the relative velocity after the collision is the exact opposite of the velocity before the collision.-->
+</p>
+
+
+
+<h2>Multiple Collisions</h2>
+
+<p>When there are multiple simultaneous points of contact between two or more bodies
+then we have to modify the collision handling algorithm.</p>
+
+<p>A typical case is when several bodies are in resting contact with each other and
+then another body crashes into one member of the group. Think of the initial "break" in
+a <a href="../BilliardsApp/BilliardsApp-es.html">game of billiards</a> where one ball collides into a large
+group of balls that are in resting contact with each other.
+</p>
+
+<p>Another case is multiple simultaneous collisions. A typical case is a rectangular
+block colliding into a wall such that both corners are colliding. Another case is two
+bodies colliding from separate directions into a third body.</p>
+
+<p>There are two ways to deal with multiple collisions</p>
+
+<ol>
+  <li><b>Simultaneous collision handling.</b> All the resulting velocities are
+  calculated in one step.</li>
+
+  <li><b>Serial or Sequential collision handling.</b> Each collision is resolved in
+  turn as though it was a single collision. The order of resolving collisions is
+  random, their effect is summed, and each collision can cause other collisions to
+  occur which are resolved instantaneously during this process.</li>
+
+</ol>
+
+
+<h2 id="simultaneous">Simultaneous Collision Handling</h2>
+
+<p>One method of handling multiple collisions is called the <i>simultaneous
+collisions</i> method. In this scheme, we predict the result at every point of
+collision or resting contact by using <a href="#equation1">equation (1)</a>. We then
+find the appropriate collision impulse at each point of collision of contact such that
+the end result matches what equation (1) predicts.
+</p>
+
+<p>Consider a situation where there are two hockey pucks at rest and in contact with
+each other; and then a third puck comes from the left and strikes one of the pucks.
+(Imagine we are looking down onto an air hockey table).
+</p>
+
+
+<div id="container1" class="control_container" lang="es">
+  <div id="div_graph1" >
+  </div>
+  <div id="div_time_graph1" >
+  </div>
+  <div id="sim_applet1" >
+  </div>
+  <div id="sim_controls1" class="control_group">
+  </div>
+  <div id="graph_controls1" class="control_group">
+  </div>
+  <div id="time_graph_controls1" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim1">
+    <input type="checkbox" id="show_sim1">show sim
+  </label>
+  <label id="label_terminal1">
+    <input type="checkbox" id="show_terminal1">terminal
+  </label>
+  <div id="div_terminal1">
+    <textarea id="term_output1" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input1" size="80">
+    </label>
+  </div>
+</div>
+
+<p>We assume these hockey pucks are exactly lined up, elasticity is 1, and the pucks
+have the same mass. There are two points of collision, the collision on the left has a
+<span class="html-math inline-math">
+<i>v<sub>i</sub></i> = &minus;2
+</span>, the right collision has <span class="html-math inline-math">
+<i>v<sub>i</sub></i> = 0
+</span>. By using <a
+href="#equation1">equation (1)</a> we get for the left collision <span class="html-math inline-math">
+<i>v<sub>f</sub></i> = 2
+</span> and
+for the right collision <span class="html-math inline-math">
+<i>v<sub>f</sub></i> = 0
+</span>. So we see the left puck bounce away to the
+left, and the pair of pucks move to the right remaining together.
+</p>
+
+<p>This is the wrong behavior! If you play billiards, you know what should happen: the
+left and middle pucks should remain stationary, and the right-most puck should move
+away. Another example of the correct behavior is seen in the toy called a <a
+href="../NewtonsCradleApp/NewtonsCradleApp-es.html">Newton's Cradle</a>. It is a set of steel balls suspended
+from strings, such that they are resting against each other; when you pick up one of
+the balls at the end and let it hit the group, that ball stops and the ball at the
+other end flies away.
+</p>
+
+<p>Consider just two hockey pucks, one stationary, and the other moving from the left.
+Suppose they have the same mass, are perfectly elastic (<span class="html-math inline-math">
+<i>e</i> = 1
+</span>), and the motion
+is aligned so they hit squarely. After they collide, the left puck should be
+stationary, and the right puck should move away. Because this is a single collision, <a
+href="#equation1">equation (1)</a> gives the correct result, with <span class="html-math inline-math">
+<i>v<sub>f</sub></i> = &minus;<i>v<sub>i</sub></i>
+</span>,
+and this is what we see in the Hockey Puck simulation. In the case of three hockey
+pucks, the same thing should happen: the velocity should transfer from the left puck to
+the right puck, with the impact transferred thru the middle puck.
+</p>
+
+
+<div id="container2" class="control_container" lang="es">
+  <div id="div_graph2" >
+  </div>
+  <div id="div_time_graph2" >
+  </div>
+  <div id="sim_applet2" >
+  </div>
+  <div id="sim_controls2" class="control_group">
+  </div>
+  <div id="graph_controls2" class="control_group">
+  </div>
+  <div id="time_graph_controls2" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim2">
+    <input type="checkbox" id="show_sim2">show sim
+  </label>
+  <label id="label_terminal2">
+    <input type="checkbox" id="show_terminal2">terminal
+  </label>
+  <div id="div_terminal2">
+    <textarea id="term_output2" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input2" size="80">
+    </label>
+  </div>
+</div>
+
+
+<p>Another way to see this: What if the two stationary pucks are not quite touching,
+but there is a small gap between them? Then, what happens is the "one hits one"
+collision happening twice, separated by a small gap of time and space. The Hockey Puck
+simulation below demonstrates this. Since you can make this gap as small as you want,
+it seems unreasonable that the behavior suddenly changes dramatically when the pucks
+are touching instead of separated by a tiny gap.
+</p>
+
+
+<div id="container3" class="control_container" lang="es">
+  <div id="div_graph3" >
+  </div>
+  <div id="div_time_graph3" >
+  </div>
+  <div id="sim_applet3" >
+  </div>
+  <div id="sim_controls3" class="control_group">
+  </div>
+  <div id="graph_controls3" class="control_group">
+  </div>
+  <div id="time_graph_controls3" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim3">
+    <input type="checkbox" id="show_sim3">show sim
+  </label>
+  <label id="label_terminal3">
+    <input type="checkbox" id="show_terminal3">terminal
+  </label>
+  <div id="div_terminal3">
+    <textarea id="term_output3" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input3" size="80">
+    </label>
+  </div>
+</div>
+
+
+
+<h2 id="serial">Serial Collision Handling</h2>
+
+<div class="image" style="width: 202px; float: left;">
+<img src="collision_handling_2.png" width="201" height="255" alt=""><br>
+sequence of collisions
+</div>
+
+<div style="margin-left: 228px; max-width: 40em;">
+<p>The <i>serial</i> collision handling method is also known by the terms
+<i>propagating impulses</i> or <i>sequential</i> collision handling. With the serial
+method, we imagine that each of the multiple collisions happens one at a time in
+sequence; we resolve each collision as a single collision, and then based on the
+resulting velocities there are subsequent collisions to resolve. All this happens
+instantaneously. It is rather like pretending that there are tiny gaps between the
+objects, and that they rebound against each other after the initial collision occurs.
+</p>
+
+<p>Consider the "one hits two" scenario, where one puck hits two motionless pucks that
+are in contact. With the simultaneous method, we used <a href="#equation1">equation
+(1)</a> to decide in advance what the final velocities would be at the two collision
+points (this was described above). The serial method goes thru a process of "collision
+resolving" where objects collide and rebound against each other, possibly many times,
+until there are no more collisions. This process of collision resolving takes no time,
+the idea being that because the objects are all in contact there is no distance for
+them to travel to bump into one another.
+</p>
+
+<p>With the serial collision handling method, when elasticity <span class="html-math inline-math">
+<i>e</i> = 1
+</span>, the "one
+hits two" scenario goes like this: assume the left puck approaches the two stationary
+pucks with <span class="html-math inline-math">
+<i>v<sub>i</sub></i> = &minus;2
+</span>
+</p>
+
+<ul>
+  <li>first collision: left puck hits middle puck, <span class="html-math inline-math">
+<i>v<sub>f</sub></i> = &minus;<i>v<sub>i</sub></i> = 2
+</span>, (this is
+  the same as in the "one hits one" scenario)</li>
+
+  <li>second collision: middle puck hits right puck with <span class="html-math inline-math">
+<i>v<sub>i</sub></i> = &minus;2
+</span>, (again same
+  as the "one hits one" scenario)</li>
+
+</ul>
+
+<p>The result is that the left and middle pucks are stationary, and <span class="html-math inline-math">
+<i>v<sub>f</sub></i> = 2
+</span> for
+the second collision. The simulation below runs this scenario with the serial collision
+method; it shows that the serial method correctly handles this case, in contrast to the
+simultaneous method.
+</p>
+</div>
+
+<div style="clear: both;">
+
+
+<div id="container4" class="control_container" lang="es">
+  <div id="div_graph4" >
+  </div>
+  <div id="div_time_graph4" >
+  </div>
+  <div id="sim_applet4" >
+  </div>
+  <div id="sim_controls4" class="control_group">
+  </div>
+  <div id="graph_controls4" class="control_group">
+  </div>
+  <div id="time_graph_controls4" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim4">
+    <input type="checkbox" id="show_sim4">show sim
+  </label>
+  <label id="label_terminal4">
+    <input type="checkbox" id="show_terminal4">terminal
+  </label>
+  <div id="div_terminal4">
+    <textarea id="term_output4" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input4" size="80">
+    </label>
+  </div>
+</div>
+
+<p>Curious fact: With elasticity <span class="html-math inline-math">
+<i>e</i> = 1.
+</span> we had only 2 collisions in the
+sequence. But with lower elasticity, such as <span class="html-math inline-math">
+<i>e</i> = 0.8
+</span>, you wind up with with an
+infinite series of smaller and smaller collisions as the middle puck collides back and
+forth between the left and right pucks.
+</p>
+</div>
+
+
+<h2>Problems with serial collisions.</h2>
+
+<p>The most obvious "problem" with serial collisions is when we have a square block
+instead of a round ball, and the two corners of the block hit an edge at the same
+moment. Here is a simulation of this; first with serial collision handling and then
+with simultaneous collision handling. Which do you think is more realistic?
+</p>
+
+
+<div id="container5" class="control_container" lang="es">
+  <div id="div_graph5" >
+  </div>
+  <div id="div_time_graph5" >
+  </div>
+  <div id="sim_applet5" >
+  </div>
+  <div id="sim_controls5" class="control_group">
+  </div>
+  <div id="graph_controls5" class="control_group">
+  </div>
+  <div id="time_graph_controls5" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim5">
+    <input type="checkbox" id="show_sim5">show sim
+  </label>
+  <label id="label_terminal5">
+    <input type="checkbox" id="show_terminal5">terminal
+  </label>
+  <div id="div_terminal5">
+    <textarea id="term_output5" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input5" size="80">
+    </label>
+  </div>
+</div>
+
+<p>Above is with serial collision handling. Below is the same situation with
+simultaneous collision handling.
+</p>
+
+
+<div id="container6" class="control_container" lang="es">
+  <div id="div_graph6" >
+  </div>
+  <div id="div_time_graph6" >
+  </div>
+  <div id="sim_applet6" >
+  </div>
+  <div id="sim_controls6" class="control_group">
+  </div>
+  <div id="graph_controls6" class="control_group">
+  </div>
+  <div id="time_graph_controls6" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim6">
+    <input type="checkbox" id="show_sim6">show sim
+  </label>
+  <label id="label_terminal6">
+    <input type="checkbox" id="show_terminal6">terminal
+  </label>
+  <div id="div_terminal6">
+    <textarea id="term_output6" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input6" size="80">
+    </label>
+  </div>
+</div>
+
+<p>Is this really a problem with serial collision handling? It would be very rare to
+have a collision happen in this mathematically precise way where both corners are
+colliding with the exact same speed. With a tiny change in the angle of the block, the
+simultaneous collision handling produces pretty much the same result as the serial
+handling as seen in the simulation below:
+</p>
+
+
+<div id="container7" class="control_container" lang="es">
+  <div id="div_graph7" >
+  </div>
+  <div id="div_time_graph7" >
+  </div>
+  <div id="sim_applet7" >
+  </div>
+  <div id="sim_controls7" class="control_group">
+  </div>
+  <div id="graph_controls7" class="control_group">
+  </div>
+  <div id="time_graph_controls7" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim7">
+    <input type="checkbox" id="show_sim7">show sim
+  </label>
+  <label id="label_terminal7">
+    <input type="checkbox" id="show_terminal7">terminal
+  </label>
+  <div id="div_terminal7">
+    <textarea id="term_output7" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input7" size="80">
+    </label>
+  </div>
+</div>
+
+<p>Earlier in discussing the "one hits two" scenario, we used the principle that
+"slight variations shouldn't radically change the solution". If we apply that principle
+here, then the serial collision handler actually looks like the better of the two.
+</p>
+
+
+<p>Below is a situation where an object collides into two other objects at the same
+time. Again it is the case that the serial method gives a non-symmetric result, where
+the two collisions get different impulses because one is resolved before the other. If
+you choose "simultaneous" from the collision handling menu, you will see that the
+simultaneous solver gives a nice symmetric result. However if you put in a tiny
+starting angle (like 0.01) for the left block, then the result is similar to what the
+serial method produces.
+</p>
+
+
+<div id="container8" class="control_container" lang="es">
+  <div id="div_graph8" >
+  </div>
+  <div id="div_time_graph8" >
+  </div>
+  <div id="sim_applet8" >
+  </div>
+  <div id="sim_controls8" class="control_group">
+  </div>
+  <div id="graph_controls8" class="control_group">
+  </div>
+  <div id="time_graph_controls8" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim8">
+    <input type="checkbox" id="show_sim8">show sim
+  </label>
+  <label id="label_terminal8">
+    <input type="checkbox" id="show_terminal8">terminal
+  </label>
+  <div id="div_terminal8">
+    <textarea id="term_output8" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input8" size="80">
+    </label>
+  </div>
+</div>
+
+
+<h2>Infinite Loop with Serial Collision Handling</h2>
+
+<p>Serial collision handling can result in an infinite loop of collisions. Here we show
+a couple such scenarios taken from
+<i>Physics-Based Animation</i> by Erleben, Sporring, Henriksen, and Dohlmann,
+section 6.2.1 "Nontermination of Sequential Collision Resolving" on page 154.</p>
+
+<p>The first example shows two billiard balls wrapped in a frame. With perfect
+elasticity of 1.0, if an object strikes the frame, then the sequence of collisions
+"wraps around" and never terminates.</p>
+
+
+
+<div id="container16" class="control_container" lang="es">
+  <div id="div_graph16" >
+  </div>
+  <div id="div_time_graph16" >
+  </div>
+  <div id="sim_applet16" >
+  </div>
+  <div id="sim_controls16" class="control_group">
+  </div>
+  <div id="graph_controls16" class="control_group">
+  </div>
+  <div id="time_graph_controls16" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim16">
+    <input type="checkbox" id="show_sim16">show sim
+  </label>
+  <label id="label_terminal16">
+    <input type="checkbox" id="show_terminal16">terminal
+  </label>
+  <div id="div_terminal16">
+    <textarea id="term_output16" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input16" size="80">
+    </label>
+  </div>
+</div>
+
+<p>The simulation here is only able to cope with this situation because of some error
+handling code: when too many iterations are detected then the size of the acceptable
+"small velocity" is doubled; in the above case, this happens enough times that "small
+velocity" is greater than the actual original colliding velocity and we exit the
+loop. Note that <em>energy is not conserved</em> in this scenario which is another
+indication that this simulation is not correct.</p>
+
+<p>The error-handling code only occurs with the "lastpass" collision methods:
+<em>serial grouped lastpass</em> or <em>serial separate lastpass</em>. If you choose
+instead <em>serial group</em> or <em>serial separate</em> and restart the simulation
+(click the rewind button and then the play button) then you will get an error alert
+when the collision occurs.</p>
+
+<p>Another example from Erleben, et al, is of a heavy ball (mass 1000) striking a light
+ball (mass 1) which is at rest against a wall. With elasticity zero there is a sequence
+of collisions where the velocity changes by a factor of 1000/1001 with each collision,
+so the number of collisions is almost infinite.</p>
+
+
+<div id="container17" class="control_container" lang="es">
+  <div id="div_graph17" >
+  </div>
+  <div id="div_time_graph17" >
+  </div>
+  <div id="sim_applet17" >
+  </div>
+  <div id="sim_controls17" class="control_group">
+  </div>
+  <div id="graph_controls17" class="control_group">
+  </div>
+  <div id="time_graph_controls17" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim17">
+    <input type="checkbox" id="show_sim17">show sim
+  </label>
+  <label id="label_terminal17">
+    <input type="checkbox" id="show_terminal17">terminal
+  </label>
+  <div id="div_terminal17">
+    <textarea id="term_output17" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input17" size="80">
+    </label>
+  </div>
+</div>
+
+<p>Again the simulation is only able to cope with this scenario because of the error
+handling code that detects an infinite loop and then loosens the accuracy.</p>
+
+
+
+
+
+<h2>A Hybrid Method:  between serial and simultaneous.</h2>
+
+<div class="image" style="width: 227px; float: left;">
+<img src="collision_handling_1.png" width="226" height="318" alt=""><br>
+sequence of collisions
+</div>
+
+<div style="margin-left: 228px; max-width: 40em;">
+<p>Here is a hybrid combination of the two approaches. It is like the serial method in
+resolving a sequence of individual collisions. But for each individual collision, it
+considers all the active collisions on that body. So we get a nice result for the "one
+hits two" case with square blocks (see the simulation below).
+</p>
+
+<p>The first collision is solved simultaneously for both collisions at the corners
+between the left and middle blocks, so it gets a nice symmetric result: after the first
+collision the left block is stationary, and the middle block is moving to the right and
+starting to collide with the right block (see the picture at left). Next, the second
+collision is solved simultaneously for both corner collisions between the middle and
+right block, with the result that the middle block is stationary and the right block is
+moving.
+</p>
+
+<p>Try selecting the other collision methods from the menu to see the difference; you
+should find that only the hybrid method gives the "correct" results.
+</p>
+</div>
+
+
+<div id="container9" class="control_container" lang="es">
+  <div id="div_graph9" >
+  </div>
+  <div id="div_time_graph9" >
+  </div>
+  <div id="sim_applet9" >
+  </div>
+  <div id="sim_controls9" class="control_group">
+  </div>
+  <div id="graph_controls9" class="control_group">
+  </div>
+  <div id="time_graph_controls9" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim9">
+    <input type="checkbox" id="show_sim9">show sim
+  </label>
+  <label id="label_terminal9">
+    <input type="checkbox" id="show_terminal9">terminal
+  </label>
+  <div id="div_terminal9">
+    <textarea id="term_output9" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input9" size="80">
+    </label>
+  </div>
+</div>
+
+<p style="clear: both;">This hybrid method decides which collisions to consider in each
+step as it resolves collisions serially. The criteria is something like this: Take the
+collision with the biggest velocity, which is between body A and body B; then add in
+any other significant collisions involving bodies A or B. <i>Significant</i> means any
+collision with a large velocity, so resting contacts are ignored.
+</p>
+
+<p>This hybrid method also gives the nice symmetric result in the "one hits two
+separate" scenario shown below.
+</p>
+
+
+<div id="container10" class="control_container" lang="es">
+  <div id="div_graph10" >
+  </div>
+  <div id="div_time_graph10" >
+  </div>
+  <div id="sim_applet10" >
+  </div>
+  <div id="sim_controls10" class="control_group">
+  </div>
+  <div id="graph_controls10" class="control_group">
+  </div>
+  <div id="time_graph_controls10" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim10">
+    <input type="checkbox" id="show_sim10">show sim
+  </label>
+  <label id="label_terminal10">
+    <input type="checkbox" id="show_terminal10">terminal
+  </label>
+  <div id="div_terminal10">
+    <textarea id="term_output10" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input10" size="80">
+    </label>
+  </div>
+</div>
+
+
+
+
+
+<h2>Problems with the hybrid method.</h2>
+
+<p>The hybrid model doesn't correctly handle cases where there are multiple collisions
+with unequal velocities, because it is based on using simultaneous collision handling
+for each individual "collision event". Below is an example where there are 2
+simultaneous collisions, but at different velocities. What should happen is that the
+left and right pucks swap velocities, and the middle puck remains stationary.
+</p>
+
+
+<div id="container11" class="control_container" lang="es">
+  <div id="div_graph11" >
+  </div>
+  <div id="div_time_graph11" >
+  </div>
+  <div id="sim_applet11" >
+  </div>
+  <div id="sim_controls11" class="control_group">
+  </div>
+  <div id="graph_controls11" class="control_group">
+  </div>
+  <div id="time_graph_controls11" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim11">
+    <input type="checkbox" id="show_sim11">show sim
+  </label>
+  <label id="label_terminal11">
+    <input type="checkbox" id="show_terminal11">terminal
+  </label>
+  <div id="div_terminal11">
+    <textarea id="term_output11" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input11" size="80">
+    </label>
+  </div>
+</div>
+
+
+<p>The serial method gives the correct result for this case:
+</p>
+
+
+<div id="container12" class="control_container" lang="es">
+  <div id="div_graph12" >
+  </div>
+  <div id="div_time_graph12" >
+  </div>
+  <div id="sim_applet12" >
+  </div>
+  <div id="sim_controls12" class="control_group">
+  </div>
+  <div id="graph_controls12" class="control_group">
+  </div>
+  <div id="time_graph_controls12" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim12">
+    <input type="checkbox" id="show_sim12">show sim
+  </label>
+  <label id="label_terminal12">
+    <input type="checkbox" id="show_terminal12">terminal
+  </label>
+  <div id="div_terminal12">
+    <textarea id="term_output12" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input12" size="80">
+    </label>
+  </div>
+</div>
+
+<p>The correct result should be the same as if there were no middle puck; the impact
+forces should transfer through the middle puck (because the masses are all equal and
+elasticity is 1). Here is the situation with just 2 pucks, and any of the solvers gives
+the same result because only a single collision is involved.
+</p>
+
+
+<div id="container13" class="control_container" lang="es">
+  <div id="div_graph13" >
+  </div>
+  <div id="div_time_graph13" >
+  </div>
+  <div id="sim_applet13" >
+  </div>
+  <div id="sim_controls13" class="control_group">
+  </div>
+  <div id="graph_controls13" class="control_group">
+  </div>
+  <div id="time_graph_controls13" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim13">
+    <input type="checkbox" id="show_sim13">show sim
+  </label>
+  <label id="label_terminal13">
+    <input type="checkbox" id="show_terminal13">terminal
+  </label>
+  <div id="div_terminal13">
+    <textarea id="term_output13" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input13" size="80">
+    </label>
+  </div>
+</div>
+
+
+
+<h2>Joints and Collision Handling</h2>
+
+<p>In the myphysicslab 2D physics engine, joints are handled differently from normal
+collisions and contacts between rigid bodies. A joint is a permanent rigid connection
+between two bodies, or between a body and the (infinite mass) background. For example,
+in constructing a pendulum there are two joints made at the pivot point; one acts
+horizontally and the other acts vertically.
+</p>
+<!--B>(TO DO: MORE ABOUT JOINTS ELSEWHERE ON THE 2D PHYSICS ENGINE PAGE??)</B-->
+
+<p>Here is an example collision scenario involving a pair of bodies that are jointed
+together.</p>
+
+
+<div id="container19" class="control_container" lang="es">
+  <div id="div_graph19" >
+  </div>
+  <div id="div_time_graph19" >
+  </div>
+  <div id="sim_applet19" >
+  </div>
+  <div id="sim_controls19" class="control_group">
+  </div>
+  <div id="graph_controls19" class="control_group">
+  </div>
+  <div id="time_graph_controls19" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim19">
+    <input type="checkbox" id="show_sim19">show sim
+  </label>
+  <label id="label_terminal19">
+    <input type="checkbox" id="show_terminal19">terminal
+  </label>
+  <div id="div_terminal19">
+    <textarea id="term_output19" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input19" size="80">
+    </label>
+  </div>
+</div>
+
+<p>The default collision handling method used in the myphysicslab simulations is called
+"serial grouped lastpass". It is a serial collision handling method, except that when
+joints are involved it does a simultaneous collision calculation involving all bodies
+connected by joints that are involved on either side of the collision. As with the
+hybrid method described above, there is still a sequence of collisions but the steps
+involving joints are calculated using the simultaneous method.<p>
+
+
+
+
+
+
+<h2>Spring Based Collisions</h2>
+
+<p>A different method of handling collisions involves placing tiny but very stiff
+springs at each collision point between objects. The simultaneous, serial and hybrid
+methods considered above all instantaneously resolve the collision with a set of
+impulses. In contrast, with spring based collision handling, the simulation continues
+to run <i>during</i> the collision. Because the springs involved are very stiff, the
+time steps taken during the collision must be very small.
+</p>
+
+<p>The spring method gives the correct result for the "one hits one" situation, as seen
+in the simulation below. (This simulation is not a general rigid body simulation, but
+does show the results of using springs in simple linear collisions.)
+</p>
+
+
+<div id="container14" class="control_container" lang="es">
+  <div id="div_graph14" >
+  </div>
+  <div id="div_time_graph14" >
+  </div>
+  <div id="sim_applet14" >
+  </div>
+  <div id="sim_controls14" class="control_group">
+  </div>
+  <div id="graph_controls14" class="control_group">
+  </div>
+  <div id="time_graph_controls14" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim14">
+    <input type="checkbox" id="show_sim14">show sim
+  </label>
+  <label id="label_terminal14">
+    <input type="checkbox" id="show_terminal14">terminal
+  </label>
+  <div id="div_terminal14">
+    <textarea id="term_output14" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input14" size="80">
+    </label>
+  </div>
+</div>
+
+<p>But for the "one hits two" situation, the spring method gives an incorrect result.
+The left and middle block are moving after the collision, instead of remaining
+motionless as they should.
+</p>
+
+
+<div id="container15" class="control_container" lang="es">
+  <div id="div_graph15" >
+  </div>
+  <div id="div_time_graph15" >
+  </div>
+  <div id="sim_applet15" >
+  </div>
+  <div id="sim_controls15" class="control_group">
+  </div>
+  <div id="graph_controls15" class="control_group">
+  </div>
+  <div id="time_graph_controls15" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim15">
+    <input type="checkbox" id="show_sim15">show sim
+  </label>
+  <label id="label_terminal15">
+    <input type="checkbox" id="show_terminal15">terminal
+  </label>
+  <div id="div_terminal15">
+    <textarea id="term_output15" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input15" size="80">
+    </label>
+  </div>
+</div>
+
+<p>However, if you add a small gap between the two blocks then the behavior looks correct.
+</p>
+
+
+
+<div id="container18" class="control_container" lang="es">
+  <div id="div_graph18" >
+  </div>
+  <div id="div_time_graph18" >
+  </div>
+  <div id="sim_applet18" >
+  </div>
+  <div id="sim_controls18" class="control_group">
+  </div>
+  <div id="graph_controls18" class="control_group">
+  </div>
+  <div id="time_graph_controls18" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim18">
+    <input type="checkbox" id="show_sim18">show sim
+  </label>
+  <label id="label_terminal18">
+    <input type="checkbox" id="show_terminal18">terminal
+  </label>
+  <div id="div_terminal18">
+    <textarea id="term_output18" cols=80 rows=20 wrap="soft"></textarea> <br>
+    <label style="display:inline-block">command &gt;
+      <input type="text" id="term_input18" size="80">
+    </label>
+  </div>
+</div>
+
+
+
+
+<h2>Conclusion:  Handling multiple collisions is hard!</h2>
+
+<p>Among the collision handling methods considered here, none give the "correct"
+results in every situation. Although it could be argued that our expectation of getting
+perfectly symmetric results for multiple collisions is not realistic. If you accept
+that, then perhaps the serial collision handler is the best method.
+</p>
+
+<p>A more physically accurate method of collision handling would involve sophisticated
+modeling of the properties of the objects: how they deform and rebound. Using such a
+model with an advanced simulation technique like Finite Element Analysis can give very
+accurate results, and these kinds of techniques are used in science and industry.
+</p>
+
+<p>But for the simple rigid body simulations considered here, which we want to run
+quickly, interactively, in real time, we must accept that our simple model will not
+always handle every complicated situation we throw at it.
+</p>
+
+<p>Algorithm running time is another consideration for deciding which collision
+handling method to use; that is, how much computer processing time is needed to handle
+the collision? In this regards, the simultaneous method shines, because it predicts the
+results of each collision using <a href="#equation1">equation (1)</a> and does a single
+calculation to find the impacts needed to give that result. The serial method (and
+hybrid method) does several calculations, possibly dozens, for a collision; so it takes
+more time. The spring-collision method needs very fine-scale times steps during the
+collision because the springs involved are so stiff; this takes more time to compute.
+</p>
+
+<p>There is one more important consideration with the serial collision handler: because
+of all the rebounding that occurs as objects bounce back and forth, it is possible to
+get situations that never resolve. Where the sequence of collisions continues on
+forever, which causes the software to get stuck in an infinite loop. A test can be
+added in the software to quit the collision handling process if too many collisions
+have occurred; but of course, then the result will not be "correct".
+</p>
+
+<p>Table of pro's and con's of each method.
+</p>
+
+
+<table border="1" width="100%">
+  <tr>
+    <th> </th>
+    <th>simultaneous</th>
+    <th>hybrid</th>
+    <th>serial</th>
+    <th>springs</th>
+  </tr>
+  <tr>
+    <th>speed</th>
+    <td>fast, only one calculation</td>
+    <td>more time to resolve sequence of collisions</td>
+    <td>more time to resolve sequence of collisions</td>
+    <td>much slower because fine-scale time steps during collisions</td>
+  </tr>
+  <tr>
+    <th>reliability</th>
+    <td>very reliable</td>
+    <td>possibility of infinite collision sequence</td>
+    <td>possibility of infinite collision sequence</td>
+    <td>possibility that springs might not resolve collision state</td>
+  </tr>
+  <tr>
+    <th>correctness in general</th>
+    <td>prediction of results is usually wrong</td>
+    <td>order of collision resolving affects results</td>
+    <td>order of collision resolving affects results</td>
+    <td>dynamics of springs don't match real collisions very well</td>
+  <tr>
+    <th>correctness for Newton's Cradle or "one hits two" pucks</th>
+    <td>incorrect</td>
+    <td>correct even with multiple collision points (blocks)</td>
+    <td>correct if single points of collision</td>
+    <td>incorrect</td>
+  </tr>
+  <tr>
+    <th>correctness for symmetric collisions like "one hits two separate"</th>
+    <td>correct</td>
+    <td>correct</td>
+    <td>incorrect</td>
+    <td>correct</td>
+  </tr>
+  <tr>
+    <th>correctness for asymmetric collisions like "two hits one asymmetric"</th>
+    <td>incorrect</td>
+    <td>incorrect</td>
+    <td>correct</td>
+    <td>incorrect</td>
+  </tr>
+</table>
+
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+<script src="CollisionCombo-es.js"></script>
+
+<script>
+
+(function() {
+  var apps = [];
+
+  function addApp(app, num) {
+    var elem_id = "sim_applet"+num;
+    var elem = document.getElementById(elem_id);
+    if (elem === undefined) {
+      throw new Error('no such element id: '+elem_id);
+    }
+    apps.push({
+      app: app,
+      elem: elem,
+      visible: false
+      });
+    app.eval('SIM_CANVAS.BACKGROUND="white"',/*output=*/false)
+  }
+
+  function checkVisible(app_info) {
+    // the documentElement stuff is for IE (Internet Explorer).
+    var window_offset = (typeof(window.pageYOffset)== 'number') ? window.pageYOffset :
+      document.documentElement.scrollTop;
+    var window_height = (typeof(window.innerHeight)== 'number') ? window.innerHeight :
+      document.documentElement.clientHeight;
+    var elem = app_info.elem;
+    var app = app_info.app;
+    // is the element fully visible?
+    if (elem.offsetTop >= window_offset &&
+        elem.offsetTop + elem.offsetHeight <= window_offset + window_height) {
+      if (!app_info.visible) {
+        //console.log( "elem "+elem.id+" is visible");
+        app.start();
+        app.eval('FIRING=true;RUNNING=true;');
+        app_info.visible = true;
+      }
+    } else {
+      if (app_info.visible) {
+        //console.log( "elem "+elem.id+" is not visible");
+        app.eval('FIRING=false;');
+        app_info.visible = false;
+      }
+    }
+  }
+
+  function appletControl() {
+    for (var i=0; i<apps.length; i++) {
+      checkVisible(apps[i]);
+    }
+  }
+
+  function deactivateAll() {
+    for (var i=0; i<apps.length; i++) {
+      apps[i].app.eval('FIRING=false;');
+      apps[i].visible = false;
+    }
+  }
+
+  window.addEventListener('scroll', appletControl);
+  window.addEventListener('resize', appletControl);
+  window.addEventListener('focus', appletControl);
+  window.addEventListener('blur', deactivateAll);
+
+  var elem_ids1 = {
+      tab_list: 'header_bar',
+      container: 'container1',
+      term_output: 'term_output1',
+      term_input: 'term_input1',
+      sim_applet: 'sim_applet1',
+      div_graph: 'div_graph1',
+      graph_controls: 'graph_controls1',
+      sim_controls: 'sim_controls1',
+      div_terminal: 'div_terminal1',
+      div_time_graph: 'div_time_graph1',
+      time_graph_controls: 'time_graph_controls1',
+      div_multi_graph: 'div_multi_graph1',
+      multi_graph_controls: 'multi_graph_controls1',
+      label_terminal: 'label_terminal1',
+      show_terminal: 'show_terminal1',
+      show_sim: 'show_sim1',
+      images_dir: '../common'
+    };
+  app1 = makeMultipleCollisionApp(elem_ids1);
+  app1.defineNames('app1');
+  app1.eval('FORMATION=ONE_HITS_TWO;SHAPE=CIRCLE;COLLISION_METHOD="simultaneous";');
+  addApp(app1, 1);
+
+  var elem_ids2 = {
+      tab_list: 'header_bar',
+      container: 'container2',
+      term_output: 'term_output2',
+      term_input: 'term_input2',
+      sim_applet: 'sim_applet2',
+      div_graph: 'div_graph2',
+      graph_controls: 'graph_controls2',
+      sim_controls: 'sim_controls2',
+      div_terminal: 'div_terminal2',
+      div_time_graph: 'div_time_graph2',
+      time_graph_controls: 'time_graph_controls2',
+      div_multi_graph: 'div_multi_graph2',
+      multi_graph_controls: 'multi_graph_controls2',
+      label_terminal: 'label_terminal2',
+      show_terminal: 'show_terminal2',
+      show_sim: 'show_sim2',
+      images_dir: '../common'
+    };
+  app2 = makeMultipleCollisionApp(elem_ids2);
+  app2.defineNames('app2');
+  app2.eval('FORMATION=ONE_HITS_ONE;SHAPE=CIRCLE;COLLISION_METHOD="simultaneous";');
+  addApp(app2, 2);
+
+  var elem_ids3 = {
+      tab_list: 'header_bar',
+      container: 'container3',
+      term_output: 'term_output3',
+      term_input: 'term_input3',
+      sim_applet: 'sim_applet3',
+      div_graph: 'div_graph3',
+      graph_controls: 'graph_controls3',
+      sim_controls: 'sim_controls3',
+      div_terminal: 'div_terminal3',
+      div_time_graph: 'div_time_graph3',
+      time_graph_controls: 'time_graph_controls3',
+      div_multi_graph: 'div_multi_graph3',
+      multi_graph_controls: 'multi_graph_controls3',
+      label_terminal: 'label_terminal3',
+      show_terminal: 'show_terminal3',
+      show_sim: 'show_sim3',
+      images_dir: '../common'
+    };
+  app3 = makeMultipleCollisionApp(elem_ids3);
+  app3.defineNames('app3');
+  app3.eval('FORMATION=ONE_HITS_TWO;SHAPE=CIRCLE;COLLISION_METHOD="simultaneous"; OFFSET=0.1;');
+  addApp(app3, 3);
+
+  var elem_ids4 = {
+      tab_list: 'header_bar',
+      container: 'container4',
+      term_output: 'term_output4',
+      term_input: 'term_input4',
+      sim_applet: 'sim_applet4',
+      div_graph: 'div_graph4',
+      graph_controls: 'graph_controls4',
+      sim_controls: 'sim_controls4',
+      div_terminal: 'div_terminal4',
+      div_time_graph: 'div_time_graph4',
+      time_graph_controls: 'time_graph_controls4',
+      div_multi_graph: 'div_multi_graph4',
+      multi_graph_controls: 'multi_graph_controls4',
+      label_terminal: 'label_terminal4',
+      show_terminal: 'show_terminal4',
+      show_sim: 'show_sim4',
+      images_dir: '../common'
+    };
+  app4 = makeMultipleCollisionApp(elem_ids4);
+  app4.defineNames('app4');
+  app4.eval('FORMATION=ONE_HITS_TWO;SHAPE=CIRCLE;COLLISION_METHOD="serial separate";');
+  addApp(app4, 4);
+
+  var elem_ids5 = {
+      tab_list: 'header_bar',
+      container: 'container5',
+      term_output: 'term_output5',
+      term_input: 'term_input5',
+      sim_applet: 'sim_applet5',
+      div_graph: 'div_graph5',
+      graph_controls: 'graph_controls5',
+      sim_controls: 'sim_controls5',
+      div_terminal: 'div_terminal5',
+      div_time_graph: 'div_time_graph5',
+      time_graph_controls: 'time_graph_controls5',
+      div_multi_graph: 'div_multi_graph5',
+      multi_graph_controls: 'multi_graph_controls5',
+      label_terminal: 'label_terminal5',
+      show_terminal: 'show_terminal5',
+      show_sim: 'show_sim5',
+      images_dir: '../common'
+    };
+  app5 = makeMultipleCollisionApp(elem_ids5);
+  app5.defineNames('app5');
+  app5.eval('FORMATION=ONE_HITS_WALL;SHAPE=SQUARE;COLLISION_METHOD="serial grouped lastpass";');
+  addApp(app5, 5);
+
+  var elem_ids6 = {
+      tab_list: 'header_bar',
+      container: 'container6',
+      term_output: 'term_output6',
+      term_input: 'term_input6',
+      sim_applet: 'sim_applet6',
+      div_graph: 'div_graph6',
+      graph_controls: 'graph_controls6',
+      sim_controls: 'sim_controls6',
+      div_terminal: 'div_terminal6',
+      div_time_graph: 'div_time_graph6',
+      time_graph_controls: 'time_graph_controls6',
+      div_multi_graph: 'div_multi_graph6',
+      multi_graph_controls: 'multi_graph_controls6',
+      label_terminal: 'label_terminal6',
+      show_terminal: 'show_terminal6',
+      show_sim: 'show_sim6',
+      images_dir: '../common'
+    };
+  app6 = makeMultipleCollisionApp(elem_ids6);
+  app6.defineNames('app6');
+  app6.eval('FORMATION=ONE_HITS_WALL;SHAPE=SQUARE;COLLISION_METHOD="simultaneous";');
+  addApp(app6, 6);
+
+  var elem_ids7 = {
+      tab_list: 'header_bar',
+      container: 'container7',
+      term_output: 'term_output7',
+      term_input: 'term_input7',
+      sim_applet: 'sim_applet7',
+      div_graph: 'div_graph7',
+      graph_controls: 'graph_controls7',
+      sim_controls: 'sim_controls7',
+      div_terminal: 'div_terminal7',
+      div_time_graph: 'div_time_graph7',
+      time_graph_controls: 'time_graph_controls7',
+      div_multi_graph: 'div_multi_graph7',
+      multi_graph_controls: 'multi_graph_controls7',
+      label_terminal: 'label_terminal7',
+      show_terminal: 'show_terminal7',
+      show_sim: 'show_sim7',
+      images_dir: '../common'
+    };
+  app7 = makeMultipleCollisionApp(elem_ids7);
+  app7.defineNames('app7');
+  app7.eval('FORMATION=ONE_HITS_WALL;SHAPE=SQUARE;COLLISION_METHOD="simultaneous"; ANGLE=0.01;');
+  addApp(app7, 7);
+
+  var elem_ids8 = {
+      tab_list: 'header_bar',
+      container: 'container8',
+      term_output: 'term_output8',
+      term_input: 'term_input8',
+      sim_applet: 'sim_applet8',
+      div_graph: 'div_graph8',
+      graph_controls: 'graph_controls8',
+      sim_controls: 'sim_controls8',
+      div_terminal: 'div_terminal8',
+      div_time_graph: 'div_time_graph8',
+      time_graph_controls: 'time_graph_controls8',
+      div_multi_graph: 'div_multi_graph8',
+      multi_graph_controls: 'multi_graph_controls8',
+      label_terminal: 'label_terminal8',
+      show_terminal: 'show_terminal8',
+      show_sim: 'show_sim8',
+      images_dir: '../common'
+    };
+  app8 = makeMultipleCollisionApp(elem_ids8);
+  app8.defineNames('app8');
+  app8.eval('FORMATION=ONE_HITS_TWO_SEPARATE;SHAPE=CIRCLE;COLLISION_METHOD="serial grouped lastpass";');
+  addApp(app8, 8);
+
+  var elem_ids9 = {
+      tab_list: 'header_bar',
+      container: 'container9',
+      term_output: 'term_output9',
+      term_input: 'term_input9',
+      sim_applet: 'sim_applet9',
+      div_graph: 'div_graph9',
+      graph_controls: 'graph_controls9',
+      sim_controls: 'sim_controls9',
+      div_terminal: 'div_terminal9',
+      div_time_graph: 'div_time_graph9',
+      time_graph_controls: 'time_graph_controls9',
+      div_multi_graph: 'div_multi_graph9',
+      multi_graph_controls: 'multi_graph_controls9',
+      label_terminal: 'label_terminal9',
+      show_terminal: 'show_terminal9',
+      show_sim: 'show_sim9',
+      images_dir: '../common'
+    };
+  app9 = makeMultipleCollisionApp(elem_ids9);
+  app9.defineNames('app9');
+  app9.eval('FORMATION=ONE_HITS_TWO;SHAPE=SQUARE;COLLISION_METHOD="hybrid";');
+  addApp(app9, 9);
+
+  var elem_ids10 = {
+      tab_list: 'header_bar',
+      container: 'container10',
+      term_output: 'term_output10',
+      term_input: 'term_input10',
+      sim_applet: 'sim_applet10',
+      div_graph: 'div_graph10',
+      graph_controls: 'graph_controls10',
+      sim_controls: 'sim_controls10',
+      div_terminal: 'div_terminal10',
+      div_time_graph: 'div_time_graph10',
+      time_graph_controls: 'time_graph_controls10',
+      div_multi_graph: 'div_multi_graph10',
+      multi_graph_controls: 'multi_graph_controls10',
+      label_terminal: 'label_terminal10',
+      show_terminal: 'show_terminal10',
+      show_sim: 'show_sim10',
+      images_dir: '../common'
+    };
+  app10 = makeMultipleCollisionApp(elem_ids10);
+  app10.defineNames('app10');
+  app10.eval('FORMATION=ONE_HITS_TWO_SEPARATE;SHAPE=CIRCLE;COLLISION_METHOD="hybrid";');
+  addApp(app10, 10);
+
+  var elem_ids11 = {
+      tab_list: 'header_bar',
+      container: 'container11',
+      term_output: 'term_output11',
+      term_input: 'term_input11',
+      sim_applet: 'sim_applet11',
+      div_graph: 'div_graph11',
+      graph_controls: 'graph_controls11',
+      sim_controls: 'sim_controls11',
+      div_terminal: 'div_terminal11',
+      div_time_graph: 'div_time_graph11',
+      time_graph_controls: 'time_graph_controls11',
+      div_multi_graph: 'div_multi_graph11',
+      multi_graph_controls: 'multi_graph_controls11',
+      label_terminal: 'label_terminal11',
+      show_terminal: 'show_terminal11',
+      show_sim: 'show_sim11',
+      images_dir: '../common'
+    };
+  app11 = makeMultipleCollisionApp(elem_ids11);
+  app11.defineNames('app11');
+  app11.eval('FORMATION=TWO_HIT_ONE_ASYMMETRIC;SHAPE=CIRCLE; COLLISION_METHOD="hybrid";');
+  addApp(app11, 11);
+
+  var elem_ids12 = {
+      tab_list: 'header_bar',
+      container: 'container12',
+      term_output: 'term_output12',
+      term_input: 'term_input12',
+      sim_applet: 'sim_applet12',
+      div_graph: 'div_graph12',
+      graph_controls: 'graph_controls12',
+      sim_controls: 'sim_controls12',
+      div_terminal: 'div_terminal12',
+      div_time_graph: 'div_time_graph12',
+      time_graph_controls: 'time_graph_controls12',
+      div_multi_graph: 'div_multi_graph12',
+      multi_graph_controls: 'multi_graph_controls12',
+      label_terminal: 'label_terminal12',
+      show_terminal: 'show_terminal12',
+      show_sim: 'show_sim12',
+      images_dir: '../common'
+    };
+  app12 = makeMultipleCollisionApp(elem_ids12);
+  app12.defineNames('app12');
+  app12.eval('FORMATION=TWO_HIT_ONE_ASYMMETRIC;SHAPE=CIRCLE;COLLISION_METHOD="serial grouped lastpass";');
+  addApp(app12, 12);
+
+  var elem_ids13 = {
+      tab_list: 'header_bar',
+      container: 'container13',
+      term_output: 'term_output13',
+      term_input: 'term_input13',
+      sim_applet: 'sim_applet13',
+      div_graph: 'div_graph13',
+      graph_controls: 'graph_controls13',
+      sim_controls: 'sim_controls13',
+      div_terminal: 'div_terminal13',
+      div_time_graph: 'div_time_graph13',
+      time_graph_controls: 'time_graph_controls13',
+      div_multi_graph: 'div_multi_graph13',
+      multi_graph_controls: 'multi_graph_controls13',
+      label_terminal: 'label_terminal13',
+      show_terminal: 'show_terminal13',
+      show_sim: 'show_sim13',
+      images_dir: '../common'
+    };
+  app13 = makeMultipleCollisionApp(elem_ids13);
+  app13.defineNames('app13');
+  app13.eval('FORMATION=ONE_HITS_ONE_ASYMMETRIC;SHAPE=CIRCLE; COLLISION_METHOD="hybrid";');
+  addApp(app13, 13);
+
+  var elem_ids14 = {
+      tab_list: 'header_bar',
+      container: 'container14',
+      term_output: 'term_output14',
+      term_input: 'term_input14',
+      sim_applet: 'sim_applet14',
+      div_graph: 'div_graph14',
+      graph_controls: 'graph_controls14',
+      sim_controls: 'sim_controls14',
+      div_terminal: 'div_terminal14',
+      div_time_graph: 'div_time_graph14',
+      time_graph_controls: 'time_graph_controls14',
+      div_multi_graph: 'div_multi_graph14',
+      multi_graph_controls: 'multi_graph_controls14',
+      label_terminal: 'label_terminal14',
+      show_terminal: 'show_terminal14',
+      show_sim: 'show_sim14',
+      images_dir: '../common'
+    };
+  app14 = makeCollideSpringApp(elem_ids14);
+  app14.defineNames('app14');
+  app14.eval('NUMBER_BLOCKS=2;STARTING_GAP=0;');
+  addApp(app14, 14);
+
+  var elem_ids15 = {
+      tab_list: 'header_bar',
+      container: 'container15',
+      term_output: 'term_output15',
+      term_input: 'term_input15',
+      sim_applet: 'sim_applet15',
+      div_graph: 'div_graph15',
+      graph_controls: 'graph_controls15',
+      sim_controls: 'sim_controls15',
+      div_terminal: 'div_terminal15',
+      div_time_graph: 'div_time_graph15',
+      time_graph_controls: 'time_graph_controls15',
+      div_multi_graph: 'div_multi_graph15',
+      multi_graph_controls: 'multi_graph_controls15',
+      label_terminal: 'label_terminal15',
+      show_terminal: 'show_terminal15',
+      show_sim: 'show_sim15',
+      images_dir: '../common'
+    };
+  app15 = makeCollideSpringApp(elem_ids15);
+  app15.defineNames('app15');
+  app15.eval('NUMBER_BLOCKS=3;STARTING_GAP=0;');
+  addApp(app15, 15);
+
+  var elem_ids16 = {
+      tab_list: 'header_bar',
+      container: 'container16',
+      term_output: 'term_output16',
+      term_input: 'term_input16',
+      sim_applet: 'sim_applet16',
+      div_graph: 'div_graph16',
+      graph_controls: 'graph_controls16',
+      sim_controls: 'sim_controls16',
+      div_terminal: 'div_terminal16',
+      div_time_graph: 'div_time_graph16',
+      time_graph_controls: 'time_graph_controls16',
+      div_multi_graph: 'div_multi_graph16',
+      multi_graph_controls: 'multi_graph_controls16',
+      label_terminal: 'label_terminal16',
+      show_terminal: 'show_terminal16',
+      show_sim: 'show_sim16',
+      images_dir: '../common'
+    };
+  app16 = makeMultipleCollisionApp(elem_ids16);
+  app16.defineNames('app16');
+  app16.eval('FORMATION=ONE_HITS_TWO_IN_BOX;COLLISION_METHOD="serial grouped lastpass";');
+  addApp(app16, 16);
+
+  var elem_ids17 = {
+      tab_list: 'header_bar',
+      container: 'container17',
+      term_output: 'term_output17',
+      term_input: 'term_input17',
+      sim_applet: 'sim_applet17',
+      div_graph: 'div_graph17',
+      graph_controls: 'graph_controls17',
+      sim_controls: 'sim_controls17',
+      div_terminal: 'div_terminal17',
+      div_time_graph: 'div_time_graph17',
+      time_graph_controls: 'time_graph_controls17',
+      div_multi_graph: 'div_multi_graph17',
+      multi_graph_controls: 'multi_graph_controls17',
+      label_terminal: 'label_terminal17',
+      show_terminal: 'show_terminal17',
+      show_sim: 'show_sim17',
+      images_dir: '../common'
+    };
+  app17 = makeMultipleCollisionApp(elem_ids17);
+  app17.defineNames('app17');
+  app17.eval('FORMATION=ONE_HITS_ONE_ON_WALL;COLLISION_METHOD="serial grouped lastpass";ELASTICITY=0;SHAPE=CIRCLE');
+  addApp(app17, 17);
+
+  var elem_ids18 = {
+      tab_list: 'header_bar',
+      container: 'container18',
+      term_output: 'term_output18',
+      term_input: 'term_input18',
+      sim_applet: 'sim_applet18',
+      div_graph: 'div_graph18',
+      graph_controls: 'graph_controls18',
+      sim_controls: 'sim_controls18',
+      div_terminal: 'div_terminal18',
+      div_time_graph: 'div_time_graph18',
+      time_graph_controls: 'time_graph_controls18',
+      div_multi_graph: 'div_multi_graph18',
+      multi_graph_controls: 'multi_graph_controls18',
+      label_terminal: 'label_terminal18',
+      show_terminal: 'show_terminal18',
+      show_sim: 'show_sim18',
+      images_dir: '../common'
+    };
+  app18 = makeCollideSpringApp(elem_ids18);
+  app18.defineNames('app18');
+  app18.eval('NUMBER_BLOCKS=3;STARTING_GAP=0.1;');
+  addApp(app18, 18);
+
+  var elem_ids19 = {
+      tab_list: 'header_bar',
+      container: 'container19',
+      term_output: 'term_output19',
+      term_input: 'term_input19',
+      sim_applet: 'sim_applet19',
+      div_graph: 'div_graph19',
+      graph_controls: 'graph_controls19',
+      sim_controls: 'sim_controls19',
+      div_terminal: 'div_terminal19',
+      div_time_graph: 'div_time_graph19',
+      time_graph_controls: 'time_graph_controls19',
+      div_multi_graph: 'div_multi_graph19',
+      multi_graph_controls: 'multi_graph_controls19',
+      label_terminal: 'label_terminal19',
+      show_terminal: 'show_terminal19',
+      show_sim: 'show_sim19',
+      images_dir: '../common'
+    };
+  app19 = makeMultipleCollisionApp(elem_ids19);
+  app19.defineNames('app19');
+  app19.eval('FORMATION=ONE_HITS_CHAIN_PLUS_ONE;COLLISION_METHOD="serial grouped lastpass";ELASTICITY=1;SHAPE=CIRCLE');
+  addApp(app19, 19);
+
+})();
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+</body>
+</html>

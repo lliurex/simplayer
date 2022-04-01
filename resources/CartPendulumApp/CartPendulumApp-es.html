@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Carro y Péndulo</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+
+<h1>Carro y Péndulo</h1>
+
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gráfico</li>
+  <li class="time_graph">Gráfico de tiempo</li>
+  <li class="multi_graph">Gŕafico múltiple</li>
+</ul>
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+In this simulation there is a cart moving along a horizontal track. From the cart a
+pendulum is suspended. A spring connects the cart to a wall. Friction acts on the cart
+and on the pendulum.
+</p>
+
+<p class="instructions">
+You can drag the cart or pendulum with your mouse to change the starting position.
+Enable the "show controls" checkbox to set gravity, mass, pendulum length, spring
+stiffness, or friction (damping). Click the "reset" button to start from a resting
+position.
+</p>
+
+<p>The math behind the simulation is shown below.  Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/CartPendulumApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+<p>There are two ways to find the equations of motion for a system like this: the
+direct Newtonian way or the indirect Lagrangian way. We show both methods here.
+</p>
+
+
+<h2 id="kinematics">Kinematics</h2>
+
+<div class="image" style="width: 95px;">
+<br >
+<img src="cart_pendulum_1.gif"  width="88" height="191"
+alt="diagram of cart + pendulum variables and i, j unit vectors">
+</div>
+
+<div style="margin-left: 100px;">
+<p>For both direct and indirect methods, we first need to get the kinematics right.
+Kinematics means the relations of the parts of the device, without regard to forces. In
+kinematics we are only trying to find expressions for the position, velocity, and
+acceleration in terms of whatever variables we have chosen. The variables here are:
+</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>x</i> =
+</span> position of cart (0 = spring unstretched)</li>
+    <li><span class="html-math inline-math">
+<i>&theta;</i> =
+</span> angle of pendulum (0 = pendulum hanging straight down)</li>
+    <li><span class="html-math inline-math">
+<i>R</i> =
+</span> length of rod (constant)</li>
+</ul>
+
+<p>We'll need the standard unit vectors, <span class="html-math inline-math">
+<span class="vector">i</span>, <span class="vector">j</span>, <span class="vector">k</span>
+</span>. We use bold and overline
+to indicate a vector.
+</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<span class="vector">i</span> = (1,0,0)
+</span> unit vector in horizontal direction</li>
+    <li><span class="html-math inline-math">
+<span class="vector">j</span> = (0,1,0)
+</span> unit vector in vertical direction</li>
+    <li><span class="html-math inline-math">
+<span class="vector">k</span> = (0,0,1)
+</span> unit vector in z direction (out of the page toward the
+       reader)</li>
+</ul>
+</div>
+
+<div style="clear: both;">
+<p>The kinematics for the cart are simple
+</p>
+
+<p class="html-math display-equation">
+position = <i>x</i> <span class="vector">i</span>   <br >
+velocity = <i>x'</i> <span class="vector">i</span>   <br >
+acceleration = <i>x''</i> <span class="vector">i</span>   <br >
+</p>
+
+<p>The kinematics for the pendulum are more complex. The position is derived by a
+fairly simple application of trigonometry. The velocity and acceleration are then the
+first and second derivatives of the position.
+</p>
+
+<p class="html-math display-equation">
+position = <i>x</i> <span class="vector">i</span> + <i>R</i> sin <i>&theta;</i> <span class="vector">i</span> &minus; <i>R</i> cos <i>&theta;</i> <span class="vector">j</span>
+</p>
+
+<p class="html-math display-equation">
+velocity = <i>x'</i> <span class="vector">i</span> + <i>R</i> <i>&theta;'</i> cos <i>&theta;</i> <span class="vector">i</span> + <i>R</i> <i>&theta;'</i> sin <i>&theta;</i> <span class="vector">j</span>
+</p>
+
+<p class="html-math display-equation">
+acceleration = <i>x''</i> <span class="vector">i</span> + <i>R</i> <i>&theta;''</i> cos <i>&theta;</i> <span class="vector">i</span> &minus;
+<span class="nobr"><i>R</i> <i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i> <span class="vector">i</span></span> +
+<span class="nobr"><i>R</i> <i>&theta;''</i> sin <i>&theta;</i> <span class="vector">j</span></span> +
+<span class="nobr"><i>R</i> <i>&theta;'</i> <sup>2</sup> cos <i>&theta;</i> <span class="vector">j</span></span>
+</p>
+</div>
+
+<!--
+There is an alternative way to calculate the kinematics that you may see in a dynamics
+textbook. The idea is that you can define two or more coordinate frames which are
+moving with respect to each other. Suppose there is an object for which you want to
+find the velocity and acceleration with respect to the frame that is stationary (so
+that you can use Newton's equations). Suppose it is easy to define the motion of the
+object in a frame that is rotating or translating in some way. Then you can use
+standard formulas that convert from the moving frame into the stationary frame.<br >
+<br >
+It is actually somewhat tricky to use these formulas, and it seems more straightforward
+to find the kinematics by taking derivatives of the position vector, as we did above.
+But for more complicated situations you may want to know about this alternative method
+of calculating kinematics.
+-->
+
+
+
+
+<h2>Forces</h2>
+
+
+<div style="margin-left: 95px;">
+<p>We treat the cart and the pendulum bob as point particles. Begin by drawing the free
+body diagram for the cart and writing expressions for the forces acting on them. Define
+the following parameters and forces:
+</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>N</i> =
+</span> normal force (from the track the cart is on)</li>
+    <li><span class="html-math inline-math">
+<i>T</i> =
+</span> tension in the rod</li>
+    <li><span class="html-math inline-math">
+<i>M</i> =
+</span> mass of cart</li>
+    <li><span class="html-math inline-math">
+<i>m</i> =
+</span> mass of pendulum</li>
+    <li><span class="html-math inline-math">
+<i>g</i> =
+</span> gravitational constant</li>
+    <li><span class="html-math inline-math">
+<i>d</i> =
+</span> cart friction constant</li>
+    <li><span class="html-math inline-math">
+<i>b</i> =
+</span> pendulum friction constant</li>
+    <li><span class="html-math inline-math">
+<i>k</i> =
+</span> spring stiffness</li>
+</ul>
+</div>
+
+<div class="image" style="width: 90px;">
+<img src="cart_pendulum_2.gif"  width="90" height="121"   alt="" >
+cart forces
+<br ><br ><br >
+<img src="cart_pendulum_3.gif"  width="70" height="122"   alt="" >
+<br >
+pendulum forces
+</div>
+
+<div style="margin-left: 95px;">
+
+<p>Just by looking at the free-body diagram we can fairly easily figure out some of the
+forces on the cart. (The pendulum friction force is trickier, it is explained in the
+next section).
+</p>
+
+<ul class="vars">
+    <li>spring force <span class="html-math inline-math">
+= &minus;<i>k</i> <i>x</i> <span class="vector">i</span>
+</span></li>
+    <li>normal force <span class="html-math inline-math">
+= <i>N</i> <span class="vector">j</span>
+</span></li>
+    <li>gravity <span class="html-math inline-math">
+= &minus;<i>M</i> <i>g</i> <span class="vector">j</span>
+</span></li>
+    <li>tension in the rod <span class="html-math inline-math">
+= &minus;<i>T</i> cos <i>&theta;</i> <span class="vector">j</span> + <i>T</i> sin <i>&theta;</i> <span class="vector">i</span>
+</span></li>
+    <li>cart friction <span class="html-math inline-math">
+= &minus;<i>d</i> <i>x'</i> <span class="vector">i</span>
+</span></li>
+    <li>pendulum friction <span class="html-math inline-math">
+= <sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> (cos <i>&theta;</i> <span class="vector">i</span> + sin <i>&theta;</i> <span class="vector">j</span>)
+</span></li>
+</ul>
+
+
+<p>The forces on the pendulum bob are:
+</p>
+
+<ul class="vars">
+    <li>tension in the rod <span class="html-math inline-math">
+= <i>T</i> cos <i>&theta;</i> <span class="vector">j</span> &minus; <i>T</i> sin <i>&theta;</i> <span class="vector">i</span>
+</span></li>
+    <li>gravity <span class="html-math inline-math">
+= &minus;<i>m</i> <i>g</i> <span class="vector">j</span>
+</span></li>
+    <li>pendulum friction <span class="html-math inline-math">
+= &minus;<sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> (cos <i>&theta;</i> <span class="vector">i</span> + sin <i>&theta;</i> <span class="vector">j</span>)
+</span></li>
+</ul>
+
+</div>
+
+<div style="clear:left">
+  &nbsp;  <!-- needed to have margin space below the floated image -->
+</div>
+
+
+
+<h2 id="friction_torque">Torque Force from Pendulum Friction</h2>
+
+<div class="image" style="width: 95px;">
+<img src="cart_pendulum_4.gif"     width="94" height="142" alt="">
+<br >torque force of friction
+</div>
+
+<div style="margin-left: 100px;">
+<p>We consider the torque from friction of the pendulum to be a vector perpendicular to
+the plane where the pendulum and cart move. That is, the torque is in the direction of
+the unit vector <span class="html-math inline-math">
+<span class="vector">k</span>
+</span> which extends out of the plane. The magnitude of the torque
+is given by <span class="html-math inline-math">
+&minus;<i>b</i> <i>&theta;'</i>
+</span> where <span class="html-math inline-math">
+<i>&theta;'</i>
+</span> is the angular velocity. We can
+regard the force from the torque as being equivalent to a force applied at the end of
+the pendulum rod (see illustration). From Newton's Third Law (every action has an equal
+and opposite reaction) we know that the same force is applied at the other end of the
+rod, but in opposite direction.
+</p>
+</div>
+
+<div style="clear: both;">
+<p>A torque that is the result of a force <span class="html-math inline-math">
+<span class="vector">F</span>
+</span> applied at the end of the rod
+<span class="html-math inline-math">
+<span class="vector">R</span>
+</span> is given by the cross product
+</p>
+
+<p class="html-math display-equation">
+<span class="vector">R</span> &times; <span class="vector">F</span> = (<i>R<sub>x</sub></i>, <i>R<sub>y</sub></i>, 0) &times; (<i>F<sub>x</sub></i>, <i>F<sub>y</sub></i>, 0) =
+<span class="nobr">(<i>R<sub>x</sub></i> <i>F<sub>y</sub></i> &minus; <i>R<sub>y</sub></i> <i>F<sub>x</sub></i>) <span class="vector">k</span></span>
+</p>
+
+<p>Here we are showing a 3-space vector as <span class="html-math inline-math">
+(<i>x</i>, <i>y</i>, <i>z</i>)
+</span> which is the same as
+<span class="html-math inline-math">
+<i>x</i> <span class="vector">i</span> + <i>y</i> <span class="vector">j</span> + <i>z</i> <span class="vector">k</span>
+</span>. &nbsp; We regard the force <span class="html-math inline-math">
+<span class="vector">F</span>
+</span> as being
+perpendicular to the rod, so that
+</p>
+
+<p class="html-math display-equation">
+<span class="vector">F</span> = <i>f</i> (&minus;<i>R<sub>y</sub></i>, <i>R<sub>x</sub></i>, 0) &frasl; <i>R</i>
+</p>
+
+<p>where <span class="html-math inline-math">
+<i>f</i>
+</span> is the unknown magnitude of <span class="html-math inline-math">
+<span class="vector">F</span>
+</span> and <span class="html-math inline-math">
+<i>R</i>
+</span> is the
+length of <span class="html-math inline-math">
+<span class="vector">R</span>
+</span> so that <span class="html-math inline-math">
+<i>R</i> = &radic;(<i>R<sub>x</sub></i><sup>2</sup> + <i>R<sub>y</sub></i><sup>2</sup>)
+</span>. The direction
+of <span class="html-math inline-math">
+<span class="vector">F</span>
+</span> is chosen so that positive torque leads to increase in <span class="html-math inline-math">
+<i>&theta;</i>
+</span>.
+Then the cross product becomes
+</p>
+
+<p class="html-math display-equation">
+<span class="vector">R</span> &times; <span class="vector">F</span> = (<i>R<sub>x</sub></i> <i>F<sub>y</sub></i> &minus; <i>R<sub>y</sub></i> <i>F<sub>x</sub></i>) <span class="vector">k</span> =
+<span class="nobr"><i>f</i> (<i>R<sub>x</sub></i><sup>2</sup> + <i>R<sub>y</sub></i><sup>2</sup>) &frasl; <i>R</i> <span class="vector">k</span></span> =
+<span class="nobr"><i>f</i> <i>R</i> <span class="vector">k</span></span>
+</p>
+
+<p>Now we can find <span class="html-math inline-math">
+<i>f</i>
+</span>:
+</p>
+
+<p class="html-math display-equation">
+&minus;<i>b</i> <i>&theta;'</i> <span class="vector">k</span> = <span class="vector">R</span> &times; <span class="vector">F</span> = <i>f</i> <i>R</i> <span class="vector">k</span>
+</p>
+
+<p class="html-math display-equation">
+<i>f</i> = <sup>&minus;<i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i>
+</p>
+
+<p>This result makes sense: consider that to produce a given amount of torque, you
+would need a stronger force applied at the end of a short rod, or a weaker force with a
+longer rod. The force is then given by
+</p>
+
+<p class="html-math display-equation">
+<span class="vector">F</span> = <i>f</i> (&minus;<i>R<sub>y</sub></i>, <i>R<sub>x</sub></i>, 0) &frasl; <i>R</i> =
+<span class="nobr"><sup>&minus;<i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> (cos <i>&theta;</i> <span class="vector">i</span> + sin <i>&theta;</i> <span class="vector">j</span>)</span>
+</p>
+
+<p>Note that <span class="html-math inline-math">
+<span class="vector">R</span> = <i>R</i>(sin <i>&theta;</i>, &minus;cos <i>&theta;</i>, 0)
+</span> which justifies part of the
+above equation. This torque force <span class="html-math inline-math">
+<span class="vector">F</span>
+</span> is applied at the pendulum bob, and
+its opposite is applied at the cart.
+</p>
+</div>
+
+
+
+
+
+<h2>Direct Method for Finding Equations of Motion</h2>
+
+<p>We add up the forces described above to find the net force on the cart
+</p>
+
+<p class="html-math display-equation">
+<span class="vector">F</span> = <i>N</i> <span class="vector">j</span> &minus; <i>M</i> <i>g</i> <span class="vector">j</span> &minus; <i>T</i> cos <i>&theta;</i> <span class="vector">j</span> + <i>T</i> sin <i>&theta;</i> <span class="vector">i</span> &minus;
+<span class="nobr"><i>k</i> <i>x</i> <span class="vector">i</span></span> &minus;
+<span class="nobr"><i>d</i> <i>x'</i> <span class="vector">i</span></span> +
+<span class="nobr"><sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> (cos <i>&theta;</i> <span class="vector">i</span> + sin <i>&theta;</i> <span class="vector">j</span>)</span>
+</p>
+
+<p>Now using Newton's law <span class="html-math inline-math">
+<span class="vector">F</span> = <i>M</i> <span class="vector">a</span>
+</span> and the cart acceleration we found
+earlier, we have
+</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>N</i> <span class="vector">j</span> &minus; <i>M</i> <i>g</i> <span class="vector">j</span> &minus; <i>T</i> cos <i>&theta;</i> <span class="vector">j</span> + <i>T</i> sin <i>&theta;</i> <span class="vector">i</span> &minus; <i>k</i> <i>x</i> <span class="vector">i</span> +
+<span class="nobr"><sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> (cos <i>&theta;</i> <span class="vector">i</span> + sin <i>&theta;</i> <span class="vector">j</span>)</span> =
+<span class="nobr"><i>M</i> <i>x''</i> <span class="vector">i</span></span>
+
+</td><td class="equation-number">(1)</td></tr></table>
+
+<p>Adding the forces on the pendulum gives
+</p>
+
+<p class="html-math display-equation">
+<span class="vector">F</span> = <i>T</i> cos <i>&theta;</i> <span class="vector">j</span> &minus; <i>T</i> sin <i>&theta;</i> <span class="vector">i</span> &minus; <i>m</i> <i>g</i> <span class="vector">j</span> &minus;
+<span class="nobr"><sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> (cos <i>&theta;</i> <span class="vector">i</span> + sin <i>&theta;</i> <span class="vector">j</span>)</span>
+</p>
+
+<p>Using Newton's law <span class="html-math inline-math">
+<span class="vector">F</span> = <i>m</i> <span class="vector">a</span>
+</span> and the pendulum acceleration we found
+earlier, we have
+</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>T</i> cos <i>&theta;</i> <span class="vector">j</span> &minus; <i>T</i> sin <i>&theta;</i> <span class="vector">i</span> &minus; <i>m</i> <i>g</i> <span class="vector">j</span> &minus;
+<span class="nobr"><sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> (cos <i>&theta;</i> <span class="vector">i</span> + sin <i>&theta;</i> <span class="vector">j</span>)</span> =
+<span class="nobr"><i>m</i>(<i>x''</i> <span class="vector">i</span> + <i>R</i> <i>&theta;''</i> cos <i>&theta;</i> <span class="vector">i</span></span> &minus;
+<span class="nobr"><i>R</i> <i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i> <span class="vector">i</span></span> +
+<span class="nobr"><i>R</i> <i>&theta;''</i> sin <i>&theta;</i> <span class="vector">j</span></span> +
+<span class="nobr"><i>R</i> <i>&theta;'</i> <sup>2</sup> cos <i>&theta;</i> <span class="vector">j</span>)</span>
+
+</td><td class="equation-number">(2)</td></tr></table>
+
+<p>Now we can write the vector components of the above equations (1) and (2) as
+separate equations. This gives us 4 simultaneous equations.
+</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>T</i> sin <i>&theta;</i> &minus; <i>k</i> <i>x</i> &minus; <i>d</i> <i>x'</i> + <sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> cos <i>&theta;</i> = <i>M</i> <i>x''</i>
+
+</td><td class="equation-number">(3)</td></tr></table>
+
+<p class="html-math display-equation">
+<i>N</i> &minus; <i>M</i> <i>g</i> &minus; <i>T</i> cos <i>&theta;</i> + <sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> sin <i>&theta;</i> = 0
+</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+&minus; <i>T</i> sin <i>&theta;</i> &minus; <sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> cos <i>&theta;</i> =
+<span class="nobr"><i>m</i>(<i>x''</i> + <i>R</i> <i>&theta;''</i> cos <i>&theta;</i></span> &minus;
+<span class="nobr"><i>R</i> <i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i>)</span>
+
+</td><td class="equation-number">(4)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>T</i> cos <i>&theta;</i> &minus; <i>m</i> <i>g</i> &minus; <sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> sin <i>&theta;</i> =
+<span class="nobr"><i>m</i>(<i>R</i> <i>&theta;''</i> sin <i>&theta;</i></span> +
+<span class="nobr"><i>R</i> <i>&theta;'</i> <sup>2</sup> cos <i>&theta;</i>)</span>
+
+</td><td class="equation-number">(5)</td></tr></table>
+
+<p>(We ignore the second of the four equations, but we could use it to find the unknown
+normal force <span class="html-math inline-math">
+<i>N</i>
+</span> on the cart). Next do some algebraic manipulations to eliminate
+the unknown tension <span class="html-math inline-math">
+<i>T</i>
+</span>. Adding together equations (3) and (4) and rearranging
+we get:
+</p>
+
+<table class="html-math numbered-equation"><tr><td class="emphasized">
+(<i>M</i> + <i>m</i>)<i>x''</i> = <i>m</i> <i>R</i> <i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i> &minus; <i>m</i> <i>R</i> <i>&theta;''</i> cos <i>&theta;</i> &minus; <i>k</i> <i>x</i> &minus;
+<span class="nobr"><i>d</i> <i>x'</i></span>
+
+</td><td class="equation-number">(6)</td></tr></table>
+
+<p>Multiply equation (5) by <span class="html-math inline-math">
+sin <i>&theta;</i>
+</span>
+</p>
+
+<p class="html-math display-equation">
+<i>T</i> sin <i>&theta;</i> cos <i>&theta;</i> &minus; <i>m</i> <i>g</i> sin <i>&theta;</i> &minus; <sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> sin<sup>2</sup> <i>&theta;</i> =
+<span class="nobr"><i>m</i> <i>R</i> <i>&theta;''</i> sin<sup>2</sup> <i>&theta;</i></span> +
+<span class="nobr"><i>m</i> <i>R</i> <i>&theta;'</i> <sup>2</sup>sin <i>&theta;</i> cos <i>&theta;</i></span>
+</p>
+
+<p>Use equation (4) to replace <span class="html-math inline-math">
+<i>T</i> sin <i>&theta;</i>
+</span>.
+</p>
+
+<p class="html-math display-equation">
+&minus;<sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> cos<sup>2</sup> <i>&theta;</i> &minus; <i>m</i> <i>x''</i> cos <i>&theta;</i>
+&minus; <i>m</i> <i>R</i> <i>&theta;''</i> cos<sup>2</sup><i>&theta;</i> +
+<span class="nobr"><i>m</i> <i>R</i> <i>&theta;'</i> <sup>2</sup>sin <i>&theta;</i> cos <i>&theta;</i></span> &minus;
+<span class="nobr"><i>m</i> <i>g</i> sin <i>&theta;</i></span> &minus;
+<span class="nobr"><sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> sin<sup>2</sup> <i>&theta;</i></span> =
+<span class="nobr"><i>m</i> <i>R</i> <i>&theta;''</i> sin<sup>2</sup><i>&theta;</i></span> +
+<span class="nobr"><i>m</i> <i>R</i> <i>&theta;'</i> <sup>2</sup>sin <i>&theta;</i> cos <i>&theta;</i></span>
+</p>
+
+<p>Using the trig identity <span class="html-math inline-math">
+cos<sup>2</sup><i>&theta;</i> + sin<sup>2</sup><i>&theta;</i> = 1
+</span> this simplifies to
+</p>
+
+<table class="html-math numbered-equation"><tr><td class="emphasized">
+<sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> + <i>m</i> <i>x''</i> cos <i>&theta;</i>  + <i>m</i> <i>R</i> <i>&theta;''</i> + <i>m</i> <i>g</i> sin <i>&theta;</i>  = 0
+
+</td><td class="equation-number">(7)</td></tr></table>
+
+
+<p>Equations (6) and (7) are the equations of motion. We have two equations in the two
+variables <span class="html-math inline-math">
+<i>x</i>,<i>&theta;</i>
+</span> and their derivatives. We will need to do some further
+manipulations of these two equations to get them into a form suitable for the
+Runge-Kutta numerical analysis method (see below).
+</p>
+
+
+
+<h2 id="indirect">Indirect (Energy) Method for Finding Equations of Motion</h2>
+
+<p>The indirect method is based on the energy of the system. (A good textbook that
+covers this is
+ Fundamentals of
+Applied Dynamics by James H. Williams Jr. &nbsp; You will find the same "Mass and
+Plane Pendulum Dynamic System" discussed on page 234 of the 1996 edition.) Our first
+step is to find the Lagrangian of the system which is the kinetic energy minus the
+potential energy.
+</p>
+
+<p class="html-math display-equation">
+<i>L</i> = <i>T</i> &minus; <i>V</i>
+</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>L</i> =
+</span> the Lagrangian</li>
+    <li><span class="html-math inline-math">
+<i>T</i> =
+</span> kinetic energy</li>
+    <li><span class="html-math inline-math">
+<i>V</i> =
+</span> potential energy</li>
+</ul>
+
+<p>For the kinetic energy we need the velocity of the cart and pendulum, which we
+calculated earlier
+(see <a href="#kinematics">kinematics</a> above). Kinetic energy is given by
+<span class="html-math inline-math">
+<sup>1</sup>&frasl;<sub>2</sub><i>m</i> <span class="vector"><i>v</i></span><sup>2</sup>
+</span>. Note that we use the vector dot product to square a
+vector, <span class="html-math inline-math">
+<span class="vector"><i>v</i></span><sup>2</sup> = <span class="vector"><i>v</i></span> &middot; <span class="vector"><i>v</i></span>
+</span>. So we have
+</p>
+
+<p class="html-math display-equation">
+<i>T</i> = <sup>1</sup>&frasl;<sub>2</sub> <i>M</i> (<i>x'</i> <span class="vector">i</span>)<sup>2</sup> +
+<span class="nobr"><sup>1</sup>&frasl;<sub>2</sub> <i>m</i> (<i>x'</i> <span class="vector">i</span> + <i>R</i> <i>&theta;'</i> cos <i>&theta;</i>  <span class="vector">i</span>
+  + <i>R</i> <i>&theta;'</i> sin <i>&theta;</i>  <span class="vector">j</span>)<sup>2</sup></span>
+</p>
+
+<p>Applying the dot product rule to square the vectors we get
+</p>
+
+<p class="html-math display-equation">
+<i>T</i> = <sup>1</sup>&frasl;<sub>2</sub> <i>M</i> <i>x'</i> <sup>2</sup> +
+<span class="nobr"><sup>1</sup>&frasl;<sub>2</sub> <i>m</i> ((<i>x'</i> + <i>R</i> <i>&theta;'</i> cos <i>&theta;</i>)<sup>2</sup>
+  + (<i>R</i> <i>&theta;'</i> sin <i>&theta;</i>)<sup>2</sup>)</span>
+</p>
+
+<p>There are two stores of potential energy in this system: the spring and the
+gravitational potential of the pendulum.
+</p>
+
+<p class="html-math display-equation">
+<i>V</i><sub>spring</sub> = <sup>1</sup>&frasl;<sub>2</sub> <i>k</i> <i>x</i><sup>2</sup>
+</p>
+
+<p class="html-math display-equation">
+<i>V</i><sub>gravity</sub> = <i>m</i> <i>g</i> height = <i>m</i> <i>g</i>(<i>R</i> &minus; <i>R</i> cos <i>&theta;</i>)
+</p>
+
+<p>So the Lagrangian for the system is
+</p>
+
+<p class="html-math display-equation">
+<i>L</i> = <sup><i>M</i></sup>&frasl;<sub>2</sub> <i>x'</i> <sup>2</sup> +
+<span class="nobr"><sup><i>m</i></sup>&frasl;<sub>2</sub> (<i>x'</i> + <i>R</i> <i>&theta;'</i> cos <i>&theta;</i>)<sup>2</sup></span> +
+<span class="nobr"><sup><i>m</i></sup>&frasl;<sub>2</sub> (<i>R</i> <i>&theta;'</i> sin <i>&theta;</i>)<sup>2</sup></span> &minus;
+<span class="nobr"><sup><i>k</i></sup>&frasl;<sub>2</sub> <i>x</i><sup>2</sup></span> &minus;
+<span class="nobr"><i>m</i> <i>g</i> <i>R</i>(1 &minus; cos <i>&theta;</i>)</span>
+</p>
+
+
+
+<h2>Generalized Forces:  Friction</h2>
+
+<p>
+To deal with the friction forces we calculate the amount of non-conservative work done
+by tiny movements in the variables. Note that we consider only non-conservative forces
+like friction here -- conservative forces like gravity or springs are handled by the
+potential energy calculations in the Lagrangian.
+</p>
+
+<p>
+A tiny change of <span class="html-math inline-math">
+&Delta;<i>x</i>
+</span> in <span class="html-math inline-math">
+<i>x</i>
+</span> results in an amount of
+non-conservative work from friction given by
+<span class="html-math inline-math">
+&Delta;<i>W</i> = &minus;<i>d</i> <i>x'</i> &Delta;<i>x</i>
+</span> so we define the "generalized force"
+</p>
+
+<p class="html-math display-equation">
+<i>W<sub>x</sub></i> = &minus;<i>d</i> <i>x'</i>
+</p>
+
+<p>Similarly, a tiny change of <span class="html-math inline-math">
+&Delta;<i>&theta;</i>
+</span> in <span class="html-math inline-math">
+<i>&theta;</i>
+</span> results in an amount of
+non-conservative work from friction <span class="html-math inline-math">
+&Delta;<i>W</i> = &minus;<i>b</i> <i>&theta;'</i> &Delta;<i>&theta;</i>
+</span>, so we
+define another generalized force:
+</p>
+
+<p class="html-math display-equation">
+<i>W<sub>&theta;</sub></i> = &minus;<i>b</i> <i>&theta;'</i>
+</p>
+
+
+
+
+<h2>Equations of Motion from Lagrangian</h2>
+
+<p>Next we will derive the equations of motion from Lagrange's Equation. For the
+<span class="html-math inline-math">
+<i>x</i>
+</span> variable Lagrange's Equation is
+</p>
+
+<p>
+$$W_x = \frac{d}{dt} \left( \frac{\partial L}{\partial x'} \right) -
+    \frac{\partial L}{\partial x} \tag{8}$$</p>
+
+<p>Note that <span class="html-math inline-math">
+<i>x'</i>
+</span> and <span class="html-math inline-math">
+<i>x</i>
+</span> are treated as separate variables when taking
+partial derivatives. Here are the partial derivatives:
+</p>
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td>
+            &part; <i>L</i>
+        </td><td rowspan="2">
+            &nbsp;= <i>M</i> <i>x'</i> + <i>m</i>(<i>x'</i> + <i>R</i> <i>&theta;'</i> cos <i>&theta;</i>)
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            &part; <i>x'</i>
+        </td>
+    </tr>
+</table>
+
+<table class="fraction">
+    <tr>
+        <td>
+            &part; <i>L</i>
+        </td><td rowspan="2">
+            &nbsp;= &minus; <i>k</i> <i>x</i>
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            &part; <i>x</i>
+        </td>
+    </tr>
+</table>
+</div>
+
+<p>Taking the derivative with respect to time of \( \frac{\partial L}{\partial x'} \)
+and subtracting \( \frac{\partial L}{\partial x} \) equation (8) becomes
+</p>
+
+<p class="html-math display-equation">
+&minus; <i>d</i> <i>x'</i> = <i>M</i> <i>x''</i> + <i>m</i> <i>x''</i> + <i>m</i> <i>R</i> <i>&theta;''</i> cos <i>&theta;</i> &minus;
+<span class="nobr"><i>m</i> <i>R</i> <i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i></span> +
+<span class="nobr"><i>k</i> <i>x</i></span>
+</p>
+
+<p>which we can rearrange to be identical to equation (6) found above in the direct
+method:
+</p>
+
+<p class="html-math display-equation">
+(<i>M</i> + <i>m</i>)<i>x''</i> = <i>m</i> <i>R</i> <i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i> &minus;
+<span class="nobr"><i>m</i> <i>R</i> <i>&theta;''</i> cos <i>&theta;</i></span> &minus;
+<span class="nobr"><i>k</i> <i>x</i></span> &minus;
+<span class="nobr"><i>d</i> <i>x'</i></span>
+</p>
+
+<p>For the <span class="html-math inline-math">
+<i>&theta;</i>
+</span> variable Lagrange's Equation is
+</p>
+
+<p>$$W_{\theta} = \frac{d}{dt} \left( \frac{\partial L}{\partial \theta'} \right) -
+    \frac{\partial L}{\partial \theta} \tag{9}$$</p>
+
+<p>Here are the partial derivatives:
+</p>
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td>
+            &part; <i>L</i>
+        </td><td rowspan="2">
+            &nbsp;= <i>m</i>(<i>x'</i> + <i>R</i> <i>&theta;'</i> cos <i>&theta;</i>)<i>R</i> cos <i>&theta;</i> + <i>m</i> <i>&theta;'</i> <i>R</i><sup>2</sup> sin<sup>2</sup><i>&theta;</i>
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            &part; <i>&theta;'</i>
+        </td>
+    </tr>
+</table>
+
+<table class="fraction">
+    <tr>
+        <td>
+            &part; <i>L</i>
+        </td><td rowspan="2">
+            &nbsp;= &minus;<i>m</i>(<i>x'</i> + <i>R</i> <i>&theta;'</i> cos <i>&theta;</i>)<i>R</i> <i>&theta;'</i> sin <i>&theta;</i> +
+            <i>m</i> <i>R</i><sup>2</sup> <i>&theta;'</i> <sup>2</sup>sin <i>&theta;</i> cos <i>&theta;</i> &minus;
+            <i>m</i> <i>g</i> <i>R</i> sin <i>&theta;</i>
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            &part; <i>&theta;</i>
+        </td>
+    </tr>
+</table>
+</div>
+
+<p>(Notice that we can factor out <span class="html-math inline-math">
+<i>m</i> <i>R</i>
+</span> from each of these terms.) Taking the
+derivative with respect to time of \( \frac{\partial L}{\partial \theta'} \) and
+subtracting
+\( \frac{\partial L}{\partial \theta} \) equation (9) becomes
+</p>
+
+<p class="html-math display-equation">
+&minus; <i>b</i> <i>&theta;'</i> = <i>m</i> <i>R</i> [(<i>x''</i> + <i>R</i> <i>&theta;''</i> cos <i>&theta;</i>
+&minus; <i>R</i> <i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i>)cos <i>&theta;</i> &minus;
+<span class="nobr"><i>&theta;'</i> sin <i>&theta;</i>(<i>x'</i> + <i>R</i> <i>&theta;'</i> cos <i>&theta;</i>)</span> +
+<span class="nobr"><i>&theta;''</i> <i>R</i> sin<sup>2</sup><i>&theta;</i></span> +
+<span class="nobr">2 <i>&theta;'</i> <sup>2</sup><i>R</i> sin <i>&theta;</i> cos <i>&theta;</i></span> +
+<span class="nobr">(<i>x'</i> + <i>R</i> <i>&theta;'</i> cos <i>&theta;</i>)<i>&theta;'</i> sin <i>&theta;</i></span> &minus;
+<span class="nobr"><i>R</i> <i>&theta;'</i> <sup>2</sup>sin <i>&theta;</i> cos <i>&theta;</i></span> +
+<span class="nobr"><i>g</i> sin <i>&theta;</i>]</span>
+</p>
+
+<p>After lots of cancellation and using the identity
+<span class="html-math inline-math">
+sin<sup>2</sup><i>&theta;</i> + cos<sup>2</sup><i>&theta;</i> = 1
+</span>
+this reduces to equation (7) from the direct method:
+</p>
+
+<p class="html-math display-equation">
+<sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> + <i>m</i> <i>x''</i> cos <i>&theta;</i> + <i>m</i> <i>R</i> <i>&theta;''</i> + <i>m</i> <i>g</i> sin <i>&theta;</i> = 0
+</p>
+
+<p>Which technique do you like better, direct or indirect? It seems that the indirect
+method is the choice of mechanical engineers. It requires more calculus, but the
+calculations are a lot easier. Compare what was done here to the
+<a href="#friction_torque">earlier calculations</a> for frictional torque in the direct
+method. On the other hand, the direct method is necessary for figuring out the forces
+within the system, like the tension in the rod, or the normal force of the track on the
+cart.
+</p>
+
+
+
+
+<h2>Numerical Solution</h2>
+
+<p>To solve the equations of motion numerically, so that we can drive the simulation,
+we use the <a href="../explain/runge-kutta-es.html">Runge Kutta method</a>
+for solving sets of ordinary differential equations.
+</p>
+
+<p>To use the Runge-Kutta method, we need to get equations (6) and (7) into the
+following form:
+</p>
+
+<p class="html-math display-equation">
+<i>x''</i> = <i>f</i>(<i>x</i>, <i>x'</i>, <i>&theta;</i>, <i>&theta;'</i>)
+</p>
+
+<p class="html-math display-equation">
+<i>&theta;''</i> = <i>g</i>(<i>x</i>, <i>x'</i>, <i>&theta;</i>, <i>&theta;'</i>)
+</p>
+
+<p>where <span class="html-math inline-math">
+<i>f</i>, <i>g</i>
+</span> are functions to be determined. So we want to solve
+for each second derivative in terms of lower derivative variables. If you look back at
+equations (6) and (7), you can see that they need some manipulation to isolate the
+second derivatives over to the left hand side. After solving for <span class="html-math inline-math">
+<i>&theta;''</i>
+</span> and
+<span class="html-math inline-math">
+<i>x''</i>
+</span> (either by hand or with an algebra program like Mathematica) we get:
+</p>
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>x''</i>&nbsp;=&nbsp;
+        </td><td>
+            <i>m</i> <i>R</i> <i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i> + <i>m</i> <i>g</i> sin <i>&theta;</i> cos <i>&theta;</i> &minus; <i>k</i> <i>x</i>
+            &minus; <i>d</i> <i>x'</i> + <sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i> cos <i>&theta;</i>
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>M</i> + <i>m</i> sin<sup>2</sup><i>&theta;</i>
+        </td>
+    </tr>
+</table>
+
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>&theta;''</i>&nbsp;=&nbsp;
+        </td><td>
+            &minus;<i>m</i> <i>R</i> <i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i> cos <i>&theta;</i>
+            &minus; (<i>m</i>+<i>M</i>)<i>g</i> sin <i>&theta;</i> + <i>k</i> <i>x</i> cos <i>&theta;</i> + <i>d</i> <i>x'</i> cos <i>&theta;</i>
+            &minus; (1 + <sup><i>M</i></sup>&frasl;<sub><i>m</i></sub>)<sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;'</i>
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>R</i> (<i>M</i> + <i>m</i> sin<sup>2</sup><i>&theta;</i>)
+        </td>
+    </tr>
+</table>
+</div>
+
+<p>If we define a couple of new variables, we can change this into four first-order
+equations (that is, four equations with only first derivatives). </p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>v</i> =
+</span> velocity of cart</li>
+    <li><span class="html-math inline-math">
+<i>&omega;</i> =
+</span> angular velocity of pendulum</li>
+</ul>
+
+<p class="html-math display-equation">
+<i>x'</i> = <i>v</i>
+</p>
+
+<p class="html-math display-equation">
+<i>&theta;'</i> = <i>&omega;</i>
+</p>
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>v'</i>&nbsp;=&nbsp;
+        </td><td>
+            <i>m</i> <i>R</i> <i>&omega;</i><sup>2</sup> sin <i>&theta;</i> + <i>m</i> <i>g</i> sin <i>&theta;</i> cos <i>&theta;</i> &minus; <i>k</i> <i>x</i>
+            &minus; <i>d</i> <i>v</i> + <sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&omega;</i> cos <i>&theta;</i>
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>M</i> + <i>m</i> sin<sup>2</sup><i>&theta;</i>
+        </td>
+    </tr>
+</table>
+
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>&omega;'</i>&nbsp;=&nbsp;
+        </td><td>
+            &minus;<i>m</i> <i>R</i> <i>&omega;</i><sup>2</sup> sin <i>&theta;</i> cos <i>&theta;</i>
+            &minus; (<i>m</i>+<i>M</i>)<i>g</i> sin <i>&theta;</i> + <i>k</i> <i>x</i> cos <i>&theta;</i> + <i>d</i> <i>v</i> cos <i>&theta;</i>
+            &minus; (1 + <sup><i>M</i></sup>&frasl;<sub><i>m</i></sub>)<sup><i>b</i></sup>&frasl;<sub><i>R</i></sub> <i>&omega;</i>
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>R</i> (<i>M</i> + <i>m</i> sin<sup>2</sup><i>&theta;</i>)
+        </td>
+    </tr>
+</table>
+</div>
+
+<p>This is now exactly the form needed to plug in to the Runge-Kutta method for
+numerical solution of the system. </p>
+
+<!-- TO DO:
+  Chaos is not possible here... explain why.
+-->
+
+<p id="page_history">
+  This web page was first published September 2001.
+</p>
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="CartPendulumApp-es.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeCartPendulumApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 2; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<script>
+    app.eval('TAB_LAYOUT.LAYOUT="sim+graph";');
+</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

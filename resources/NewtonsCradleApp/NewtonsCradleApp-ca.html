@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Pèndol de Newton</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+  <h1>Pèndol de Newton</h1>
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gràfic</li>
+  <li class="time_graph">Gràfic de temps</li>
+  <li class="multi_graph">Gràfic múltiple</li>
+</ul>
+
+
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+Simulation of
+<a href="http://en.wikipedia.org/wiki/Newton's_cradle">Newton's Cradle</a>,
+a device consisting of several steel balls suspended from a cage.
+Uses the <a href="../explain/physics-engine-ca.html">2D Rigid Body Physics Engine</a>.
+</p>
+
+<p>Each ball acts like an individual pendulum. At rest all the balls are touching. The
+surprising thing is that when you lift one of the end balls and let it hit the resting
+balls, only the ball at the other end moves, and the initial ball stops at rest.
+</p>
+
+<p class="instructions">
+Click near an object to exert a rubber band force with your mouse. Click reset to set
+the balls at rest. Try changing gravity, elasticity (bounciness), and damping
+(friction).
+</p>
+
+
+<p>Experiments to try:</p>
+
+<ul>
+  <li>Turn on "show energy".  When is kinetic energy highest?
+    When is potential energy highest?
+  </li>
+  <li>Reduce elasticity (bounciness) to less than 1, for example 0.9</li>
+  <li>Make a small gap between each ball by increasing the offset to above zero,
+       for example 0.1
+  </li>
+  <li>Try using "simultaneous" collision handling method</li>
+  <li>Turn on "show forces" to see the contact forces and collision impacts.</li>
+</ul>
+
+<p>There are "joints" attaching each pendulum to the background,
+two joints for each connection: one vertical, one horizontal. Each pendulum is a single
+rigid body, as opposed to being made of a flexible rope and steel ball in the real
+world toy.
+
+<p>The method of collision handling for this simulation is important.  For the balls to
+be in resting contact with each other, only the "simultaneous" or "hybrid"
+<a href="../CollisionCombo/CollisionCombo-ca.html">methods of collision handling</a> work correctly.</p>
+
+<!--h2>TO DO:</h2>
+
+<ul>
+  <li>Solid color for the bodies.</li>
+  <li>Remove the walls</li>
+  <li>Set zero energy for each body, so that total energy is zero at rest.</li>
+  <li>Give link to page explaining how joints work</li>
+  <li>How does this device show conservation of momentum and energy?</li>
+  <li>Links to other videos and articles</li>
+</ul-->
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/NewtonsCradleApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="NewtonsCradleApp-ca.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeNewtonsCradleApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 0; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+    app.eval('SIM_CANVAS.BACKGROUND="white"',/*output=*/false)
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

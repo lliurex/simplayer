@@ -1,0 +1,65 @@
+<p class="introduction">
+Simulation of a pendulum using reaction forces (on left in red), along with a
+comparison simulation using the equations of motion (on right in blue).
+</p>
+
+<p class="instructions">
+You can change parameters in the simulation such as gravity, starting angle, length of
+the rod, radius of the disk, mass, and separation between the two pendulums.
+</p>
+
+<p>This contrasts two very different ways of solving the same simulation:
+</p>
+
+<ol>
+  <li>Find the <em>equations of motion</em> using Newton's equations of motion.
+    The blue pendulum on the right does this, it is the same simulation as the
+    <a href="pendulum-en.html">ideal pendulum</a>; see that page for the math.
+  </li>
+  <li>Calculate the <em>reaction forces</em> needed at each moment to maintain the
+    pivot point at the same location. The red pendulum on the left does this.
+    The reaction forces are visible as the dashed green lines.
+  </li>
+</ol>
+
+<p>The "classic" blue pendulum is the theoretically correct solution. So it is a good
+check that the reaction force pendulum is working correctly.
+</p>
+
+<p>The pendulum is regarded as a rigid body consisting of a uniform disk at end of a
+massless rigid arm. We find the reaction forces by solving a matrix equation, following
+the steps shown on the <a href="../contact.html">rigid body contact forces</a> page.
+</p>
+
+<p>The math used here is the same as that used by the
+<a href="../explain/physics-engine-en.html">2D Rigid Body Physics Engine</a>. But this simulation
+is "hard-coded" for this particular setup. In contrast, the physics engine is far more
+capable: it is designed to work on any group of rigid bodies, connected by joints,
+springs, ropes, or rods, handling any forces applied to the bodies, as well as
+collisions.
+</p>
+
+<p>The point of this simulation is to show a simpler example of the math involved in
+finding contact forces. This is an example of finding contact forces without
+writing a highly general (and complex) physics engine.
+</p>
+
+<p>To match the motion of the two simulations, the length of the rods are slightly
+different. This is necessary because the reaction force pendulum models the pendulum as
+a rigid disc with mass distributed evenly, whereas the classic ideal pendulum models
+the pendulum as a point mass at the end of a massless rod. See the
+<a href="../develop/docs/myphysicslab.sims.pendulum.ReactionPendulumApp.html">ReactionPendulumApp documentation</a>
+for how the equivalent lengths are calculated.
+</p>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/ReactionPendulumApp.js">open source code</a>,
+<a href="../develop/docs/myphysicslab.sims.pendulum.ReactionPendulumApp.html">documentation</a> and a
+<a href="../develop/build/sims/pendulum/ReactionPendulumApp-en.html">simple-compiled version</a>
+which is <a href="../develop/docs/Customizing.html">more customizable</a>.
+</p>
+
+
+<p id="page_history">
+  This web page was first published November 2016.
+</p>

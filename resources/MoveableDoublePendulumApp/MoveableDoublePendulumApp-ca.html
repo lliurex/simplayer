@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Doble Pèndol Movible</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+  <h1>Doble Pèndol Movible</h1>
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gràfic</li>
+  <li class="time_graph">Gràfic de temps</li>
+  <li class="multi_graph">Gràfic múltiple</li>
+</ul>
+
+
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+Physics-based simulation of a double pendulum whose support point is moveable.
+</p>
+
+<p class="instructions">
+Click near the support point to drag it with your mouse. You can also reposition
+the pendulum masses. You can also change gravity, damping (friction), and various
+other parameters.
+</p>
+
+<p>Experiments to try:</p>
+
+<ul>
+
+  <li>Try dragging the anchor point by clicking near it with your mouse.
+    Whip it around quickly back and forth -- does the pendulum behave
+    as you would expect?</li>
+
+  <li>Turn on "show energy".  When is kinetic energy high?
+    When is potential energy high?</li>
+
+  <li>Set damping to zero, get the pendulum moving rapidly, and turn on "show energy".
+    You will notice the total energy decreasing slightly over time, although it should
+    stay constant. Now try slowing down time by a factor of 3 or 4
+    (which gives more accurate computation).
+    Is the energy still decreasing?  What's going on?</li>
+
+</ul>
+
+<p>The math for this simulation is similar to the regular
+<a href="../DoublePendulumApp/DoublePendulumApp-ca.html">Double Pendulum</a>
+with immobile support point, except there are extra terms carried forward into the
+equations for the support point velocity and acceleration.
+This is similar to the development of equations shown for the
+<a href="../MoveablePendulumApp/MoveablePendulumApp-ca.html">Moveable Pendulum</a>.
+This movement of the support point is an input to the equations of motion,
+which means that the support point is not affected by the motion of the
+double pendulum.  We assume the anchor/support point is so massive compared
+to the pendulum that it is not affected by the motion of the pendulums.
+</p>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/MoveableDoublePendulumApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="MoveableDoublePendulumApp-ca.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeMoveableDoublePendulumApp(elem_ids);
+    app.defineNames('app');
+    app.eval('DAMPING=0;ANCHOR_DAMPING=2;ANGLE_1=0.2;ANGLE_2=-0.14;');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 3; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+    app.eval('SIM_CANVAS.BACKGROUND="white"',/*output=*/false)
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Péndulo con Campo de Dirección</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+  <h1>Péndulo con Campo de Dirección</h1>
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gráfico</li>
+  <li class="time_graph">Gráfico tiempo</li>
+  <li class="multi_graph">Gráfico múltiple</li>
+</ul>
+
+
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+  Physics-based simulation of a pendulum, showing both a phase graph and the direction
+  field (or slope field) associated with the differential equation.
+</p>
+
+<p class="instructions">
+  Click the "Sim" tab to access parameters such as: gravity, mass or friction (damping).
+  Drag the pendulum to change the starting position. Or click below to set some
+  predefined initial conditions.
+</p>
+
+<form name="form1" onsubmit="return false;">
+    <input type="button" value="small" onClick="app.eval('ANGLE=0.3')">
+    &nbsp;&nbsp;
+    <input type="button" value="medium" onClick="app.eval('ANGLE=1.0')">
+    &nbsp;&nbsp;
+    <input type="button" value="big" onClick="app.eval('ANGLE=3.0')">
+    &nbsp;&nbsp;
+    <input type="button" value="fast" onClick="app.eval('ANGLE=1.0;ANGLE_VELOCITY=8')">
+</form>
+
+<p>See the page about the
+  <a href="../PendulumApp/PendulumApp-es.html">single pendulum</a>
+  for more about how pendulums work and the math behind this simulation. This simulation
+  is identical to that one, but adds a graph of the
+  <a href="http://en.wikipedia.org/wiki/Slope_field">direction field</a>
+  (AKA slope field) of the differential equation.  This direction field is shown
+  overlapping the  <a href="http://en.wikipedia.org/wiki/Phase_space">phase space</a>
+  graph of angular velocity vs. angle.  At each point, the path of the pendulum in phase
+  space is along the direction field.</p>
+
+<p>Also available are:
+  <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/VectorGraphPendulumApp.js">open source code</a>,
+  documentation and a
+  simple-compiled version
+  which is more customizable.
+</p>
+
+
+<h2>Experiments to try:</h2>
+<ul>
+  <li>Notice that the path through phase space is always along the direction field.</li>
+  <li>Which parameters (damping, gravity, mass, length) change the direction field?
+     Why do they or don't they change the direction field?</li>
+  <li>Try bigger faster motions of the pendulum (drag the pendulum to a high starting
+     point, or give it a high start velocity).  Notice that it still moves along the
+     direction field in phase space.</li>
+  <li>Turn on "show energy".  When is kinetic energy highest?  When is potential energy
+    highest?</li>
+</ul>
+
+<script src="VectorGraphPendulumApp-es.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeVectorGraphPendulumApp(elem_ids);
+    app.defineNames('app');
+    app.eval('TAB_LAYOUT.LAYOUT="sim+graph";');
+    app.eval('DRIVE_AMPLITUDE=0;DAMPING=0.1;GRAVITY=9.8;ANGLE=1;ANGLE_VELOCITY=0;');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 2; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Dangling Stick</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+
+<script type="text/javascript" async
+  src="../MathJax-2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</head>
+<body>
+  <h1>Dangling Stick</h1>
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Sim</li>
+  <li class="graph ">Graph</li>
+  <li class="time_graph">Time Graph</li>
+  <li class="multi_graph">Multi Graph</li>
+</ul>
+
+
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+This simulation shows a dangling stick which is a massless rigid stick with a point
+mass on each end. One end of the stick is attached to a spring, and gravity acts.
+</p>
+
+<p class="instructions">
+You can change parameters in the simulation such as mass, gravity, and damping. You can
+drag either end of the stick with your mouse to change the starting position. The
+"reset" button puts the simulation in a motionless equilibrium.
+</p>
+
+<p>Can you find the bug in this simulation? Play with it for a while and see if you can
+determine when the bug occurs. Perhaps you can even have a theory for why it occurs.
+The <a href="#dangle_bug">answer is found below</a>.</p>
+
+<p>The math behind the simulation is shown below.  Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/DangleStickApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+<h2>Physics</h2>
+
+<div class="image" style="width: 170px;">
+<img src="dangle_stick.gif" width="166" height="255" alt=""><br>
+dangling stick variables
+</div>
+
+<div style="margin-left: 175px; max-width: 40em;">
+
+<p>The equations of motion are derived by the Lagrangian method. The three independent
+variables are:</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>r</i> =
+</span> length of spring</li>
+    <li><span class="html-math inline-math">
+<i>&theta;</i> =
+</span> angle of spring (0 = vertical down)</li>
+    <li><span class="html-math inline-math">
+<i>&phi;</i> =
+</span> angle of stick (0 = vertical down)</li>
+</ul>
+
+<p>We use subscript 1 for the mass at the spring-stick intersection, and subscript 2 for
+the mass at the free end of the stick. The cartesian (<i>x</i>, <i>y</i>) position of
+the point masses is represented by R1, R2. Note that we use bold and overline to
+indicate a vector quantity.
+</p>
+
+<p>Other constants are:</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>m</i><sub>1</sub> =
+</span> mass amount at spring-stick intersection</li>
+    <li><span class="html-math inline-math">
+<i>m</i><sub>2</sub> =
+</span> mass amount at free end of stick</li>
+    <li><span class="html-math inline-math">
+<i>S</i> =
+</span> length of stick</li>
+    <li><span class="html-math inline-math">
+<i>k</i> =
+</span> spring stiffness</li>
+    <li><span class="html-math inline-math">
+<i>h</i> =
+</span> spring rest length</li>
+    <li><span class="html-math inline-math">
+<i>g</i> =
+</span> gravity constant</li>
+</ul>
+</div>
+
+
+
+
+<h2>Kinematics of Dangling Stick</h2>
+
+<p>First we calculate the kinematics. That is, we find expressions for the
+positions <span class="html-math inline-math">
+<span class="vector">R</span><sub>1</sub>, <span class="vector">R</span><sub>2</sub>
+</span> of the two masses in terms of the independent variables
+<span class="html-math inline-math">
+<i>r</i>, <i>&theta;</i>, <i>&phi;</i>
+</span>. Then we differentiate to get the velocities. Note that
+kinematics is purely an exercise in geometry, there is no information about the forces
+involved at all.
+</p>
+
+<p class="html-math display-equation">
+<span class="vector">R</span><sub>1</sub> = {<i>r</i> sin <i>&theta;</i>, &nbsp; &minus;<i>r</i> cos <i>&theta;</i>}
+</p>
+
+<p class="html-math display-equation">
+<span class="vector">R</span><sub>2</sub> = {<i>r</i> sin <i>&theta;</i> + <i>S</i> sin <i>&phi;</i>, &nbsp;
+<span class="nobr">&minus;<i>r</i> cos <i>&theta;</i> &minus; <i>S</i> cos <i>&phi;</i>)}</span>
+</p>
+
+<p>The two components of the positions correspond to <span class="html-math inline-math">
+{<i>x, y</i>}
+</span> respectively.
+Next differentiate to get the velocities of the masses, <span class="html-math inline-math">
+<span class="vector">v</span><sub>1</sub>, <span class="vector">v</span><sub>2</sub>
+</span>
+</p>
+
+<p class="html-math display-equation">
+<span class="vector">R</span><sub>1</sub>' = <span class="vector">v</span><sub>1</sub> = {<i>r</i> <i>&theta;'</i> cos <i>&theta;</i> + <i>r'</i> sin <i>&theta;</i>, &nbsp;
+<span class="nobr">&minus;<i>r'</i> cos <i>&theta;</i> + <i>r</i> <i>&theta;'</i> sin <i>&theta;</i> }</span>
+</p>
+
+<p class="html-math display-equation">
+<span class="vector">R</span><sub>2</sub>' = <span class="vector">v</span><sub>2</sub> =
+<span class="nobr">{<i>r</i> <i>&theta;'</i> cos <i>&theta;</i> + <i>r'</i> sin <i>&theta;</i> + <i>S</i> <i>&phi;'</i> cos <i>&phi;</i>,</span> &nbsp;
+<span class="nobr">&minus;<i>r'</i> cos <i>&theta;</i> + <i>r</i> <i>&theta;'</i> sin <i>&theta;</i> + <i>S</i> <i>&phi;'</i> sin <i>&phi;</i>}</span>
+</p>
+
+
+
+
+<h2>Energy and the Lagrangian</h2>
+
+<p>Next we get separate expressions for the kinetic energy <span class="html-math inline-math">
+<i>T</i>
+</span> and potential
+energy <span class="html-math inline-math">
+<i>V</i>
+</span> of the system. The difference of the two is the Lagrangian
+<span class="html-math inline-math">
+<i>L</i> = <i>T</i> &minus; <i>V</i>
+</span>.
+</p>
+
+<p>Kinetic energy is given by <span class="html-math inline-math">
+<sup>1</sup>&frasl;<sub>2</sub> <i>m</i> <span class="vector">v</span><sup>2</sup>
+</span>. Note that we use
+the vector dot product to square the velocity vector,
+<span class="html-math inline-math">
+<span class="vector">v</span><sup>2</sup> = <span class="vector">v</span> &middot; <span class="vector">v</span>
+</span>. So we have
+</p>
+
+<p class="html-math display-equation">
+<i>T</i> = <sup>1</sup>&frasl;<sub>2</sub> <i>m</i><sub>1</sub> <span class="vector">v</span><sub>1</sub> &middot; <span class="vector">v</span><sub>1</sub> + <sup>1</sup>&frasl;<sub>2</sub> <i>m</i><sub>2</sub> <span class="vector">v</span><sub>2</sub> &middot; <span class="vector">v</span><sub>2</sub>
+</p>
+
+<p>The potential energy is from the spring energy and the gravitational potential of the
+two point masses.</p>
+
+<p class="html-math display-equation">
+<i>V</i> = <sup><i>k</i></sup>&frasl;<sub>2</sub> (<i>r</i> &minus; <i>h</i>)<sup>2</sup> &minus;
+<span class="nobr"><i>m</i><sub>2</sub> <i>g</i> (<i>r</i> cos <i>&theta;</i> + <i>S</i> cos <i>&phi;</i>)</span> &minus;
+<span class="nobr"><i>m</i><sub>1</sub> <i>g</i> <i>r</i> cos <i>&theta;</i></span>
+</p>
+
+
+
+
+<h2>Equations of Motion</h2>
+
+<p>To find the equations of motion, we evaluate the Lagrangian equation once for each of
+the three independent variables.
+</p>
+
+<p>$$0 = \frac{d}{dt} \left( \frac{\partial L}{\partial r'} \right) -
+    \frac{\partial L}{\partial r}$$</p>
+
+<p>$$0 = \frac{d}{dt} \left( \frac{\partial L}{\partial \theta'} \right) -
+    \frac{\partial L}{\partial \theta}$$</p>
+
+<p>$$0 = \frac{d}{dt} \left( \frac{\partial L}{\partial \phi'} \right) -
+    \frac{\partial L}{\partial \phi}$$</p>
+
+<p>The three Lagrangian equations can now be solved to find expressions for the second
+derivatives <span class="html-math inline-math">
+<i>r''</i>, <i>&theta;''</i>, <i>&phi;''</i>
+</span>.  After using a computer algebra
+program we find the following equations of motion.</p>
+
+<div class="emphasized">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>r''</i>&nbsp;=&nbsp;
+        </td><td>
+            1
+        </td><td rowspan="2">
+            <span class="bigg">(</span>
+            <i>k</i> (2 <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>) (<i>h</i> &minus; <i>r</i>) +
+            <span class="nobr">2 <i>m</i><sub>1</sub> (<i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>) <i>r</i> <i>&theta;'</i><sup>2</sup></span> +
+            <span class="nobr">2 <i>g</i> <i>m</i><sub>1</sub> (<i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>) cos <i>&theta;</i></span> +
+            <span class="nobr">2 <i>S</i> <i>m</i><sub>1</sub> <i>m</i><sub>2</sub> <i>&phi;'</i> <sup>2</sup> cos (<i>&theta;</i> &minus; <i>&phi;</i>)</span> &minus;
+            <span class="nobr"><i>k</i> <i>m</i><sub>2</sub> (<i>h</i> &minus; <i>r</i>) cos(2<i>&theta;</i> &minus; 2<i>&phi;</i>)
+            <span class="bigg">)</span></span>
+        <td>
+    </tr><tr>
+        <td class="upper_line">
+            <span class="nobr">2 <i>m</i><sub>1</sub> (<i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>)</span>
+        </td>
+        <td></td>
+    </tr>
+</table>
+</div>
+<br>
+
+<div class="emphasized">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>&theta;''</i>&nbsp;=&nbsp;
+        </td><td>
+            1
+        </td><td rowspan="2">
+            <span class="bigg">(</span>
+            <i>k</i> <i>m</i><sub>2</sub> (<i>h</i> &minus; <i>r</i>) sin(2<i>&theta;</i> &minus; 2<i>&phi;</i>) &minus;
+            <span class="nobr">2 <i>g</i> <i>m</i><sub>1</sub> (<i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>) sin <i>&theta;</i></span> &minus;
+            <span class="nobr">4 <i>m</i><sub>1</sub> (<i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>) <i>r'</i> <i>&theta;'</i></span> +
+            <span class="nobr">2 <i>S</i> <i>m</i><sub>1</sub> <i>m</i><sub>2</sub> <i>&phi;'</i> <sup>2</sup> sin(<i>&theta;</i> &minus; <i>&phi;</i>)
+            <span class="bigg">)</span></span>
+        <td>
+    </tr><tr>
+        <td class="upper_line">
+            <span class="nobr">2 <i>m</i><sub>1</sub> (<i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>) <i>r</i></span>
+        </td>
+        <td></td>
+    </tr>
+</table>
+</div>
+<br>
+
+<div class="emphasized">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <i>&phi;''</i>&nbsp;=&nbsp;
+        </td><td>
+            <i>k</i> (<i>h</i> &minus; <i>r</i>) sin(<i>&theta;</i> &minus; <i>&phi;</i>)
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>S</i> <i>m</i><sub>1</sub>
+        </td>
+    </tr>
+</table>
+</div>
+<p>This is almost ready for the Runge-Kutta algorithm to numerically solve the
+equations. All that is needed is to change these 3 second order equations to 6 first
+order equations by defining separate variables for <span class="html-math inline-math">
+<i>r'</i>, <i>&theta;'</i>, <i>&phi;'</i>
+</span>. Let the new
+variables be respectively <span class="html-math inline-math">
+<i>v<sub>r</sub></i>, <i>v<sub>&theta;</sub></i>, <i>v<sub>&phi;</sub></i>
+</span>. Then the left-hand side of the above
+equations of motion become <span class="html-math inline-math">
+<i>v<sub>r</sub></i>', <i>v<sub>&theta;</sub></i>', <i>v<sub>&phi;</sub></i>'
+</span> and the three additional equations are
+simply
+</p>
+
+<p class="html-math display-equation">
+<i>r'</i> = <i>v<sub>r</sub></i><br>
+<i>&theta;'</i> = <i>v<sub>&theta;</sub></i><br>
+<i>&phi;'</i> = <i>v<sub>&phi;</sub></i>
+</p>
+
+
+
+
+<h2 id="dangle_bug">A Bug</h2>
+
+<p>There is a problem in the equations of motion when the length of the spring _r goes
+to zero, because then one of the second derivatives (the one for Qpp ) goes to
+infinity. If you play with the simulation long enough you will likely see this happen.
+</p>
+
+<p>Here is my idea for why it blows up: The rate that the angle of the spring changes
+depends on the torque (twist) applied, which is partially dependent on the length of
+the spring. When the length goes to zero, the torque goes to infinity.
+</p>
+
+<p>In the real world, springs never reach zero length. To eliminate this bug, we would
+need to model the spring with a non-linear force. As the spring compressed to near zero
+(or to near its smallest possible length) the force would go to infinity.
+</p>
+
+<!--TO DO:
+<ul>
+  <li>Make the anchor point draggable (easy change)</li>
+  <li>use adaptive diffeq algorithm for DangleStick.
+    Like Runge-Kutta-Fehlberg, or Multistep.
+    See if this fixes the bug when spring length goes small.</li>
+</ul>
+-->
+
+<p id="page_history">
+  This web page was first published September 2001.
+</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="DangleStickApp-en.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeDangleStickApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 0; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

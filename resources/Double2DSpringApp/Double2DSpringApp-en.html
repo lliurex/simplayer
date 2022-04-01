@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Double 2D Spring</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+  <h1>Double 2D Spring</h1>
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Sim</li>
+  <li class="graph ">Graph</li>
+  <li class="time_graph">Time Graph</li>
+  <li class="multi_graph">Multi Graph</li>
+</ul>
+
+
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<p class="introduction">
+This simulation shows two objects connected by springs and suspended from an anchor
+point. The objects are able to move in 2 dimensions and gravity operates. The anchor
+point is moveable.
+</p>
+
+<p class="instructions">
+You can drag either mass with your mouse. You can also drag the top anchor point. Click
+the "reset" button to put the masses in a resting equilibrium. Try changing parameters
+such as gravity, mass, spring stiffness, and friction (damping).
+</p>
+
+<p>The math behind the simulation is shown below.  Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/Double2DSpringApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+<h2>Physics</h2>
+
+<p>An immoveable (but draggable) anchor point has two spring2 and bobs hanging below
+and swinging in two dimensions. We regard the bobs as point masses. We label the upper
+spring and bob as number 1, the lower spring and bob as number 2.</p>
+
+<div class="image" style="width: 156px;">
+<br>
+<br>
+<img src="spring_dbl_2d.gif" width="156" height="169" alt=""><br>
+Double 2D Spring<br>Variables
+</div>
+
+<div style="margin-left:165px;">
+
+<p>Define the following variables:</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>&theta;</i> =
+</span> angle (<span class="html-math inline-math">
+0=
+</span>vertical)</li>
+    <li><span class="html-math inline-math">
+S =
+</span> spring stretch (displacement from rest length)</li>
+    <li><span class="html-math inline-math">
+L =
+</span> length of spring</li>
+    <li><span class="html-math inline-math">
+u =
+</span> position of bob</li>
+    <li><span class="html-math inline-math">
+v = u'=
+</span> velocity of bob</li>
+    <li><span class="html-math inline-math">
+a = u''=
+</span> acceleration of bob</li>
+    <li><span class="html-math inline-math">
+F =
+</span> net force on a bob</li>
+</ul>
+
+<p>Define some constants:</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+R =
+</span> rest length of spring</li>
+    <li><span class="html-math inline-math">
+T =
+</span> position of anchor point</li>
+    <li><span class="html-math inline-math">
+m =
+</span> mass of bob</li>
+    <li><span class="html-math inline-math">
+k =
+</span> spring constant</li>
+    <li><span class="html-math inline-math">
+b =
+</span> damping constant</li>
+    <li><span class="html-math inline-math">
+g =
+</span> gravitational constant</li>
+</ul>
+
+<p>Note that for this simulation the vertical dimension increases downwards.</p>
+
+</div>
+
+<p>Here are the equations of motion.  The derivation is similar to that given for the
+<a href="../Spring2DApp/Spring2DApp-en.html">Single 2D Spring</a>.</p>
+
+<p class="html-math display-equation">
+<i>F</i><sub>1<i>x</i></sub> = <i>m</i><sub>1</sub> <i>a</i><sub>1<i>x</i></sub> = &minus;<i>k</i><sub>1</sub> <i>S</i><sub>1</sub> sin <i>&theta;</i><sub>1</sub> &minus; <i>b</i><sub>1</sub> <i>v</i><sub>1<i>x</i></sub> + <i>k</i><sub>2</sub> <i>S</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub><br>
+<i>F</i><sub>1<i>y</i></sub> = <i>m</i><sub>1</sub> <i>a</i><sub>1<i>y</i></sub> = &minus;<i>k</i><sub>1</sub> <i>S</i><sub>1</sub> cos <i>&theta;</i><sub>1</sub> &minus; <i>b</i><sub>1</sub> <i>v</i><sub>1<i>y</i></sub> + <i>k</i><sub>2</sub> <i>S</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub> + <i>m</i><sub>1</sub> g<br>
+<i>F</i><sub>2<i>x</i></sub> = <i>m</i><sub>2</sub> <i>a</i><sub>2<i>x</i></sub> = &minus;<i>k</i><sub>2</sub> <i>S</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub> &minus; <i>b</i><sub>2</sub> <i>v</i><sub>2<i>x</i></sub><br>
+<i>F</i><sub>2<i>y</i></sub> = <i>m</i><sub>2</sub> <i>a</i><sub>2<i>y</i></sub> = &minus;<i>k</i><sub>2</sub> <i>S</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub> &minus; <i>b</i><sub>2</sub> <i>v</i><sub>2<i>y</i></sub> + <i>m</i><sub>2</sub> g
+</p>
+
+<p>The spring stretch <span class="html-math inline-math">
+<i>S<sub>n</sub></i>
+</span> and angles <span class="html-math inline-math">
+<i><i>&theta;</i><sub>n</sub></i>
+</span> are
+functions of the positions <span class="html-math inline-math">
+<i>u<sub>n</sub></i>
+</span> of the bobs as follows:
+</p>
+
+<p class="html-math display-equation">
+<i>L</i><sub>1</sub> = &radic;((<i>u</i><sub>1<i>x</i></sub> &minus; <i>T<sub>x</sub></i>)<sup>2</sup> + (<i>u</i><sub>1<i>y</i></sub> &minus; <i>T<sub>y</sub></i>)<sup>2</sup>)<br>
+<i>L</i><sub>2</sub> = &radic;((<i>u</i><sub>2<i>x</i></sub> &minus; <i>u</i><sub>1<i>x</i></sub>)<sup>2</sup> + (<i>u</i><sub>2<i>y</i></sub> &minus; <i>u</i><sub>1<i>x</i></sub>)<sup>2</sup>)<br>
+<i>S</i><sub>1</sub> = <i>L</i><sub>1</sub> &minus; <i>R</i><sub>1</sub><br>
+<i>S</i><sub>2</sub> = <i>L</i><sub>2</sub> &minus; <i>R</i><sub>2</sub><br>
+cos <i>&theta;</i><sub>1</sub> = (<i>u</i><sub>1<i>y</i></sub> &minus; <i>T<sub>y</sub></i>)/<i>L</i><sub>1</sub><br>
+sin <i>&theta;</i><sub>1</sub> = (<i>u</i><sub>1<i>x</i></sub> &minus; <i>T<sub>x</sub></i>)/<i>L</i><sub>1</sub><br>
+cos <i>&theta;</i><sub>2</sub> = (<i>u</i><sub>2<i>y</i></sub> &minus; <i>u</i><sub>1<i>y</i></sub>)/<i>L</i><sub>2</sub><br>
+sin <i>&theta;</i><sub>2</sub> = (<i>u</i><sub>2<i>x</i></sub> &minus; <i>u</i><sub>1<i>x</i></sub>)/<i>L</i><sub>2</sub>
+</p>
+
+
+
+
+<h2>Numerical Solution</h2>
+
+<p>To solve the equations of motion numerically, so that we can drive the simulation,
+we use the <a href="../explain/runge-kutta-en.html">Runge Kutta method</a>
+for solving sets of ordinary differential equations. We need to convert the four second
+order equations of motion to eight first order equations.</p>
+
+<p class="html-math display-equation">
+<i>u</i><sub>1<i>x</i></sub>' = <i>v</i><sub>1<i>x</i></sub><br>
+<i>u</i><sub>1<i>y</i></sub>' = <i>v</i><sub>1<i>y</i></sub><br>
+<i>u</i><sub>2<i>x</i></sub>' = <i>v</i><sub>2<i>x</i></sub><br>
+<i>u</i><sub>2<i>y</i></sub>' = <i>v</i><sub>2<i>y</i></sub><br>
+<i>v</i><sub>1<i>x</i></sub>' = &minus;(<i>k</i><sub>1</sub>/<i>m</i><sub>1</sub>) <i>S</i><sub>1</sub> sin <i>&theta;</i><sub>1</sub> &minus; (<i>b</i><sub>1</sub>/<i>m</i><sub>1</sub>) <i>v</i><sub>1<i>x</i></sub> + (<i>k</i><sub>2</sub>/<i>m</i><sub>1</sub>) <i>S</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub><br>
+<i>v</i><sub>1<i>y</i></sub>' = &minus;(<i>k</i><sub>1</sub>/<i>m</i><sub>1</sub>) <i>S</i><sub>1</sub> cos <i>&theta;</i><sub>1</sub> &minus; (<i>b</i><sub>1</sub>/<i>m</i><sub>1</sub>) <i>v</i><sub>1<i>y</i></sub> + (<i>k</i><sub>2</sub>/<i>m</i><sub>1</sub>) <i>S</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub> + g<br>
+<i>v</i><sub>2<i>x</i></sub>' = &minus;(<i>k</i><sub>2</sub>/<i>m</i><sub>2</sub>) <i>S</i><sub>2</sub> sin <i>&theta;</i><sub>2</sub> &minus; (<i>b</i><sub>2</sub>/<i>m</i><sub>2</sub>) <i>v</i><sub>2<i>x</i></sub><br>
+<i>v</i><sub>2<i>y</i></sub>' = &minus;(<i>k</i><sub>2</sub>/<i>m</i><sub>2</sub>) <i>S</i><sub>2</sub> cos <i>&theta;</i><sub>2</sub> &minus; (<i>b</i><sub>2</sub>/<i>m</i><sub>2</sub>) <i>v</i><sub>2<i>y</i></sub> + g
+</p>
+
+<p>We keep in mind that the spring stretch <span class="html-math inline-math">
+<i>S<sub>n</sub></i>
+</span> and angles
+<span class="html-math inline-math">
+<i><i>&theta;</i><sub>n</sub></i>
+</span> are functions of the position of the bob
+<span class="html-math inline-math">
+<i>u<sub>n</sub></i>
+</span> as given previously.</p>
+
+
+
+<!--h2>TO DO:</h2>
+
+<ul>
+  <li>Does Y really increase downwards??? It doesn't in the graph, so should change
+     the equations here to match what the sim is doing.</li>
+</ul-->
+
+<p id="page_history">
+  This web page was first published April 2001.
+</p>
+
+
+<script src="Double2DSpringApp-en.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeDouble2DSpringApp(elem_ids);
+    app.defineNames('app');
+    app.eval('X_POSITION_1=0; Y_POSITION_1=0.6; X_POSITION_2=-2; Y_POSITION_2=-1;');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 0; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+    app.eval('SIM_CANVAS.BACKGROUND="white"',/*output=*/false)
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

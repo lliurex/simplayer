@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Mars Moon</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+
+<h1>Mars Moon</h1>
+
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Sim</li>
+  <li class="graph ">Graph</li>
+  <li class="time_graph">Time Graph</li>
+  <li class="multi_graph">Multi Graph</li>
+</ul>
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+Simulation of an asteroid orbiting a moon using the
+<a href="../explain/physics-engine-en.html">2D Rigid Body Physics Engine</a>.
+</p>
+
+<p>See if you can find the asteroid initial velocity that results in a nearly circular
+orbit without collisions.
+</p>
+
+<!--
+<p class="instructions">
+You can change parameters such as gravity, moon mass, asteroid mass, initial asteroid velocity, damping, and elasticity of collisions.
+</p>
+<ul>
+   Ovalness:  ratio of moon's width to height.  A value of 1.0 gives a circle. (effective only after reset).
+  Moon Spin:  initial rotational velocity of the moon (effective only after reset).
+  <li>Velocity:  initial vertical velocity of asteroid  (effective only after reset).</li>
+  <li>Elasticity:  1.0 gives perfectly elastic collisions;  0 gives inelastic collisions.</li>
+  <li>Damping:  slows moving objects according to their velocity.</li>
+</ul>
+-->
+
+<div class="centered_image" style="max-width: 50em;">
+<img src="phobos.jpg" width="422" height="293" alt="">
+<p>Mars moon Phobos</p>
+</div>
+
+<p><em>Why does Phobos have parallel lines etched into its surface?</em> </p>
+
+<p>This simulation was suggested by Kenneth Ramsley at Brown University in 2011 regarding
+his ideas about the Mars moon Phobos. You can see these lines in the photo above. Ken's
+idea is that Phobos would occasionally capture a small asteroid which would orbit
+Phobos but keep bumping into it, similar to what is seen in the above simulation.
+See the Space.com article (May 2014)
+<a href="http://www.space.com/25971-mars-moon-phobos-grooves-origin.html">
+How the Mars Moon Phobos Got Its Grooves</a>
+</p>
+
+<p>Although it looks like the large moon in the simulation is stationary, it is actually
+moving. This is because the asteroid exerts a small gravitational pull on the large
+moon. You can confirm that the large moon is moving in a couple of ways:
+</p>
+
+<ul>
+  <li>Turn on the "pan-zoom" checkbox and click the "+" button to zoom in till you see
+  the center of the moon up very close.</li>
+
+  <li>Set the graph to see the moon's position: choose "moon y position" and "moon x
+  position" for the variables to graph.</li>
+</ul>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/MarsMoonApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+
+<p id="page_history" style="clear: both;">
+  This web page was first published January 2011.
+</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="MarsMoonApp-en.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeMarsMoonApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 0; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+    app.eval('SIM_CANVAS.BACKGROUND="white"',/*output=*/false)
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

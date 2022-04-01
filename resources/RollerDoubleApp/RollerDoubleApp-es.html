@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Montaña Rusa con Dos Bolas</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+  <h1>Montaña Rusa con Dos Bolas</h1>
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gráfico</li>
+  <li class="time_graph">Gráfico de tiempo</li>
+  <li class="multi_graph">Gráfico múltiple</li>
+</ul>
+
+
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+This simulation shows 2 balls on a roller coaster track. The 2 balls are connected by a
+spring.
+</p>
+
+<p class="instructions">
+You can change the track shape by clicking a button below. You can drag either ball
+with your mouse to change the starting position. Try changing gravity, damping or
+spring stiffness.
+</p>
+
+<p>The math behind the simulation is shown below.  Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/roller/RollerDoubleApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+<table>
+<tr style="text-align: center;">
+<td onClick="set_track('HUMP')">
+<img src="track_hump.gif"  width="75" height="64" alt=""><br>hump</td>
+
+<td onClick="set_track('LOOP')">
+<img src="track_loop.gif"  width="82" height="62" alt=""><br>loop-the-loop</td>
+
+<td onClick="set_track('CIRCLE')">
+<img src="track_circle.gif"  width="67" height="63" alt=""><br>circle</td>
+
+<td onClick="set_track('LEMNISCATE')">
+<img src="track_infinity.gif"  width="98" height="47" alt=""><br>Lemniscate</td>
+
+<td onClick="set_track('OVAL')">
+<img src="track_oval.gif"  width="49" height="66" alt=""><br>oval</td>
+
+<td onClick="set_track('SPIRAL')">
+<img src="track_spiral.gif"  width="61" height="69" alt=""><br>spiral</td>
+</tr>
+</table>
+
+<h2>Physics</h2>
+
+<p>This simulation is a variation of the <a href="../RollerSpringApp/RollerSpringApp-es.html">Roller Coaster
+with Spring</a>, please see that page for more information on the physics and how the
+simulation is done. The difference here is that the other end of the spring is attached
+to another ball on the track, instead of being fixed.</p>
+
+<p>We have 4 variables in this simulation:</p>
+
+<ul class="vars">
+    <li><i>p<sub>1</sub></i> = position on the track of ball 1 (measured by path length along the
+       track)</li>
+    <li><i>v<sub>1</sub></i> = velocity of ball 1</li>
+    <li><i>p<sub>2</sub></i> = position on the track of ball 2</li>
+    <li><i>v<sub>2</sub></i> = velocity of ball 2</li>
+</ul>
+<p> The force equations for each ball are identical to that shown in the Roller Coaster
+with Spring simulation except that the position of the "fixed end" of the spring is
+replaced by the position of the other ball.</p>
+
+<p id="page_history">
+  This web page was first published October 2002.
+</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="RollerDoubleApp-es.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeRollerDoubleApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 2; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

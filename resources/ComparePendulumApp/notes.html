@@ -1,0 +1,55 @@
+<p class="introduction">
+Physics-based simulation of two driven pendulums that start almost identically; this
+demonstrates sensitivity to initial conditions of chaotic systems. It looks like a
+single pendulum at first, but wait for a minute and you will see the two pendulums
+diverge in their behavior.
+</p>
+
+<p class="instructions">
+Click the "Sim" tab to access parameters such as: starting angle difference, drive
+amplitude, frequency, mass, gravity, and damping. You can drag the pendulum with your
+mouse to change the starting position.</p>
+
+<p>The pendulums are continuously driven by an external torque force that varies
+between twisting clockwise and counterclockwise. This torque force is represented by
+the curved arrow, the length of the arrow corresponds to the strength of the force.</p>
+
+<div class="image" style="width:405px;">
+<img src="two_pendulum_graph.png"  width="402" height="336" alt="" ><br>
+graph of angular velocity vs. angle for two chaotic pendulums<br><br>
+</div>
+
+<p style="clear:both;">These are two independent pendulum simulations running simultaneously. They start
+with almost identical initial conditions, but just slightly different starting angles
+(the difference is the <em>angle difference</em> parameter). Running for several
+minutes produces the graph shown at left.</p>
+
+<p>You will notice that the pendulums stay in sync for a while, then drift slightly
+apart, and then are soon completely different in their behavior.  This is an example of
+<a href="http://en.wikipedia.org/wiki/Chaos_theory#Sensitivity_to_initial_conditions">
+sensitivity to initial conditions</a> which is a hallmark of
+<a href="http://en.wikipedia.org/wiki/Chaos_theory">chaotic systems</a>.
+This is also known as the
+<a href="http://en.wikipedia.org/wiki/Butterfly_effect">Butterfly Effect</a> whereby a
+butterfly flapping its wings in North America could cause a storm to occur in South
+America.</p>
+
+
+
+<p>The <i>angle difference</i> parameter specifies the difference
+between the start angle of the two pendulums. Try different values for the starting
+angle difference, and measure how much time it takes for the pendulums to diverge
+significantly. If you make a graph of this (difference in starting angle vs time to
+divergence), is it a linear or exponential curve? Is this different to how a linear
+system would respond?</p>
+
+<p>For the math behind the simulation see the page about the
+<a href="chaotic-pendulum-en.html">Chaotic Driven Pendulum</a>; this is the same
+simulation as that one, except here there are two pendulums.</p>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/ComparePendulumApp.js">open source code</a>,
+<a href="../develop/docs/myphysicslab.sims.pendulum.ComparePendulumApp.html">documentation</a> and a
+<a href="../develop/build/sims/pendulum/ComparePendulumApp-en.html">simple-compiled version</a>
+which is <a href="../develop/docs/Customizing.html">more customizable</a>.
+</p>

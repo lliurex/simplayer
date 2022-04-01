@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<title lang="ca">myPhysicsLab Numerical Solution of Differential Equations</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+
+<script type="text/javascript" async
+  src="../MathJax-2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head>
+<body>
+
+<h1 lang="ca">Numerical Solution of Differential Equations</h1>
+
+<div id="header_nav">
+<a class="nav_link"
+   href="classify-diff-eq-ca.html">previous</a>
+<a class="nav_link"
+   href="runge-kutta-ca.html">next</a>
+</div>
+<ul id="header_bar">
+</ul>
+
+<p class="introduction">In the process of creating a physics simulation</a> we start by inventing a mathematical model and finding the differential equations that embody the physics. The next step is <em>getting the computer to solve the equations</em>, a process that goes by the name <em>numerical analysis</em>.</p>
+
+
+
+<h2 id="analytic">Analytic Solution</h2>
+
+<p>For simple models you can use calculus, trigonometry, and other math techniques to find a function which is the exact solution of the differential equation. This is called the <em>analytic solution</em> (because you use analysis to figure it out).  It is also referred to as a <em>closed form</em> solution. (BTW, college classes on differential equations are all about finding analytic solutions).</p>
+
+<p>An analytic solution is preferred because you can get some insight from the equation.  For example, in the <a href="../SingleSpringApp/SingleSpringApp-ca.html#analytic">analytic solution of the Single Spring simulation</a> we can see how mass <span class="html-math inline-math">
+<i>m</i>
+</span> or spring stiffness <span class="html-math inline-math">
+<i>k</i>
+</span> affects the frequency of oscillation, just by looking at the equation:</p>
+
+<p>$$x(t) = x_0 \cos(\sqrt{k/m} \; t)$$</p>
+
+<p>In contrast, with a numerical solution you would have to run lots of experiments to figure out relationships like that; just like in real life you would set up experiments with different masses or springs, make measurements, and then make a graph that shows how frequency varies for different masses or spring stiffness.</p>
+
+
+<h2>Numerical Solution</h2>
+
+<p>Most physics simulations are too complicated to be able to find an analytic solution.
+Instead we use <a href="https://en.wikipedia.org/wiki/Numerical_analysis">Numerical Analysis</a> to find an approximate numerical solution, which is just a list of numbers.  The numbers are model's variables at each moment in time. For example, here are the first few moments of the <a href="../SingleSpringApp/SingleSpringApp-ca.html">Single Spring simulation</a></p>
+
+<pre>
+      t          x       v
+  0.00000  &minus;2.00000  0.00000
+  0.02500  &minus;1.99626  0.29906
+  0.05000  &minus;1.98507  0.59552
+  0.07500  &minus;1.96651  0.88827
+  0.10000  &minus;1.94070  1.17623
+  0.12500  &minus;1.90775  1.45837
+  0.15000  &minus;1.86783  1.73364
+  0.17500  &minus;1.82113  2.00105
+  0.20000  &minus;1.76785  2.25965
+  0.22500  &minus;1.70823  2.50851
+  0.25000  &minus;1.64252  2.74675
+</pre>
+<p>This list of numbers is what drives the visual representation of the simulation: for the current value of time <span class="html-math inline-math">
+<i>t</i>
+</span> we move the block to the position given by the <span class="html-math inline-math">
+<i>x</i>
+</span> variable at that time.</p>
+
+<p>How does it work? How do we generate that list of numbers?</p>
+
+<p>We start with the initial values of the variables, which is the first row in the table above. We then use the differential equations for the simulation to calculate the variables after a very brief period of time. <em>The differential equation tells us the rate of change in each variable at any point in time.</em> By adding together small changes over time (also known as <em>integrating over time</em>) we can predict the future.</p>
+
+<p>For the Single Spring simulation the differential equations are:</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i>' = <i>v</i>
+
+</td><td class="equation-number">(1)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>v</i>' = &minus;<sup><i>k</i></sup>&frasl;<sub><i>m</i></sub> <i>x</i> &minus; <sup><i>b</i></sup>&frasl;<sub><i>m</i></sub> <i>v</i>
+
+</td><td class="equation-number">(2)</td></tr></table>
+
+<p>The parameter values for spring stiffness <span class="html-math inline-math">
+<i>k</i>
+</span>, mass <span class="html-math inline-math">
+<i>m</i>
+</span>, and damping <span class="html-math inline-math">
+<i>b</i>
+</span> are:</p>
+
+<p class="html-math display-equation">
+<i>k</i> = 3.0<br>
+<i>m</i> = 0.5<br>
+<i>b</i> = 0.1<br>
+</p>
+
+<p>With these parameters, equations (1) and (2) simplify to</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i>' = <i>v</i>
+
+</td><td class="equation-number">(3)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>v</i>' = &minus;6 <i>x</i> &minus; 0.2 <i>v</i>
+
+</td><td class="equation-number">(4)</td></tr></table>
+
+
+<p>The initial conditions at time <span class="html-math inline-math">
+<i>t</i> = 0
+</span> are</p>
+
+<p class="html-math display-equation">
+<i>x</i> = &minus;2.0<br>
+<i>v</i> = 0.0
+</p>
+
+<p>We can find the rate of change of the variables at time <span class="html-math inline-math">
+<i>t</i> = 0
+</span> by substituting the above values into equations (3) and (4)</p>
+
+<p class="html-math display-equation">
+<i>x</i>' = 0<br>
+<i>v</i>' = &minus;6 (&minus;2) &minus; 0.2 (0) = +12
+</p>
+
+<p>Since we know the starting values of the variables and their rates of change, we can predict the future values. At least for a very short amount of time in the future, assuming that the rates of change do not themselves change too much!</p>
+
+<h2>Euler's Method of Numerical Integration</h2>
+
+<p>To show how numerical integration works, we use the simplest possible method: Euler's method. It is simple but not very accurate. We'll mention more accurate methods below.</p>
+
+<p>In solving differential equations (3) and (4), assume we know the state of the system at time <span class="html-math inline-math">
+<i>t<sub>n</sub></i>
+</span> to have position <span class="html-math inline-math">
+<i>x<sub>n</sub></i>
+</span> and velocity <span class="html-math inline-math">
+<i>v<sub>n</sub></i>
+</span>.</p>
+
+<p>To get the state of the system at time <span class="html-math inline-math">
+<i>t<sub>n+1</sub></i> = <i>t<sub>n</sub></i> + &Delta;<i>t</i>
+</span> after a small amount of time <span class="html-math inline-math">
+&Delta;<i>t</i>
+</span> has elapsed:</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x<sub>n+1</sub></i> = <i>x<sub>n</sub></i> + &Delta;<i>t</i> <i>v<sub>n</sub></i>
+
+</td><td class="equation-number">(5)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>v<sub>n+1</sub></i> = <i>v<sub>n</sub></i> + &Delta;<i>t</i> (&minus; 6 <i>x<sub>n</sub></i> &minus; 0.2 <i>v<sub>n</sub></i>)
+
+</td><td class="equation-number">(6)</td></tr></table>
+
+<p>Equations (5) and (6) use the rates given by the differential equations (3) and (4) to make a crude estimate of the new value after the small amount of time <span class="html-math inline-math">
+&Delta;<i>t</i>
+</span> has elapsed.</p>
+
+
+<p>Now we can use equations (5) and (6) to make the numerical predictions. We start at time <span class="html-math inline-math">
+<i>t</i> = 0
+</span> with</p>
+
+<p class="html-math display-equation">
+<i>x<sub>0</sub></i> = &minus;2<br>
+<i>v<sub>0</sub></i> = 0
+</p>
+
+<p>With <span class="html-math inline-math">
+<i>n</i> = 0
+</span> and a small timestep of <span class="html-math inline-math">
+&Delta;<i>t</i> = 0.025
+</span>, the equations (5) and (6) give the state at time <span class="html-math inline-math">
+<i>t<sub>1</sub></i> = <i>t<sub>0</sub></i> +&Delta;<i>t</i> = 0.025
+</span></p>
+
+<p class="html-math display-equation">
+<i>x<sub>1</sub></i> = <i>x<sub>0</sub></i> + 0.025 <i>v<sub>0</sub></i> = &minus;2 + 0.025 * 0 = &minus;2<br>
+<i>v<sub>1</sub></i> = <i>v<sub>0</sub></i> + 0.025 (&minus;6 <i>x<sub>0</sub></i> &minus; 0.2 <i>v<sub>0</sub></i>) = 0 + 0.025 (&minus;6 (&minus;2) &minus; 0.2 (0)) = 0.3
+</p>
+
+<p>With <span class="html-math inline-math">
+<i>n</i> = 1
+</span> in equations (5) and (6) we can get the state at time <span class="html-math inline-math">
+<i>t<sub>2</sub></i> = <i>t<sub>1</sub></i> + &Delta;<i>t</i> = 0.050
+</span></p>
+
+<p class="html-math display-equation">
+<i>x<sub>2</sub></i> = <i>x<sub>1</sub></i> + 0.025 <i>v<sub>1</sub></i> = &minus;2 + 0.025 (0.3) = &minus;1.9925<br>
+<i>v<sub>2</sub></i> = <i>v<sub>1</sub></i> + 0.025 (&minus;6 <i>x<sub>1</sub></i> &minus; 0.2 <i>v<sub>1</sub></i>) = 0.3 + 0.025 (&minus;6 (&minus;2) &minus; 0.2 (0.3)) = 0.5985
+</p>
+
+<p>With <span class="html-math inline-math">
+<i>n</i> = 2
+</span> in equations (5) and (6) we can get the state at time <span class="html-math inline-math">
+<i>t<sub>3</sub></i> = <i>t<sub>2</sub></i> + &Delta;<i>t</i> = 0.075
+</span></p>
+
+<p class="html-math display-equation">
+<i>x<sub>3</sub></i> = <i>x<sub>2</sub></i> + 0.025 <i>v<sub>2</sub></i> = &minus;1.9925 + 0.025 (0.5985) = &minus;1.9775375<br>
+<i>v<sub>3</sub></i> = <i>v<sub>2</sub></i> + 0.025 (&minus;6 <i>x<sub>2</sub></i> &minus; 0.2 <i>v<sub>2</sub></i>)
+= 0.5985 + 0.025 (&minus;6 (&minus;1.9925) &minus; 0.2 (0.5985)) = 0.8943825
+</p>
+
+<p>Our approximate numerical solution thus far:</p>
+
+<pre>
+      t         x        v
+  0.00000  &minus;2.00000  0.00000
+  0.02500  &minus;2.00000  0.30000
+  0.05000  &minus;1.99250  0.59850
+  0.07500  &minus;1.97754  0.89438
+</pre>
+<p>Here again for comparison is the solution that is calculated in the Single Spring simulation using the highly accurate <a href="runge-kutta-ca.html">Runge-Kutta Method</a></p>
+
+<pre>
+      t         x        v
+  0.00000  &minus;2.00000  0.00000
+  0.02500  &minus;1.99626  0.29906
+  0.05000  &minus;1.98507  0.59552
+  0.07500  &minus;1.96651  0.88827
+</pre>
+<p>Our simple-minded solution isn't that far off! But if we compare this to a real world example of an actual spring and mass, we would see that this method is very inaccurate. Or if we look at whether energy is being conserved we will also see it has poor accuracy. For many simulations, this method is so bad that it becomes unstable and will "blow up" with solutions going to infinity.</p>
+
+
+
+<h2>Other Numerical Methods</h2>
+
+<p>There are several methods for integrating a differential equation over time. They have various tradeoffs of accuracy vs. computational cost. The Wikipedia article <a href="https://en.wikipedia.org/wiki/Numerical_methods_for_ordinary_differential_equations">Numerical methods for ordinary differential equations</a> describes several of them.</p>
+
+<p>The methods used in the myphysicslab simulations are:</p>
+
+<ul>
+  <li>The Euler Method. This is the simple method shown on this page, it has very poor accuracy.</li>
+
+  <li>The Modified Euler Method. This is the simplest method that has reasonable accuracy and stability.</li>
+
+  <li>The <a href="runge-kutta-ca.html">Runge-Kutta Method</a>. This has very high accuracy with around twice the amount of computation needed for the Modified Euler Method.</li>
+
+</ul>
+
+<p>These numerical methods are defined with equations that can get a bit confusing. To get used to the notation, here is how the simple Euler method we used above could be notated. In more general form we can write equations (5) and (6) like this:</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x<sub>n+1</sub></i> = <i>x<sub>n</sub></i> + &Delta;<i>t</i>&nbsp; <i>f</i> (<i>x<sub>n</sub></i>, <i>v<sub>n</sub></i>)
+
+</td><td class="equation-number">(7)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>v<sub>n+1</sub></i> = <i>v<sub>n</sub></i> + &Delta;<i>t</i>&nbsp; <i>g</i>(<i>x<sub>n</sub></i>, <i>v<sub>n</sub></i>)
+
+</td><td class="equation-number">(8)</td></tr></table>
+
+<p>where the functions <span class="html-math inline-math">
+<i>f</i>, <i>g</i>
+</span> are from the differential equations that we are solving written like this:</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>x</i>' = <i>f</i> (<i>x</i>, <i>v</i>)
+
+</td><td class="equation-number">(9)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>v</i>' = <i>g</i>(<i>x</i>, <i>v</i>)
+
+</td><td class="equation-number">(10)</td></tr></table>
+
+<p>The problem with the simple Euler method numerical solver is that it only uses the rate of change at the <em>beginning</em> of the time period from <span class="html-math inline-math">
+<i>t<sub>n</sub></i>
+</span> to <span class="html-math inline-math">
+<i>t<sub>n</sub></i> + &Delta;<i>t</i>
+</span>. Yet that rate of change (the derivative) <em>is itself changing over this period!</em> The more accurate numerical methods estimate how the derivatives in equations (9) and (10) change over the time period.</p>
+
+
+<!-- There is also a middle ground between these two methods. There are many important
+<em>non-linear</em> equations for which it is not possible to find an analytic
+solution. However, there are techniques where you can find approximate analytic
+solutions that are close to the true solution, at least within a certain range. One
+such method is called the <em>perturbation method</em>. The advantage over a numerical
+solution is that you wind up with an equation (instead of just a long list of numbers)
+which you can gain some insight from.
+-->
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+  <a class="nav_link" href="classify-diff-eq-ca.html">previous</a>
+  <a class="nav_link" href="runge-kutta-ca.html">next</a>
+</div>
+</body>
+</html>

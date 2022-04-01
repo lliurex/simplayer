@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Fuerzas de Contacto de Cuerpos Rígidos</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+  <h1>Fuerzas de Contacto de Cuerpos Rígidos</h1>
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gráfico</li>
+  <li class="time_graph">Gráfico de tiempo</li>
+  <li class="multi_graph">Gráfico múltiple</li>
+</ul>
+
+
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+This simulation uses the <a href="../explain/physics-engine-es.html">2D Rigid Body Physics Engine</a>
+to show objects colliding and pushing against each other. It is based on the
+<a href="../ImpulseApp/ImpulseApp-es.html">Rigid Body Collisions</a> simulation, but it deals with
+steady contact forces where objects press against the floor, the wall or each other.
+</p>
+
+<p class="instructions">
+Click near an object to exert a spring force with your mouse. With the keyboard you can
+control four "thrusters". The keys S,D,F,E control thrust on block1. The
+keys J,K,L,I -- and also the arrow keys -- control thrust on block2. You
+can also set gravity, elasticity (bounciness), and damping (friction). You can choose
+from one to six objects.</p>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/ContactApp.js">open source code</a>,
+ and a
+simple-compiled version
+which is more customizable.
+</p>
+
+
+<p>Try rearranging the blocks so they lean against each other at various angles, or
+stacking the blocks. You'll see that they are very slippery and hard to get to stack!
+This is because there is no contact friction in this simulation.</p>
+
+<p> The contact forces are shown as red lines that appear at the corners of the
+objects. Contact forces come in pairs that are equal and opposite, but only one of each
+pair is shown here.</p>
+
+<p> About friction and damping: In this simulation, the contacts between objects have
+no friction whatsoever, so they can slide against each other easily. The damping
+parameter that you can modify (you may have to click on the "show controls" button to
+see the damping parameter) has to do with the motion of the objects through the space
+-- damping makes it as though the objects are moving through a thick syrup, or that
+there is friction between the background surface and the objects.</p>
+
+
+<h2 id="calculate_contact_forces_overview">How To Calculate Contact Forces –
+   Overview</h2>
+
+<p>
+It may surprise you that getting objects to rest on the floor is a very challenging problem!
+</p>
+
+<p>It is because <em>contact forces</em> are tricky to figure out. Other
+forces are much simpler because they only depend on the position of one or two objects.
+For example, the force of a spring between two objects depends only on the position of
+the end points of the spring. But the contact forces between objects depends on all the
+other forces on the objects and how they rest against each other in a rather complex
+way.
+
+<p>The software (a class called
+ContactSim)
+ described here for calculating
+contact forces works closely with software that handles collisions, see
+<a href="../ImpulseApp/ImpulseApp-es.html">Rigid Body Collisions</a>. That software (a superclass called
+ImpulseSim)
+takes care of collisions. As a result there should be no
+collisions occuring when the contact force code is active, because the collision code
+detects collisions, backs up in time to just before the collision and applies an
+appropriate impulse to cause the objects to bounce (it reverses their velocities). The
+superclass also calculates the effects of external forces acting on the objects such as
+gravity, thrust, spring, and damping. (Interestingly, it is those external forces that
+cause the contact forces: without them there would be no forces pushing objects into
+each other.)</p>
+
+<p> The idea is to calculate the exact amount of force needed at each contact to
+<em>just barely</em> prevent the objects from penetrating. These forces are calculated
+in the <code>evaluate</code> method of the <code>ContactSim</code> class, which is
+called repeatedly by the differential equation solver to find the accelerations of the
+objects. The differential equation solver uses that information to advance the state of
+the world through time. On entering this <code>evaluate</code> method we are given the
+current positions and velocities of each object, which is required information for
+figuring out where contact points are and the geometry of contact forces between
+objects.</p>
+
+<p> First we find all the resting contacts between objects. The criteria are: a corner
+must be very close to an edge and moving very slowly (in the direction perpendicular to
+the edge). Using these criteria, we assemble a list of contact points. For each
+contact, we store information such as: which are the two objects that are in contact,
+what is the normal (perpendicular vector) to the edge, where the point of contact is
+relative to each object, etc. </p>
+
+
+<!-- <div class="centered_image"> -->
+<img src="contact_1.png" width="301" height="298" alt=""><br>
+2 bodies in contact
+<!-- </div> -->
+
+
+<p> Consider the two objects in contact in the figure. The contact point on body 1 is
+the corner labeled <span class="html-math inline-math">
+<b>p</b><sub>1</sub>
+</span>, the contact point on body 2 is on the edge and labeled
+<span class="html-math inline-math">
+<b>p</b><sub>2</sub>
+</span>. Let <span class="html-math inline-math">
+<i>d</i>
+</span> be the distance between the two points, so that
+<span class="html-math inline-math">
+<i>d</i> = |<b>p</b><sub>1</sub> &minus; <b>p</b><sub>2</sub>|
+</span>. Let <span class="html-math inline-math">
+<b>n</b>
+</span> be the normal vector pointing out from body
+2 which is perpendicular to the edge. In the diagram below we see the two contact
+forces that develop at the contact point. There is a contact force <span class="html-math inline-math">
+<i>f</i> <b>n</b>
+</span> which
+acts on body 1 at the point of contact to prevent it from penetrating into body 2. By
+Newton's 3rd law there is also an equal but opposite force <span class="html-math inline-math">
+&minus;<i>f</i> <b>n</b>
+</span> which
+acts on body 2 at the point of contact to prevent it from penetrating into body 1.</p>
+
+<!-- <div class="centered_image"> -->
+<img src="contact_3.png" width="301" height="298" alt=""><br>
+2 bodies with contact forces
+<!-- </div> -->
+
+
+<p>What we want to find are the (currently unknown) contact forces, such as
+<span class="html-math inline-math">
+<i>f</i> <b>n</b>
+</span>, which will <em>just barely</em> keep the objects from accelerating into
+each other, counteracting all the other forces (such as gravity) that are tending to
+push the objects together.</p>
+
+<p>We focus on the contact distance <span class="html-math inline-math">
+<i>d</i>
+</span>, the gap between the points that are in
+contact. Because the objects are in contact, we have that <span class="html-math inline-math">
+<i>d</i> = 0
+</span> (within
+numerical tolerance). A value of <span class="html-math inline-math">
+<i>d</i> &lt; 0
+</span> would indicate that the objects are
+interpenetrating. A value of <span class="html-math inline-math">
+<i>d</i> &gt; 0
+</span> would indicate the objects are not in
+contact but separated by the distance <span class="html-math inline-math">
+<i>d</i>
+</span>.</p>
+
+<p>The rate of change of the contact distance is the velocity <span class="html-math inline-math">
+<i>d'</i>
+</span>. Because the
+objects are in resting contact we have that <span class="html-math inline-math">
+<i>d'</i> = 0
+</span> (within numerical
+tolerance). This was one of the criteria for selecting the set of resting contact
+points. Note that the objects can be sliding against each other, because we only care
+about motion in the direction of the normal (perpendicular to the edge).</p>
+
+<p>What we are most interested in is <span class="html-math inline-math">
+<i>d''</i>
+</span>, the acceleration of the gap. Without
+contact forces we will find that <span class="html-math inline-math">
+<i>d''</i> &lt; 0
+</span> for most of the contact points,
+meaning that without any contact force, the objects will fall into each other and
+interpenetrate.</p>
+
+<p>What makes computing the contact forces somewhat tricky is that they are all
+interrelated. This is because you can have a complex arrangement of objects resting on
+each other. The solution involves finding a set of equations that captures exactly how
+each contact force affects each gap. Then we solve the equations to find forces that
+exactly set <span class="html-math inline-math">
+<i>d''</i> = 0
+</span> at each contact point. Actually, we also allow
+<span class="html-math inline-math">
+<i>d''</i> > 0
+</span> which means the objects are separating and therefore there is no
+contact force at that particular contact.</p>
+
+<p>Once we have found the exact force at each contact that will preserve the resting
+contacts (keeping the objects from accelerating into each other) we then apply those
+forces to each object. This results in changes to the accelerations of the objects. We
+then return control to the differential equation solver which continues to evolve the
+simulation over time using those new accelerations. But now the accelerations are
+modified so that the objects will remain in resting contact as desired.</p>
+
+
+
+
+<h2 id="calculate_contact_forces_detail">Calculating Contact Forces -- in Detail</h2>
+
+<p>This software for calculating contact forces is called <code>ContactSim</code>; it
+is a subclass of the <code>ImpulseSim</code> class which is described on the page about
+<a href="../ImpulseApp/ImpulseApp-es.html">Rigid Body Collisions</a>.
+The following builds on the explanations there.</p>
+
+<p>The algorithms used here are based
+on two papers by <a href="http://www.cs.cmu.edu/~baraff/papers/">David Baraff</a>:</p>
+
+<ul>
+
+<li>[Baraff-1] David Baraff,
+  <a href="http://www.cs.cmu.edu/~baraff/sigcourse/notesd2.pdf">An Introduction to
+  Physically Based Modeling: Rigid Body Simulation II - Nonpenetration Constraints</a>.
+  These are lecture notes from
+  <a href="http://www.cs.cmu.edu/~baraff/sigcourse/">Physically Based Modeling:
+  Principles and Practice (Online Siggraph '97 Course Notes)</a>.
+  Note that there is a typographic error on page D62:  in several places where you see
+  "a force of <i>j n<sub>j</sub>(t<sub>0</sub>)</i>" it should read
+  "a force of <i>f<sub>j</sub> n<sub>j</sub>(t<sub>0</sub>)</i>".
+</li>
+
+<li>[Baraff-2] David Baraff.
+  <a href="http://www.cs.cmu.edu/~baraff/papers/sig94.pdf">Fast contact force
+  computation for nonpenetrating rigid bodies.</a> Computer Graphics Proceedings,
+  Annual Conference Series: 23-34, 1994. 12 pages.
+</li>
+
+</ul>
+
+<p>See also <a href="../ReactionPendulumApp/ReactionPendulumApp-es.html">Reaction Force Pendulum</a> which is a
+simpler example of calculating contact forces using the math shown on this page.
+</p>
+
+<p>Assume that we have a set of <span class="html-math inline-math">
+<i>n</i>
+</span> contacts in some particular (but arbitrary)
+order. Define the following variables:</p>
+
+<ul class="vars">
+
+	<li><i>n</i> = number of contacts.</li>
+
+	<li><i>d<sub>i</sub>''</i> = acceleration of contact distance of the <i>i</i>-th contact.</li>
+
+	<li><b>a</b> = length <i>n</i> vector of accelerations of contact distances,
+    so that <i>a<sub>i</sub></i> = <i>d<sub>i</sub>''</i></li>
+
+	<li><b>f</b> = length <i>n</i> vector of contact force magnitudes (to be determined)</li>
+
+	<li><b>b</b> = length <i>n</i> vector giving contact distance accelerations due to
+    external forces (gravity, thrust, etc.)</li>
+
+	<li><b>A</b> = an <i>n</i> &times; <i>n</i> matrix that specifies how contact forces
+    affect acceleration of contact distances</li>
+
+	<li><i>a<sub>i j</sub></i> = the element of <b>A</b> in the <i>i</i>-th row and <i>j</i>-th column.</li>
+
+</ul>
+<p>Our goal is to set up and solve (subject to certain constraints) the matrix
+equation</p>
+
+<table class="html-math numbered-equation"><tr><td class="emphasized">
+ <b>a</b> = <b>A</b> <b>f</b> + <b>b</b>
+
+</td><td class="equation-number">(1)</td></tr></table>
+
+<p>The matrix entry <i>a<sub>i j</sub></i> tells how much <i>d<sub>i</sub>''</i> changes from a unit change in <i>f<sub>j</sub></i>. If we do
+the matrix multiplication in equation (1) we see that the acceleration of the <i>i</i>-th
+contact distance is given by</p>
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+  <i>d<sub>i</sub>''</i> = <i>a<sub>i 1</sub></i> <i>f<sub>1</sub></i> + <i>a<sub>i 2</sub></i> <i>f<sub>2</sub></i> +. . . + <i>a<sub>i j</sub></i> <i>f<sub>j</sub></i> + . . . + <i>a<sub>i n</sub></i> <i>f<sub>n</sub></i> + <i>b<sub>i</sub></i>
+
+</td><td class="equation-number">(2)</td></tr></table>
+
+<p>This says that the acceleration of the <span class="html-math inline-math">
+<i>i</i>
+</span>-th contact distance is a function
+of the contact forces <span class="html-math inline-math">
+<i>f<sub>1</sub></i>, <i>f<sub>2</sub></i>,..., <i>f<sub>n</sub></i>
+</span> and the external forces in bi. We can
+figure out the <span class="html-math inline-math">
+<i>a<sub>i j</sub></i>
+</span> and <span class="html-math inline-math">
+<i>b<sub>i</sub></i>
+</span> (see below). The <span class="html-math inline-math">
+<i>d<sub>i</sub></i>''
+</span> need to come
+out zero or positive, because the objects can't accelerate into each other (they are
+rigid bodies that don't interpenetrate). So the only unknowns are the contact forces
+<span class="html-math inline-math">
+<i>f<sub>i</sub></i>
+</span>, and we can solve this system of simultaneous equations to find them.</p>
+
+<!-- <div class="centered_image"> -->
+<img src="contact_2.png" width="602" height="404" alt=""><br>
+5 bodies, 4 contact points, 8 contact forces
+<!-- </div> -->
+
+<p>To illustrate how the <b>A</b> matrix and the <b>b</b> vector are calculated, consider the
+figure above. We have 5 bodies which are in resting contact at 4 contact points and the
+resulting contact forces are shown. (Note that the normals <b><b>n</b></b><i><sub>i</sub></i> are always perpendicular
+to an edge and by convention point out from the object; this determines which forces
+have minus signs). The contact points are numbered in accord with the contact forces,
+so that contact force <i>f<sub>1</sub></i> <b><b>n</b></b><i><sub>1</sub></i> is at contact 1, etc. Focusing on contact 2 (between bodies
+1 and 2), from equation (2) we can write</p>
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+  <i>d<sub>2</sub>''</i> = <i>a<sub>2,1</sub></i> <i>f<sub>1</sub></i> + <i>a<sub>2,2</sub></i> <i>f<sub>2</sub></i> + <i>a<sub>2,3</sub></i> <i>f<sub>3</sub></i> + <i>a<sub>2,4</sub></i> <i>f<sub>4</sub></i> + <i>b<sub>2</sub></i>
+
+</td><td class="equation-number">(3)</td></tr></table>
+
+<p>Consider what is affecting the acceleration of the contact distance <i>d<sub>2</sub>''</i>. Anything
+that accelerates body 1 or body 2 can affect <i>d<sub>2</sub>''</i>. Here is a list of these sources of
+acceleration of <i>d<sub>2</sub>''</i> and where they wind up in equation (3).</p>
+<ul>
+
+  <li>For all the non-contact forces (gravity, thrust, etc.) currently acting on body
+  1, we calculate what is the resulting acceleration of the corner of body 1 at contact
+  2; this is added in to <span class="html-math inline-math">
+<i>b<sub>2</sub></i>
+</span>.</li>
+
+ <li>Similarly, for all the non-contact forces (gravity, thrust, etc.) currently
+  acting on body 2, we calculate what is the resulting acceleration of the point on
+  body 2 at contact 2; this is added in to <span class="html-math inline-math">
+<i>b<sub>2</sub></i>
+</span>.</li>
+
+ <li>Regarding contact force <span class="html-math inline-math">
+<i>f<sub>1</sub></i> <b><b>n</b></b><i><sub>1</sub></i>
+</span>, for a unit change in <span class="html-math inline-math">
+<i>f<sub>1</sub></i>
+</span> we
+  calculate what would be the resulting acceleration of the point on body 2 at contact
+  2; this is put in <span class="html-math inline-math">
+<i>a<sub>2,1</sub></i>
+</span>.</li>
+
+ <li>Regarding contact force <span class="html-math inline-math">
+<i>f<sub>2</sub></i> <b><b>n</b></b><i><sub>2</sub></i>
+</span>, for a unit change in f2 we calculate what
+  would be the resulting acceleration of the corner of body 1 at contact 2; this is put
+  in <span class="html-math inline-math">
+<i>a<sub>2,2</sub></i>
+</span>.</li>
+
+ <li>Regarding contact force <span class="html-math inline-math">
+&minus;<i>f<sub>2</sub></i> <b><b>n</b></b><i><sub>2</sub></i>
+</span>, for a unit change in <span class="html-math inline-math">
+<i>f<sub>2</sub></i>
+</span> we
+  calculate what would be the resulting acceleration of the point on body 2 at contact
+  2; this is <em>added</em> to <span class="html-math inline-math">
+<i>a<sub>2,2</sub></i>
+</span>.</li>
+
+ <li>Regarding contact force <span class="html-math inline-math">
+&minus;<i>f<sub>3</sub></i> <b><b>n</b></b><i><sub>3</sub></i>
+</span>, for a unit change in <span class="html-math inline-math">
+<i>f<sub>3</sub></i>
+</span> we
+  calculate what would be the resulting acceleration of the corner of body 1 at contact
+  2; this is put in <span class="html-math inline-math">
+<i>a<sub>2,3</sub></i>
+</span>.</li>
+
+ <li>Because contact forces <span class="html-math inline-math">
+<i>f<sub>4</sub></i> <b><b>n</b></b><i><sub>4</sub></i>
+</span> and <span class="html-math inline-math">
+&minus;<i>f<sub>4</sub></i> <b><b>n</b></b><i><sub>4</sub></i>
+</span> do not directly
+  affect bodies 1 or 2 we set <span class="html-math inline-math">
+<i>a<sub>2,4</sub></i> = 0
+</span>.</li>
+
+</ul>
+
+<p>I hope this gives you some idea of how the <b>A</b> matrix and the <b>b</b> vector are
+calculated. Complete details on these calculations are given below in the sections
+<a href="#a_matrix">Calculating the <b>A</b> Matrix</a> and
+<a href="#b_vector">Calculating the <b>b</b> Vector</a>.</p>
+
+<p>Once we have found the <b>A</b> matrix and <b>b</b> vector, we are ready to solve equation (1)
+for the unknown force magnitudes in the <b>f</b> vector, subject to the following 3
+constraints:</p>
+
+<table class="html-math numbered-equation"><tr><td class="emphasized">
+	<i>a<sub>i</sub></i> >= 0, &nbsp; <i>f<sub>i</sub></i> >= 0,  &nbsp; <b>a</b> &middot; <b>f</b> = 0
+
+</td><td class="equation-number">(4)</td></tr></table>
+
+<p>The constraints in words are:</p>
+
+<ul>
+
+  <li><span class="html-math inline-math">
+<i>a<sub>i</sub></i> >= 0
+</span> means we disallow interpenetration (which occurs when
+  <span class="html-math inline-math">
+<i>a<sub>i</sub></i> &lt; 0
+</span>).
+  We require all the relative normal accelerations between bodies at contact points to
+  be either zero (in contact) or positive (separating).
+  </li>
+
+  <li><span class="html-math inline-math">
+<i>f<sub>i</sub></i> >= 0
+</span> means we require contact forces to be zero or positive because
+  they can only push, not pull.
+  </li>
+
+  <li><span class="html-math inline-math">
+<b>a</b> &middot; <b>f</b> = 0
+</span> means that, at every contact point, if there is a
+  contact force then acceleration is zero OR if there is acceleration (separation) then
+  there is no contact force. The dot in the equation is the
+  <a href="http://mathworld.wolfram.com/DotProduct.html">vector dot product</a>.
+  </li>
+
+</ul>
+
+<p>The paper <a href="http://www.cs.cmu.edu/~baraff/papers/sig94.pdf">Fast contact
+force computation for nonpenetrating rigid bodies.</a> by David Baraff goes into full
+detail about how to solve equation&nbsp;(1) subject to the constraints&nbsp;(4). I'll
+give a quick description here of how the algorithm described in that paper works.</p>
+
+
+<p>The algorithm begins by setting all the contact forces in <span class="html-math inline-math">
+<b>f</b>
+</span> to zero. The
+basic idea is to add in one contact force at a time, adding just enough force to
+maintain the constraints, and readjusting the other forces as necessary. We ignore the
+contact points we haven't yet considered, gradually increasing the set of contact
+points that obey the constraints. Here is a very simplified sketch of how it works:</p>
+
+
+<ul>
+  <li>Begin by considering only contact 1, ignoring all other contact points (which are
+  likely violating the constraint that <span class="html-math inline-math">
+<i>a<sub>i</sub></i> >= 0
+</span>). We calculate the amount of
+  force <span class="html-math inline-math">
+<i>f<sub>1</sub></i>
+</span> at contact point 1 which is just sufficient to make
+  <span class="html-math inline-math">
+<i>a<sub>1</sub></i> = 0
+</span>.</li>
+
+  <li>Next add in contact 2. Solve for <span class="html-math inline-math">
+<i>f<sub>2</sub></i>
+</span>, adjusting <span class="html-math inline-math">
+<i>f<sub>1</sub></i>
+</span> as necessary,
+  so that the three constraints are valid for <span class="html-math inline-math">
+<i>a<sub>1</sub></i>, <i>a<sub>2</sub></i>
+</span> and <span class="html-math inline-math">
+<i>f<sub>1</sub></i>, <i>f<sub>2</sub></i>
+</span>.</li>
+
+  <li>Continue adding in contacts and contact forces one at a time, while adjusting
+  previous forces as necessary to maintain the three constraints of
+  equation&nbsp;(4).</li>
+</ul>
+
+<p>At each point we are solving a subset of the matrix equation (1) involving only
+those contact points that we have considered so far. By the final step we have added in
+all of the contact points and therefore have a complete solution of equation&nbsp;(1)
+which obeys the constraints of equation&nbsp;(4).</p>
+
+<p>Now that we know the contact forces, the last step is to apply them to the bodies,
+which gives the final set of body accelerations that the <code>evaluate</code> method
+then returns to the differential equation solver. The geometry of where each contact
+force is applied on each body comes into play here to determine how that contact force
+affects the linear and angular acceleration of a given body. This process is very
+similar to that described on the <a href="../ImpulseApp/ImpulseApp-es.html">Rigid Body Collisions</a>
+web page for treatment of forces such as the
+<a href="../ImpulseApp/ImpulseApp-es.html#thrust_force">thrust force</a>.</p>
+
+<p>The differential equation solver then continues to evolve the simulation over time
+using those new accelerations. These accelerations have however been precisely
+calculated so that the bodies that are in resting contact remain in resting contact
+without interpenetrating.</p>
+
+
+
+
+
+<h2 id="a_matrix">Calculating the <span class="html-math inline-math">
+<b>A</b>
+</span> Matrix</h2>
+
+<p>Our goal here is to calculate the entries of the <b>A</b> matrix of equation (1). As
+described above, the <i>i</i>, <i>j</i>-th entry in the <b>A</b> matrix, <i>a<sub>i j</sub></i>, specifies how the <i>j</i>-th
+contact force, <i>f<sub>j</sub></i>, affects the acceleration of the <i>i</i>-th contact distance, <i>d<sub>i</sub>''</i>.</p>
+<!-- <div class="centered_image"> -->
+<img src="contact_5.png" width="301" height="298" alt=""><br>
+2 bodies in contact
+<!-- </div> -->
+
+<p>For a particular contact point <span class="html-math inline-math">
+<i>i</i>
+</span>, let the bodies be numbered 1 and 2, with
+body 2 specifying the normal vector <span class="html-math inline-math">
+<b><b>n</b></b><i><sub>i</sub></i>
+</span> pointing out from body 2 towards body 1
+(as in the diagram above). Let <span class="html-math inline-math">
+<b>p</b><sub>1</sub>
+</span> be the point on body 1 that is in contact
+with the point <span class="html-math inline-math">
+<b>p</b><sub>2</sub>
+</span> on body 2. Let <span class="html-math inline-math">
+<i>d<sub>i</sub></i>
+</span> be the distance between <span class="html-math inline-math">
+<b>p</b><sub>1</sub>
+</span>
+and <span class="html-math inline-math">
+<b>p</b><sub>2</sub>
+</span>. If we regard <span class="html-math inline-math">
+<b>p</b><sub>1</sub>
+</span> and <span class="html-math inline-math">
+<b>p</b><sub>2</sub>
+</span> as vectors from the origin to
+those points on bodies 1 and 2, then their difference <span class="html-math inline-math">
+(<b>p</b><sub>1</sub> &minus; <b>p</b><sub>2</sub>)
+</span> is also a
+vector and we can write</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>d<sub>i</sub></i> = <b><b>n</b></b><i><sub>i</sub></i> &sdot; (<b>p</b><sub>1</sub> &minus; <b>p</b><sub>2</sub>)
+
+</td><td class="equation-number">(5)</td></tr></table>
+
+<p>because the dot product with the normal gives us the component of the vector
+<span class="html-math inline-math">
+(<b>p</b><sub>1</sub> &minus; <b>p</b><sub>2</sub>)
+</span> in the direction of <span class="html-math inline-math">
+<b>n</b>
+</span>. Note that <span class="html-math inline-math">
+<i>d<sub>i</sub></i>
+</span> is
+therefore a scalar quantity. Keeping in mind that all of the variables in equation (5)
+are functions of time, we can take the derivative twice as follows:</p>
+
+
+<p class="html-math display-equation">
+<i>d<sub>i</sub></i>' = <b><b>n</b></b><i><sub>i</sub></i>' &sdot; (<b>p</b><sub>1</sub> &minus; <b>p</b><sub>2</sub>) + <b><b>n</b></b><i><sub>i</sub></i> &sdot; (<b>p</b><sub>1</sub>' &minus; <b>p</b><sub>2</sub>')<br>
+<i>d<sub>i</sub></i>'' = <b><b>n</b></b><i><sub>i</sub></i>'' &sdot; (<b>p</b><sub>1</sub> &minus; <b>p</b><sub>2</sub>) + 2 <b><b>n</b></b><i><sub>i</sub></i>' &sdot; (<b>p</b><sub>1</sub>' &minus; <b>p</b><sub>2</sub>')
++ <b><b>n</b></b><i><sub>i</sub></i> &sdot; (<b>p</b><sub>1</sub>'' &minus; <b>p</b><sub>2</sub>'')
+</p>
+
+<p>Because this is a point of contact, we have that <span class="html-math inline-math">
+<b>p</b><sub>1</sub> &minus; <b>p</b><sub>2</sub> = 0
+</span> so the
+above simplifies to</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>d<sub>i</sub></i>'' = <b><b>n</b></b><i><sub>i</sub></i> &sdot; (<b>p</b><sub>1</sub>'' &minus; <b>p</b><sub>2</sub>'') + 2 <b><b>n</b></b><i><sub>i</sub></i>' &sdot; (<b>p</b><sub>1</sub>' &minus; <b>p</b><sub>2</sub>')
+
+</td><td class="equation-number">(6)</td></tr></table>
+
+<p>The second term, <span class="html-math inline-math">
+2 <b><b>n</b></b><i><sub>i</sub></i>' &sdot; (<b>p</b><sub>1</sub>' &minus; <b>p</b><sub>2</sub>')
+</span>, is velocity dependent (so
+you can immediately calculate it without knowing the forces involved), and is therefore
+part of <span class="html-math inline-math">
+<i>b<sub>i</sub></i>
+</span>. See <a href="#b_vector">Calculating the <span class="html-math inline-math">
+<b>b</b>
+</span> Vector</a>
+below. So the <span class="html-math inline-math">
+<i>f<sub>j</sub></i>
+</span> dependent part of equation (6) is just</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+  <b><b>n</b></b><i><sub>i</sub></i> &sdot; (<b>p</b><sub>1</sub>'' &minus; <b>p</b><sub>2</sub>'').
+
+</td><td class="equation-number">(7)</td></tr></table>
+
+<p>A contact force <span class="html-math inline-math">
+<i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>
+</span> only affects <span class="html-math inline-math">
+<i>d<sub>i</sub></i>''
+</span> if that contact force
+operates on body 1 or body 2. If that is not the case, we know that <span class="html-math inline-math">
+<i>a<sub>i j</sub></i> = 0
+</span>.
+Assume now that <span class="html-math inline-math">
+<i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>
+</span> affects body 1 or body 2. But keep in mind that
+<span class="html-math inline-math">
+<i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>
+</span> may be a contact force that is not at the <span class="html-math inline-math">
+<i>i</i>
+</span>-th contact point
+(see the earlier diagram of 5 bodies in contact for example). We can find <span class="html-math inline-math">
+<i>a<sub>i j</sub></i>
+</span>
+from the geometry of the situation as follows.</p>
+
+<p>Let <span class="html-math inline-math">
+<b><b>n</b></b><i><sub>j</sub></i>
+</span> be the vector normal at the <span class="html-math inline-math">
+<i>j</i>
+</span>-th contact point. Assume that
+the <span class="html-math inline-math">
+<i>j</i>
+</span>-th contact involves body 1. Then the contact force is <span class="html-math inline-math">
+<i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>
+</span> if
+the contact involves a corner of body 1 or <span class="html-math inline-math">
+&minus;<i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>
+</span> if the contact involves
+an edge of body 1. From the geometry we can calculate the effect of the force on body
+1, and therefore on the acceleration of <span class="html-math inline-math">
+<b>p</b><sub>1</sub>''
+</span>. If the contact involves body 2,
+then the effect is on <span class="html-math inline-math">
+<b>p</b><sub>2</sub>''
+</span>. Then using equation (7) we will arrive at the
+contribution of <span class="html-math inline-math">
+<i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>
+</span> to <span class="html-math inline-math">
+<i>a<sub>i j</sub></i>
+</span>.</p>
+
+<!-- <div class="centered_image"> -->
+<img src="contact_4.png" width="429" height="307" alt=""><br>
+3 bodies in contact
+<!-- </div> -->
+
+
+
+<p>Define the following additional variables:</p>
+
+<ul class="vars">
+
+  <li><b>x</b><sub>1</sub> = center of mass of body 1</li>
+
+  <li><b>r</b><sub>1</sub> = vector from center of mass of body 1 to <b>p</b><sub>1</sub> at the <i>i</i>-th contact point</li>
+
+  <li><b>r</b><i><sub>j</sub></i> = vector from center of mass of body 1 to the <i>j</i>-th contact point</li>
+
+  <li><i>&omega;</i><sub>1</sub> = magnitude of the angular velocity of body 1</li>
+
+  <li><b>&omega;</b><sub>1</sub> = angular velocity of body 1, a vector that is perpendicular to the plane,
+  so <b>&omega;</b><sub>1</sub> = {0, 0, <i>&omega;</i><sub>1</sub>}.</li>
+
+  <li><b>v</b><sub>1</sub> = <b>x</b><sub>1</sub>' = velocity vector of center of mass of body 1 </li>
+
+  <li><i>m</i><sub>1</sub> = mass of body 1</li>
+
+</ul>
+<p>Then <span class="html-math inline-math">
+<b>p</b><sub>1</sub> = <b>x</b><sub>1</sub> + <b>r</b><sub>1</sub>
+</span> and, recognizing that all these variables are functions
+of time, we can take derivatives:</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<b>p</b><sub>1</sub>' = <b>x</b><sub>1</sub>' + <b>r</b><sub>1</sub>' = <b>v</b><sub>1</sub> + <b>&omega;</b><sub>1</sub> &times; <b>r</b><sub>1</sub>
+
+</td><td class="equation-number">(7a)</td></tr></table>
+
+<p>Here we used the knowledge that <span class="html-math inline-math">
+<b>r</b><sub>1</sub>
+</span> is only changing by rotation at a rate of
+<span class="html-math inline-math">
+<i>&omega;</i><sub>1</sub>
+</span>. An <a href="#rotating_vector">elementary bit of calculus</a> then gives the
+result that <span class="html-math inline-math">
+<b>r</b><sub>1</sub>' = <b>&omega;</b><sub>1</sub> &times; <b>r</b><sub>1</sub>
+</span> where the &times; indicates
+<a href="http://mathworld.wolfram.com/CrossProduct.html">vector cross product</a>.
+Taking another derivative:</p>
+
+<p class="html-math display-equation">
+<b>p</b><sub>1</sub>'' = <b>v</b><sub>1</sub>' + <b>&omega;</b><sub>1</sub>' &times; <b>r</b><sub>1</sub> + <b>&omega;</b><sub>1</sub> &times; <b>r</b><sub>1</sub>'
+</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<b>p</b><sub>1</sub>'' = <b>v</b><sub>1</sub>' + <b>&omega;</b><sub>1</sub>' &times; <b>r</b><sub>1</sub> + <b>&omega;</b><sub>1</sub> &times; (<b>&omega;</b><sub>1</sub> &times; <b>r</b><sub>1</sub>)
+
+</td><td class="equation-number">(8)</td></tr></table>
+
+<p>The term <span class="html-math inline-math">
+<b>&omega;</b><sub>1</sub> &times; (<b>&omega;</b><sub>1</sub> &times; <b>r</b><sub>1</sub>)
+</span> is velocity dependent, so it goes into
+the <a href="#b_vector"><span class="html-math inline-math">
+<b>b</b>
+</span> vector</a>. The <span class="html-math inline-math">
+<i>f<sub>j</sub></i>
+</span> dependent part of
+<span class="html-math inline-math">
+<b>p</b><sub>1</sub>''
+</span> is therefore</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<b>v</b><sub>1</sub>' + <b>&omega;</b><sub>1</sub>' &times; <b>r</b><sub>1</sub>
+
+</td><td class="equation-number">(8a)</td></tr></table>
+
+<p>Our task now is to find out how much a unit change in <span class="html-math inline-math">
+<i>f<sub>j</sub></i>
+</span> affects this.</p>
+
+<p>Because <span class="html-math inline-math">
+<b>v</b><sub>1</sub>'
+</span> is the linear acceleration of body 1, we have by Newton's First
+Law</p>
+
+<p class="html-math display-equation">
+  <b>v</b><sub>1</sub>' = (total force on body 1) /<i>m</i><sub>1</sub>
+</p>
+
+<p>Therefore the <span class="html-math inline-math">
+<i>f<sub>j</sub></i>
+</span> dependent part of <span class="html-math inline-math">
+<b>v</b><sub>1</sub>'
+</span> is</p>
+
+<p class="html-math display-equation">
+<i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i> /<i>m</i><sub>1</sub>
+</p>
+
+<p>Because we are working in 2D, we can write angular acceleration as</p>
+
+<p class="html-math display-equation">
+<b>&omega;</b><sub>1</sub>' = <b>&tau;</b><sub>1</sub> / <i>I</i><sub>1</sub>
+</p>
+
+<p>where <span class="html-math inline-math">
+<b>&tau;</b><sub>1</sub> =
+</span> torque on body 1, and <span class="html-math inline-math">
+<i>I</i><sub>1</sub> =
+</span> rotational inertia of body 1
+about the center of mass. (If you are working in 3D, angular acceleration has another
+term; see <a href="#calculate_contact_forces_detail">[Baraff-1]</a> for more
+information). Suppose that the <span class="html-math inline-math">
+<i>j</i>
+</span>-th contact occurs at the point <span class="html-math inline-math">
+<b>p</b><i><sub>j</sub></i>
+</span>,
+and the vector <span class="html-math inline-math">
+<b>r</b><i><sub>j</sub></i>
+</span> goes from center of mass of object 1 to <span class="html-math inline-math">
+<b>p</b><i><sub>j</sub></i>
+</span>. Then the
+force <span class="html-math inline-math">
+<i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>
+</span> contributes a torque of <span class="html-math inline-math">
+<b>r</b><i><sub>j</sub></i> &times; <i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>
+</span>. So the <span class="html-math inline-math">
+<i>f<sub>j</sub></i>
+</span>
+dependent part of <span class="html-math inline-math">
+<b>&omega;</b><sub>1</sub>'
+</span> is</p>
+
+<p class="html-math display-equation">
+(<b>r</b><i><sub>j</sub></i> &times; <i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>) / <i>I</i><sub>1</sub>
+</p>
+
+<p>and we can write equation (8a), the <span class="html-math inline-math">
+<i>f<sub>j</sub></i>
+</span> dependent part of <span class="html-math inline-math">
+<b>p</b><sub>1</sub>''
+</span>, as</p>
+
+<p class="html-math display-equation">
+      <i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i> / <i>m</i><sub>1</sub> + (<b>r</b><i><sub>j</sub></i> &times; <i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>) &times; <b>r</b><sub>1</sub> / <i>I</i><sub>1</sub><br>
+       = <i>f<sub>j</sub></i> (<b><b>n</b></b><i><sub>j</sub></i> / <i>m</i><sub>1</sub> + (<b>r</b><i><sub>j</sub></i> &times; <b><b>n</b></b><i><sub>j</sub></i>) &times; <b>r</b><sub>1</sub> / <i>I</i><sub>1</sub>)
+</p>
+
+<p>and the fj dependent part of di'' in equation (6) is then</p>
+
+<p class="html-math display-equation">
+  <i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>i</sub></i> &sdot; (<b><b>n</b></b><i><sub>j</sub></i> / <i>m</i><sub>1</sub> + (<b>r</b><i><sub>j</sub></i> &times; <b><b>n</b></b><i><sub>j</sub></i>) &times; <b>r</b><sub>1</sub> / <i>I</i><sub>1</sub>)
+</p>
+
+<p>Therefore, looking back at equation (2) for context, we have the dependence of
+<span class="html-math inline-math">
+<i>d<sub>i</sub></i>''
+</span> on <span class="html-math inline-math">
+<i>f<sub>j</sub></i>
+</span> as</p>
+
+<table class="html-math numbered-equation"><tr><td class="emphasized">
+  <b><b>n</b></b><i><sub>i</sub></i> &sdot; (<b><b>n</b></b><i><sub>j</sub></i> / <i>m</i><sub>1</sub> + (<b>r</b><i><sub>j</sub></i> &times; <b><b>n</b></b><i><sub>j</sub></i>) &times; <b>r</b><sub>1</sub> / <i>I</i><sub>1</sub>)
+
+</td><td class="equation-number">(9)</td></tr></table>
+
+<p>which goes into <span class="html-math inline-math">
+<i>a<sub>i j</sub></i>
+</span>.</p>
+
+<p>Keep in mind that we assumed that <span class="html-math inline-math">
+<i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>
+</span> affected body 1. If instead it is
+<span class="html-math inline-math">
+&minus;<i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>
+</span> affecting body 1, then that changes the sign of expression (9). If
+<span class="html-math inline-math">
+<i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>
+</span> affects body 2 instead of body 1, then the effects are on p2'' in
+equation (6), so there is a sign change and also we use <span class="html-math inline-math">
+<i>m</i><sub>2</sub>, <b>r</b><sub>2</sub>
+</span>, and <span class="html-math inline-math">
+<i>I</i><sub>2</sub>
+</span>
+in expression (9) and <span class="html-math inline-math">
+<b>r</b><i><sub>j</sub></i>
+</span> is computed relative to body 2. Also, in the case
+where <span class="html-math inline-math">
+<i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>
+</span> is at a contact point between bodies 1 and 2, then <span class="html-math inline-math">
+<i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>
+</span>
+affects body 1 and <span class="html-math inline-math">
+&minus;<i>f<sub>j</sub></i> <b><b>n</b></b><i><sub>j</sub></i>
+</span> affects body 2 and you wind up using expression
+(9) twice and putting the sum in <span class="html-math inline-math">
+<i>a<sub>i j</sub></i>
+</span>.</p>
+
+
+
+
+<h2 id="b_vector">Calculating the <span class="html-math inline-math">
+<b>b</b>
+</span> Vector</h2>
+
+<p>Here we calculate the <b>b</b> vector of equation (1). The <b>b</b> vector specifies what the
+contact distance acceleration <i>d<sub>i</sub></i>'' would be in the absence of contact forces. It
+depends on non-contact forces such as gravity, thrust, spring force, damping, etc., but
+also has a velocity dependent component.</p>
+
+<p>Note that it is these forces that cause the contact forces to exist; the contact
+forces develop in reaction to the other forces that are pushing the objects together,
+so contact forces are also known as "reaction forces".</p>
+
+<p>In the context of solving equation (1), the <b>b</b> vector is regarded as a "constant"
+vector, because at the moment in time that we are solving equation (1) for the contact
+forces, the <b>b</b> vector is a known quantity.</p>
+
+<!-- <div class="centered_image"> -->
+<img src="contact_5.png" width="301" height="298" alt=""><br>
+2 bodies in contact
+<!-- </div> -->
+
+<p>We continue with the same scenario and variables defined in the previous section
+<a href="#a_matrix">Calculating the <b>A</b> Matrix</a>. That is, we consider the <i>i</i>-th
+contact, and we number the bodies as 1 and 2, where body 2 determines the normal vector
+<b><b>n</b></b><i><sub>i</sub></i> of the contact. We are seeking an expression for <i>b<sub>i</sub></i> in equation (2). We start from
+equation (6) which was derived in the previous section:</p>
+<p class="html-math display-equation">
+<i>d<sub>i</sub></i>'' = <b><b>n</b></b><i><sub>i</sub></i> &sdot; (<b>p</b><sub>1</sub>'' &minus; <b>p</b><sub>2</sub>'') + 2 <b><b>n</b></b><i><sub>i</sub></i>' &sdot; (<b>p</b><sub>1</sub>' &minus; <b>p</b><sub>2</sub>')
+</p>
+
+<p>We first consider the term 2 <b><b>n</b></b><i><sub>i</sub></i>'&sdot; (<b>p</b><sub>1</sub>' - <b>p</b><sub>2</sub>'). It is dependent only on current
+velocity, not acceleration, and so is independent of any contact forces being applied,
+and therefore belongs in the <b>b</b> vector. Recall <b><b>n</b></b><i><sub>i</sub></i> is the normal of body 2. Therefore,
+if body 2 is stationary (a wall or floor for example) then its normal does not change,
+so <b><b>n</b></b><i><sub>i</sub></i>' is the zero vector and this term is zero.</p>
+<div style="margin-left: 3em; margin-right: 3em; max-width: 40em;">
+
+<h3 id="rotating_vector">Derivation of <span class="html-math inline-math">
+<b><b>n</b></b><i><sub>i</sub></i> '
+</span></h3>
+<p>Recall that <span class="html-math inline-math">
+<b><b>n</b></b><i><sub>i</sub></i>
+</span> is the normal vector to body 2 in the scenario of the
+previous section. We know that body 2 is rotating with angular velocity <span class="html-math inline-math">
+<i>&omega;</i><sub>2</sub>
+</span>.
+Therefore, by an elementary bit of calculus we can write</p>
+
+<p class="html-math display-equation">
+<b><b>n</b></b><i><sub>i</sub></i>' = <b>&omega;</b><sub>2</sub> &times; <b><b>n</b></b><i><sub>i</sub></i>
+</p>
+
+<p>where we treat angular velocity as a vector <span class="html-math inline-math">
+<b>&omega;</b><sub>2</sub>
+</span> perpendicular to the plane so
+that</p>
+
+<p class="html-math display-equation">
+<b>&omega;</b><sub>2</sub> = {0, 0, <i>&omega;</i><sub>2</sub>}
+</p>
+
+<p>Here is the derivation of that result: Let <span class="html-math inline-math">
+<b><b>n</b></b><i><sub>i</sub></i>
+</span> be defined as follows (because
+we are in 2D the <i>z</i> component is zero):</p>
+
+<p class="html-math display-equation">
+  <b><b>n</b></b><i><sub>i</sub></i> = {<i>n<sub>ix</sub></i>, <i>n<sub>iy</sub></i>, 0}
+</p>
+
+<p>We know that the vector <span class="html-math inline-math">
+<b><b>n</b></b><i><sub>i</sub></i>
+</span> is rotating at a rate <span class="html-math inline-math">
+<i>&omega;</i><sub>2</sub>
+</span>. Ignoring any
+acceleration, we could write the vector <span class="html-math inline-math">
+<b><b>n</b></b><i><sub>i</sub></i>
+</span> as a function of time like this:</p>
+
+<p class="html-math display-equation">
+  <b><b>n</b></b><i><sub>i</sub></i> = |<b><b>n</b></b><i><sub>i</sub></i>| {cos(<i>&omega;</i><sub>2</sub> <i>t</i>), sin(<i>&omega;</i><sub>2</sub> <i>t</i>), 0}
+</p>
+
+<p>Where <span class="html-math inline-math">
+|<b><b>n</b></b><i><sub>i</sub></i>|
+</span> is the magnitude of the vector <span class="html-math inline-math">
+<b><b>n</b></b><i><sub>i</sub></i>
+</span>, and <span class="html-math inline-math">
+<i>t</i>
+</span> = time.
+The first derivative is then</p>
+
+<p class="html-math display-equation">
+  <b><b>n</b></b><i><sub>i</sub></i>' = |<b><b>n</b></b><i><sub>i</sub></i>| {&minus;<i>&omega;</i><sub>2</sub> sin(<i>&omega;</i><sub>2</sub> <i>t</i>), <i>&omega;</i><sub>2</sub> cos(<i>&omega;</i><sub>2</sub> <i>t</i>), 0}
+</p>
+
+<p>which is equivalent to:</p>
+
+<p class="html-math display-equation">
+  <b><b>n</b></b><i><sub>i</sub></i>' = {&minus;<i>&omega;</i><sub>2</sub> <i>n<sub>iy</sub></i>, <i>&omega;</i><sub>2</sub> <i>n<sub>ix</sub></i>, 0}
+</p>
+
+<p>which can also be expressed as a
+<a href="http://mathworld.wolfram.com/CrossProduct.html">cross product</a> of the two
+vectors:</p>
+
+<p class="html-math display-equation">
+  <b><b>n</b></b><i><sub>i</sub></i>' = <b>&omega;</b><sub>2</sub> &times; <b><b>n</b></b><i><sub>i</sub></i>
+</p>
+
+</div>
+
+
+<p>Now we can use that expression for <span class="html-math inline-math">
+<b><b>n</b></b><i><sub>i</sub></i>'
+</span> and equation (7a) which gives an
+expression for <span class="html-math inline-math">
+<b>p</b><sub>1</sub>'
+</span> (and similarly for <span class="html-math inline-math">
+<b>p</b><sub>2</sub>'
+</span> as well) to write that</p>
+
+<table class="html-math numbered-equation"><tr><td class="emphasized">
+2 <b><b>n</b></b><i><sub>i</sub></i>' &sdot; (<b>p</b><sub>1</sub>' &minus; <b>p</b><sub>2</sub>') = 2 (<b>&omega;</b><sub>2</sub> &times; <b><b>n</b></b><i><sub>i</sub></i>)
+&sdot; (<b>v</b><sub>1</sub> + <b>&omega;</b><sub>1</sub> &times; <b>r</b><sub>1</sub> &minus; (<b>v</b><sub>2</sub> + <b>&omega;</b><sub>2</sub> &times; <b>r</b><sub>2</sub>))
+
+</td><td class="equation-number">(10)</td></tr></table>
+
+<p>The above expression is part of equation (6), and is added in to <span class="html-math inline-math">
+<i>b<sub>i</sub></i>
+</span>. But
+only in the case where body 2 is a moving object; if body 2 is stationary (a wall or
+floor for example), then <span class="html-math inline-math">
+<b><b>n</b></b><i><sub>i</sub></i>'
+</span> is zero.</p>
+
+<p>Next consider the term <span class="html-math inline-math">
+<b><b>n</b></b><i><sub>i</sub></i> &sdot; (<b>p</b><sub>1</sub>'' &minus; <b>p</b><sub>2</sub>'')
+</span> of equation (6). We
+need to include in <span class="html-math inline-math">
+<i>b<sub>i</sub></i>
+</span> the effect of any non-contact forces on the accelerations
+of the contact points <span class="html-math inline-math">
+<b>p</b><sub>1</sub>
+</span> and <span class="html-math inline-math">
+<b>p</b><sub>2</sub>
+</span>. We will start from equation (8) which
+was derived in the previous section:</p>
+
+<p class="html-math display-equation">
+<b>p</b><sub>1</sub>'' = <b>v</b><sub>1</sub>' + <b>&omega;</b><sub>1</sub>' &times; <b>r</b><sub>1</sub> + <b>&omega;</b><sub>1</sub> &times; (<b>&omega;</b><sub>1</sub> &times; <b>r</b><sub>1</sub>)
+</p>
+
+<p>It turns out that the accelerations <span class="html-math inline-math">
+<b>v</b><sub>1</sub>'
+</span> and <span class="html-math inline-math">
+<b>&omega;</b><sub>1</sub>'
+</span> that are due to
+non-contact forces have already been calculated for us by the earlier processes (see
+<code>evaluate</code> method of <code>ImpulseSim</code> class). Those accelerations are
+passed in to our <code>evaluate</code> method and so we simply plug them into equation
+(8) to get <span class="html-math inline-math">
+<b>p</b><sub>1</sub>''
+</span> (and <span class="html-math inline-math">
+<b>p</b><sub>2</sub>''
+</span> has the similar expression). So we can write
+this out as</p>
+
+<table class="html-math numbered-equation"><tr><td class="emphasized">
+<b><b>n</b></b><i><sub>i</sub></i> &sdot; (<b>p</b><sub>1</sub>'' &minus; <b>p</b><sub>2</sub>'')
+= <b><b>n</b></b><i><sub>i</sub></i> &sdot; (<b>v</b><sub>1</sub>' + <b>&omega;</b><sub>1</sub>' &times; <b>r</b><sub>1</sub> + <b>&omega;</b><sub>1</sub> &times; (<b>&omega;</b><sub>1</sub> &times; <b>r</b><sub>1</sub>)
+&minus; (<b>v</b><sub>2</sub>' + <b>&omega;</b><sub>2</sub>' &times; <b>r</b><sub>2</sub> + <b>&omega;</b><sub>2</sub> &times; (<b>&omega;</b><sub>2</sub> &times; <b>r</b><sub>2</sub>)))
+
+</td><td class="equation-number">(11)</td></tr></table>
+
+<p>which is part of equation (6) to be added in to <span class="html-math inline-math">
+<i>b<sub>i</sub></i>
+</span>. Keep in mind that in the
+above equation, <span class="html-math inline-math">
+<b>v</b><sub>1</sub>'
+</span> and <span class="html-math inline-math">
+<b>&omega;</b><sub>1</sub>'
+</span> are the accelerations of body 1 due
+<em>only</em> to non-contact forces (and similarly for <span class="html-math inline-math">
+<b>v</b><sub>2</sub>'
+</span> and <span class="html-math inline-math">
+<b>&omega;</b><sub>2</sub>'
+</span>).</p>
+
+<p>We now have in expressions (10) and (11), the contact-force-independent parts of
+equation (6) which is what goes into <span class="html-math inline-math">
+<i>b<sub>i</sub></i>
+</span>.</p>
+
+<p id="page_history">
+  This web page was first published January 2007.
+</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="ContactApp-es.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeContactApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 2; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+    app.eval('SIM_CANVAS.BACKGROUND="white"',/*output=*/false)
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

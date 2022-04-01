@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Rigid Body Forces</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+
+  <h1>Rigid Body Forces</h1>
+
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gràfic</li>
+  <li class="time_graph">Gràfic de temps</li>
+  <li class="multi_graph">Gràfic múltiple</li>
+</ul>
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+This simulation uses the <a href="../explain/physics-engine-en.html">Rigid Body Physics Engine</a>
+to show objects moving in 2 dimensions with various forces applied.
+</p>
+
+<p class="instructions">
+Click near an object to exert a spring force with your mouse. With the keyboard you can
+control four "thrusters". The keys S,D,F,E control thrust on block1. The keys J,K,L,I
+(and also the arrow keys) control thrust on block2. You can also set gravity
+and damping (friction). You can choose from one to six
+objects. The mass of the green object is adjustable (the others are set to mass 1.0).
+</p>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/RigidBodyApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+
+<p>If you play around with the simulation shown above, you will notice that it can
+easily get "stuck", which means that objects wind up overlapping. The section below
+about <a href="#resting_contact">Resting Contact</a> explains why this happens.</p>
+
+<p>Here is a picture of how the keyboard controls are arranged. If the keys don't work,
+try clicking near an object first - this ensures that keystrokes are passed to the
+simulation.</p>
+
+<div class="centered_image">
+<img src="game_keys.gif"    width="505" height="156" alt=""><br>
+keyboard thruster controls
+</div>
+
+<h2 id="energy_bar_graph">Energy Bar Graph</h2>
+
+<p>Click the "show energy" checkbox to see the bar graph showing the potential,
+rotational and translational energy.
+</p>
+
+<div class="centered_image">
+<img src="energy_bar.gif" width="396" height="71" alt=""><br>
+energy bar graph
+</div>
+
+<p>See the section on <a href="#energy">Energy and Momentum</a> for how these
+quantities are calculated.
+</p>
+
+
+
+<h2 id="physics_of_motion">Physics Of Motion for Rigid Bodies</h2>
+
+<div class="image" style="width:135px;">
+<img src="rigid-body_2.gif" width="132" height="194" alt=""><br>
+rigid body variables
+</div>
+
+<div style="margin-left:136px; max-width: 40em;">
+<p>Ignoring collisions for the moment, we develop the equations of motion for the
+objects. The forces on the objects are
+</p>
+
+<ul>
+    <li>Gravity</li>
+    <li>Friction</li>
+    <li>Thrust (keyboard controls)</li>
+    <li>Spring (mouse control)</li>
+</ul>
+
+<p>For each body, there are three variables to specify position:</p>
+
+<ul class="vars">
+    <li><i>x</i> = horizontal position of center of mass</li>
+    <li><i>y</i> = vertical position of center of mass</li>
+    <li><i>&theta;</i> = angle of rotation</li>
+</ul>
+
+<p>In addition, each body has a velocity corresponding to each of these positions:</p>
+
+<ul class="vars">
+    <li><i>x'</i> = <i>v<sub>x</sub></i> = horizontal velocity of center of mass</li>
+    <li><i>y'</i> = <i>v<sub>y</sub></i> = vertical velocity of center of mass</li>
+    <li><i>&theta;'</i> = <i>&omega;</i> = angular velocity</li>
+</ul>
+</div>
+<p style="clear:both;">
+The equations of motion for the body involve the total force
+<span class="html-math inline-math">
+<span class="vector">F</span> = (<i>F<sub>x</sub></i>, <i>F<sub>y</sub></i>)
+</span> and torque <span class="html-math inline-math">
+<i>&tau;</i>
+</span> on the body as follows:</p>
+
+<p class="html-math display-equation">
+<i>F<sub>x</sub></i> = <i>m</i> <i>x''</i> <br>
+<i>F<sub>y</sub></i> = <i>m</i> <i>y''</i> <br>
+<i>&tau;</i> = <i>I</i> <i>&theta;''</i>
+</p>
+
+<p>where <span class="html-math inline-math">
+<i>m</i> =
+</span> mass and <span class="html-math inline-math">
+<i>I</i> =
+</span> moment of inertia about the center of mass
+(moment of inertia is defined in the next section). Note that we indicate vectors, such
+as <span class="html-math inline-math">
+<span class="vector">F</span>
+</span>, with bold and an overline.
+</p>
+
+
+
+
+
+<h2 id="thrust_force">Thrust Force</h2>
+
+<div class="image" style="width:115px;">
+<img src="rigid-body_3.gif" width="115" height="145" alt=""><br>
+thrust force vector
+</div>
+
+<div style="margin-left:120px; max-width: 40em;">
+<p>We now build up the equations of motion by adding in one force at a time, beginning
+with the thrust force. Let <span class="html-math inline-math">
+<span class="vector">T</span> = (<i>T<sub>x</sub></i>, <i>T<sub>y</sub></i>)
+</span> be the thrust force vector which
+operates at the point <span class="html-math inline-math">
+P
+</span> on the body. The thrust force will accelerate the body
+according to
+</p>
+
+<p class="html-math display-equation">
+<i>m</i> <i>x''</i> = <i>T<sub>x</sub></i><br>
+<i>m</i> <i>y''</i> = <i>T<sub>y</sub></i>
+</p>
+
+<p>In these equations it doesn't matter where on the body the thrust force is applied.
+The point <span class="html-math inline-math">
+P
+</span> can be anywhere on the body, yet because the body is rigid the
+thrust accelerates the entire body. On the other hand, for rotational movement it
+matters a great deal where on the body the thrust is applied.
+</p>
+
+</div>
+
+<p style="clear:both;">
+<em>Moment of inertia</em> is the equivalent of mass for rotational physics. It
+measures how difficult it is to rotate a body about a given point. Since our rectangle
+bodies rotate freely about their center of mass, we use center of mass as the point for
+calculating moment of inertia. From a physics textbook you can find the equation for
+the moment of inertia about the center of a thin rectangular plate. It is given by
+</p>
+
+<p class="html-math display-equation">
+<i>I</i> = <i>m</i> (width<sup>2</sup> + height<sup>2</sup>) &frasl; 12
+</p>
+
+<p>Let <span class="html-math inline-math">
+<span class="vector">R</span> = (<i>R<sub>x</sub></i>, <i>R<sub>y</sub></i>) =
+</span> be the distance vector from center of mass to
+<span class="html-math inline-math">
+P
+</span>. The <em>torque</em> at the point <span class="html-math inline-math">
+P
+</span> is given by the vector cross
+product
+</p>
+
+<p class="html-math display-equation">
+<span class="html-math inline-math">
+<span class="vector">R</span> &times; <span class="vector">T</span> = <i>R<sub>x</sub></i> <i>T<sub>y</sub></i> &minus; <i>R<sub>y</sub></i> <i>T<sub>x</sub></i>
+</span>
+</p>
+
+<p>so we have</p>
+
+<p class="html-math display-equation">
+<i>I</i> <i>&theta;''</i> = <span class="vector">R</span> &times; <span class="vector">T</span>
+</p>
+
+<p>Actually torque is a vector, but since we are working in 2 dimensions we know that
+torque is always perpendicular to the plane and so we aren't using vector notation for
+it. The true vector cross product results in a vector. So the above cross product
+corresponds to the following 3 dimensional calculation:
+</p>
+
+<p class="html-math display-equation">
+(<i>R<sub>x</sub></i>, <i>R<sub>y</sub></i>, 0) &times; (<i>T<sub>x</sub></i>, <i>T<sub>y</sub></i>, 0) = (0, &nbsp;0, &nbsp;<i>R<sub>x</sub></i> <i>T<sub>y</sub></i> &minus; <i>R<sub>y</sub></i> <i>T<sub>x</sub></i>)
+</p>
+
+<p>You can see that the result is always perpendicular to the plane, with zero
+<span class="html-math inline-math">
+<i>x</i>
+</span> and <span class="html-math inline-math">
+<i>y</i>
+</span> components. The general vector cross product of two vectors
+is defined as:
+</p>
+
+<p class="html-math display-equation">
+(<i>x</i>, <i>y</i>, <i>z</i>) &times; (<i>u</i>, <i>v</i>, <i>w</i>)
+= (<i>y</i> <i>w</i> &minus; <i>z</i> <i>v</i>, &nbsp; &minus;<i>x</i> <i>w</i> + <i>z</i> <i>u</i>, &nbsp; <i>x</i> <i>v</i> &minus; <i>y</i> <i>u</i>)
+</p>
+
+
+
+
+
+<h2 id="spring_force">Spring Force</h2>
+
+<p>The spring force in the simulation operates along the vector from point
+<span class="html-math inline-math">
+P
+</span> on the body to the mouse position, call this vector <span class="html-math inline-math">
+<span class="vector">L</span>
+</span>. The
+spring force is <span class="html-math inline-math">
+<span class="vector">B</span> = (<i>B<sub>x</sub></i>, <i>B<sub>y</sub></i>) = <i>s</i> <span class="vector">L</span>
+</span> where
+<span class="html-math inline-math">
+<i>s</i>
+</span> is the stretchiness constant. The treatment of this force is identical
+to the thrust force, so we add it in to get the following equations.
+</p>
+
+<p class="html-math display-equation">
+<i>m</i> <i>x''</i> = <i>T<sub>x</sub></i> + <i>B<sub>x</sub></i><br>
+<i>m</i> <i>y''</i> = <i>T<sub>y</sub></i> + <i>B<sub>y</sub></i><br>
+<i>I</i> <i>&theta;''</i> = <span class="vector">R</span>&times;<span class="vector">T</span> + <span class="vector">R</span>&times;<span class="vector">B</span>
+</p>
+
+
+
+
+
+<h2 id="gravity_force">Gravity Force</h2>
+
+<p>Let <span class="html-math inline-math">
+<i>g</i> =
+</span> the gravitational constant. Gravity causes a force on the center of
+mass of <span class="html-math inline-math">
+&minus;<i>m</i> <i>g</i>
+</span> in the vertical direction leading to
+</p>
+
+<p class="html-math display-equation">
+<i>m</i> <i>y''</i> = <i>T<sub>y</sub></i> + <i>B<sub>y</sub></i> &minus; <i>m</i> <i>g</i>
+</p>
+
+<p>Because gravity works on all points of the body, no torque is generated by
+gravity.</p>
+
+
+
+
+
+
+<h2 id="damping_force">Damping Force</h2>
+
+<p>Damping (friction) causes a force opposite to the direction of motion. The faster you
+go, the more friction resists your motion. So the magnitude of the damping force is
+proportional to the velocity. Let <span class="html-math inline-math">
+<i>k</i> =
+</span> the proportional damping constant.
+Adding this to our equations of motion gives
+</p>
+
+<div class="emphasized">
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>m</i> <i>x''</i> = <i>T<sub>x</sub></i> + <i>B<sub>x</sub></i> &minus; <i>k</i> <i>x'</i>
+
+</td><td class="equation-number">(1)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>m</i> <i>y''</i> = <i>T<sub>y</sub></i> + <i>B<sub>y</sub></i> &minus; <i>m</i> <i>g</i> &minus; <i>k</i> <i>y'</i>
+
+</td><td class="equation-number">(2)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>I</i> <i>&theta;''</i> = <span class="vector">R</span>&times;<span class="vector">T</span> + <span class="vector">R</span>&times;<span class="vector">B</span> &minus; <i>k</i> <i>&theta;'</i>
+
+</td><td class="equation-number">(3)</td></tr></table>
+</div>
+
+<p>In a more realistic simulation, there may be different damping constants for
+rotational versus translational motion. But here, we use the same constant for both.
+</p>
+
+<p>Equations (1-3) are the equations of motion for one of our rectangular bodies. As
+long as no collision occurs, these equations are in charge. Here is a recap of some of
+the variables:
+</p>
+
+<ul class="vars">
+    <li><i>m</i> = mass</li>
+    <li><i>g</i> = gravity constant</li>
+    <li><i>k</i> = damping (friction) constant</li>
+    <li><span class="vector">T</span> = thrust force vector</li>
+    <li><span class="vector">B</span> = spring force vector</li>
+    <li><span class="vector">R</span> = vector from center to point P where thrust is applied</li>
+</ul>
+<h2 id="differential_equations">Differential Equations</h2>
+
+<p>The above section shows the equations of motion for bodies affected by gravity,
+damping, a thrust force and a spring force. To use the
+<a href="../explain/runge-kutta-en.html">Runge Kutta method</a> for solving
+a set of differential equations we need to convert the above three
+<a href="../explain/classify-diff-eq-en.html">second order</a> equations
+into six first order equations. Define the velocity variables</p>
+
+<ul class="vars">
+    <li><i>v<sub>x</sub></i> = <i>x'</i> = horizontal velocity</li>
+    <li><i>v<sub>y</sub></i> = <i>y'</i> = vertical velocity</li>
+    <li><i>&omega;</i> = <i>&theta;'</i> = angular velocity</li>
+</ul>
+<p>Then equations (1-3) become 6 first order differential equations</p>
+
+<p class="html-math display-equation">
+<i>x'</i> = <i>v<sub>x</sub></i> <br>
+<i>y'</i> = <i>v<sub>y</sub></i> <br>
+<i>&theta;'</i> = <i>&omega;</i> <br>
+<i>v<sub>x</sub></i>' = (<i>T<sub>x</sub></i> + <i>B<sub>x</sub></i> &minus; <i>k</i> <i>v<sub>x</sub></i>) &frasl; <i>m</i> <br>
+<i>v<sub>y</sub></i>' = (<i>T<sub>y</sub></i> + <i>B<sub>y</sub></i> &minus; <i>m</i> <i>g</i> &minus; <i>k</i> <i>v<sub>y</sub></i>) &frasl; <i>m</i> <br>
+<i>&omega;</i>' = (<span class="vector">R</span> &times; <span class="vector">T</span> + <span class="vector">R</span> &times; <span class="vector">B</span> &minus; <i>k</i> <i>&omega;</i>) &frasl; <i>I</i>
+</p>
+
+<p>These equations are now in the form needed for solving numerically with the
+Runge-Kutta method. Each rectangle body will have its own set of 6 variables (3
+positions <span class="html-math inline-math">
+<i>x</i>, <i>y</i>, <i>&theta;</i>
+</span> and 3 velocities <span class="html-math inline-math">
+<i>v<sub>x</sub></i>, <i>v<sub>y</sub></i>, <i>&omega;</i>
+</span>) and 6 first order
+differential equations.
+</p>
+
+
+
+
+
+<h2 id="energy">How to Calculate Energy and Momentum</h2>
+
+<p>This section explains how the energy and momentum of the objects are calculated. See
+the description of the <a href="#energy_bar_graph">energy bar graph</a> for how to
+observe these quantities in the simulation.</p>
+
+<p> If there is no loss of energy to friction (damping <span class="html-math inline-math">
+= 0
+</span>) or during
+collisions (elasticity <span class="html-math inline-math">
+= 1
+</span>) then the energy of the system should not change.</p>
+
+<p> A collision between objects should not change the angular momentum. However, a
+collision with a wall will not preserve angular momentum because the super massive
+walls are not included in the calculations of the momentum of the objects.</p>
+
+<p> Gravitational energy is given by <span class="html-math inline-math">
+<i>m</i> <i>g</i> <i>h</i>
+</span> where <span class="html-math inline-math">
+<i>h</i> =
+</span> height of the
+object's center of mass above the floor.</p>
+
+<p>Translational energy is <span class="html-math inline-math">
+<sup>1</sup>&frasl;<sub>2</sub> <i>m</i> <span class="vector">v</span><sup>2</sup>
+</span> where <span class="html-math inline-math">
+<span class="vector">v</span>
+</span> is the
+velocity vector for the object's center of mass. Note that we use vector dot product to
+square the velocity vector.</p>
+
+<p>Rotational energy is <span class="html-math inline-math">
+1/2 <i>I</i> <i>&omega;</i><sup>2</sup>
+</span> where <span class="html-math inline-math">
+<i>I</i>
+</span> is the moment of inertia
+and <span class="html-math inline-math">
+<i>&omega;</i>
+</span> is the angular velocity.</p>
+
+<p> Linear momentum in the horizontal direction is given by <span class="html-math inline-math">
+<i>m</i> <i>v<sub>x</sub></i>
+</span>, in the
+vertical direction by <span class="html-math inline-math">
+<i>m</i> <i>v<sub>y</sub></i>
+</span>. </p>
+
+<p>Angular momentum is measured with regard to a particular point in space, for example
+the origin. It is given by:</p>
+
+<p class="html-math display-equation">
+<i>I</i> <i>&omega;</i> <span class="vector">k</span> + <i>m</i> <span class="vector">r</span> &times; <span class="vector">v</span>
+</p>
+
+<p>where <span class="html-math inline-math">
+<span class="vector">r</span>
+</span> is the distance vector from the origin to the object's center of
+mass. The vector <span class="html-math inline-math">
+<span class="vector">k</span>
+</span> is the unit <span class="html-math inline-math">
+<i>z</i>
+</span> vector, which points out of the
+<span class="html-math inline-math">
+<i>x</i>-<i>y</i>
+</span> plane. You can see that the angular momentum has two components: the
+spinning component <span class="html-math inline-math">
+<i>I</i> <i>&omega;</i> <span class="vector">k</span>
+</span> and the rotation about the origin given by the
+vector cross-product <span class="html-math inline-math">
+<i>m</i> <span class="vector">r</span> &times; <span class="vector">v</span>
+</span>.
+</p>
+
+
+
+
+
+<p id="page_history">
+  This web page was first published February 2003.
+</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="RigidBodyApp-en.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeRigidBodyApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 0; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+    app.eval('SIM_CANVAS.BACKGROUND="white"',/*output=*/false)
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<p class="introduction">
+This physics-based simulation shows a rigid body attached to a curved "roller coaster" path. Uses the myPhysicsLab
+<a href="../explain/physics-engine-en.html">2D Rigid Body Physics Engine</a>.
+</p>
+
+<p class="instructions">
+Click with your mouse to apply a spring force to the block. Several path shapes are
+available. Try changing gravity or damping.
+</p>
+
+<p>This simulation uses the same math shown on the
+<a href="rigid-body-roller-en.html">roller coaster</a> page to make a numerical table of the path data. A special kind of joint connector called
+<a href="../develop/docs/myphysicslab.lab.engine2D.PathJoint.html">PathJoint</a>
+is used to connect the rigid body to the path.
+</p>
+
+<p>The "circle" path has a 
+<a href="../develop/docs/myphysicslab.lab.engine2D.PathEndPoint.html">PathEndPoint</a>
+which stops the movement of the PathJoint from going past the top of the circle. The PathEndPoint is not required, it is added as a demonstration.
+</p>
+
+<p>The "hump" path has two PathEndPoints, and also defines a
+<a href="../develop/docs/myphysicslab.lab.util.GenericMemo.html">GenericMemo</a>
+which disconnects the block when it moves past a certain spot on the path.
+</p>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/roller/RigidBodyRollerApp.js">open source code</a>,
+<a href="../develop/docs/myphysicslab.sims.roller.RigidBodyRollerApp.html">documentation</a> and a
+<a href="../develop/build/sims/roller/RigidBodyRollerApp-en.html">simple-compiled version</a>
+which is <a href="../develop/docs/Customizing.html">more customizable</a>.
+</p>
+
+<p id="page_history">
+  This web page was first published November 2016.
+</p>

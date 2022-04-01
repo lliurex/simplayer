@@ -1,0 +1,387 @@
+/* Stylesheet for myphysicslab
+* Organization of this style sheet is roughly similar to our typical page:
+* HTML & BODY
+* HEADER-BAR (LOGO, TABS, LANGUAGE MENU, NAV-LINKS)
+* CANVAS
+* UI CONTROLS
+* GENERAL TEXT & HEADINGS
+* MATH-IN-HTML
+* IMAGES
+* FOOTER
+*/
+
+/* After orientation change (portrait to landscape), to keep the text from getting
+* bigger we need webkit-text-size-adjust:none
+*/
+html {
+  -webkit-text-size-adjust: none;
+}
+body {
+    background-color: white;
+    color: black;
+    margin: 0 0.1in;
+    /*font-family: Palatino, "Book Antiqua", Times, "Times New Roman", serif;  */
+    font-family: Georgia, "Bitstream Charter", serif;
+    line-height: 1.25em; /* gives leading of 0.25em between lines: 1.25em - 1.0em font size */
+    }
+
+/****** HEADER BAR: LOGO, TABS, LANGUAGE MENU, NAV-LINKS **********/
+
+a#logo {
+  float: right;
+  margin: -9px 5px 0 0;
+}
+ul#header_bar, ul.horiz_tabs {
+  padding: 3px 0 0 0;
+  margin: 3px 0;
+  max-width: none;
+}
+ul.horiz_tabs {
+  border-bottom: 1px solid #778;
+}
+ul#header_bar li {
+  list-style: none;
+}
+ul.horiz_tabs li {
+  list-style: none;
+  display: inline-block;
+  padding: 3px 0.5em;
+  margin: 0 0 -1px 3px;
+  border: 1px solid #778;
+  background: #DDE;
+  text-decoration: none;
+  font: bold 12px Verdana, sans-serif;
+  white-space: nowrap;
+}
+ul.horiz_tabs li.selected {
+  background: white;
+  border-bottom: 1px solid white;
+}
+/* this div contains language_menu and next/prev nav_links */
+div#header_nav {
+  clear: right; /* because logo is above */
+  float: right;
+  display: inline-block;
+  margin: 0 0.5em 0 0;
+}
+select#language_menu {
+  margin: 0 0 0 0.5em;
+}
+a.nav_link {
+  font: 100% sans-serif;
+  margin: 0 0 0 0.5em;
+}
+
+
+/********  CANVAS  ********/
+
+/*see also SimController.mouseDown;  it has a fix for 'cursor change while drag' */
+/* Note Nov 22 2016: the 'outline: none' solves a performance problem that is visible
+ * as a "stutter" when using "black with trails" background mode. */
+canvas {
+    cursor: crosshair;
+    border:1px solid silver;
+    outline: none; /* turns off outline drawn when selecting with mouse */
+    width: 100%;
+    /*-webkit-tap-highlight-color: rgba(255, 255, 255, 0);*/
+}
+/* Removed Jan 10 2016 because it results in empty space below SimView when
+window is resized to be wide.
+landscape mode:  leave blank area on right for user to scroll on iPhone etc
+@media screen and (orientation:landscape) {
+  canvas {
+    width: 92%;
+  }
+}
+*/
+canvas:active {
+    cursor: default;
+    border:1px dashed red;
+}
+
+/*********** UI CONTROLS *************/
+
+div.control_container {
+  clear: both; /* otherwise floating nav-links above are covered up, can't click */
+  width: 100%;
+}
+div.control_container p {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+div.control_group {
+  vertical-align: top;
+}
+textarea {
+  font-family: monospace, monospace;
+  border:1px solid silver;
+  max-width: 50em;
+}
+label {
+  white-space: nowrap; /* keep checkbox and label text together */
+}
+div.slider {
+  display: inline;
+}
+label, div.slider {
+  font-family: sans-serif;
+  font-size: 90%;
+  margin-left: 0.3em; margin-bottom: 0.3em;
+}
+div.control_container input, div.control_container select {
+  margin-left: 0.7em; margin-right: 0.3em;
+}
+/* align slider controls, fixes Firefox layout */
+div.control_container input[type='range'] {
+  vertical-align: bottom;
+}
+
+button.icon {
+  margin: 0;
+  padding: 0;
+  border-style: none;
+  background-color: transparent;
+}
+button.icon:active {
+  background-color: gray;
+}
+/* kludge for Firefox to get buttons to be same size as icon images they contain.
+* http://stackoverflow.com/questions/8859908/buttons-too-tall-on-firefox
+*/
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/****** GENERAL TEXT & HEADINGS **********/
+
+h2, h3, h4, h5 {
+    font-size: 115%;
+    font-family: sans-serif;
+    border-top: 3px solid #328DAE;
+    /*color: #f90;  /* #f90 is orange.  Opera doesn't recognize 'orange' */
+    /* other colors I liked:  #36c is a dark blue */
+    color: #328DAE;
+    margin: 0.5in 0 0.4in 0;
+    clear: both;
+    max-width: 50em;
+    }
+h1 {
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font: bold 130% sans-serif;
+  color: #328DAE;
+}
+
+
+p {
+  margin: 1em 0.5em;
+  max-width: 50em;
+  }
+
+p.introduction {
+  clear: both;
+  }
+
+p.instructions, p.hint {
+  margin: 0.8em 2cm 0.8em 1cm;
+  max-width: 40em;
+  font-style: italic;
+  text-align: left;
+}
+
+p.hint {
+  text-align: right;
+  font-size:80%;
+}
+
+p.list {
+  margin-top:0cm;
+  margin-bottom:0cm;
+  margin-left:1cm;
+}
+
+p.quote {
+  margin: 0.5em 1.5cm;
+  text-align: left;
+  font-size: 90%;
+}
+ul, ol {
+  max-width: 45em;
+}
+li {
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+    }
+code {
+  font-family: monospace, monospace;
+  font-size: 100%;
+    }
+
+/****** MATH-IN-HTML **********/
+
+/* inline equations */
+span.inline-math { white-space: nowrap; }
+
+*.html-math sup,
+*.html-math sub {
+    font-size: 90%;
+    }
+*.fraction,
+*.display-equation,
+*.table-equation {
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+    text-align: center;
+    vertical-align: middle;
+    max-width: 50em;
+    }
+div.big_fraction {
+    margin: 0.5em 0;
+    padding: 0.5em;
+    text-align: center;
+    max-width: 50em;
+  }
+
+/* left aligned equations. created Dec 2007*/
+span.aligned_eqn {
+   display: block;
+   }
+*.aligned_eqn {
+   margin-top:0.5em;
+   margin-bottom:0.5em;
+   margin-left: 2em;
+   text-align: left;
+   vertical-align: middle;
+   }
+table {
+    max-width: 50em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+  }
+
+/* inline fraction table  NOT USED??? */
+table.inline_frac {
+    display:inline;
+    margin-top:0;
+    margin-bottom:0;
+    text-align: center;
+    vertical-align: middle;
+    }
+
+/* (note: don't use display:block on tables, it screws up NN tables) */
+/* bigger line-height helps make eqns without ^2 more equal to those with ^2 */
+*.aligned_eqn,
+*.display-equation,
+table.numbered-equation {
+    line-height: 2em;
+    }
+*.fraction {
+    line-height: normal; /* for when fraction is wrapped by numbered-equation */
+    }
+
+table.fraction {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+/* numbered equations done with a table */
+/* width slightly less than 100% because of bugs in IE when alongside an image
+   see dbl_pendulum page. */
+table.numbered-equation {
+    width:99%;
+    text-align: center;
+    vertical-align: middle;
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+    max-width: 50em;
+    }
+
+ul.vars {
+    list-style-type:none;
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+    }
+
+span.bigg { font-size:150%; }  /* for big math symbols */
+
+span.vector {text-decoration:overline; font-weight: bolder; font-size: 110%; }
+
+span.nobr { white-space:nowrap; }  /* for setting where to break long equations */
+
+/* td { white-space: nowrap; } don't do this, it causes extremely wide equations
+    which then causes Google mobile robot to think everything is too small Feb 2021 */
+
+td.upper_line { border-top:solid 1px black; } /* for horiz line in fractions */
+
+/*td.eqn_blank { text-align:left; width:2em; } /* for left side of numbered equations */
+td.equation-number { text-align:right; width:2em; } /* for numbered equations */
+
+*.emphasized {  border: solid 2px #f90; }
+div.emphasized {
+    margin: 0.5em 0;
+    padding: 0.5em;
+    text-align: center;
+    border: solid 2px #f90;
+    max-width: 50em;
+    }
+
+span.text { font-size:90%; }  /* smaller text within math expressions */
+
+
+/******** IMAGES ********/
+
+img {
+  border: none;
+  margin: 0;
+}
+
+/* give images a smaller centered font for picture captions */
+div.image {
+    float: left;
+    margin:0;
+    text-align: center;
+    font-size: 90%;   /* small */
+    font-family: sans-serif;
+    }
+
+/* for centered images */
+div.centered_image {
+    margin:0.5em 0;
+    text-align: center;
+    font-size: 90%;   /* small */
+    font-family: sans-serif;
+    }
+
+/****** FOOTER ********/
+
+p#page_history {
+  max-width: none;
+  font: normal 80% Verdana, sans-serif;
+  text-align: center;
+}
+
+div#footer2 {
+  text-align: right;
+  margin: 1.2em 0 0.3em 0;
+}
+
+div#copyright {
+  display: inline-block;
+  float: left;
+  text-align: left;
+  font: bold 90% Verdana, sans-serif;
+}
+
+span#revised_date {
+  font-weight: normal;
+  font-size: 80%;
+}
+
+div#footer2 a.nav_link {
+  vertical-align: 50%;
+}
+
+a#valid_html {
+  margin: 0 0.5em;
+}

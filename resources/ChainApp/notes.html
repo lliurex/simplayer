@@ -1,0 +1,60 @@
+<p class="introduction">
+Physics-based simulation of a chain of several rigid bodies connected by flexible
+joints, using the
+<a href="../explain/physics-engine-en.html">2D Rigid Body Physics Engine</a>.
+</p>
+
+<p class="instructions">
+Click near an object to exert a force with your mouse.
+Try changing gravity, elasticity (bounciness), and damping (friction).
+</p>  
+
+<p>Experiments to try:</p>
+
+<ul>
+  <li>Does gravity affect the shape of the curve of the resting chain?</li>
+  <li>Does the simulation behave like a real chain?  Does it sometimes "snap"
+     violently?</li>
+  <li>Turn on "show energy".  When is kinetic energy highest?</li>
+  <li>Turn on "show forces" to see the contact forces or tension. Why does tension
+  vary? How does the varying tension relate to the relative amount of kinetic or
+  potential energy?
+  </li>
+</ul>
+
+<p>The resting chain follows a curve called a
+  <a href="http://en.wikipedia.org/wiki/Catenary">Catenary</a>.
+  With calculus you can predict this curve.
+</p>
+
+<p>Each chain link is a single rigid body. There are "joints" attaching each chain link
+to its neighbors or to the background.
+</p>
+
+<!--p>The <a href="../engine2D/collision-methods-en.html">method of collision handling</a> for this
+simulation is not important because there are generally no collisions between chain
+links, only contact forces.
+</p-->
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/ChainApp.js">open source code</a>,
+<a href="../develop/docs/myphysicslab.sims.engine2D.ChainApp.html">documentation</a> and a
+<a href="../develop/build/sims/engine2D/ChainApp-en.html">simple-compiled version</a>
+which is <a href="../develop/docs/Customizing.html">more customizable</a>.
+</p>
+
+
+<!--h2>TO DO:</h2>
+<ul>
+  <li>Set zero energy for each link to be where it is when at rest</li>
+  <li>add 1 or more free ball or block, to play with, and allow changing mass of that
+    ball/block. Maybe on a separate page have that be the default.
+  </li>
+  <li>show the catenary curve in background?  Maybe have a checkbox for that.</li>
+  <li>Reset button does NOT put the chains at rest, could calculate from catenary
+    equation.
+  </li>
+  <li>Show the catenary equation, and point out that gravity doesn't appear</li>
+  <li>Give link to page explaining how joints work</li>
+  <li>Links to other simulations and articles</li>
+</ul-->

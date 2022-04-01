@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Péndulo Simple</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+  <h1>Simple Pendulum</h1>
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gráfico</li>
+  <li class="time_graph">Gráfico de tiempo</li>
+  <li class="multi_graph">Gráfico múltiple</li>
+</ul>
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<script type="text/javascript" async
+  src="../MathJax-2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<h2>About</h2>
+
+<p class="introduction">
+  Physics-based simulation of a simple pendulum.
+  </p>
+
+  <p class="instructions">
+  Modify gravity, mass or friction (damping). Drag the pendulum to change the starting
+  position. Or click below to set initial conditions:
+  </p>
+
+  <form name="form1" onsubmit="return false;">
+    <input type="button" value="small" onClick="app.eval('ANGLE=0.3;ANGLE_VELOCITY=0;')">
+    &nbsp;&nbsp;
+    <input type="button" value="medium" onClick="app.eval('ANGLE=1;ANGLE_VELOCITY=0;')">
+    &nbsp;&nbsp;
+    <input type="button" value="big" onClick="app.eval('ANGLE=3;ANGLE_VELOCITY=0;')">
+    &nbsp;&nbsp;
+    <input type="button" value="fast" onClick="app.eval('ANGLE=0;ANGLE_VELOCITY=8;')">
+  </form>
+
+  <p>The math behind the simulation is shown below.  Also available are:
+  <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/PendulumApp.js">open source code</a>,
+  </p>
+
+
+  <p>For small oscillations the simple pendulum has <em>linear</em> behavior meaning that
+  its equation of motion can be characterized by a linear equation (no squared terms or
+  sine or cosine terms), but for larger oscillations the it becomes very non-linear with
+  a sine term in the equation of motion.
+  </p>
+
+
+  <h2>Puzzles</h2>
+
+  <p>Try using the graph and changing parameters like mass, length, gravity to answer
+  these questions (leave damping at zero to simplify things):</p>
+
+  <ul>
+      <li>What is the relationship between angular acceleration and angle?</li>
+      <li>How do mass, length, or gravity affect the relationship between angular
+         acceleration and angle?</li>
+      <li>For small oscillations, how do length or gravity affect the period or
+         frequency of the oscillation?</li>
+  </ul>
+
+  <p>You'll find the <a href="#answers">answers</a> below. </p>
+
+  <h2>Physics - Rotational Method</h2>
+
+  <div class="image" style="width: 75px;">
+  <br><br>
+  <img src="pendulum_2.gif"     width="71" height="92" alt=""><br>
+  pendulum variables
+  </div>
+
+  <div style="margin-left: 80px;">
+  <p>The pendulum is modeled as a point mass at the end of a massless rod. We define the
+  following variables:</p>
+
+  <ul class="vars">
+      <li><span class="html-math inline-math">
+  <i>&theta;</i> =
+  </span> angle of pendulum (<span class="html-math inline-math">
+  0=
+  </span>vertical)</li>
+      <li><span class="html-math inline-math">
+  <i>R</i> =
+  </span> length of rod</li>
+      <li><span class="html-math inline-math">
+  <i>T</i> =
+  </span> tension in rod</li>
+      <li><span class="html-math inline-math">
+  <i>m</i> =
+  </span> mass of pendulum</li>
+      <li><span class="html-math inline-math">
+  <i>g</i> =
+  </span> gravitational constant</li>
+  </ul>
+  </div>
+
+  <p>We will derive the equation of motion for the pendulum using the rotational analog
+  of Newton's second law for motion about a fixed axis, which is <span class="html-math inline-math">
+  <i>&tau;</i> = <i>I</i> <i>&alpha;</i>
+  </span>
+  where</p>
+
+  <ul class="vars">
+      <li><span class="html-math inline-math">
+  <i>&tau;</i> =
+  </span> net torque</li>
+      <li><span class="html-math inline-math">
+  <i>I</i> =
+  </span> rotational inertia</li>
+      <li><span class="html-math inline-math">
+  <i>&alpha;</i> = <i>&theta;''</i>=
+  </span> angular acceleration</li>
+  </ul>
+
+  <p>The rotational inertia about the pivot is <span class="html-math inline-math">
+  <i>I</i> = <i>m</i> <i>R</i><sup>2</sup>
+  </span>. Torque can be
+  calculated as the vector cross product of the position vector and the force. The
+  magnitude of the torque due to gravity works out to be
+  <span class="html-math inline-math">
+  <i>&tau;</i> = &minus;<i>R</i> <i>m</i> <i>g</i> sin <i>&theta;</i>
+  </span>.  So we have</p>
+
+  <p class="html-math display-equation">
+  &minus;<i>R</i> <i>m</i> <i>g</i> sin <i>&theta;</i> = <i>m</i> <i>R</i><sup>2</sup> <i>&alpha;</i>
+  </p>
+
+  <p>which simplifies to</p>
+
+  <table class="html-math numbered-equation"><tr><td class="emphasized">
+  <i>&theta;''</i>  = &minus; <sup><i>g</i></sup>&frasl;<sub><i>R</i></sub> sin <i>&theta;</i>
+
+  </td><td class="equation-number">(1)</td></tr></table>
+
+  <p>This is the equation of motion for the pendulum.</p>
+
+
+
+
+
+
+  <h2>Physics - Direct Method</h2>
+
+  <p>Most people are less familiar with rotational inertia and torque than with the
+  simple mass and acceleration found in Newton's second law, <span class="html-math inline-math">
+  <span class="vector">F</span> = <i>m</i> <span class="vector">a</span>
+  </span>.
+  To show that there is nothing new in the rotational version of Newton's second law, we
+  derive the equation of motion here without the rotational dynamics. As you will see,
+  this method involves more algebra.</p>
+
+  <div class="image" style="width: 80px;">
+  <br>
+  <img src="i_j_vectors.gif"     width="76" height="70"
+  alt="i and j unit vectors" >
+  <br>
+  <br>
+  <br>
+  <br>
+  <img src="pendulum_2.gif"     width="71" height="92"
+  alt="pendulum variables are theta angle and R length" >
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <img src="pendulum_forces.gif"     width="70" height="122"
+  alt="" >
+  <br>pendulum forces
+  <br><br>
+
+  </div>
+
+  <div style="margin-left: 85px;">
+
+  <p>We'll need the standard unit vectors, <span class="html-math inline-math">
+  <span class="vector">i</span>, <span class="vector">j</span>
+  </span>. We use bold and overline to
+  indicate a vector.</p>
+
+  <ul class="vars">
+      <li><span class="html-math inline-math">
+  <span class="vector">i</span> =
+  </span> unit vector in horizontal direction</li>
+      <li><span class="html-math inline-math">
+  <span class="vector">j</span> =
+  </span> unit vector in vertical direction</li>
+  </ul>
+
+  <p>The kinematics of the pendulum are then as follows</p>
+
+  <p class="html-math display-equation">
+  position = <i>R</i> sin <i>&theta;</i> <span class="vector">i</span> &minus; <i>R</i> cos <i>&theta;</i> <span class="vector">j</span>
+  </p>
+
+  <p class="html-math display-equation">
+  velocity = <i>R</i> <i>&theta;'</i> cos <i>&theta;</i> <span class="vector">i</span> + <i>R</i> <i>&theta;'</i> sin <i>&theta;</i> <span class="vector">j</span><br>
+  </p>
+
+  <p class="html-math display-equation">
+  acceleration = <i>R</i>(<i>&theta;''</i> cos <i>&theta;</i> <span class="vector">i</span> &minus;
+  <span class="nobr"><i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i> <span class="vector">i</span></span> +
+  <span class="nobr"><i>&theta;''</i> sin <i>&theta;</i> <span class="vector">j</span></span> +
+  <span class="nobr"><i>&theta;'</i> <sup>2</sup> cos <i>&theta;</i> <span class="vector">j</span>)</span>
+  </p>
+
+  <p>The position is derived by a fairly simple application of trigonometry. The velocity
+  and acceleration are then the first and second derivatives of the position.</p>
+
+  <p>Next we draw the free body diagram for the pendulum. The forces on the pendulum are
+  the tension in the rod <span class="html-math inline-math">
+  <i>T</i>
+  </span> and gravity. So we can write the net force as:</p>
+
+  <p class="html-math display-equation">
+  <span class="vector">F</span> = <i>T</i> cos <i>&theta;</i> <span class="vector">j</span> &minus; <i>T</i> sin <i>&theta;</i> <span class="vector">i</span> &minus; <i>m</i> <i>g</i> <span class="vector">j</span>
+  </p>
+  </div>
+
+  <p>Using Newton's law <span class="html-math inline-math">
+  <span class="vector">F</span> = <i>m</i> <span class="vector">a</span>
+  </span> and the pendulum acceleration we found
+  earlier, we have</p>
+
+  <p class="html-math display-equation">
+  <i>T</i> cos <i>&theta;</i> <span class="vector">j</span> &minus; <i>T</i> sin <i>&theta;</i> <span class="vector">i</span> &minus; <i>m</i> <i>g</i> <span class="vector">j</span> =
+  <span class="nobr"><i>m</i> <i>R</i>(<i>&theta;''</i> cos <i>&theta;</i> <span class="vector">i</span></span> &minus;
+  <span class="nobr"><i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i> <span class="vector">i</span></span> +
+  <span class="nobr"><i>&theta;''</i> sin <i>&theta;</i> <span class="vector">j</span></span> +
+  <span class="nobr"><i>&theta;'</i> <sup>2</sup> cos <i>&theta;</i> <span class="vector">j</span>)</span>
+  </p>
+
+  <p>Write the vector components of the above equation as separate equations. This gives
+  us two simultaneous equations: the first for the <span class="html-math inline-math">
+  <span class="vector">i</span>
+  </span> component and the second for
+  the <span class="html-math inline-math">
+  <span class="vector">j</span>
+  </span> component.</p>
+
+  <p class="html-math display-equation">
+  &minus;<i>T</i> sin <i>&theta;</i> = <i>m</i> <i>R</i>(<i>&theta;''</i> cos <i>&theta;</i> &minus; <i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i>)
+  </p>
+
+  <p class="html-math display-equation">
+  <i>T</i> cos <i>&theta;</i> &minus; <i>m</i> <i>g</i> = <i>m</i> <i>R</i>(<i>&theta;''</i> sin <i>&theta;</i> + <i>&theta;'</i> <sup>2</sup> cos <i>&theta;</i>)
+  </p>
+
+  <p>Now do some algebraic manipulations to eliminate the unknown <span class="html-math inline-math">
+  <i>T</i>
+  </span>. Multiply
+  the first equation by <span class="html-math inline-math">
+  cos <i>&theta;</i>
+  </span> and the second by <span class="html-math inline-math">
+  sin <i>&theta;</i>
+  </span>.</p>
+
+  <p class="html-math display-equation">
+  &minus;<i>T</i> sin <i>&theta;</i> cos <i>&theta;</i> = <i>m</i> <i>R</i>(<i>&theta;''</i> cos<sup>2</sup><i>&theta;</i> &minus; <i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i> cos <i>&theta;</i>)
+  </p>
+
+  <p class="html-math display-equation">
+  <i>T</i> cos <i>&theta;</i> sin <i>&theta;</i> &minus; <i>m</i> <i>g</i> sin <i>&theta;</i> =
+  <span class="nobr"><i>m</i> <i>R</i>(<i>&theta;''</i> sin<sup>2</sup><i>&theta;</i></span> +
+  <span class="nobr"><i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i> cos <i>&theta;</i>)</span>
+  </p>
+
+  <p>Use the first equation to substitute for <span class="html-math inline-math">
+  <i>T</i> cos <i>&theta;</i> sin <i>&theta;</i>
+  </span> in the second
+  equation and do a little more algebra to get:</p>
+
+  <p class="html-math display-equation">
+  &minus;<i>&theta;''</i> cos<sup>2</sup><i>&theta;</i> + <i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i> cos <i>&theta;</i> = <i>&theta;''</i> sin<sup>2</sup><i>&theta;</i> +
+  <span class="nobr"><i>&theta;'</i> <sup>2</sup> sin <i>&theta;</i> cos <i>&theta;</i></span> +
+  <span class="nobr"><sup><i>g</i></sup>&frasl;<sub><i>R</i></sub> sin <i>&theta;</i></span>
+  </p>
+
+  <p>With the trig identity <span class="html-math inline-math">
+  cos<sup>2</sup><i>&theta;</i> + sin<sup>2</sup><i>&theta;</i> = 1
+  </span> this simplifies to equation
+  (1)</p>
+
+  <p class="html-math display-equation">
+  <i>&theta;''</i>  = &minus; <sup><i>g</i></sup>&frasl;<sub><i>R</i></sub> sin <i>&theta;</i>
+  </p>
+
+
+
+
+
+
+  <h2>Physics - Energy Method</h2>
+
+  <p>There is yet a third way to derive the equations of motion for the pendulum. This is
+  to use the "indirect" energy based method associated with the terms "Lagrangian",
+  "Euler-Lagrange equations", "Hamiltonian", and others. While this method isn't shown
+  here, you can see an example of it on the
+  <a href="../CartPendulumApp/CartPendulumApp-es.html#indirect">Pendulum+Cart simulation</a> page.</p>
+
+
+
+
+
+  <h2>Numerical Solution</h2>
+
+  <p>To solve the equations of motion numerically, so that we can drive the simulation,
+  we use the <a href="../explain/runge-kutta-es.html">Runge Kutta method</a>
+  for solving sets of ordinary differential equations. First we define a variable for the
+  angular velocity <span class="html-math inline-math">
+  <i>&omega;</i> = <i>&theta;'</i>
+  </span>. Then we can write the second order equation (1) as two
+  first order equations.</p>
+
+  <p class="html-math display-equation">
+  <i>&theta;'</i> = <i>&omega;</i>
+  </p>
+
+  <p class="html-math display-equation">
+  <i>&omega;</i>' = &minus; <sup><i>g</i></sup>&frasl;<sub><i>R</i></sub> sin <i>&theta;</i>
+  </p>
+
+  <p>This is the form needed for using the Runge-Kutta method.</p>
+
+
+
+
+
+
+  <h2 id="answers">Puzzle Answers</h2>
+
+
+  <p class="question">
+  Question: What is the relationship between angular acceleration and angle?
+  </p>
+
+  <div class="answer">
+  Answer: It is a sine wave relationship as given by equation (1):
+  <p class="html-math display-equation">
+  <i>&theta;''</i>  = &minus; <sup><i>g</i></sup>&frasl;<sub><i>R</i></sub> sin <i>&theta;</i>
+  </p>
+  </div>
+
+
+  <p class="question">
+  Question:  How do mass, length, or gravity affect the relationship between angular acceleration and angle?</p>
+
+  <div class="answer">
+  Answer:  From equation (1) we see that:
+  <ul class="answer">
+      <li>Mass doesn't affect the motion at all.</li>
+      <li>The amplitude of the sine relationship is proportional to gravity.</li>
+      <li>The amplitude of the sine relationship is inversely proportional to length
+         of the pendulum.</li>
+  </ul>
+  </div>
+
+
+
+  <p class="question">
+  Question: For small oscillations, how do length or gravity affect the period or
+  frequency of the oscillation?</p>
+
+  <div class="answer">
+  Answer: For small oscillations we can use the approximation that <span class="html-math inline-math">
+  sin <i>&theta;</i> = <i>&theta;</i>
+  </span>.
+  Then the equation of motion becomes
+
+  <p class="html-math display-equation">
+  <i>&theta;''</i>  = &minus; <sup><i>g</i></sup>&frasl;<sub><i>R</i></sub> <i>&theta;</i>
+  </p>
+
+  <p>This is a <a href="../explain/classify-diff-eq-es.html#linear">linear</a> relationship. You can
+  see that the graph of acceleration versus angle is a straight line for small
+  oscillations. This is the same form of equation as for the
+  <a href="../SingleSpringApp/SingleSpringApp-es.html">single spring simulation</a>. The analytic solution is</p>
+
+  <p>$$\theta(t) = \theta_0 \cos(\sqrt{g/R} \; t)$$</p>
+
+  <p>where <span class="html-math inline-math">
+  <i>&theta;</i><sub>0</sub>
+  </span> is the initial angle and <span class="html-math inline-math">
+  <i>t</i>
+  </span> is time. The period
+  is the time it takes for <span class="html-math inline-math">
+  <i>&theta;</i>(<i>t</i>)
+  </span> to repeat, so</p>
+
+  <p>$$period = \frac{2 \pi}{\sqrt{g/R}}$$</p>
+
+  <p>The frequency of oscillation is the inverse of the period:</p>
+
+  <p>$$frequency = \frac{1}{2 \pi} \sqrt{g/R}$$</p>
+
+  <p>So we predict that</p>
+
+  <ul class="answer">
+      <li>increasing length by 4 times doubles the period and halves the frequency;</li>
+      <li>increasing gravity by 4 times halves the period and doubles the frequency;</li>
+  </ul>
+  </div>
+
+
+
+
+  <!--h2>TO DO:</h2>
+  <ul>
+    <li>Give derivation for damping here?  or on a separate page?</li>
+    <li>Give better explanations for equation of motion derivation.</li>
+    <li>No overline for i, j vectors?</li>
+  </ul-->
+
+  <p id="page_history">
+    This web page was first published April 2001.
+  </p>
+
+<script src="PendulumApp-es.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makePendulumApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 2; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+<script>
+  app.eval('DRIVE_AMPLITUDE=0;DAMPING=0;GRAVITY=9.8;ANGLE=1;ANGLE_VELOCITY=0;');
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

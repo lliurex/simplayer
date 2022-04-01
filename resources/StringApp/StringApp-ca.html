@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Corda</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+
+<script type="text/javascript" async
+  src="../MathJax-2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</head>
+<body>
+
+<h1>Corda</h1>
+
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gràfic</li>
+  <li class="time_graph">Gràfic de temps</li>
+  <li class="multi_graph">Gràfic múltiple</li>
+</ul>
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+Interactive simulation of a string under tension. Note that the vertical dimension is
+magnified to be able to see the deflection of the string.
+</p>
+
+<p class="instructions">
+Try dragging the string's left connection point. Try different shapes. Try changing
+density, tension, damping (friction), number of points, and time step. But see the
+section below about <a href="#stability">stability</a>.
+</p>
+
+<!--p style="clear: both;">
+  This also demonstrates drawing a bitmap image into a DisplayShape.
+  The image of the truck
+  <img id="tipper" src="images/tipper.png" width="32" height="32" alt="">
+  is licensed under
+  <a href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons
+    Attribution 3.0 License</a> from
+  <a href="http://www.fatcow.com/free-icons">Free FatCow-Farm Fresh Icons</a>.
+</p-->
+
+<p>The math behind the simulation is shown below.  Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pde/StringApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+
+<p>Unlike most other simulations on the myPhysicsLab website, this is based on a
+<a href="https://en.wikipedia.org/wiki/Partial_differential_equation">partial
+differential equation</a> (PDE).
+Instead of a discrete set of variables there are an infinite number of
+variables corresponding to each point on the string. We approximate this in the
+simulation with a finite number of points which you can set.
+</p>
+
+<p>We follow the method shown in
+<cite>Numerical Analysis</cite>, Sixth Edition by Richard L. Burden and J. Douglas
+Faires, section 12.3 <em>Hyperbolic Partial-Differential Equations</em>.
+</p>
+
+<p class="quote">
+Note: In that edition there is an error in their Algorithm 12.4 <em>Wave Equation
+Finite-Difference</em>, where a plus sign should instead be a minus sign in step 5;
+compare to their equation 12.18.
+</p>
+
+<h2>Wave Equation</h2>
+
+<p>See the Wikipedia article about
+<a href="https://en.wikipedia.org/wiki/String_vibration">String vibration</a>
+for more information and a derivation of the wave equation.
+</p>
+
+<p>Let</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>l</i> =
+</span> length of string</li>
+    <li><span class="html-math inline-math">
+<i>x</i> =
+</span> position along string, <span class="html-math inline-math">
+0 &lt; <i>x</i> &lt; <i>l</i>
+</span></li>
+    <li><span class="html-math inline-math">
+<i>t</i> =
+</span> time</li>
+    <li>\( \alpha = \sqrt{tension/density} \), this constant is equal to the wave speed</li>
+    <li><span class="html-math inline-math">
+<i>u</i>(<i>x</i>, <i>t</i>) =
+</span> displacement of the string at given position and time</li>
+</ul>
+
+<p>Here is the wave equation which governs the motion of the string:
+</p>
+
+<p>$$\frac{\partial^2 u}{\partial t^2}(x, t) = \alpha^2 \frac{\partial^2 u}{\partial x^2}(x,t)$$
+</p>
+
+<p>The endpoints are fixed:</p>
+
+<p>$$u(0,t) = u(l,t) = 0, t > 0$$</p>
+
+<p>The initial shape is given by <span class="html-math inline-math">
+<i>f</i>(<i>x</i>)
+</span>:</p>
+
+<p>$$u(x,0) = f(x), 0 \leq x \leq l$$</p>
+
+<p>The initial velocity is given by <span class="html-math inline-math">
+<i>g</i>(<i>x</i>)
+</span>:</p>
+
+<p>$$\frac{\partial u}{\partial t}(x,0) = g(x), 0 \leq x \leq l$$</p>
+
+<p>In the above simulation we allow choosing from a variety of initial shapes, but we
+assume the initial velocity is zero everywhere.</p>
+
+<p>The wave equation in words says</p>
+
+<p class="quote">At any given point on the string:
+  <br>
+  The <em>acceleration</em> of the displacement equals the <em>curvature</em> (2nd
+  derivative) of the string at that point times a constant.
+</p>
+
+
+
+<h2>Numerical Solution</h2>
+
+<p>Let</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>m</i> =
+</span> number of points (minus one)</li>
+    <li><span class="html-math inline-math">
+<i>h</i> = <i>l</i>/<i>m</i> =
+</span> spatial grid size</li>
+    <li><span class="html-math inline-math">
+<i>k</i> =
+</span> time step</li>
+</ul>
+
+<p>The numerical solution involves forming 3 arrays, each with <span class="html-math inline-math">
+<i>m</i>+1
+</span> points.
+These arrays represent the displacement of the string at three different times:
+</p>
+
+<ul>
+  <li>previous time = <span class="html-math inline-math">
+now - <i>k</i>
+</span></li>
+  <li>current time = <span class="html-math inline-math">
+now
+</span></li>
+  <li>next time = <span class="html-math inline-math">
+now + <i>k</i>
+</span></li>
+</ul>
+
+<p>We approximate the temporal and spatial derivatives of the wave equation from the
+previous and current arrays, and write new values into the "next" array. See Burden
+&amp; Faires, or the
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pde/StringSim.js">source code</a>
+for details.
+</p>
+
+
+<h2 id="stability">Stability Condition</h2>
+
+<p>The algorithm used here becomes unstable with certain settings for density, tension,
+time step <span class="html-math inline-math">
+<i>k</i>
+</span> and spatial grid size <span class="html-math inline-math">
+<i>h</i>
+</span>. The stability condition is:
+
+<p>$$\alpha k / h = \sqrt{tension/density} \; k / h  \le 1$$</p>
+
+<p>To keep the same stability condition:</p>
+
+<ul>
+  <li>if you decrease spatial grid size <span class="html-math inline-math">
+<i>h</i>
+</span>, you must decrease the time step
+     <span class="html-math inline-math">
+<i>k</i>
+</span>
+  </li>
+  <li>if you increase the tension (or decrease density), you must decrease the time
+     step <span class="html-math inline-math">
+<i>k</i>
+</span> or increase spatial grid size <span class="html-math inline-math">
+<i>h</i>
+</span>
+  </li>
+  <li>if you increase the density (or decrease tension), you must increase the time
+     step <span class="html-math inline-math">
+<i>k</i>
+</span> or decrease spatial grid size <span class="html-math inline-math">
+<i>h</i>
+</span>
+   </li>
+</ul>
+
+
+
+<p id="page_history">
+  This web page was first published November 2016.
+</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="StringApp-ca.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeStringApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 3; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

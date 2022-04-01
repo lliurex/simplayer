@@ -1,0 +1,63 @@
+<p class="introduction">
+This simulation shows 2 balls on a roller coaster track. The 2 balls are connected by a
+spring.
+</p>
+
+<p class="instructions">
+You can change the track shape by clicking a button below. You can drag either ball
+with your mouse to change the starting position. Try changing gravity, damping or
+spring stiffness.
+</p>
+
+<p>The math behind the simulation is shown below.  Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/roller/RollerDoubleApp.js">open source code</a>,
+<a href="../develop/docs/myphysicslab.sims.roller.RollerDoubleApp.html">documentation</a> and a
+<a href="../develop/build/sims/roller/RollerDoubleApp-en.html">simple-compiled version</a>
+which is <a href="../develop/docs/Customizing.html">more customizable</a>.
+</p>
+
+<table>
+<tr style="text-align: center;">
+<td onClick="set_track('HUMP')">
+<img src="track_hump.gif"  width="75" height="64" alt=""><br>hump</td>
+
+<td onClick="set_track('LOOP')">
+<img src="track_loop.gif"  width="82" height="62" alt=""><br>loop-the-loop</td>
+
+<td onClick="set_track('CIRCLE')">
+<img src="track_circle.gif"  width="67" height="63" alt=""><br>circle</td>
+
+<td onClick="set_track('LEMNISCATE')">
+<img src="track_infinity.gif"  width="98" height="47" alt=""><br>Lemniscate</td>
+
+<td onClick="set_track('OVAL')">
+<img src="track_oval.gif"  width="49" height="66" alt=""><br>oval</td>
+
+<td onClick="set_track('SPIRAL')">
+<img src="track_spiral.gif"  width="61" height="69" alt=""><br>spiral</td>
+</tr>
+</table>
+
+<h2>Physics</h2>
+
+<p>This simulation is a variation of the <a href="roller-spring-en.html">Roller Coaster
+with Spring</a>, please see that page for more information on the physics and how the
+simulation is done. The difference here is that the other end of the spring is attached
+to another ball on the track, instead of being fixed.</p>
+
+<p>We have 4 variables in this simulation:</p>
+
+<ul class="vars">
+    <li><i>p<sub>1</sub></i> = position on the track of ball 1 (measured by path length along the
+       track)</li>
+    <li><i>v<sub>1</sub></i> = velocity of ball 1</li>
+    <li><i>p<sub>2</sub></i> = position on the track of ball 2</li>
+    <li><i>v<sub>2</sub></i> = velocity of ball 2</li>
+</ul>
+<p> The force equations for each ball are identical to that shown in the Roller Coaster
+with Spring simulation except that the position of the "fixed end" of the spring is
+replaced by the position of the other ball.</p>
+
+<p id="page_history">
+  This web page was first published October 2002.
+</p>

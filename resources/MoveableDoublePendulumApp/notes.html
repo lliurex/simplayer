@@ -1,0 +1,47 @@
+<p class="introduction">
+Physics-based simulation of a double pendulum whose support point is moveable.
+</p>
+
+<p class="instructions">
+Click near the support point to drag it with your mouse. You can also reposition
+the pendulum masses. You can also change gravity, damping (friction), and various
+other parameters.
+</p>
+
+<p>Experiments to try:</p>
+
+<ul>
+
+  <li>Try dragging the anchor point by clicking near it with your mouse.
+    Whip it around quickly back and forth -- does the pendulum behave
+    as you would expect?</li>
+
+  <li>Turn on "show energy".  When is kinetic energy high?
+    When is potential energy high?</li>
+
+  <li>Set damping to zero, get the pendulum moving rapidly, and turn on "show energy".
+    You will notice the total energy decreasing slightly over time, although it should
+    stay constant. Now try slowing down time by a factor of 3 or 4
+    (which gives more accurate computation).
+    Is the energy still decreasing?  What's going on?</li>
+
+</ul>
+
+<p>The math for this simulation is similar to the regular
+<a href="double-pendulum/double-pendulum-en.html">Double Pendulum</a>
+with immobile support point, except there are extra terms carried forward into the
+equations for the support point velocity and acceleration.
+This is similar to the development of equations shown for the
+<a href="moveable-pendulum-en.html">Moveable Pendulum</a>.
+This movement of the support point is an input to the equations of motion,
+which means that the support point is not affected by the motion of the
+double pendulum.  We assume the anchor/support point is so massive compared
+to the pendulum that it is not affected by the motion of the pendulums.
+</p>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/MoveableDoublePendulumApp.js">open source code</a>,
+<a href="../develop/docs/myphysicslab.sims.pendulum.MoveableDoublePendulumApp.html">documentation</a> and a
+<a href="../develop/build/sims/pendulum/MoveableDoublePendulumApp-en.html">simple-compiled version</a>
+which is <a href="../develop/docs/Customizing.html">more customizable</a>.
+</p>

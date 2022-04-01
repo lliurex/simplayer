@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Molecule 6</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+
+<h1>Molecule 6</h1>
+
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Sim</li>
+  <li class="graph ">Graph</li>
+  <li class="time_graph">Time Graph</li>
+  <li class="multi_graph">Multi Graph</li>
+</ul>
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+This simulation shows 6 masses connected by springs and free to move in 2 dimensions.
+</p>
+
+<p class="instructions">
+You can change parameters in the simulation such as gravity, mass, spring stiffness, and friction (damping).  You can drag any mass with your mouse to change the starting position. The red springs can be set to have a different stiffness and length than the other springs.
+</p>  
+
+<p>Click the buttons below for various pre-set combinations of parameter settings.</p>
+
+<form name="form1" onsubmit="return false;">
+    <input type="button" value="symmetric" onClick="setParams(6)">
+    <input type="button" value="red spring stiff 3" onClick="setParams(3)">
+    <input type="button" value="red spring length 4"
+      onClick="setParams(6); app.eval('RED_SPRING_LENGTH=4;')">
+    <input type="button" value="very bouncy"
+      onClick="setParams(6); app.eval('DAMPING=0; ELASTICITY=1; GRAVITY=0;')">
+    <input type="button" value="less bouncy"
+      onClick="setParams(6); app.eval('DAMPING=0; ELASTICITY=0.1; GRAVITY=1;')">
+</form>
+
+<p>The math and physics used in this simulation are similar to the 
+<a href="../Spring2DApp/Spring2DApp-en.html">2-D Spring</a> and
+<a href="../Double2DSpringApp/Double2DSpringApp-en.html">Double 2-D Spring</a> simulations. However the masses
+can also collide with the walls; the collision handling is similar to the
+<a href="../CollideBlocksApp/CollideBlocksApp-en.html">Colliding Blocks</a> simulation. The only novel bit of
+math occurs when a mass is pinned against a wall: in that case we add up the net forces
+on the mass and set the acceleration to zero if necessary.</p>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/Molecule3App.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+<!--With a high amount of damping (eg. damping set to 1.0) the atoms settle down quickly into various configurations.  Notice that two of the springs are red and the rest green.  We can set the length or stiffness of the red springs separately from the green springs.  By doing so the molecule becomes asymmetric.</p>
+
+<p>The symmetric molecule (all springs are same length &amp; stiffness) has 4 stable configurations that appear different in regards to the positioning of the red vs. green springs.  But 3 of these configurations have the same energy.  The energy is calculated as the sum of the kinetic energy (of motion) and the potential energy stored in springs that are stretched from their resting length (gravity also is a source of potential energy).</p>
+
+<p>If you click the button labelled "red spring stiff 3" this will set the red springs to be weaker than the green springs.  This makes the molecule asymmetric, or unbalanced.  Now the same 4 configurations are present, but they are distorted and each has a different energy.</p>
+
+<p>If you click the button labelled "red spring stiff 1" the red springs are now very much weaker than the green springs.  This causes one of the stable configurations to disappear and merge into one of the other stable configurations.  So now there are only 3 stable configurations.  In the study of dynamical systems, this is known as a <em>bifurcation</em> which means that slowly changing a parameter of the system (the spring stiffness here) causes the number of stable states of the system to change.
+-->
+
+<p id="page_history">
+  This web page was first published September 2001.
+</p>
+
+<script src="Molecule3App-en.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeMolecule3App(elem_ids, 6);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button 
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 0; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    app.setup();
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+    app.eval('SIM_CANVAS.BACKGROUND="white"',/*output=*/false)
+  }());
+</script>
+<script>
+  // separate script tag, runs even if error occurs in earlier script tag
+  app.start();
+</script>
+<script>
+  var setParams = function(redStiff) {
+    app.eval('RED_MASS=0.5;MASS=0.5;DAMPING=1;ELASTICITY=1;GRAVITY=0;'
+    +'SPRING_STIFFNESS=6;SPRING_LENGTH=3;RED_SPRING_STIFFNESS='+redStiff
+    +';RED_SPRING_LENGTH=3;');
+  };
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com" 
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

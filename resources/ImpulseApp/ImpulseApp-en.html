@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Rigid Body Collisions</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+
+  <h1>Rigid Body Collisions</h1>
+
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Sim</li>
+  <li class="graph ">Graph</li>
+  <li class="time_graph">Time Graph</li>
+  <li class="multi_graph">Multi Graph</li>
+</ul>
+
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+This simulation uses the <a href="../explain/physics-engine-en.html">Rigid Body Physics Engine</a>
+to show objects colliding in 2 dimensions.
+</p>
+
+<p class="instructions">
+Click near an object to exert a spring force with your mouse. With the keyboard you can
+control four "thrusters". The keys S,D,F,E control thrust on block1. The keys J,K,L,I
+(and also the arrow keys) control thrust on block2. You can also set gravity,
+elasticity (bounciness), and damping (friction). You can choose from one to six
+objects. The mass of the green object is adjustable (the others are set to mass 1.0).
+</p>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/ImpulseApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+
+<p>If you play around with the simulation shown above, you will notice that it can
+easily get "stuck", which means that objects wind up overlapping. The section below
+about <a href="#resting_contact">Resting Contact</a> explains why this happens.</p>
+
+<p>Here is a picture of how the keyboard controls are arranged. If the keys don't work,
+try clicking near an object first - this ensures that keystrokes are passed to the
+simulation.</p>
+
+<div class="centered_image">
+<img src="game_keys.gif"    width="505" height="156" alt=""><br>
+keyboard thruster controls
+</div>
+
+<h2 id="energy_bar_graph">Energy Bar Graph</h2>
+
+<p>Click the "show energy" checkbox to see the bar graph showing the potential,
+rotational and translational energy.
+</p>
+
+<div class="centered_image">
+<img src="energy_bar.gif" width="396" height="71" alt=""><br>
+energy bar graph
+</div>
+
+<p>To check the correctness of the simulation, look at the energy before and after a
+collision. If damping = 0 and elasticity = 1, then the energy should not change.
+</p>
+
+<p>See the section on <a href="../RigidBodyApp/RigidBodyApp-en.html#energy">Energy and Momentum</a> for
+how these quantities are calculated.
+</p>
+
+
+
+
+
+
+<h2 id="collision_detection">Collision Detection</h2>
+
+<p>The explanations here build on those
+given on the <a href="../RigidBodyApp/RigidBodyApp-en.html">Rigid Body Forces</a> page. In particular, the
+names of the variables are presented in the section
+<a href="../RigidBodyApp/RigidBodyApp-en.html#physics_of_motion">Physics Of Motion for Rigid Bodies</a></p>
+
+<p>At each step in the simulation, we check to see if there is a collision. The bodies
+can collide with each other or with a boundary wall. For the rectangular shapes we are
+using it is simple geometry to determine if a collision has occurred by checking if any
+vertex is within a wall or foreign body.</p>
+
+<p> When a collision is detected, we use a binary search to back up the simulation to
+an earlier time just shortly before the collision occurred. We then make the
+approximation that the collision takes place at this exact time, and calculate the
+resulting changes in velocity as described below. The
+<a href="../CollideBlocksApp/CollideBlocksApp-en.html#collisions">Colliding Blocks</a> simulation further
+describes these aspects of collision handling.</p>
+
+<h2 id="collision_physics">Physics of Collisions for Rigid Bodies in 2 Dimensions</h2>
+
+<p>Handling collisions is the most challenging part of this simulation. The explanation
+here is fairly condensed, so you may want to read some other descriptions as well.
+</p>
+
+<ul>
+
+<li><!-- < href="http://www.d6.com/users/checker/dynamics.htm"> -->
+  Chris Hecker's Rigid Body Dynamics Information<!-- </> -->.
+  See especially his article for Game Developer Magazine on
+  <!-- < href="http://www.d6.com/users/checker/pdfs/gdmphys3.pdf"> -->Collision Response<!-- </> -->.
+  Easy to read, with many other references listed on the web site.
+  Unfortunately some of the PDF documents do not print their math correctly.
+</li>
+
+<li><a href="http://www-2.cs.cmu.edu/afs/cs.cmu.edu/user/baraff/www/sigcourse/">
+  Physically Based Modeling</a> is a set of course notes from Siggraph '97
+  by Andrew Witkin and David Baraff.
+  See especially the sections on Rigid Body Dynamics.  Fairly complete and rigorous
+  explanations, but still quite readable. Covers the 3 dimensional case and also
+  resting contact forces.
+</li>
+
+<li>
+  Physics For Game Developers by David M. Bourg (O'Reilly Press) has a section
+  on linear and angular impulse on page 95, and resting contact forces on page 258.
+  This book has good explanations, but often relies on hard-to-follow programming code
+  to illustrate the physics.
+</li>
+
+<li>The textbook
+
+  Engineering Mechanics Dynamics by Robert Soutas-Little and Daniel Inman has
+  relevant sections on Eccentric Impact.
+</li>
+</ul>
+
+
+<div class="image" style="width:170px;">
+<br>
+<br>
+<img src="collision_4.gif"     width="170" height="163" alt="" ><br>
+vectors involved in collision
+</div>
+
+<div style="margin-left:175px; max-width: 40em;">
+
+<p>Suppose a vertex on body A is colliding into an edge of body B at the point P. Define
+the following variables
+</p>
+
+<ul class="vars" style="margin-left:3em; text-indent:-3em;">
+    <li><i>m</i><sub>a</sub>, <i>m</i><sub>b</sub> = mass of bodies A, B</li>
+    <li><span class="vector">r</span><sub>ap</sub> = distance vector from center of mass of body A to point P</li>
+    <li><span class="vector">r</span><sub>bp</sub> = distance vector from center of mass of body B to point P</li>
+    <li><i>&omega;</i><sub>a1</sub>, <i>&omega;</i><sub>b1</sub> = initial pre-collision angular velocity of bodies A, B</li>
+    <li><i>&omega;</i><sub>a2</sub>, <i>&omega;</i><sub>b2</sub> = final post-collision angular velocity of bodies A, B</li>
+    <li><span class="vector">v</span><sub>a1</sub>, <span class="vector">v</span><sub>b1</sub> = initial pre-collision velocities of center of mass bodies A, B</li>
+    <li><span class="vector">v</span><sub>a2</sub>, <span class="vector">v</span><sub>b2</sub> = final post-collision velocities of center of mass bodies A, B</li>
+    <li><span class="vector">v</span><sub>ap1</sub> = initial pre-collision velocity of impact point on body A</li>
+    <li><span class="vector">v</span><sub>bp1</sub> = initial pre-collision velocity of impact point on body B</li>
+    <li><span class="vector">n</span> = normal (perpendicular) vector to edge of body B</li>
+    <li><i>e</i> = elasticity (0 = inelastic, 1 = perfectly elastic)</li>
+</ul>
+</div>
+
+<p style="clear:both;">
+We now use a standard formula for the velocity of an arbitrary point on a rotating and
+translating rigid body to get the pre-collision velocities of the points of collision
+(which is the point <span class="html-math inline-math">
+P
+</span> on each body).</p>
+
+<p class="html-math display-equation">
+<span class="vector">v</span><sub>ap1</sub> = <span class="vector">v</span><sub>a1</sub> + <i>&omega;</i><sub>a1</sub> &times; <span class="vector">r</span><sub>ap</sub> <br>
+<span class="vector">v</span><sub>bp1</sub> = <span class="vector">v</span><sub>b1</sub> + <i>&omega;</i><sub>b1</sub> &times; <span class="vector">r</span><sub>bp</sub>
+</p>
+
+<p>Similarly we have the final post-collision velocities <span class="html-math inline-math">
+<span class="vector">v</span><sub>ap2</sub>
+</span> and <span class="html-math inline-math">
+<span class="vector">v</span><sub>bp2</sub>
+</span>
+as</p>
+
+<p class="html-math display-equation">
+<span class="vector">v</span><sub>ap2</sub> = <span class="vector">v</span><sub>a2</sub> + <i>&omega;</i><sub>a2</sub> &times; <span class="vector">r</span><sub>ap</sub> <br>
+<span class="vector">v</span><sub>bp2</sub> = <span class="vector">v</span><sub>b2</sub> + <i>&omega;</i><sub>b2</sub> &times; <span class="vector">r</span><sub>bp</sub>
+</p>
+
+<p>Here we are regarding the angular velocity as a 3 dimensional vector perpendicular
+to the plane, so that the cross product is calculated as</p>
+
+<p class="html-math display-equation">
+<i>&omega;</i> &times; <span class="vector">r</span> = (0, 0, <i>&omega;</i>) &times; (<i>r<sub>x</sub></i>, <i>r<sub>y</sub></i>, 0) = (&minus;<i>&omega;</i> <i>r<sub>y</sub></i>, <i>&omega;</i> <i>r<sub>x</sub></i>, 0)
+</p>
+
+<p>Now we can find an expression for the velocity with which the colliding points are
+approching each other. We call this the relative velocity. Let <span class="html-math inline-math">
+<span class="vector">v</span><sub>ab1</sub>
+</span> be the
+initial (pre-collision) relative velocity and <span class="html-math inline-math">
+<span class="vector">v</span><sub>ab2</sub>
+</span> be the final
+(post-collision) relative velocity. We define the relative velocities as follows
+</p>
+
+<p class="html-math display-equation">
+<span class="vector">v</span><sub>ab1</sub> = <span class="vector">v</span><sub>ap1</sub> &minus; <span class="vector">v</span><sub>bp1</sub><br>
+<span class="vector">v</span><sub>ab2</sub> = <span class="vector">v</span><sub>ap2</sub> &minus; <span class="vector">v</span><sub>bp2</sub>
+</p>
+
+<p>Using the formulas given above for velocity of a point on a rigid body we can expand
+these to
+</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<span class="vector">v</span><sub>ab1</sub> = <span class="vector">v</span><sub>a1</sub> + <i>&omega;</i><sub>a1</sub> &times; <span class="vector">r</span><sub>ap</sub> &minus; <span class="vector">v</span><sub>b1</sub> &minus; <i>&omega;</i><sub>b1</sub> &times; <span class="vector">r</span><sub>bp</sub>
+
+</td><td class="equation-number">(4)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<span class="vector">v</span><sub>ab2</sub> = <span class="vector">v</span><sub>a2</sub> + <i>&omega;</i><sub>a2</sub> &times; <span class="vector">r</span><sub>ap</sub> &minus; <span class="vector">v</span><sub>b2</sub> &minus; <i>&omega;</i><sub>b2</sub> &times; <span class="vector">r</span><sub>bp</sub>
+
+</td><td class="equation-number">(5)</td></tr></table>
+
+<p>Let the vector <span class="html-math inline-math">
+<span class="vector">n</span>
+</span> be normal (perpendicular) to the edge of body B that is
+being impacted, and pointing outward from body B. Also let the vector <span class="html-math inline-math">
+<span class="vector">n</span>
+</span> be of
+length 1. Then we can find the relative velocity in the direction of the normal
+<span class="html-math inline-math">
+<span class="vector">n</span>
+</span> by using the <a href="http://mathworld.wolfram.com/DotProduct.html">vector
+dot product</a>:</p>
+
+
+<p class="html-math display-equation">
+<span class="text">relative normal velocity</span> = <span class="vector">v</span><sub>ab1</sub> &middot; <span class="vector">n</span>
+</p>
+
+<p>Note that for a collision to occur this relative normal velocity must be negative
+(that is, the objects must be approaching each other). Let <span class="html-math inline-math">
+<i>e</i>
+</span> be the elasticity
+of the collision, having a value between 0 (inelastic) and 1 (perfectly elastic). We
+now make an important assumption in the form of the following relation
+</p>
+
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<span class="vector">v</span><sub>ab2</sub> &middot; <span class="vector">n</span> = &minus;<i>e</i> <span class="vector">v</span><sub>ab1</sub> &middot; <span class="vector">n</span>
+
+</td><td class="equation-number">(6)</td></tr></table>
+
+<p>This says that the velocity at which the objects fly apart is proportional to the
+velocity with which they were coming together. The proportionality factor is the
+elasticity <span class="html-math inline-math">
+<i>e</i>
+</span>.</p>
+
+
+
+
+
+<h2 id="collision_impulse">Collision Impulse</h2>
+
+<p>To resolve the collision, we will use the concept of an <em>impulse</em>. An impulse
+is the change in momentum of an object when a large force is applied over a very brief
+period of time. We imagine that during the collision there is a very large force acting
+for a very brief period of time. If you integrate (sum) that force over that brief
+time, you get the impulse.</p>
+
+
+<p> Why do we need this strange concept of an impulse? Why not just use the familiar
+concept of force as in <span class="html-math inline-math">
+<i>F</i> = <i>m</i> <i>a</i>
+</span>? The answer is that we do not
+know what the forces are during the collision. With a supercomputer and some very
+complex software we could model the forces that occur during a collision. We would need
+to know details about the materials of the bodies, their exact geometry, how they
+deform under stress, how the stress propagates through the body, etc.
+</p>
+
+<p>This is far beyond what our simple simulation can do. Luckily, we can assume that
+the collision happens so quickly that the position and orientation of the bodies do not
+change during the collision. Instead, all that changes is the velocities of the bodies.
+Since a change in velocity is a change in momentum (remember momentum = velocity times
+mass) we have the concept of an impulse.
+</p>
+
+<p>We are assuming no friction for our collision, so the only force during the
+collision is in the direction perpendicular to the edge, which is given by the vector
+<span class="html-math inline-math">
+<span class="vector">n</span>
+</span>. (Friction would cause a force parallel to the edge as well). Let the net
+impulse of the collision be <span class="html-math inline-math">
+<i>j</i> <span class="vector">n</span>
+</span> where <span class="html-math inline-math">
+<i>j</i>
+</span> is a parameter to be
+determined. Body A experiences an impulse of <span class="html-math inline-math">
+<i>j</i> <span class="vector">n</span>
+</span> while body B experiences the
+equal but opposite impulse of <span class="html-math inline-math">
+&minus;<i>j</i> <span class="vector">n</span>
+</span>. The impulse is a change in momentum.
+Momentum has units of velocity times mass, so if we divide the impulse by the mass we
+get the change in velocity. We can relate pre- and post-collision velocities as
+</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<span class="vector">v</span><sub>a2</sub> = <span class="vector">v</span><sub>a1</sub> + <i>j</i> <span class="vector">n</span> / <i>m</i><sub>a</sub>
+
+</td><td class="equation-number">(7)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<span class="vector">v</span><sub>b2</sub> = <span class="vector">v</span><sub>b1</sub> &minus; <i>j</i> <span class="vector">n</span> / <i>m</i><sub>b</sub>
+
+</td><td class="equation-number">(8)</td></tr></table>
+
+<p>The change in angular momentum of body A from the impulse <span class="html-math inline-math">
+<i>j</i> <span class="vector">n</span>
+</span> is given by
+<span class="html-math inline-math">
+<span class="vector">r</span><sub>ap</sub> &times; <i>j</i> <span class="vector">n</span>
+</span>. You can think of the impulse as being applied at the point
+<span class="html-math inline-math">
+P
+</span>, so it generates an instantaneous torque there. We then divide by the moment
+of inertia to convert the change in angular momentum to a change in angular velocity,
+so the post-collision angular velocities are
+</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>&omega;</i><sub>a2</sub> = <i>&omega;</i><sub>a1</sub> + (<span class="vector">r</span><sub>ap</sub> &times; <i>j</i> <span class="vector">n</span>) / <i>I</i><sub>a</sub>
+
+</td><td class="equation-number">(9)</td></tr></table>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>&omega;</i><sub>b2</sub> = <i>&omega;</i><sub>b1</sub> &minus; (<span class="vector">r</span><sub>bp</sub> &times; <i>j</i> <span class="vector">n</span>) / <i>I</i><sub>b</sub>
+
+</td><td class="equation-number">(10)</td></tr></table>
+
+
+
+
+
+<h2 id="impulse_parameter">Solving for the Impulse Parameter</h2>
+
+<p>Now we can put all these various equations together and solve for the impulse
+parameter <span class="html-math inline-math">
+<i>j</i>
+</span>. If you aren't interested in the details of solving the equations
+just skip down to the expression for <span class="html-math inline-math">
+<i>j</i>
+</span>.
+</p>
+
+<p>We start with equation (6), and then expand using our definition of relative
+velocity in equations (4-5).</p>
+
+<p class="html-math display-equation">
+<span class="vector">v</span><sub>ab2</sub> &middot; <span class="vector">n</span> = &minus;<i>e</i> <span class="vector">v</span><sub>ab1</sub> &middot; <span class="vector">n</span><br>
+(<span class="vector">v</span><sub>ap2</sub> &minus; <span class="vector">v</span><sub>bp2</sub>) &middot; <span class="vector">n</span> = &minus;<i>e</i> <span class="vector">v</span><sub>ab1</sub> &middot; <span class="vector">n</span><br>
+(<span class="vector">v</span><sub>a2</sub> + <i>&omega;</i><sub>a2</sub> &times; <span class="vector">r</span><sub>ap</sub> &minus; <span class="vector">v</span><sub>b2</sub> &minus; <i>&omega;</i><sub>b2</sub> &times; <span class="vector">r</span><sub>bp</sub>) &middot; <span class="vector">n</span> =
+<span class="nobr">&minus;<i>e</i> <span class="vector">v</span><sub>ab1</sub> &middot; <span class="vector">n</span></span>
+</p>
+
+<p>Let's expand the left hand side, using the impulse relationships in equations
+(7-10).</p>
+
+<p class="html-math display-equation">
+<span class="bigg">(</span>(<span class="vector">v</span><sub>a1</sub> + <i>j</i> <span class="vector">n</span> / <i>m</i><sub>a</sub>) + (<i>&omega;</i><sub>a1</sub> + (<span class="vector">r</span><sub>ap</sub> &times; <i>j</i> <span class="vector">n</span>) / <i>I</i><sub>a</sub>) &times; <span class="vector">r</span><sub>ap</sub> &minus;
+<span class="nobr">(<span class="vector">v</span><sub>b1</sub> &minus; <i>j</i> <span class="vector">n</span> / <i>m</i><sub>b</sub>)</span> &minus;
+<span class="nobr">(<i>&omega;</i><sub>b1</sub> &minus; (<span class="vector">r</span><sub>bp</sub> &times; <i>j</i> <span class="vector">n</span>) / <i>I</i><sub>b</sub>)
+  &times; <span class="vector">r</span><sub>bp</sub><span class="bigg">)</span> &middot; <span class="vector">n</span></span> =
+<span class="nobr">&minus;<i>e</i> <span class="vector">v</span><sub>ab1</sub> &middot; <span class="vector">n</span></span>
+</p>
+
+<p>We recognize that the left hand side contains the quantity <span class="html-math inline-math">
+<span class="vector">v</span><sub>ab1</sub> &middot; <span class="vector">n</span>
+</span> as
+given by equation (4), so we move that to the right side.</p>
+
+<p class="html-math display-equation">
+<span class="bigg">(</span><i>j</i> <span class="vector">n</span> / <i>m</i><sub>a</sub> + (<span class="vector">r</span><sub>ap</sub> &times; <i>j</i> <span class="vector">n</span>) &times; <span class="vector">r</span><sub>ap</sub> / <i>I</i><sub>a</sub> +
+<span class="nobr"><i>j</i> <span class="vector">n</span> / <i>m</i><sub>b</sub></span> +
+<span class="nobr">(<span class="vector">r</span><sub>bp</sub> &times; <i>j</i> <span class="vector">n</span>) &times;<span class="vector">r</span><sub>bp</sub> / <i>I</i><sub>b</sub><span class="bigg">)</span> &middot; <span class="vector">n</span></span> =
+<span class="nobr">&minus;(1 + <i>e</i>) <span class="vector">v</span><sub>ab1</sub> &middot; <span class="vector">n</span></span>
+</p>
+
+<p>Note that <span class="html-math inline-math">
+<span class="vector">n</span>
+</span> is assumed to be normalized so that <span class="html-math inline-math">
+<span class="vector">n</span> &middot; <span class="vector">n</span> = 1
+</span>. Also,
+to simplify the various vector products, we can use the triple scalar product rule</p>
+
+<p class="html-math display-equation">
+(<span class="vector">A</span> &times; <span class="vector">B</span>) &middot; <span class="vector">C</span> = (<span class="vector">B</span> &times; <span class="vector">C</span>) &middot; <span class="vector">A</span>
+</p>
+
+<p>to derive the following identity</p>
+
+<p class="html-math display-equation">
+(<span class="vector">A</span> &times; <span class="vector">B</span>) &times; <span class="vector">A</span> &middot; <span class="vector">B</span>
+= (<span class="vector">A</span> &times; <span class="vector">B</span>) &middot; (<span class="vector">A</span> &times; <span class="vector">B</span>) = (<span class="vector">A</span> &times; <span class="vector">B</span>)<sup>2</sup>
+</p>
+
+<p>(Here squaring a vector means taking its dot product with itself.) We can then
+simplify to</p>
+
+<p class="html-math display-equation">
+<i>j</i> (1 / <i>m</i><sub>a</sub> + 1 / <i>m</i><sub>b</sub> + (<span class="vector">r</span><sub>ap</sub> &times; <span class="vector">n</span>)<sup>2</sup> / <i>I</i><sub>a</sub> +
+<span class="nobr">(<span class="vector">r</span><sub>bp</sub> &times; <span class="vector">n</span>)<sup>2</sup> / <i>I</i><sub>b</sub>)</span> =
+<span class="nobr">&minus;(1 + <i>e</i>) <span class="vector">v</span><sub>ab1</sub> &middot; <span class="vector">n</span></span>
+</p>
+
+<p>Dividing leads to our final expression for <span class="html-math inline-math">
+<i>j</i>
+</span>.</p>
+
+<table class="html-math numbered-equation"><tr><td class="emphasized">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            &nbsp;<i>j</i> = &nbsp;
+        </td><td>
+            &minus;(1 + <i>e</i>) <span class="vector">v</span><sub>ab1</sub> &middot; <span class="vector">n</span>
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <sup>1</sup>&frasl;<sub><i>m</i><sub>a</sub></sub> + <sup>1</sup>&frasl;<sub><i>m</i><sub>b</sub></sub>
+            + (<span class="vector">r</span><sub>ap</sub> &times; <span class="vector">n</span>)<sup>2</sup> &frasl; <i>I</i><sub>a</sub> + (<span class="vector">r</span><sub>bp</sub> &times; <span class="vector">n</span>)<sup>2</sup> &frasl; <i>I</i><sub>b</sub>
+        </td>
+    </tr>
+</table>
+
+</td><td class="equation-number">(11)</td></tr></table>
+
+<p>We can now calculate <span class="html-math inline-math">
+<i>j</i>
+</span> at the time of collision using equation (11), and
+therefore calculate the post-collision velocities using the earlier equations
+(7-10).</p>
+
+<p>We can use this same expression for calculating collisions with a wall by assuming
+that the mass of the wall is infinite.  So let <span class="html-math inline-math">
+<i>m</i><sub>b</sub> &rarr; &infin;
+</span> and
+<span class="html-math inline-math">
+<i>I</i><sub>b</sub> &rarr; &infin;
+</span> and equation (11) becomes<p>
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            &nbsp;<i>j</i> = &nbsp;
+        </td><td>
+            &minus;(1 + <i>e</i>) <span class="vector">v</span><sub>ap1</sub> &middot; <span class="vector">n</span>
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <sup>1</sup>&frasl;<sub><i>m</i><sub>a</sub></sub> + (<span class="vector">r</span><sub>ap</sub> &times; <span class="vector">n</span>)<sup>2</sup> &frasl; <i>I</i><sub>a</sub>
+        </td>
+    </tr>
+</table>
+</div>
+
+
+
+
+<h2 id="multiple_impacts">Multiple Impacts</h2>
+
+<p>The above analysis only handles the case of a single corner and edge impact.  There
+are several other simultaneous multiple impact cases, such as:</p>
+
+<ul>
+    <li>Two corners of object A impact a single wall</li>
+    <li>Two corners of object A impact object B</li>
+    <li>Two corners of object A impact different walls</li>
+    <li>Two corners of object A impact different objects</li>
+</ul>
+
+<p>If there are simultaneous impacts among unrelated objects, these can be easily
+handled separately. For example, suppose objects A and B collide at the same time that
+objects C and D collide, then we can deal with each collision separately because they
+don't affect each other.</p>
+
+<p> For the case of two adjacent corners of object A impacting either a single wall or
+another object's edge, we change the impact point to be the midpoint between the two
+corners and then handle it as other collisions.</p>
+
+<p> The more complicated cases with corners of object A impacting different walls or
+multiple objects is not handled correctly by this simulation. What the code does is
+handle each impact separately, which will probably be wrong because these collisions
+are not independent.</p>
+
+<p> See <a href="../CollisionCombo/CollisionCombo-en.html">Collision Handling Methods</a> for a
+discussion of the pros and cons of various methods.</p>
+
+
+
+<h2 id="resting_contact">Resting Contact</h2>
+
+<p>If you play around with the simulation shown above, you will notice that it can
+easily get "stuck", which means that objects wind up overlapping and the simulation
+doesn't know how to proceed forward. With elasticity <span class="html-math inline-math">
+&lt; 1
+</span> if you push two
+objects together with the mouse spring force the simulation will get stuck. </p>
+
+<p>The simulation also gets stuck when gravity <span class="html-math inline-math">
+&gt; 0
+</span> and elasticity
+<span class="html-math inline-math">
+&lt; 1
+</span>. The problem occurs when an object is settling down onto the floor. The
+velocity of the object is becoming smaller with each collision because the elasticity
+is less than one. Eventually the velocity becomes so small that it can't keep gravity
+from pulling the object down into the floor. This is what results in the simulation
+getting stuck.</p>
+
+<p> The right thing to do at this point (which the above simulation does not do) is
+recognize that the object is in <i>resting contact</i> with the floor and add a contact
+force between the object and the floor. The contact force is calculated to be just
+enough to prevent the object from penetrating into the floor. See
+<a href="../ContactApp/ContactApp-en.html">Rigid Body Contact Forces</a>
+which describes how to do this.</p>
+
+<p>Most all of the "physics engine based" simulations shown on myphysicslab use
+ContactSim, a class that implements the resting contact calculation in addition to the
+collision impulse calculations described above.<p>
+
+<p id="page_history">
+  This web page was first published February 2003.
+</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="ImpulseApp-en.js"></script>
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeImpulseApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 0; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+    app.eval('SIM_CANVAS.BACKGROUND="white"',/*output=*/false)
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

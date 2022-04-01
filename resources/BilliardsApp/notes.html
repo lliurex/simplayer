@@ -1,0 +1,54 @@
+<p class="introduction">
+Physics-based simulation of 2D billiard balls, using the
+<a href="../explain/physics-engine-en.html">2D Rigid Body Physics Engine</a>.
+You can also regard this as air hockey pucks on a table.
+</p>
+
+<p class="instructions">
+Click near an object to exert a force with your mouse.
+Try changing gravity, elasticity (bounciness), and damping (friction).
+</p>  
+
+
+<p>Experiments to try:</p>
+
+<ul>
+  <li>Check whether energy is conserved: turn on "show energy". You'll need to set
+    damping=0 and elasticity=1.</li>
+
+  <li>Try using different collision methods, such as "simultaneous". Is the simulation
+  still realistic?
+  </li>
+
+</ul>
+
+<p>Note that this is a 2D simulation and doesn't treat important aspects of real world
+billiard balls such as friction and rotation or spin. The balls do not spin in this
+simulation because edge friction is not calculated, so collisions are essentially
+friction-less.
+</p>
+
+<p>The <a href="collision-methods-en.html">method of collision handling</a> for this
+simulation is important. Using the "simultaneous" method gives symmetric and
+non-realistic results. The linked article discusses why different methods of
+calculating the result of collisions are needed.
+</p>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/BilliardsApp.js">open source code</a>,
+<a href="../develop/docs/myphysicslab.sims.engine2D.BilliardsApp.html">documentation</a> and a
+<a href="../develop/build/sims/engine2D/BilliardsApp-en.html">simple-compiled version</a>
+which is <a href="../develop/docs/Customizing.html">more customizable</a>.
+</p>
+
+
+<!--h2>TO DO:</h2>
+
+<ul>
+  <li>Remove "thrust" control</li>
+  <li>Explain "offset" control</li>
+  <li>Remove decorations from objects (drag dot and center of mass)</li>
+  <li>Make drag point be at center</li>
+  <li>Links to other simulations and articles</li>
+  <li>Faster initial velocity.  Make initial velocity settable as a parameter.</li>
+</ul-->

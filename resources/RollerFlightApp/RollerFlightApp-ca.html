@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<title>Muntanya Russa amb Vol</title>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+  <h1>Muntanya Russa amb Vol</h1>
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Simulador</li>
+  <li class="graph ">Gràfic</li>
+  <li class="time_graph">Gràfic de temps</li>
+  <li class="multi_graph">Gràfic múltiple</li>
+</ul>
+
+
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+This physics-based simulation shows a ball on a roller coaster where the ball can jump
+off the track. When the ball is on the track, it is colored blue; when in free flight
+it is colored red. The ball collides with the track when it is in free flight. A spring
+can be connected to the ball.
+</p>
+
+<p class="instructions">
+Drag the ball with your mouse to change the starting position. Try changing gravity,
+damping or spring stiffness. The spring is activated when the spring stiffness is
+non-zero. You can also drag the square anchor point for the spring.
+</p>
+
+<p>The math behind the simulation is shown below.  Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/roller/RollerFlightApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+<form name="form1" onsubmit="return false;">
+<input type="button" value="spring off"
+    onClick="app.sim.setSpringStiffness(0)">
+<input type="button" value="spring on"
+    onClick="app.sim.setSpringStiffness(5)">
+</form>
+
+<h2>When Should the Ball Jump the Track?</h2>
+
+<div class="image" style="width:187px;">
+<br>
+<br>
+<img src="circular_accel.gif" width="187" height="195" alt="">
+<br>
+uniform circular motion
+</div>
+
+<div style="margin-left:190px; max-width: 40em;">
+
+<p>This simulation is based on the <a href="../RollerSpringApp/RollerSpringApp-ca.html">Roller Coaster with
+Spring</a> and uses all of the physics described there. The main difference is that we
+check for when the ball should jump off the track into <em>free flight</em>. The key to
+when this happens lies in the formula for acceleration with uniform circular motion,
+which is</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<i>a</i> = <i>v</i><sup>2</sup>/<i>r</i>
+
+</td><td class="equation-number">(1)</td></tr></table>
+
+<p>This is the acceleration, <span class="html-math inline-math">
+<i>a</i>
+</span>, needed to keep a projectile moving in a circle
+of radius <span class="html-math inline-math">
+<i>r</i>
+</span> with velocity <span class="html-math inline-math">
+<i>v</i>
+</span>. The direction of the acceleration is
+towards the center of the circle. So, moving faster in a given circle means you need
+more acceleration to stay on the same circle. Conversely, moving in a larger circle
+means you need less acceleration.
+</p>
+
+<p>Suppose the ball is moving with velocity <span class="html-math inline-math">
+<i>v</i>
+</span> over a hill shaped like a circle
+with radius <span class="html-math inline-math">
+<i>r</i>
+</span>. The minimum acceleration (towards the center of the circle)
+needed to keep the ball on the hill is <span class="html-math inline-math">
+<i>v</i><sup>2</sup>/<i>r</i>
+</span>. If at any moment the
+acceleration (towards the center) is less than this, then the ball will fly off the
+hill.</p>
+
+</div>
+
+<div class="image" style="width:187px;">
+<br>
+<br>
+<img src="tangent_angle.gif" width="181" height="113" alt="">
+<br>
+angle of tangent
+</div>
+
+<div style="margin-left:190px; max-width: 40em;">
+
+<p>To apply this to a general curve other than a circle, we need the notion of
+<a href="http://mathworld.wolfram.com/Curvature.html">radius of curvature</a> at a point
+<span class="html-math inline-math">
+<i>p</i>
+</span> on the curve. Let <span class="html-math inline-math">
+<i>&phi;</i> =
+</span> the angle of the tangent to the curve at
+<span class="html-math inline-math">
+<i>p</i>
+</span>. We can express <span class="html-math inline-math">
+<i>&phi;</i>
+</span> as</p>
+
+<p class="html-math display-equation">
+<i>&phi;</i> = arctan(<i><sup>dy</sup>&frasl;<sub>dx</sub></i>)
+</p>
+
+<p>where <span class="html-math inline-math">
+<i><sup>dy</sup>&frasl;<sub>dx</sub></i>
+</span> is the slope of the curve at <span class="html-math inline-math">
+<i>p</i>
+</span>. We define
+the curvature <span class="html-math inline-math">
+&kappa;
+</span> as the rate of change of the tangent angle <span class="html-math inline-math">
+<i>&phi;</i>
+</span> as
+we move along the curve.</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+&kappa; = <i><sup>d<i>&phi;</i></sup>&frasl;<sub>ds</sub></i>
+
+</td><td class="equation-number">(2)</td></tr></table>
+
+<p>where <span class="html-math inline-math">
+<i>s</i> =
+</span> arc length along the curve. The radius of curvature <span class="html-math inline-math">
+<i>r</i>
+</span> is
+the reciprocal of the curvature:</p>
+
+<p class="html-math display-equation">
+<i>r</i> = <sup>1</sup>&frasl;<sub>&kappa;</sub>
+</p>
+
+</div>
+
+<p style="clear:both;">
+We can estimate this using the <a href="../RollerSingleApp/RollerSingleApp-ca.html#table">table representing
+the curve</a>. Here's how: for a given point <span class="html-math inline-math">
+<i>p</i>
+</span> we estimate the slope a short
+distance <span class="html-math inline-math">
+&delta;
+</span> on either side of <span class="html-math inline-math">
+<i>p</i>
+</span>. Equation (2) is then
+approximated by
+</p>
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            &kappa; = &nbsp;
+        </td><td>
+            arctan(slope at <i>p</i>+&delta;) &minus; arctan(slope at <i>p</i>&minus;&delta;)
+        </td>
+    </tr><tr>
+        <td class="upper_line" >
+            2 &delta;
+        </td>
+    </tr>
+</table>
+</div>
+
+<p>The radius of curvature <span class="html-math inline-math">
+<i>r</i>
+</span> is then the reciprocal of this. And this radius
+of curvature is what we need to apply equation (1). We know that the ball will stay on
+the curve as long as the acceleration <em>normal to the curve</em> is greater than
+<span class="html-math inline-math">
+<i>v</i><sup>2</sup>/<i>r</i>
+</span>.</p>
+
+
+<p>In the <a href="../RollerSingleApp/RollerSingleApp-ca.html#physics">Simple Roller Coaster</a> we developed
+an expression for the gravity force on the ball. In the
+<a href="../RollerSpringApp/RollerSpringApp-ca.html#physics">Roller Coaster with Spring</a> we developed an
+expression for the spring force on the ball. In those cases, we used the component of
+the force that was <em>parallel</em> to the track. Here, we want to know the component
+of the force that is <em>perpendicular</em> (normal) to the track. To determine the
+acceleration normal (perpendicular) to the curve we use the same calculations except
+that now we use <span class="html-math inline-math">
+sin <i>&theta;</i>
+</span> instead of <span class="html-math inline-math">
+cos <i>&theta;</i>
+</span>.</p>
+
+<p class="html-math display-equation">
+<i>F</i><sub>gravity</sub> = <i>m</i> <i>g</i> sin <i>&theta;</i><br>
+<i>F</i><sub>spring</sub> = <i>c</i> sin <i>&theta;</i> (&radic;(<i>s<sub>x</sub></i><sup>2</sup> + <i>s<sub>y</sub></i><sup>2</sup>) &minus; <i>R</i>)
+</p>
+
+<p>(Please see those pages for the definition of these symbols.) Since we already know
+<span class="html-math inline-math">
+cos <i>&theta;</i>
+</span> from the Roller Coaster with Spring simulation we can easily find
+<span class="html-math inline-math">
+sin <i>&theta;</i>
+</span> from
+</p>
+
+<p class="html-math display-equation">
+sin <i>&theta;</i> = &radic;(1 &minus; cos<sup>2</sup><i>&theta;</i>)
+</p>
+
+<p>Now we can find the acceleration normal to the curve from</p>
+
+<p class="html-math display-equation">
+<i>F</i><sub>gravity</sub> + <i>F</i><sub>spring</sub> = <i>m</i> <i>a</i>
+</p>
+
+<p>We then compare the acceleration to that given by equation (1) to determine whether
+the ball should leave the track. To stay on the track going over a hill, we must have
+<span class="html-math inline-math">
+<i>a</i> &gt; <i>v</i><sup>2</sup>/<i>r</i>
+</span>. On the other hand, to stay on the track when going through
+a valley we need <span class="html-math inline-math">
+<i>a</i> &lt; <i>v</i><sup>2</sup>/<i>r</i>
+</span>. (We are glossing over some details of how
+to determine the correct sign of the acceleration).</p>
+
+
+
+
+<h2>Switching to Free Flight</h2>
+
+<p>When the ball is on the track, the simulation is controlled by the differential
+equations given in the <a href="../RollerSpringApp/RollerSpringApp-ca.html#physics">Roller Coaster with
+Spring</a>. In this case there are two variables:</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>p</i> =
+</span> position on the track (measured by path length along the
+       track)</li>
+    <li><span class="html-math inline-math">
+<i>v</i> =
+</span> velocity</li>
+</ul>
+
+
+<p>When we detect that the ball should leave the track, we switch the controlling
+differential equations to those of "free flight". There are then four variables:</p>
+
+<ul class="vars">
+    <li><span class="html-math inline-math">
+<i>u</i><sub><i>x</i></sub> =
+</span> horizontal position</li>
+    <li><span class="html-math inline-math">
+<i>u</i><sub><i>y</i></sub> =
+</span> vertical position</li>
+    <li><span class="html-math inline-math">
+<i>v</i><sub><i>x</i></sub> =
+</span> horizontal velocity</li>
+    <li><span class="html-math inline-math">
+<i>v</i><sub><i>y</i></sub> =
+</span> vertical velocity</li>
+</ul>
+
+<p>The differential equations for free flight are the same as those given for the
+<a href="../Spring2DApp/Spring2DApp-ca.html#physics">2-Dimensional Spring</a> simulation.</p>
+
+
+
+
+<h2 id="adjust_velocity">Adjusting Velocity During Collision</h2>
+
+<div class="image" style="width:149px;">
+<img src="collide_intersect.gif" width="148" height="122" alt="">
+<br>
+finding moment of collision
+</div>
+
+<div style="margin-left:155px; max-width: 40em;">
+
+<p>While the ball is in free flight we need to handle collisions with the track. After
+a collision is detected (because the ball is below the track) we back up and use a
+binary search algorithm to get the simulation very close to the time of collision. The
+<a href="../CollideBlocksApp/CollideBlocksApp-ca.html#collisions">Colliding Blocks</a> simulation has some
+more about collision handling in general.
+<br><br><br><br><br><br>
+</p>
+
+</div>
+
+<div class="image" style="width:149px;">
+<img src="reflection.gif" width="149" height="145" alt="">
+<br>
+reflected velocity vector
+</div>
+
+<div style="margin-left:155px; max-width: 40em;">
+
+<p>Once the simulation has been run to very close to the time of collision, we need to
+adjust the velocity of the ball so that it bounces off the track. Define the following
+vectors (vectors are indicated by bold type):</p>
+
+<ul class="vars">
+    <li><span class="vector">A</span> = (vx, vy) is the velocity vector of the ball</li>
+    <li><span class="vector">B</span> = (1, <i>k</i>) is the vector tangent to the curve where slope = <i>k</i></li>
+    <li><span class="vector">C</span> = the component of <span class="vector">A</span> in the <span class="vector">B</span> direction</li>
+    <li><span class="vector">N</span> = the component of <span class="vector">A</span> normal to <span class="vector">B</span></li>
+    <li><span class="vector">R</span> = the reflected velocity vector</li>
+</ul>
+</div>
+
+<p style="clear:both;">
+Some elementary vector algebra gives us
+</p>
+
+<!--
+    (A.B)
+C = _____  B
+    (B.B)
+-->
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            <span class="vector">C</span> = &nbsp;
+        </td><td>
+            <span class="vector">A</span> &middot; <span class="vector">B</span>
+        </td><td rowspan="2">
+            &nbsp; <span class="vector">B</span>
+        </td>
+    </tr><tr>
+        <td class="upper_line" >
+            <span class="vector">B</span> &middot; <span class="vector">B</span>
+        </td>
+    </tr>
+</table>
+</div>
+
+<p class="html-math display-equation">
+<span class="vector">N</span> = <span class="vector">A</span> &minus; <span class="vector">C</span>
+</p>
+
+<table class="html-math numbered-equation">
+<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+<span class="vector">R</span> = <span class="vector">C</span> &minus; <span class="vector">N</span>
+
+</td><td class="equation-number">(4)</td></tr></table>
+
+<p>The <em>elasticity</em> parameter determines how bouncy the ball is.
+Let <span class="html-math inline-math">
+<i>e</i> =
+</span> elasticity.  A perfectly elastic ball will have elasticity
+<span class="html-math inline-math">
+<i>e</i> = 1.0
+</span> and will bounce forever. An elasticity of <span class="html-math inline-math">
+<i>e</i> = 0.2
+</span> would
+indicate a rather "dead" ball that doesn't bounce very much. To model this behavior we
+multiply <span class="html-math inline-math">
+<span class="vector">N</span>
+</span> in equation (4) by the elasticity to get</p>
+
+<p class="html-math display-equation">
+<span class="vector">R</span> = <span class="vector">C</span> &minus; <i>e</i> <span class="vector">N</span>
+</p>
+
+<p>This represents the new velocity that we assign to the ball at the time of
+collision.</p>
+
+<p>Eventually, the ball will make smaller and smaller bounces. In real life, there
+comes a time when the ball is back in continuous contact with the ground. To determine
+whether the ball should "jump back onto the track" and be controlled by the "on the
+track" set of differential equations, we compare the magnitude of the normal vector
+<span class="html-math inline-math">
+<i>e</i> <span class="vector">N</span>
+</span> to the magnitude of the total velocity vector. The test involves the
+<em>stickiness</em> parameter and looks like this:</p>
+
+<!--
+    if |_e vec(N)|/|vec(R)| &lt; stickiness  then "jump back onto track"
+-->
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td rowspan="2">
+            if &nbsp; <span class="bigg">(</span>&nbsp;
+        </td><td>
+            |<i>e</i> <span class="vector">N</span>|
+        </td><td rowspan="2">
+            &nbsp; &lt; stickiness<span class="bigg">)</span>  then jump back onto track
+        </td>
+    </tr><tr>
+        <td class="upper_line" >
+            |<span class="vector">R</span>|
+        </td>
+    </tr>
+</table>
+</div>
+
+<p>If the normal velocity <span class="html-math inline-math">
+<i>e</i> <span class="vector">N</span>
+</span> is small enough we decide the ball should
+be back on the track. The stickiness is a parameter on the order of <span class="html-math inline-math">
+0.1
+</span> that
+can be changed in the simulation controls.</p>
+
+
+
+
+
+<h2>Multiple Collisions</h2>
+
+<div class="image" style="width:133px;">
+<img src="multiple_collision.gif" width="133" height="113" alt="">
+<br>multiple collisions over one time step
+</div>
+
+<div style="margin-left:138px; max-width: 42em;">
+
+<p>The figure at left shows a typical situation where multiple collisions occur over
+one simulation time period because the ball goes into a tight curve at high speed.</p>
+
+<p>In the case shown at left, the collision occurred as we were trying to advance the
+simulation a small time step (perhaps <span class="html-math inline-math">
+<sup>1</sup>&frasl;<sub>10</sub>
+</span> of a second) from a certain
+time <span class="html-math inline-math">
+<i>t</i><sub>0</sub>
+</span> to the new current time <span class="html-math inline-math">
+<i>t</i><sub>1</sub>
+</span>. Now that the collision has been
+handled, we attempt to run the simulation up to the current time <span class="html-math inline-math">
+<i>t</i><sub>1</sub>
+</span>.</p>
+
+<p>If there are no new collisions detected, then this simulation step is done. However
+if a new collision is detected, we begin the entire collision handling process over
+again. We will eventually reach time <span class="html-math inline-math">
+<i>t</i><sub>1</sub>
+</span> even if we have to handle multiple
+collisions along the way.</p>
+
+
+</div>
+
+
+
+<h2 id="limitations">Limitations of this Simulation</h2>
+
+<p>Unlike the other roller coaster simulations, this one does not have the option to
+use various tracks. The reason is that having a track that doesn't loop simplified the
+code considerably. For example, to determine whether there is a collision, we only test
+whether the ball is below the track. With a looped track there would be more
+complicated criteria for deciding if the ball has collided with the track, such as
+checking if it is inside or outside the track.</p>
+
+<p id="page_history">
+  This web page was first published April 2002.
+</p>
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="RollerFlightApp-ca.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeRollerFlightApp(elem_ids);
+    app.defineNames('app');
+    window.addEventListener('pageshow', function(event){
+      // set language menu and compiled menus in case of back-button
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 0; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+    app.eval('SIM_CANVAS.BACKGROUND="white"',/*output=*/false)
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+
+<script>var app; if (app) app.setup();</script>
+<script>var app; if (app) app.start();</script>
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
+    title="copyright 2020 Erik Neumann">
+    Erik Neumann</a> 2020, available under
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>
+</div>
+</body>
+</html>

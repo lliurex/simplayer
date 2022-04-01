@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title lang="en">myPhysicsLab Trig Identity for cos(t) + sin(t)</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+
+<script type="text/javascript" async
+  src="../MathJax-2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head>
+<body>
+
+<h1 lang="en">Trig Identity for cos(t) + sin(t)</h1>
+
+<div id="header_nav">
+</div>
+<ul id="header_bar">
+</ul>
+
+<p class="introduction">This trig identity shows that a combination of sine and cosine functions can be written as a single sine function with a phase shift.</p>
+
+<p>$$a \cos{t} + b \sin{t} = \sqrt{a^2 + b^2} \; \sin(t + \tan^{-1} \frac{a}{b})
+$$</p>
+
+<p class="html-math display-equation">
+for <i>b</i> &ne; 0 and &minus; <sup>&pi;</sup>&frasl;<sub>2</sub> &lt; tan<sup>&minus;1</sup> <sup><i>a</i></sup>&frasl;<sub><i>b</i></sub> &lt; <sup>&pi;</sup>&frasl;<sub>2</sub>
+</p>
+
+<p>(Note that <span class="html-math inline-math">
+tan<sup>&minus;1</sup>
+</span> means <span class="html-math inline-math">
+arctan
+</span>.) The phase shift is the quantity <span class="html-math inline-math">
+tan<sup>&minus;1</sup> <sup><i>a</i></sup>&frasl;<sub><i>b</i></sub>
+</span>, it has the effect of shifting the graph of the sine function to the left or right.</p>
+
+
+<p>To derive this trig identity, we presume that the combination
+<span class="html-math inline-math">
+<i>a</i> cos(<i>t</i>) + <i>b</i> sin(<i>t</i>)
+</span> can be written in the form <span class="html-math inline-math">
+<i>c</i> sin(<i>K</i> + <i>t</i>)
+</span> for unknown constants <span class="html-math inline-math">
+<i>c</i>, <i>K</i>
+</span>.</p>
+
+<p class="html-math display-equation">
+<i>a</i> cos(<i>t</i>) + <i>b</i> sin(<i>t</i>) = <i>c</i> sin(<i>K</i> + <i>t</i>)<br>
+
+<i>a</i> cos(<i>t</i>) + <i>b</i> sin(<i>t</i>) = <i>c</i> sin(<i>K</i>) cos(<i>t</i>) + <i>c</i> cos(<i>K</i>) sin(<i>t</i>)
+</p>
+
+
+<p>We used the <a href="math-refresh-en.html#sum_of_angles">formula for sine of a sum of angles</a> to expand the right hand side above. To have equality for any value of <span class="html-math inline-math">
+<i>t</i>
+</span>, the coefficients of <span class="html-math inline-math">
+cos(<i>t</i>)
+</span> and <span class="html-math inline-math">
+sin(<i>t</i>)
+</span> must be equal on the left and right sides of the equation.</p>
+
+<p class="html-math display-equation">
+<i>a</i> = <i>c</i> sin(<i>K</i>)<br>
+
+<i>b</i> = <i>c</i> cos(<i>K</i>)
+</p>
+
+
+<p>Solving this system of simultaneous equations leads us to</p>
+
+<p class="html-math display-equation">
+<i>c</i> = &plusmn; &radic;(<i>a</i><sup>2</sup> + <i>b</i><sup>2</sup>)<br>
+
+<i>K</i> = tan<sup>&minus;1</sup> <sup><i>a</i></sup>&frasl;<sub><i>b</i></sub>
+</p>
+
+<p>So the trig identity for <span class="html-math inline-math">
+<i>b</i> &ne; 0
+</span> is</p>
+
+<p class="html-math display-equation">
+<i>a</i> cos(<i>t</i>) + <i>b</i> sin(<i>t</i>) = &plusmn; &radic;(<i>a</i><sup>2</sup>+<i>b</i><sup>2</sup>) sin(<i>t</i> + tan<sup>&minus;1</sup> <sup><i>a</i></sup>&frasl;<sub><i>b</i></sub>)
+</p>
+
+<p>If we limit the arctan to be within</p>
+
+<p class="html-math display-equation">
+&minus; <sup>&pi;</sup>&frasl;<sub>2</sub> &lt; tan<sup>&minus;1</sup> <sup><i>a</i></sup>&frasl;<sub><i>b</i></sub> &lt; <sup>&pi;</sup>&frasl;<sub>2</sub>
+</p>
+
+<p>then we can always choose the + in front of the square root.</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+<script>
+  window.addEventListener('pageshow', function(event){
+    // set language menu to correct language
+    var menu = document.getElementById('language_menu');
+    if (menu) {
+      menu.selectedIndex = 0;
+    }
+  }, /*capturing=*/false);
+</script>
+</body>
+</html>

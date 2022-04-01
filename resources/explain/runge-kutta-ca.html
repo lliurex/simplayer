@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<title lang="ca">myPhysicsLab Runge-Kutta Algorithm</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+
+<script type="text/javascript" async
+  src="../MathJax-2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head>
+<body>
+
+<h1 lang="ca">Runge-Kutta Algorithm</h1>
+
+<div id="header_nav">
+<a class="nav_link"
+   href="numerical-solution-ca.html">previous</a>
+<a class="nav_link"
+   href="math-refresh-ca.html">next</a>
+</div>
+<ul id="header_bar">
+</ul>
+
+<p class="introduction">The Runge-Kutta algorithm is <em>the</em> magic formula behind
+most of the physics simulations
+shown on this web site. The Runge-Kutta algorithm lets us solve a differential equation
+numerically (that is, approximately); it is known to be very accurate and well-behaved
+for a wide range of problems. </p>
+
+
+<p>Consider the single variable problem</p>
+
+<p class="html-math display-equation">
+<i>x</i>' = <i>f</i> (<i>t</i>, <i>x</i>)
+</p>
+
+<p>with initial condition <span class="html-math inline-math">
+<i>x</i>(0) = <i>x</i><sub>0</sub>
+</span>. Suppose that <span class="html-math inline-math">
+<i>x<sub>n</sub></i>
+</span> is the value of
+the variable at time <span class="html-math inline-math">
+<i>t<sub>n</sub></i>
+</span>. The Runge-Kutta formula takes <span class="html-math inline-math">
+<i>x<sub>n</sub></i>
+</span> and
+<span class="html-math inline-math">
+<i>t<sub>n</sub></i>
+</span> and calculates an approximation for <span class="html-math inline-math">
+<i>x</i><sub><i>n</i>+1</sub>
+</span> at a brief
+time later, <span class="html-math inline-math">
+<i>t<sub>n</sub></i>+<i>h</i>
+</span>. It uses a weighted average of approximated values of
+<span class="html-math inline-math">
+<i>f</i> (<i>t</i>, <i>x</i>)
+</span> at several times within the interval <span class="html-math inline-math">
+(<i>t<sub>n</sub></i>, <i>t<sub>n</sub></i>+<i>h</i>)
+</span>. The
+formula is given by</p>
+
+<p class="html-math display-equation">
+<i>x</i><sub><i>n</i>+1</sub> = <i>x<sub>n</sub></i> + <sup><i>h</i></sup>&frasl;<sub>6</sub> (<i>a</i> + 2 <i>b</i> + 2 <i>c</i> + <i>d</i>)
+</p>
+
+<p>where</p>
+
+<p class="html-math display-equation">
+<i>a</i> = <i>f</i> (<i>t<sub>n</sub></i>, <i>x<sub>n</sub></i>)<br>
+
+<i>b</i> = <i>f</i> (<i>t<sub>n</sub></i> + <sup><i>h</i></sup>&frasl;<sub>2</sub>, <i>x<sub>n</sub></i> + <sup><i>h</i></sup>&frasl;<sub>2</sub> <i>a</i>)<br>
+
+<i>c</i> = <i>f</i> (<i>t<sub>n</sub></i> + <sup><i>h</i></sup>&frasl;<sub>2</sub>, <i>x<sub>n</sub></i> + <sup><i>h</i></sup>&frasl;<sub>2</sub> <i>b</i>)<br>
+
+<i>d</i> = <i>f</i> (<i>t<sub>n</sub></i> + <i>h</i>, <i>x<sub>n</sub></i> + <i>h</i> <i>c</i>)
+</p>
+
+<p>To run the simulation, we start with <span class="html-math inline-math">
+<i>x</i><sub>0</sub>
+</span> and find <span class="html-math inline-math">
+<i>x</i><sub>1</sub>
+</span> using the
+formula above. Then we plug in <span class="html-math inline-math">
+<i>x</i><sub>1</sub>
+</span> to find <span class="html-math inline-math">
+<i>x</i><sub>2</sub>
+</span> and so on.</p>
+
+
+<h2>Multi-variable Runge-Kutta Algorithm</h2>
+
+<p>With multiple variables, the Runge-Kutta algorithm looks similar to the previous
+equations, except that the variables become vectors.</p>
+
+
+<p>The Runge-Kutta Algorithm is fairly simple, but to describe it precisely we need to
+develop some notation. Suppose there are <span class="html-math inline-math">
+<i>m</i>
+</span> variables
+<span class="html-math inline-math">
+<i>x<sub>1</sub></i>, <i>x<sub>2</sub></i>, ..., <i>x<sub>m</sub></i>
+</span> each of which vary over time. For example, in the
+<a href="../SingleSpringApp/SingleSpringApp-ca.html">single spring
+simulation</a>, <span class="html-math inline-math">
+<i>x<sub>1</sub></i>
+</span> is position, <span class="html-math inline-math">
+<i>x<sub>2</sub></i>
+</span> is velocity. Suppose further that
+there are <span class="html-math inline-math">
+<i>m</i>
+</span> differential equations for these <span class="html-math inline-math">
+<i>m</i>
+</span> variables</p>
+
+<p class="html-math display-equation">
+<i>x<sub>1</sub></i>' = <i>f<sub>1</sub></i>(<i>x<sub>1</sub></i>, <i>x<sub>2</sub></i>, ..., <i>x<sub>m</sub></i>)<br>
+<i>x<sub>2</sub></i>' = <i>f<sub>2</sub></i>(<i>x<sub>1</sub></i>, <i>x<sub>2</sub></i>, ..., <i>x<sub>m</sub></i>)<br>
+...<br>
+<i>x<sub>m</sub></i>' = <i>f<sub>m</sub></i>(<i>x<sub>1</sub></i>, <i>x<sub>2</sub></i>, ..., <i>x<sub>m</sub></i>)
+</p>
+
+<p>Notice there are no derivatives on the right hand side of any of those equations,
+and there are only first derivatives on the left hand side. These equations can be
+summarized in vector form as
+</p>
+
+<p class="html-math display-equation">
+<span class="vector">x</span>' = <span class="vector">f</span> (<span class="vector">x</span>)
+</p>
+
+<p>where <span class="html-math inline-math">
+<span class="vector">x</span> = (<i>x<sub>1</sub></i>, <i>x<sub>2</sub></i>, ..., <i>x<sub>m</sub></i>)
+</span> and we allow some loose "vector of
+functions" concept where
+<span class="html-math inline-math">
+<span class="vector">f</span> = (<i>f<sub>1</sub></i>, <i>f<sub>2</sub></i>, ..., <i>f<sub>m</sub></i>)
+</span>. Next we label our time states
+<span class="html-math inline-math">
+<span class="vector">x</span><sub><i>n</i></sub>, <span class="vector">x</span><sub><i>n</i>+1</sub>
+</span> which are separated by time interval of length
+<span class="html-math inline-math">
+<i>h</i>
+</span>. That is, <span class="html-math inline-math">
+<span class="vector">x</span><sub><i>n</i></sub>
+</span> is the value of the <span class="html-math inline-math">
+<i>m</i>
+</span> variables at
+time <span class="html-math inline-math">
+<i>t</i><sub><i>n</i></sub>
+</span>. And <span class="html-math inline-math">
+<i>x</i><sub>1,<i>n</i></sub>
+</span> is the value of the first variable
+<span class="html-math inline-math">
+<i>x<sub>1</sub></i>
+</span> at time <span class="html-math inline-math">
+<i>t</i><sub><i>n</i></sub>
+</span>.
+</p>
+
+
+<p class="html-math display-equation">
+<span class="vector">x</span><sub><i>n</i></sub> = (<i>x</i><sub>1,<i>n</i></sub>, <i>x</i><sub>2,<i>n</i></sub>, ..., <i>x</i><sub><i>m</i>,<i>n</i></sub>)<br>
+<span class="vector">x</span><sub><i>n</i>+1</sub> = (<i>x</i><sub>1,<i>n</i>+1</sub>, <i>x</i><sub>2,<i>n</i>+1</sub>, ..., <i>x</i><sub><i>m</i>,<i>n</i>+1</sub>)
+</p>
+
+<p>Suppose we have the state of the simulation at time <span class="html-math inline-math">
+<i>t</i><sub><i>n</i></sub>
+</span> as
+<span class="html-math inline-math">
+<span class="vector">x</span><sub><i>n</i></sub>
+</span>. To compute the state a short time <span class="html-math inline-math">
+<i>h</i>
+</span> later and put the
+results into <span class="html-math inline-math">
+<span class="vector">x</span><sub><i>n</i>+1</sub>
+</span>, the Runge-Kutta algorithm does the following:
+</p>
+
+<p class="html-math display-equation">
+<span class="vector">a</span><sub><i>n</i></sub> = <span class="vector">f</span>(<span class="vector">x</span><sub><i>n</i></sub>) <br>
+<span class="vector">b</span><sub><i>n</i></sub> = <span class="vector">f</span>(<span class="vector">x</span><sub><i>n</i></sub> + <sup><i>h</i></sup>&frasl;<sub>2</sub> <span class="vector">a</span><sub><i>n</i></sub>) <br>
+<span class="vector">c</span><sub><i>n</i></sub> = <span class="vector">f</span>(<span class="vector">x</span><sub><i>n</i></sub> + <sup><i>h</i></sup>&frasl;<sub>2</sub> <span class="vector">b</span><sub><i>n</i></sub>) <br>
+<span class="vector">d</span><sub><i>n</i></sub> = <span class="vector">f</span>(<span class="vector">x</span><sub><i>n</i></sub> + <i>h</i> <span class="vector">c</span><sub><i>n</i></sub>) <br>
+<span class="vector">x</span><sub><i>n</i>+1</sub> = <span class="vector">x</span><sub><i>n</i></sub> + <sup><i>h</i></sup>&frasl;<sub>6</sub> (<span class="vector">a</span><sub><i>n</i></sub>
++ 2 <span class="vector">b</span><sub><i>n</i></sub> + 2 <span class="vector">c</span><sub><i>n</i></sub> + <span class="vector">d</span><sub><i>n</i></sub>)
+</p>
+
+<p>The new vector <span class="html-math inline-math">
+<span class="vector">x</span><sub><i>n</i>+1</sub>
+</span> gives you the state of the simulation after
+the small time <span class="html-math inline-math">
+h
+</span> has elapsed. To spell out the above in more detail, we can
+drop the vector notation and write the Runge-Kutta algorithm like this:
+</p>
+
+<p class="html-math display-equation">
+<i>x</i><sub><i>j</i>, <i>n</i></sub> = <i>f<sub>j</sub></i>(<i>x</i><sub>1,<i>n</i></sub>,  <i>x</i><sub>2,<i>n</i></sub>, . . . , <i>x</i><sub><i>m</i>,<i>n</i></sub>)<br>
+<i>x</i><sub><i>j</i>, <i>n</i></sub> = <i>f<sub>j</sub></i><span class="bigg">(</span> (<i>x</i><sub>1, <i>n</i></sub> + <sup><i>h</i></sup>&frasl;<sub>2</sub> <i>x</i><sub>1, <i>n</i></sub>),  (<i>x</i><sub>2, <i>n</i></sub>
+                + <sup><i>h</i></sup>&frasl;<sub>2</sub> <i>x</i><sub>2, <i>n</i></sub>), . . . , (<i>x</i><sub><i>m</i>, <i>n</i></sub>
+                + <sup><i>h</i></sup>&frasl;<sub>2</sub> <i>x</i><sub><i>m</i>, <i>n</i></sub>) <span class="bigg">)</span><br>
+<i>x</i><sub><i>j</i>, <i>n</i></sub> = <i>f<sub>j</sub></i><span class="bigg">(</span> (<i>x</i><sub>1,<i>n</i></sub> + <sup><i>h</i></sup>&frasl;<sub>2</sub> <i>x</i><sub>1,<i>n</i></sub>),  (<i>x</i><sub>2,<i>n</i></sub>
+                + <sup><i>h</i></sup>&frasl;<sub>2</sub> <i>x</i><sub>2,<i>n</i></sub>), . . . , (<i>x</i><sub><i>m</i>,<i>n</i></sub>
+                + <sup><i>h</i></sup>&frasl;<sub>2</sub> <i>x</i><sub><i>m</i>,<i>n</i></sub>) <span class="bigg">)</span><br>
+<i>x</i><sub><i>j</i>, <i>n</i></sub> = <i>f<sub>j</sub></i><span class="bigg">(</span> (<i>x</i><sub>1,<i>n</i></sub> + <i>h</i> <i>x</i><sub>1,<i>n</i></sub>),  (<i>x</i><sub>2,<i>n</i></sub>
+                            + <i>h</i> <i>x</i><sub>2,<i>n</i></sub>), . . . , (<i>x</i><sub><i>m</i>,<i>n</i></sub>
+                            + <i>h</i> <i>x</i><sub><i>m</i>,<i>n</i></sub>) <span class="bigg">)</span><br>
+<i>x</i><sub><i>j</i>, <i>n</i>+1</sub> = <i>x</i><sub><i>j</i>, <i>n</i></sub> + <sup><i>h</i></sup>&frasl;<sub>6</sub> (<i>x</i><sub><i>j</i>, <i>n</i></sub> + 2 <i>x</i><sub><i>j</i>, <i>n</i></sub>
+                + 2 <i>x</i><sub><i>j</i>, <i>n</i></sub> + <i>x</i><sub><i>j</i>, <i>n</i></sub>)
+</p>
+
+
+<p>The above equations are applied for each variable <span class="html-math inline-math">
+<i>j</i>=(1, ..., <i>m</i>)
+</span> to get the
+full set of variables in the vector <span class="html-math inline-math">
+<span class="vector">x</span><sub><i>n</i>+1</sub>
+</span>.
+</p>
+
+
+
+
+<h2>Time As A Variable</h2>
+
+<p>Most of the simulations shown on this website <em>do not</em> have differential
+equations that depend explicitly on time. That is, you won't see the variable
+<span class="html-math inline-math">
+<i>t</i>
+</span> on the right-hand side of the differential equations. One simulation that
+<em>does</em> depend on time is the
+<a href="../ChaoticPendulumApp/ChaoticPendulumApp-ca.html">Chaotic Driven Pendulum</a>
+because the driving force (which applies the twist to the pendulum)
+varies over time according to <span class="html-math inline-math">
+cos(<i>k</i> <i>t</i>)
+</span>.
+</p>
+
+<p>When time appears explicitly in the differential equations we can add a time
+variable <span class="html-math inline-math">
+<i>t</i>
+</span> to the state vector <span class="html-math inline-math">
+<span class="vector">x</span>
+</span>. Suppose we assign this role to
+the variable <span class="html-math inline-math">
+<i>x<sub>2</sub></i>
+</span>. This new variable has the extremely simple differential
+equation
+</p>
+
+<p class="html-math display-equation">
+<i>x<sub>2</sub></i>' = 1
+</p>
+
+<p>That says that the rate of change of the variable <span class="html-math inline-math">
+<i>x<sub>2</sub></i>
+</span> is a constant. Since
+we are taking derivatives with respect to time we can also write the above equation as
+</p>
+
+<p>$$x_2' = \frac{d}{d t} x_2 = 1$$</p>
+
+<p>This integrates very easily to give <span class="html-math inline-math">
+<i>x<sub>2</sub></i> = <i>t</i>
+</span>, which is what we wanted: time
+as a variable. Suppose that in the driven pendulum simulation we set up <span class="html-math inline-math">
+<i>x<sub>2</sub></i>
+</span> in
+this way. Then the driving force is given by <span class="html-math inline-math">
+cos(<i>k</i> <i>x<sub>2</sub></i>)
+</span>.
+</p>
+
+
+<p>You may ask: <em>Why have time as a variable? We already know the value of
+<span class="html-math inline-math">
+<i>t</i>
+</span> at each time step!</em> The Runge-Kutta algorithm works by averaging the
+predicted rates at various points in the time interval from <span class="html-math inline-math">
+<i>t</i>
+</span> to
+<span class="html-math inline-math">
+<i>t</i>+<i>h</i>
+</span>. Therefore, when the rates (differential equations) depend explictly on
+<span class="html-math inline-math">
+<i>t</i>
+</span>, we also need to know the value of <span class="html-math inline-math">
+<i>t</i>
+</span> at those points
+<em>within</em> the time interval. Putting time in as a variable makes for nicer
+cleaner computer code.
+</p>
+
+
+<h2>Time Passed Directly</h2>
+
+<p>If you want to, you can avoid keeping time as an additional variable. The following
+is an equivalent formulation of the Runge-Kutta algorithm where time <span class="html-math inline-math">
+<i>t</i>
+</span> is
+passed in as a variable to each function in <span class="html-math inline-math">
+<span class="vector">f</span>
+</span>.
+</p>
+
+<p class="html-math display-equation">
+<span class="vector">a</span><sub><i>n</i></sub> = <span class="vector">f</span>(<i>t</i>, <span class="vector">x</span><sub><i>n</i></sub>) <br>
+<span class="vector">b</span><sub><i>n</i></sub> = <span class="vector">f</span>(<i>t</i> + <sup><i>h</i></sup>&frasl;<sub>2</sub>, <span class="vector">x</span><sub><i>n</i></sub> + <sup><i>h</i></sup>&frasl;<sub>2</sub> <span class="vector">a</span><sub><i>n</i></sub>) <br>
+<span class="vector">c</span><sub><i>n</i></sub> = <span class="vector">f</span>(<i>t</i> + <sup><i>h</i></sup>&frasl;<sub>2</sub>, <span class="vector">x</span><sub><i>n</i></sub> + <sup><i>h</i></sup>&frasl;<sub>2</sub> <span class="vector">b</span><sub><i>n</i></sub>) <br>
+<span class="vector">d</span><sub><i>n</i></sub> = <span class="vector">f</span>(<i>t</i> + <i>h</i>, <span class="vector">x</span><sub><i>n</i></sub> + <i>h</i> <span class="vector">c</span><sub><i>n</i></sub>) <br>
+<span class="vector">x</span><sub><i>n</i>+1</sub> = <span class="vector">x</span><sub><i>n</i></sub> + <sup><i>h</i></sup>&frasl;<sub>6</sub> (<span class="vector">a</span><sub><i>n</i></sub>
++ 2 <span class="vector">b</span><sub><i>n</i></sub> + 2 <span class="vector">c</span><sub><i>n</i></sub> + <span class="vector">d</span><sub><i>n</i></sub>) <br>
+</p>
+
+<p>This is equivalent to the formulation where time is kept as one of the variables in
+<span class="html-math inline-math">
+<span class="vector">x</span>
+</span>. Whether you use this formulation or the earlier (cleaner) one is
+entirely up to you.
+</p>
+
+
+<p>The <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/lab/model/RungeKutta.js">source code for the
+  Runge-Kutta algorithm</a> is available.
+</p>
+
+<p id="page_history">
+  This web page was first published April 2001.
+</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+  <a class="nav_link" href="numerical-solution-ca.html">previous</a>
+  <a class="nav_link" href="math-refresh-ca.html">next</a>
+</div>
+</body>
+</html>

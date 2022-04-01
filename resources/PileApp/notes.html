@@ -1,0 +1,62 @@
+<p class="introduction">
+Demonstration of a pile of objects falling into a corner 
+using the <a href="../explain/physics-engine-en.html">2D Rigid Body Physics Engine</a>.
+</p>
+
+<p>This is a good stress test for the physics engine. Click the <b>add block</b>
+button to add more blocks. Eventually the simulation will be unable to keep up with
+real time.
+</p>
+
+<p>To see whether the simulation is keeping up with real time click the
+<b>show clock</b> button. The clock shows two second hands: the red hand tracks real
+time and the blue hand tracks simulation time. When the red hand is ahead of the blue
+hand it means the simulation has fallen behind real time.
+</p>
+
+<p>The <b>connected blocks</b> checkbox includes two blocks that are connected by
+joints. Those are a good test of the ability to to keep joints together during a series
+of violent collisions.
+</p>
+
+<p>Enabling the <b>endless loop</b> checkbox causes the simulation to be rebuilt every
+few seconds. The period is set by the <b>loop time</b> amount. This allows running the
+simulation over and over which is a good way to test the physics engine with many
+random situations.
+</p>
+
+<p>The main performance challenge is when the blocks have settled down and are all
+lying in contact. Enable the <b>show forces</b> checkbox to see how hard the physics
+engine is working to figure out the many contact forces.
+</p>
+
+<p>The physics engine performance is proportional to the the <i>number of connected
+contacts raised to the fourth power</i>. Here is an experiment that shows this:
+</p>
+
+<ol>
+
+<li>Set the <b>number of blocks</b> to 15, and notice that the simulation cannot keep
+up with real time once the blocks have settled into the corner. With 15 blocks there
+are around 60 contact forces, and 60^4 = 12,960,000.
+</li>
+
+<li>Enable the <b>two piles</b> checkbox. Now the simulation <i>can</i> keep up with
+real time because there are two piles instead of one. With 7 or 8 blocks in each pile
+there are around 30 contacts in each pile, and 2*(30^4) = 1,620,000 which is an order
+of magnitude less calculations needed.
+</li>
+
+</ol>
+
+<p>Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/PileApp.js">open source code</a>,
+<a href="../develop/docs/myphysicslab.sims.engine2D.PileApp.html">documentation</a> and a
+<a href="../develop/build/sims/engine2D/PileApp-en.html">simple-compiled version</a>
+which is <a href="../develop/docs/Customizing.html">more customizable</a>.
+</p>
+
+
+<p id="page_history">
+  This web page was first published November 2016.
+</p>

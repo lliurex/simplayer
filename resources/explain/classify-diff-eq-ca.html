@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<title lang="ca">myPhysicsLab Classifying Differential Equations</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+</head>
+<body>
+
+<h1 lang="ca">Classifying Differential Equations</h1>
+
+<div id="header_nav">
+<a class="nav_link"
+   href="what-is-a-diff-eq-ca.html">previous</a>
+<a class="nav_link"
+   href="numerical-solution-ca.html">next</a>
+</div>
+<ul id="header_bar">
+</ul>
+
+<p class="introduction">
+When you study differential equations, it is kind of like botany. You learn to look at
+an equation and classify it into a certain group. The reason is that the techniques for
+solving differential equations are common to these various classification groups. And
+sometimes you can transform an equation of one type into an equivalent equation of
+another type, so that you can use easier solution techniques. Here then are some of the
+major classifications of differential equations:
+</p>
+
+<p>On this page we assume that <span class="html-math inline-math">
+<i>x</i>
+</span> and <span class="html-math inline-math">
+<i>y</i>
+</span> are functions of time, <span class="html-math inline-math">
+<i>t</i>
+</span>:</p>
+
+<p class="html-math display-equation">
+<i>x</i> = <i>x</i>(t)<br>
+<i>y</i> = <i>y</i>(t)<br>
+</p>
+
+<p>And the derivatives are with respect to <span class="html-math inline-math">
+<i>t</i>
+</span></p>
+
+<div class="html-math table-equation">
+<table class="fraction">
+    <tr>
+        <td>
+            <i>d</i> <i>x</i>
+        </td><td rowspan="2">
+            &nbsp;= <i>x</i>'(<i>t</i>)
+        </td>
+    </tr><tr>
+        <td class="upper_line">
+            <i>d</i> <i>t</i>
+        </td>
+    </tr>
+</table>
+</div>
+
+
+<h2>Partial vs. Ordinary</h2>
+
+<p>An ordinary differential equation (or ODE) has a discrete (finite) set of variables.
+For example in the <a href="../PendulumApp/PendulumApp-ca.html">simple pendulum</a>, there are two
+variables: angle and angular velocity.<p>
+
+<p>A partial differential equation (or PDE) has an infinite set of variables which
+correspond to all the positions on a line or a surface or a region of space. For
+example in the string simulation we have a continuous set of variables along the string
+corresponding to the displacement of the string at each position. In practice we
+approximate the infinite set of variables with a finite set of variables spread across
+the string (or surface or volume) at each position.</p>
+
+<p>For an ODE, each variable has a distinct differential equation using "ordinary"
+derivatives. For a PDE, there is only one "partial" differential equation for each
+dimension.</p>
+
+
+
+<h2 id="order">First Order, Second Order</h2>
+
+<p>The <em>order</em> of a differential equation is equal to the highest derivative in
+the equation. The single-quote indicates differention. So <span class="html-math inline-math">
+<i>x</i>'
+</span> is a first
+derivative, while <span class="html-math inline-math">
+<i>x</i>''
+</span> is a second derivative.</p>
+
+<p class="html-math display-equation">
+<i>x</i>' = 1/<i>x</i> <span class="text">&nbsp; is first-order</span>
+</p>
+
+<p class="html-math display-equation">
+<i>x</i>'' = &minus;<i>x</i> <span class="text">&nbsp; is second-order</span>
+</p>
+
+<p class="html-math display-equation">
+<i>x</i>'' + 2 <i>x</i>' + <i>x</i> = 0 <span class="text">&nbsp; is second-order</span>
+</p>
+
+
+
+
+<h2 id="linear">Linear vs. Non-linear</h2>
+
+<p>Linear just means that the variable in an equation appears only with a power of one.
+So <span class="html-math inline-math">
+<i>x</i>
+</span> is linear but <span class="html-math inline-math">
+<i>x</i><sup>2</sup>
+</span> is non-linear. Also any function like
+<span class="html-math inline-math">
+cos(<i>x</i>)
+</span> is non-linear.</p>
+
+<p>In math and physics, <em>linear</em> generally means "simple" and
+<em>non-linear</em> means "complicated". The theory for solving linear equations is
+very well developed because linear equations are simple enough to be solveable.
+Non-linear equations can usually not be solved exactly and are the subject of much
+on-going research. Here is a brief description of how to recognize a linear
+equation.</p>
+
+<p>Recall that the equation for a line is</p>
+
+<p class="html-math display-equation">
+<i>y</i> = <i>m</i> <i>x</i> + <i>b</i>
+</p>
+
+<p>where <span class="html-math inline-math">
+<i>m</i>, <i>b</i>
+</span> are constants ( <span class="html-math inline-math">
+<i>m</i>
+</span> is the slope, and <span class="html-math inline-math">
+<i>b</i>
+</span> is the
+<span class="html-math inline-math">
+<i>y</i>
+</span>-intercept). In a differential equation, when the variables and their
+derivatives are only multiplied by constants, then the equation is linear. The
+variables and their derivatives must always appear as a simple first power. Here are
+some examples.</p>
+
+<p class="html-math display-equation">
+<i>x</i>'' + <i>x</i> = 0 <span class="text">&nbsp; is linear</span>
+</p>
+
+<p class="html-math display-equation">
+<i>x</i>'' + 2x' + <i>x</i> = 0 <span class="text">&nbsp; is linear</span>
+</p>
+
+<p class="html-math display-equation">
+<i>x</i>' + 1/<i>x</i> = 0 <span class="text">&nbsp; is non-linear because 1/<i>x</i> is not a first power</span>
+</p>
+
+<p class="html-math display-equation">
+<i>x</i>' + <i>x</i><sup>2</sup> = 0 <span class="text">&nbsp; is non-linear because <i>x</i><sup>2</sup> is not a first power</span>
+</p>
+
+<p class="html-math display-equation">
+<i>x</i>'' + sin(<i>x</i>) = 0 <span class="text">&nbsp; is non-linear because sin(<i>x</i>) is not a first power</span>
+</p>
+
+<p class="html-math display-equation">
+<i>x</i> <i>x</i>' = 1 <span class="text">&nbsp; is non-linear because <i>x</i>' is not multiplied by a constant</span>
+</p>
+
+<p>Similar rules apply to multiple variable problems.</p>
+
+<p class="html-math display-equation">
+<i>x</i>' + <i>y</i>' = 0 <span class="text">&nbsp; is linear</span>
+</p>
+
+<p class="html-math display-equation">
+<i>x</i> <i>y</i>' = 1 <span class="text">&nbsp; is non-linear because <i>y</i>' is not multiplied by a constant</span>
+</p>
+
+
+<p>Note, however, that an exception is made for the time variable <span class="html-math inline-math">
+<i>t</i>
+</span> (the
+variable that we are differentiating by). We can have any crazy non-linear function of
+<span class="html-math inline-math">
+<i>t</i>
+</span> appear in the equation, but still have an equation that is <em>linear in
+<span class="html-math inline-math">
+<i>x</i>
+</span></em>.</p>
+
+<p class="html-math display-equation">
+<i>x</i>'' + 2 <i>x</i>' + <i>x</i> = sin(<i>t</i>) <span class="text">&nbsp; is linear in </span><i>x</i>
+</p>
+
+<p class="html-math display-equation">
+<i>x</i>' + <i>t</i><sup>2</sup><i>x</i> = 0 <span class="text">&nbsp; is linear in </span><i>x</i>
+</p>
+
+<p class="html-math display-equation">
+sin(<i>t</i>) <i>x</i>' + cos(<i>t</i>) <i>x</i> = exp(<i>t</i>) <span class="text">&nbsp; is linear in </span><i>x</i>
+</p>
+
+<p>See the Wikipedia article on
+<a href="https://en.wikipedia.org/wiki/Linear_differential_equation">linear differential equations</a> for more details.</p>
+
+
+
+<h2 id="homogeneous">Homogeneous vs. Non-homogeneous</h2>
+
+<p>This is another way of classifying differential equations. These fancy terms amount
+to the following: whether there is a term involving only time, <span class="html-math inline-math">
+<i>t</i>
+</span> (shown on the
+right hand side in equations below).</p>
+
+<p class="html-math display-equation">
+<i>x</i>'' + 2_x' + <i>x</i> = 0 <span class="text">&nbsp; is homogeneous</span>
+</p>
+
+<p class="html-math display-equation">
+<i>x</i>'' + 2_x' + <i>x</i> = sin(<i>t</i>) <span class="text">&nbsp; is non-homogeneous</span>
+</p>
+
+<p class="html-math display-equation">
+<i>x</i>' + <i>t</i><sup>2</sup><i>x</i> = 0 <span class="text">&nbsp; is homogeneous</span>
+</p>
+
+<p class="html-math display-equation">
+<i>x</i>' + <i>t</i><sup>2</sup><i>x</i> = <i>t</i> + <i>t</i><sup>2</sup> <span class="text">&nbsp; is non-homogeneous</span>
+</p>
+
+
+<p>The non-homogeneous part of the equation is the term that involves only time. It
+usually corresponds to a <em>forcing term</em> in the physical model. For example, in a
+driven pendulum it would be the motor that is driving the pendulum. </p>
+
+<p id="page_history">
+  This web page was first published June 2001.
+</p>
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+  <a class="nav_link" href="what-is-a-diff-eq-ca.html">previous</a>
+  <a class="nav_link" href="numerical-solution-ca.html">next</a>
+</div>
+</body>
+</html>

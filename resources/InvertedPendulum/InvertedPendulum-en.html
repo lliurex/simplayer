@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+
+<title>Inverted Vibrating Pendulum</title>
+
+<script type="text/javascript" async
+  src="../MathJax-2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "hidden";
+</script>
+</head>
+<body>
+  <h1>Inverted Vibrating Pendulum</h1>
+<ul id="header_bar" class="horiz_tabs">
+  <li class="sim selected">Sim</li>
+  <li class="graph ">Graph</li>
+  <li class="time_graph">Time Graph</li>
+  <li class="multi_graph">Multi Graph</li>
+</ul>
+
+
+
+
+<div id="container" class="control_container">
+  <div id="div_graph" >
+  </div>
+  <div id="div_time_graph" >
+  </div>
+  <div id="sim_applet" >
+  </div>
+  <div id="sim_controls" class="control_group">
+  </div>
+  <div id="graph_controls" class="control_group">
+  </div>
+  <div id="time_graph_controls" class="control_group">
+  </div>
+  <p>
+  <label id="label_show_sim">
+    <input type="checkbox" id="show_sim">show sim
+  </label>
+   <label id="label_terminal">
+    <input type="checkbox" id="show_terminal">terminal
+   </label>
+   <div id="div_terminal">
+     <textarea id="term_output" cols=80 rows=20 wrap="soft"></textarea> <br>
+     <label style="display:inline-block">command &gt;
+       <input type="text" id="term_input" size="80">
+     </label>
+   </div>
+</div>
+
+<h2>About</h2>
+
+<p class="introduction">
+Physics-based simulation of a vibrating pendulum with a pivot point is shaking rapidly
+up and down. Surprisingly, the position with the pendulum being vertically upright is
+stable, so this is also known as the inverted pendulum. </p>
+
+<p class="instructions">
+Click and drag near the pendulum to modify its position. The anchor can also be moved.
+Enable the "show controls" checkbox to set gravity, frequency of oscillation, magnitude
+of oscillation, and damping (friction). </p>
+
+<p>A regular non-vibrating <a href="../PendulumApp/PendulumApp-en.html">pendulum</a> is stable only when it
+is hanging straight down. In this simulation, the support pivot point of the pendulum
+is oscillating rapidly up and down. When the oscillation is rapid and of small
+amplitude, there is a second stable position, with the pendulum standing straight up,
+in a vertical upright "upside-down" position.</p>
+
+<p>You can build a physical version of the inverted pendulum using a jigsaw to power
+the oscillations, see references below. This is a popular demonstration used in
+university physics or math classes.</p>
+
+<p>Experiments to try:</p>
+
+<ul>
+
+  <li>Disturb the pendulum from its stable inverted position.  Can it recover?
+    How far can you disturb it?</li>
+
+  <li>What is the slowest frequency that still has the stable inverted position?</li>
+
+  <li>What is the range of amplitude that still has the stable inverted position?</li>
+
+  <li>For a faster or slower frequency, does the range of amplitude change?</li>
+
+  <li>Does the strength of gravity affect whether the inverted pendulum is stable?</li>
+
+  <li>How does friction (damping) affect the inverted pendulum?</li>
+
+  <li>Make the time step smaller to get more calculations per
+    second, which will give a smoother graph.</li>
+
+</ul>
+
+<p>The time rate adjustment makes the simulation run slower than real-time so that
+smaller time steps are used, which gives better accuracy and smoother graph plots. The
+physics and math is all the same, it is only displayed at a slower rate than it would be
+in real time.</p>
+
+<p>The mathematics of this simulation is given at the
+<a href="../MoveablePendulumApp/MoveablePendulumApp-en.html">Moveable Pendulum</a> web page.
+Also available are:
+<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/MoveablePendulumApp.js">open source code</a>,
+documentation and a
+simple-compiled version
+which is more customizable.
+</p>
+
+<p>There are actually two simultaneous simulations happening here: the pendulum, and
+the anchor block. The anchor block is modelled as a point mass and can be moved by a
+force such as that applied when dragging with the mouse near the anchor point. The
+anchor block is not affected by the pendulum.
+See <a href="../MoveablePendulumApp/MoveablePendulumApp-en.html#anchor-block-dynamics">Anchor Block Dynamics</a>
+on the Moveable Pendulum page for the math. The oscillatory motion of the anchor is
+caused by applying a time varying force to the anchor point. This means that you can
+also drag the anchor point with your mouse, which applies another force. An alternative
+method would be specify where the anchor point is in space at any given time with an
+equation, so that the anchor point could not move in any way other than this equation
+of oscillation.</p>
+
+
+
+<h2>References</h2>
+
+<ul>
+  <li>
+    <a href="http://sciencedemonstrations.fas.harvard.edu/presentations/inverted-pendulum">
+    Video of inverted pendulum with jigsaw</a> and explanation of how to set
+    up the experiment and why it happens.</li>
+
+  <li>A Wikipedia page covers several kinds of
+    <a href="http://en.wikipedia.org/wiki/Inverted_pendulum">inverted pendulum</a>.
+    See the section about
+    <a href="https://en.wikipedia.org/wiki/Inverted_pendulum#Pendulum_with_oscillatory_base">
+    Pendulum with oscillatory base</a>
+    which refers to the Mathieu equation as describing the motion.</li>
+
+  <li><!-- <a href="http://mathfaculty.fullerton.edu/mathews/n2003/pendulum/PendulumBib/Links/PendulumBib_lnk_3.html"> -->
+    Bibliography for the Pendulum<!-- </a> --> is a list of 70 academic articles collected by
+    the math faculty at California State University, Fullerton.</li>
+
+  <li><a href="http://www.geom.uiuc.edu/docs/forum/jigsaw/">Jig Saw Puzzle</a>
+    by Evelyn Sander, 1995, gives a simple explanation of the inverted pendulum.</li>
+
+  <li><a href="http://www.flyingcircusofphysics.com/pdf/Chapter1_Ref_Com.pdf">
+    The Flying Circus of Physics</a> has many links to videos and papers about the
+    inverted pendulum.</li>
+
+  <li>(Paywalled)
+    <a href="http://scitation.aip.org/content/aapt/journal/ajp/53/11/10.1119/1.14036">
+    Stroboscopic study of the inverted pendulum</a> by M. M. Michaelis, 1984, describes
+    how to use a jigsaw "to provide an inexpensive large-scale demonstration of the
+    inverted pendulum experiment." Also covers the Kalmus and Kapitza theories used to
+    mathematically analyze the behavior.</li>
+
+  <li>(Paywalled)
+    <!-- <a href="http://www.jstor.org/pss/2132824"> -->Stabilization of the inverted
+    linearized pendulum by high frequency vibrations<!-- </a> -->, Mark Levi and Warren
+    Weckesser, SIAM Review, 37(2), 219-223 (1995). </li>
+
+  <li>(Paywalled) <a href="http://scitation.aip.org/content/aapt/journal/ajp/60/10/10.1119/1.17012">
+    Experimental study of an inverted pendulum</a>, Smith and Blackburn, American
+    Journal Physics 60 (10), October 1992 p. 909. "the ranges of displacement frequency
+    and amplitude for which the inverted state is stable have been experimentally
+    determined and compared to theoretical calculations."</li>
+
+</ul>
+
+
+<!--h2>TO DO:</h2>
+
+<ul>
+  <li>Should perhaps be a modification of moveable pendulum:  instead of applying
+    force to anchor block, have the anchor move at a certain set oscillatory motion, so
+    there is no draggable anchor block.</li>
+
+  <li>Edit references:  which are better?  give better descriptions?
+    find a good video.  other simulations?</li>
+
+  <li>Perhaps better to separate the "dragable anchor" from the "vibrating anchor".
+     Combining them makes it complex/ambiguous as to what is anchor behavior for
+     vibrating anchor.</li>
+
+</ul-->
+
+
+<div id="footer2" >
+  <div id="copyright">
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
+    title="send comments to Erik Neumann">
+    Erik Neumann</a>,  2004-2016<br>
+    <span id="revised_date">revised Feb 6 2021</span>
+  </div>
+</div>
+
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
+<script src="MoveablePendulumApp-en.js"></script>
+
+<script>
+  (function build() {
+    var elem_ids = {
+      tab_list: 'header_bar',
+      container: 'container',
+      term_output: 'term_output',
+      term_input: 'term_input',
+      sim_applet: 'sim_applet',
+      div_graph: 'div_graph',
+      graph_controls: 'graph_controls',
+      sim_controls: 'sim_controls',
+      div_terminal: 'div_terminal',
+      div_time_graph: 'div_time_graph',
+      time_graph_controls: 'time_graph_controls',
+      div_multi_graph: 'div_multi_graph',
+      multi_graph_controls: 'multi_graph_controls',
+      label_terminal: 'label_terminal',
+      show_terminal: 'show_terminal',
+      show_sim: 'show_sim',
+      images_dir: '../common'
+    };
+    app = makeMoveablePendulumApp(elem_ids);
+    app.defineNames('app');
+    app.eval('LENGTH=1;DAMPING=0.5;GRAVITY=2;MASS=1;ANCHOR_DAMPING=0.8;'
+    +'DRIVE_FREQUENCY=20;DRIVE_AMPLITUDE=100;SPRING_STIFFNESS=3;ANGLE=3.107;');
+    window.addEventListener('pageshow', function(event){
+      app.start();
+      // set language menu to correct language
+      var menu = document.getElementById('language_menu');
+      if (menu) { menu.selectedIndex = 0; }
+      menu = document.getElementById('compiled_menu');
+      if (menu) { menu.selectedIndex = 1; }
+    }, /*capturing=*/false);
+    app.setup();
+    window.addEventListener('blur', function(event){
+      app.eval('FIRING=false;', /*output=*/false);
+    }, /*capturing=*/false);
+    window.addEventListener('focus', function(event){
+      app.eval('FIRING=true;', /*output=*/false);
+    }, /*capturing=*/false);
+  }());
+</script>
+
+<script>
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+</script>
+<script>
+  // separate script tag, runs even if error occurs in earlier script tag
+  app.start();
+</script>
+</body>
+</html>
