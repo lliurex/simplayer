@@ -222,6 +222,7 @@ class TemplateManager():
         self.search_projects()
         self.search_categories()
         self.check_main_page()
+        print('{} {}'.format(len(self.projects),_('projects loaded')))
 
     def check_main_page(self):
         if self.main_activity:
@@ -307,6 +308,7 @@ class TemplateManager():
             color = '#820082'
         tpl = self.environment.get_template('categories.tpl')
         items = [ (f'{os.path.relpath(k,self.basedir)}/{v.get(f"html_{LANG}")}',f'{os.path.relpath(k,self.basedir)}/{v.get(f"banner_{LANG}")}',v.get(f'name_{LANG}')) for k,v in self.projects.items() if category in v.get('category').split(',') and ( (self.webgl_enabled == False and 'webgl' not in v.get('require')) or self.webgl_enabled )]
+        items.sort(key=lambda x: x[2])
         content = tpl.render(items=items,color=color)
         return content
 
