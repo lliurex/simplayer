@@ -8,7 +8,7 @@ body{
 }
 .wrapper {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3,33%);
    /* grid-template-rows: 200px;*/
     grid-gap: 10px;
 }
@@ -19,11 +19,12 @@ grid-item{
 }
 grid-item img{
     /* object-fit: cover; */
-    width: 30vw;
+    /* width: 30vw; */
     height: 20vw;
     display:block;
     filter: opacity(50%);
     border-radius: 10px;
+    max-width: 100%;
 }
 grid-item:hover img{
     /* object-fit: cover;*/
