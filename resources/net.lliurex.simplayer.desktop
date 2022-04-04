@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Exec=simplayer
-Icon=simplayer
+Icon=/usr/share/icons/lliurex/apps/48/simplayer.svg
 MimeType=application/x-simplayer;
 Terminal=false
 Name=Simplayer
