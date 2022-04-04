@@ -13,6 +13,9 @@ from threading import Thread
 import json
 import locale
 import gettext
+import signal
+
+signal.signal(signal.SIGINT, signal.SIG_DFL)
 
 def _(*args,**kwargs):
     for x in args:
