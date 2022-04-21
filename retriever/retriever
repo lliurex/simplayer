@@ -19,6 +19,7 @@ cache_file_full = f'{folder}/fullcache.json'
 repos = f'{folder}/repos'
 output = f'{folder}/output'
 exit_now = False
+langs = ['es','ca','en']
 
 def exitnow(*args,**kwargs):
     print('Exitting')
@@ -94,22 +95,23 @@ if __name__ == '__main__':
     simulations = [x for x in info_parsed if 'educational simulation' in (info_parsed.get(x).get('description') or '')]
     print(f'{len(simulations)} simulations found')
     for name in simulations:
-        output_path=f'{output}/{name}'
-        if os.path.isdir(output_path):
-            missing=0
-            png_path=f'{output_path}/{name}.png'
-            if not os.path.isfile(png_path):
-                print(f'Warning: {png_path} missing')
-                missing=missing+1
-            html_path=f'{output_path}/{name}.html'
-            if not os.path.isfile(html_path):
-                print(f'Warning: {html_path} missing')
-                missing=missing+1
-            if missing == 2:
-                print(f'Deleting: {output_path} !')
-                shutil.rmtree(output_path)
+        for lang in langs:
+            output_path=f'{output}/{name}'
+            if os.path.isdir(output_path):
+                missing=0
+                png_path=f'{output_path}/{name}.png'
+                if not os.path.isfile(png_path):
+                    print(f'Warning: {png_path} missing')
+                    missing=missing+1
+                html_path=f'{output_path}/{name}_{lang}.html'
+                if not os.path.isfile(html_path):
+                    print(f'Warning: {html_path} missing')
+                    missing=missing+1
+                if missing == 2:
+                    print(f'Deleting: {output_path} !')
+                    shutil.rmtree(output_path)
     simulations = [x for x in simulations if not os.path.isdir(f'{output}/{x}')]
-    print(f'{len(simulations)} simulations pending for build')
+    print(f'{len(simulations)} simulations pending for build (not in output dir)')
     for name in simulations:
         repo_path = f'{repos}/{name}'
         if not os.path.isdir(repo_path):
@@ -117,6 +119,17 @@ if __name__ == '__main__':
             print(f'Downloading git {name}')
             os.system(f'git clone {repo} {repo_path} >/dev/null 2>&1')
     simulations = [ sim for sim in simulations if os.path.isfile(f'{repos}/{sim}/README.md') ]
+    devels = []
+    for name in simulations:
+        readme_path = f'{repos}/{name}/README.md'
+        with open(readme_path,'r') as f:
+            content=f.readlines()
+            for line in content:
+                if re.search('under development',line,re.IGNORECASE):
+                    devels.append(name)
+                    break
+    simulations = [ sim for sim in simulations if sim not in devels ]
+    print(f'{len(devels)} under development')
     print(f'{len(simulations)} valid simulations')
     completed=0
     for name in simulations:
@@ -187,7 +200,7 @@ if __name__ == '__main__':
                 subprocess.check_output('node js/scripts/transpile.js >/dev/null 2>&1',shell=True,cwd=f'{repos}/chipper')
                 subprocess.check_output('npm install >/dev/null 2>&1',shell=True,cwd=f'{repos}/{name}')
                 subprocess.check_output('npm install grunt-cli >/dev/null 2>&1',shell=True,cwd=f'{repos}/{name}')
-                subprocess.check_output('./node_modules/grunt-cli/bin/grunt --brands=adapted-from-phet --locales=es,ca  >/dev/null 2>&1',shell=True,cwd=f'{repos}/{name}')
+                subprocess.check_output('./node_modules/grunt-cli/bin/grunt --brands=adapted-from-phet --locales=es,ca,en  >/dev/null 2>&1',shell=True,cwd=f'{repos}/{name}')
             except Exception as e:
                 print(f'{e}')
             if not os.path.isdir(f'{output}'):
@@ -196,7 +209,7 @@ if __name__ == '__main__':
                 os.mkdir(f'{output}/{name}')
             builddir = f'{repos}/{name}/build/adapted-from-phet'
             metalangs = []
-            for lang in ['es','ca']:
+            for lang in langs:
                 if os.path.isfile(f'{builddir}/{name}-600.png'):
                     shutil.copy(f'{builddir}/{name}-600.png',f'{output}/{name}/{name}.png')
                 if os.path.isfile(f'{builddir}/{name}_{lang}_adapted-from-phet.html'):
