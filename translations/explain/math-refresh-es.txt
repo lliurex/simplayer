@@ -1,0 +1,103 @@
+Repaso de Matemáticas
+anterior siguiente
+
+Aquí hay un repaso rápido de matemáticas sobre cálculo y trigonometría, para ayudarlo a disfrutar de las matemáticas detrás de las simulaciones de física en MyPhysicsLab.
+Derivadas
+
+La notación para la primera derivada de una función x(t) , con respecto a la variable t , se puede escribir como
+
+x'
+x'(t)
+d⁄dt  x(t)
+
+Estos son todas equivalentes. La notación para la segunda derivada es x'' o x''(t) .
+
+Estas son algunas de las reglas básicas para calcular derivadas. En lo siguiente, k y n son constantes reales distintas de cero. Y h(t), g(t) son funciones de t .
+
+Primero considere las potencias de t . La regla general es
+
+d⁄dt  t n = n t n − 1      para cualquier n ≠ 0
+
+Aquí hay algunos ejemplos de derivadas de potencias, usando la regla anterior:
+
+d⁄dt  t = 1
+d⁄dt  t 2 = 2 t
+d⁄dt  (t 3 + t 2 + t + 1) = 3t 2 + 2t + 1
+d⁄dt  1⁄t = d⁄dt  t −1 = − t −2 = −1⁄t 2
+
+Aquí hay algunas reglas básicas sobre las derivadas:
+
+d⁄dt  k = 0      (k = constant)
+d⁄dt  (k h(t)) = k  d⁄dt h(t)      (k = constante)
+d⁄dt  (h(t) + g(t)) = d⁄dt h(t) + d⁄dt g(t)
+d⁄dt  (h(t) × g(t)) = h×g' + h'×g      La regla del producto
+
+Aquí hay derivadas de algunas funciones especiales muy importantes.
+
+d⁄dt sin(t) = cos(t)
+d⁄dt cos(t) = −sin(t)
+d⁄dt e t = e t
+d⁄dt ln(t) = 1⁄t      Logaritmo natural
+
+La importantísima regla de la cadena nos permite derivar funciones de funciones (también llamada composición de funciones):
+
+d⁄dt h(g(t)) = h'(g(t)) × g'(t)      La regla de la cadena
+
+Es importante ser bueno en el uso de la regla de la cadena. Estos son algunos ejemplos de la regla de la cadena en acción:
+
+d⁄dt  sin(h(t)) = cos(h(t)) h'(t)
+d⁄dt  sin(t2) = 2 t cos(t2)
+d⁄dt  e h(t) = h'(t) e h(t)
+d⁄dt  e k t = k e k t      (k = constant)
+d⁄dt  e t2 = 2 t e t2
+d⁄dt  ln(h(t)) = h'(t) ⁄ h(t)
+d⁄dt  (         1       )  =    − h'(t)
+ h(t)    h(t)2
+
+La regla del cociente nos da la derivada de una razón de funciones:
+d⁄dt  (         h(t)    )  =    g h' − h g'          La regla del cociente
+g(t)    g2
+
+Usando la regla de la cadena y la regla del producto podemos derivar la regla del cociente:
+
+d⁄dt  h(t)⁄g(t) = d⁄dt  (h × 1⁄g) = h' × (1⁄g) + h × (−g'⁄g2) = (g h' − h g') ⁄ g2
+Identidades trigonométricas
+
+Primero, una nota sobre una notación confusa: un exponente de −1 en una función trigonométrica significa el inverso de esa función (¡no el recíproco!). Por lo tanto
+
+tan−1(x) = arctan(x)
+
+mientras
+
+tan2(x) = (tan(x))2
+
+La mejor manera de familiarizarse con la trigonometría es pensar en términos del círculo unitario. La mayoría de estas identidades se vuelven obvias.
+
+sin(−x) = −sin x
+cos(−x) = cos x
+tan(−x) = −tan x
+sin x = cos(π⁄2 − x)
+cos x = sin(π⁄2 − x)
+sin(0) = 0
+cos(0) = 1
+sin(π⁄2) = 1
+cos(π⁄2) = 0
+sin(π) = 0
+cos(π) = −1
+sin(3 π⁄2) = −1
+cos(3 π⁄2) = 0
+sin(x + 2 nπ) = sin x      n an integer
+cos(x + 2 nπ) = cos x      n an integer
+
+El famoso teorema de Pitágoras nos da la siguiente identidad
+
+cos2x + sin2x = 1
+
+Las fórmulas de la suma de los ángulos son
+
+cos(x + y) = cos x cos y − sin x sin y
+cos(x − y) = cos x cos y + sin x sin y
+sin(x + y) = sin x cos y + cos x sin y
+sin(x − y) = sin x cos y − cos x sin y
+
+Esta página web se publicó por primera vez en abril de 2001. 

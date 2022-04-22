@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<title lang="es">myPhysicsLab Math Refresher</title>
+<title lang="es">Repaso de Matemáticas</title>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,26 +9,26 @@
 </head>
 <body>
 
-<h1 lang="es">Math Refresher</h1>
+<h1 lang="es">Repaso de Matemáticas</h1>
 
 <div id="header_nav">
 <a class="nav_link"
-   href="runge-kutta-es.html">previous</a>
+   href="runge-kutta-es.html">anterior</a>
 <a class="nav_link"
-   href="physics-engine-es.html">next</a>
+   href="physics-engine-es.html">siguiente</a>
 </div>
 <ul id="header_bar">
 </ul>
 
-<p class="introduction">Here is a quick math refresher on calculus and trig, to help you enjoy the math behind the physics simulations at MyPhysicsLab.</p>
+<p class="introduction">Aquí hay un repaso rápido de matemáticas sobre cálculo y trigonometría, para ayudarlo a disfrutar de las matemáticas detrás de las simulaciones de física en MyPhysicsLab.</p>
 
-<h2 id="derivatives">Derivatives</h2>
+<h2 id="derivatives">Derivadas</h2>
 
-<p>The notation for the first derivative of a function <span class="html-math inline-math">
+<p>La notación para la primera derivada de una función <span class="html-math inline-math">
 <i>x</i>(<i>t</i>)
-</span>, with respect to the variable <span class="html-math inline-math">
+</span>, con respecto a la variable <span class="html-math inline-math">
 <i>t</i>
-</span>, can be written as</p>
+</span>, se puede escribir como</p>
 
 <p class="html-math display-equation">
 <i>x'</i><br>
@@ -38,35 +38,35 @@
 </span><br>
 </p>
 
-<p>These are all equivalent. The notation for the second derivative is <span class="html-math inline-math">
+<p>Estos son todas equivalentes. La notación para la segunda derivada es <span class="html-math inline-math">
 <i>x''</i>
-</span> or <span class="html-math inline-math">
+</span> o <span class="html-math inline-math">
 <i>x''</i>(<i>t</i>)
 </span>.</p>
 
 <p>
-Here are some of the basic rules for calculating derivatives. In the following <span class="html-math inline-math">
+    Estas son algunas de las reglas básicas para calcular derivadas. En lo siguiente, <span class="html-math inline-math">
 <i>k</i>
-</span> and <span class="html-math inline-math">
+</span> y <span class="html-math inline-math">
 <i>n</i>
-</span> are real non-zero constants.  And <span class="html-math inline-math">
+</span> son constantes reales distintas de cero. Y <span class="html-math inline-math">
 <i>h</i>(<i>t</i>), <i>g</i>(<i>t</i>)
-</span> are functions of <span class="html-math inline-math">
+</span> son funciones de <span class="html-math inline-math">
 <i>t</i>
 </span>.</p>
 
 <p>
-First consider powers of <span class="html-math inline-math">
+Primero considere las potencias de <span class="html-math inline-math">
 <i>t</i>
-</span>.  The general rule is</p>
+</span>. La regla general es</p>
 
 <p class="html-math display-equation">
-<sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp; <i>t</i> <sup><i>n</i></sup> = <i>n</i> <i>t</i> <sup><i>n</i> &minus; 1</sup> <span class="text">&nbsp;&nbsp;&nbsp;&nbsp; for any <i>n</i> &ne; 0</span>
+<sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp; <i>t</i> <sup><i>n</i></sup> = <i>n</i> <i>t</i> <sup><i>n</i> &minus; 1</sup> <span class="text">&nbsp;&nbsp;&nbsp;&nbsp; para cualquier <i>n</i> &ne; 0</span>
 <!-- this is a comment to test the minus math rule -->
 </p>
 
 
-<p>Here are some examples of derivatives of powers, using the above rule:</p>
+<p>Aquí hay algunos ejemplos de derivadas de potencias, usando la regla anterior:</p>
 
 <p class="html-math display-equation">
 <sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp; <i>t</i> = 1<br>
@@ -78,21 +78,21 @@ First consider powers of <span class="html-math inline-math">
 <sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp; <sup>1</sup>&frasl;<sub><i>t</i></sub> = <sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp; <i>t</i> <sup>&minus;1</sup> = &minus; <i>t</i> <sup>&minus;2</sup> = &minus;<sup>1</sup>&frasl;<sub><i>t</i> <sup>2</sup></sub><br>
 </p>
 
-<p>Here are some basic rules about derivatives:</p>
+<p>Aquí hay algunas reglas básicas sobre las derivadas:</p>
 
 <p class="html-math display-equation">
 <sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp; <i>k</i> = 0 <span class="text">&nbsp;&nbsp;&nbsp;&nbsp; (<i>k</i> = constant)</span><br>
 
-<sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp; <span class="bigg">(</span><i>k</i> <i>h</i>(<i>t</i>)<span class="bigg">)</span> = <i>k</i> &nbsp;<sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp;<i>h</i>(<i>t</i>)  <span class="text">&nbsp;&nbsp;&nbsp;&nbsp; (<i>k</i> = constant)</span><br>
+<sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp; <span class="bigg">(</span><i>k</i> <i>h</i>(<i>t</i>)<span class="bigg">)</span> = <i>k</i> &nbsp;<sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp;<i>h</i>(<i>t</i>)  <span class="text">&nbsp;&nbsp;&nbsp;&nbsp; (<i>k</i> = constante)</span><br>
 
 <sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp; <span class="bigg">(</span><i>h</i>(<i>t</i>) + <i>g</i>(<i>t</i>)<span class="bigg">)</span> = <sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp;<i>h</i>(<i>t</i>) +
 <sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp;<i>g</i>(<i>t</i>)
 <br>
 
-<sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp; <span class="bigg">(</span><i>h</i>(<i>t</i>) &times; <i>g</i>(<i>t</i>)<span class="bigg">)</span> = <i>h</i>&times;<i>g'</i> + <i>h'</i>&times;<i>g</i> <span class="text">&nbsp;&nbsp;&nbsp;&nbsp; The product rule</span><br>
+<sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp; <span class="bigg">(</span><i>h</i>(<i>t</i>) &times; <i>g</i>(<i>t</i>)<span class="bigg">)</span> = <i>h</i>&times;<i>g'</i> + <i>h'</i>&times;<i>g</i> <span class="text">&nbsp;&nbsp;&nbsp;&nbsp; La regla del producto</span><br>
 </p>
 
-<p>Here are derivatives of some very important special functions</p>
+<p>Aquí hay derivadas de algunas funciones especiales muy importantes.</p>
 
 <p class="html-math display-equation">
 <sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp;sin(<i>t</i>) = cos(<i>t</i>)<br>
@@ -101,18 +101,18 @@ First consider powers of <span class="html-math inline-math">
 
 <sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp;<i>e</i> <sup><i>t</i></sup> = <i>e</i> <sup><i>t</i></sup><br>
 
-<sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp;ln(<i>t</i>) = <sup>1</sup>&frasl;<sub><i>t</i></sub> <span class="text">&nbsp;&nbsp;&nbsp;&nbsp; Natural logarithm</span><br>
+<sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp;ln(<i>t</i>) = <sup>1</sup>&frasl;<sub><i>t</i></sub> <span class="text">&nbsp;&nbsp;&nbsp;&nbsp; Logaritmo natural</span><br>
 
 </p>
 
-<p>The all-important <em>chain rule</em> lets us take the derivative of <em>functions of functions</em> (also called <em>function composition</em>):</p>
+<p>La importantísima <em>regla de la cadena</em> nos permite derivar <em>funciones de funciones</em> (también llamada <em>composición de funciones</em>):</p>
 
 <p class="html-math display-equation">
 <sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp;<i>h</i>(<i>g</i>(<i>t</i>)) = <i>h'</i>(<i>g</i>(<i>t</i>)) &times; <i>g'</i>(<i>t</i>)
-<span class="text">&nbsp;&nbsp;&nbsp;&nbsp; The chain rule</span><br>
+<span class="text">&nbsp;&nbsp;&nbsp;&nbsp; La regla de la cadena</span><br>
 </p>
 
-<p>It is important to get good at using the chain rule.  Here are some examples of the chain rule in action:</p>
+<p>Es importante ser bueno en el uso de la regla de la cadena. Estos son algunos ejemplos de la regla de la cadena en acción:</p>
 
 <p class="html-math display-equation">
 <sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp; sin(<i>h</i>(<i>t</i>)) = cos(<i>h</i>(<i>t</i>)) <i>h'</i>(<i>t</i>)<br>
@@ -145,7 +145,8 @@ First consider powers of <span class="html-math inline-math">
 </table>
 </div>
 
-<p>The quotient rule gives us the derivative of a <em>ratio of functions</em>:</p>
+<p>
+    La regla del cociente nos da la derivada de una <em>razón de funciones</em>:</p>
 
 <div class="html-math table-equation">
 <table class="fraction">
@@ -159,7 +160,7 @@ First consider powers of <span class="html-math inline-math">
         </td><td>
             <i>g</i> <i>h'</i> &minus; <i>h</i> <i>g'</i>
         </td><td rowspan="2">
-            <span class="text"> &nbsp;&nbsp;&nbsp;&nbsp; The quotient rule</span>
+            <span class="text"> &nbsp;&nbsp;&nbsp;&nbsp; La regla del cociente</span>
         </td>
     </tr><tr>
         <td class="upper_line">
@@ -171,7 +172,7 @@ First consider powers of <span class="html-math inline-math">
 </table>
 </div>
 
-<p>Using the chain rule and the product rule we can derive the quotient rule:</p>
+<p>Usando la regla de la cadena y la regla del producto podemos derivar la regla del cociente:</p>
 
 <p class="html-math display-equation">
 <sup><i>d</i></sup>&frasl;<sub><i>dt</i></sub>&nbsp; <sup><i>h</i>(<i>t</i>)</sup>&frasl;<sub><i>g</i>(<i>t</i>)</sub> =
@@ -182,23 +183,23 @@ First consider powers of <span class="html-math inline-math">
 </p>
 
 
-<h2 id="trig_identities">Trig Identities</h2>
+<h2 id="trig_identities">Identidades trigonométricas</h2>
 
-<p>First, a note on some confusing notation:  an exponent of <span class="html-math inline-math">
+<p>Primero, una nota sobre una notación confusa: un exponente de <span class="html-math inline-math">
 &minus;1
-</span> on a trig function means the <i>inverse</i> of that function (not the reciprocal!).  Therefore</p>
+</span> en una función trigonométrica significa el <i>inverso</i> de esa función (¡no el recíproco!). Por lo tanto</p>
 
 <p class="html-math display-equation">
 tan<sup>&minus;1</sup>(<i>x</i>) = arctan(<i>x</i>)
 </p>
 
-<p>while</p>
+<p>mientras</p>
 
 <p class="html-math display-equation">
 tan<sup>2</sup>(<i>x</i>) = (tan(<i>x</i>))<sup>2</sup>
 </p>
 
-<p>The best way to get comfortable with trigonometry is to think in terms of the unit circle. Most of these identities then become obvious.</p>
+<p>La mejor manera de familiarizarse con la trigonometría es pensar en términos del círculo unitario. La mayoría de estas identidades se vuelven obvias.</p>
 
 <p class="html-math display-equation">
 sin(&minus;<i>x</i>) = &minus;sin <i>x</i><br>
@@ -232,13 +233,13 @@ sin(<i>x</i> + 2 <i>n</i>&pi;) = sin <i>x</i> <span class="text">&nbsp;&nbsp;&nb
 cos(<i>x</i> + 2 <i>n</i>&pi;) = cos <i>x</i> <span class="text">&nbsp;&nbsp;&nbsp;&nbsp; <i>n</i> an integer</span><br>
 </p>
 
-<p>The famous <em>pythagorean theorem</em> gives us the following identity</p>
+<p>El famoso <em>teorema de Pitágoras</em> nos da la siguiente identidad</p>
 
 <p class="html-math display-equation">
 cos<sup>2</sup><i>x</i> + sin<sup>2</sup><i>x</i> = 1<br>
 </p>
 
-<p>The <em><a id="sum_of_angles">sum of angles</a></em> formulas are</p>
+<p>Las fórmulas de la <em><a id="sum_of_angles">suma de los ángulos</a></em> son</p>
 
 <p class="html-math display-equation">
 cos(<i>x</i> + <i>y</i>) = cos <i>x</i> cos <i>y</i> &minus; sin <i>x</i> sin <i>y</i><br>
@@ -249,7 +250,7 @@ sin(<i>x</i> &minus; <i>y</i>) = sin <i>x</i> cos <i>y</i> &minus; cos <i>x</i> 
 </p>
 
 <p id="page_history">
-  This web page was first published April 2001.
+  Esta página web se publicó por primera vez en abril de 2001.
 </p>
 
 
