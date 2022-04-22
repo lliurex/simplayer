@@ -1,0 +1,81 @@
+Clasificando Ecuaciones Diferenciales
+anterior siguiente
+
+Cuando estudias ecuaciones diferenciales, es como la botánica. Aprendes a mirar una ecuación y clasificarla en cierto grupo. La razón es que las técnicas para resolver ecuaciones diferenciales son comunes a estos diversos grupos de clasificación. Y a veces puedes transformar una ecuación de un tipo en una ecuación equivalente de otro tipo, para que pueda utilizar técnicas de solución más fáciles. Aquí están algunos de los principales clasificaciones de ecuaciones diferenciales:
+
+En esta página asumimos que x y y son funciones de tiempo, t :
+
+x = x(t)
+y = y(t)
+
+Y las derivadas son con respecto a t
+d x 	 = x'(t)
+d t
+Parcial vs. Ordinario
+
+Una ecuación diferencial ordinaria (u EDO) tiene un conjunto discreto (finito) de variables. Por ejemplo en el péndulo simple, hay dos variables: ángulo y velocidad angular.
+
+Una ecuación diferencial parcial (o EPD) tiene un conjunto infinito de variables que corresponden a todas las posiciones en una línea o una superficie o una región del espacio. Para ejemplo en la simulación de cadenas tenemos un conjunto continuo de variables a lo largo de la cadena correspondiente al desplazamiento de la cuerda en cada posición. En la práctica nosotros aproximamos el conjunto infinito de variables con un conjunto finito de variables repartidas en la cuerda (o superficie o volumen) en cada posición.
+
+Para una EDO, cada variable tiene una ecuación diferencial distinta usando derivadas "ordinarias". Para una EPD, solo hay una ecuación diferencial "parcial" para cada dimensión.
+Primer Orden, Segundo Orden
+
+El orden de una ecuación diferencial es igual a la derivada más alta en la ecuacion. La comilla simple indica diferenciación. Entonces x' es una primera derivada, mientras que x'' es una segunda derivada.
+
+x' = 1/x   es de primer orden
+
+x'' = −x   es de segundo orden
+
+x'' + 2 x' + x = 0   es de segundo orden
+Lineal frente a no lineal
+
+Lineal solo significa que la variable en una ecuación aparece solo con una potencia de uno. Entonces x es lineal pero x2 no es lineal. También cualquier función como cos(x) no es lineal.
+
+En matemáticas y física, lineal generalmente significa "simple" y no lineal significa "complicado". La teoría para resolver ecuaciones lineales está muy bien desarrollada porque las ecuaciones lineales son lo suficientemente simples para ser resolubles. Las ecuaciones no lineales por lo general no se pueden resolver exactamente y son objeto de mucha la investigación en curso. Aquí hay una breve descripción de cómo reconocer las ecuaciones lineales.
+
+Recuerda que la ecuación de una recta es
+
+y = m x + b
+
+donde m, b son constantees ( m es la pendiente, y b es la y -intersección). En una ecuación diferencial, cuando las variables y sus las derivadas solo se multiplican por constantes, entonces la ecuación es lineal. Las variables y sus derivadas siempre deben aparecer como una primera potencia simple. Aquí están algunos ejemplos.
+
+x'' + x = 0   es lineal
+
+x'' + 2x' + x = 0   es lineal
+
+x' + 1/x = 0   es no lineal porque 1/x no es de primer orden
+
+x' + x2 = 0   es no lineal porque x2 no es de primer orden
+
+x'' + sin(x) = 0   es no lineal porque sin(x) no es de primer orden
+
+x x' = 1   es no lineal porque x' no está multiplicada por una constante
+
+Se aplican reglas similares a los problemas de variables múltiples.
+
+x' + y' = 0   es lineal
+
+x y' = 1   es no lineal porque y' no está multiplicada por una constante
+
+Tenga en cuenta, sin embargo, que se hace una excepción para la variable de tiempo t (la variable por la que estamos diferenciando). Podemos tener cualquier loca función no lineal de t aparecen en la ecuación, pero todavía tienen una ecuación que es lineal en x .
+
+x'' + 2 x' + x = sin(t)   es lineal en x
+
+x' + t2x = 0   es lineal en x
+
+sin(t) x' + cos(t) x = exp(t)   es lineal en x
+
+Consulte el artículo de Wikipedia sobre para obtener más detalles.
+Homogéneo vs. No homogéneo
+
+Esta es otra forma de clasificar las ecuaciones diferenciales. Estos términos sofisticados ascienden a lo siguiente: si hay un término que involucra solo tiempo, t (que se muestra en el lado derecho en las ecuaciones a continuación).
+
+x'' + 2_x' + x = 0   es homogénea
+
+x'' + 2_x' + x = sin(t)   no es homogénea
+
+x' + t2x = 0   es homogénea
+
+x' + t2x = t + t2   no es homogénea
+
+La parte no homogénea de la ecuación es el término que involucra solo el tiempo. Eso normalmente corresponde a un término forzado en el modelo físico. Por ejemplo, en un péndulo impulsado sería el motor el que está impulsando el péndulo.
