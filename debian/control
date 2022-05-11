@@ -2,7 +2,7 @@ Source: libjs-ruffle
 Section: libs
 Priority: optional
 Maintainer: M.Angel Juan <m.angel.juan@gmail.com>
-Build-Depends: debhelper-compat (= 12)
+Build-Depends: debhelper-compat (= 12), , libxcb1, libxcb-render0, libxcb-shape0, libxcb-xfixes0, libgtk-3-0, libasound2
 Standards-Version: 4.4.1
 Homepage: https://github.com/lliurex/simplayer
 Vcs-Browser: https://github.com/lliurex/simplayer
