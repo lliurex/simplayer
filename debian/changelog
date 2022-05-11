@@ -1,3 +1,10 @@
+libjs-ruffle (0.1.0.220510) focal; urgency=medium
+
+  * Bump version to 2022/05/10
+  * Include local binary
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Wed, 11 May 2022 13:13:48 +0200
+
 libjs-ruffle (0.1.0.220210) focal; urgency=medium
 
   * Initial Release.
