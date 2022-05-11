@@ -10,7 +10,7 @@ Vcs-Git: https://github.com/lliurex/simplayer
 
 Package: libjs-ruffle
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, libxcb1, libxcb-render0, libxcb-shape0, libxcb-xfixes0, libgtk-3-0, libasound2
 Description: Ruffle javascript library
  Ruffle is a javascript emulator for flash objects
 
