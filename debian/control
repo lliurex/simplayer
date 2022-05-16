@@ -10,7 +10,7 @@ Vcs-Git: https://github.com/lliurex/simplayer
 
 Package: simplayer-flash-activities
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, simplayer
 Description: Educational activities collection
  Educational activities with offline usage
 
