@@ -1,1 +1,2 @@
 resources/circuit /usr/lib/simplayer/resources/
+launchers/* usr/share/applications/
