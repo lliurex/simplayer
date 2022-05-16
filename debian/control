@@ -10,7 +10,7 @@ Vcs-Git: https://github.com/lliurex/simplayer
 
 Package: simplayer-circuit
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, simplayer
 Description: Educational simulations circuit simulator
  Circuit simulator for simplayer
 
