@@ -1,3 +1,10 @@
+simplayer-circuit (0.2.2) focal; urgency=medium
+
+  * Add desktop for standalone launch
+  * Add Simplayer as dependency
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Mon, 16 May 2022 17:19:04 +0200
+
 simplayer-circuit (0.2.1) focal; urgency=medium
 
   * Fix
