@@ -1,3 +1,9 @@
+simplayer-circuit (0.2.3) focal; urgency=medium
+
+  * Fix install file
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Mon, 16 May 2022 17:24:09 +0200
+
 simplayer-circuit (0.2.2) focal; urgency=medium
 
   * Add desktop for standalone launch
