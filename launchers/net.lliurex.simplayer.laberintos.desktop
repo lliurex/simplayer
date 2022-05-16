@@ -1,0 +1,21 @@
+[Desktop Entry]
+Type=Application
+Exec=simplayer -a labyrinthe
+Icon=/usr/share/icons/lliurex/apps/48/simplayer.svg
+MimeType=application/x-simplayer;
+Terminal=false
+Name=Labyrinths
+Name[ca]=Laberints
+Name[ca@valencia]=Laberints
+Name[en_GB]=Labyrinths
+Name[es]=Laberintos
+GenericName=Practice with mouse movements
+GenericName[ca]=Practica amb moviments de ratolí
+GenericName[ca@valencia]=Practica amb moviments de ratolí
+GenericName[es]=Practica con movimientos de ratón
+Comment=Practice with mouse movements
+Comment[ca]=Practica amb moviments de ratolí
+Comment[ca@valencia]=Practica amb moviments de ratolí
+Comment[es]=Practica con movimientos de ratón
+Categories=LliureX-Infantil;
+X-DBUS-ServiceName=net.lliurex.simplayer.laberintos

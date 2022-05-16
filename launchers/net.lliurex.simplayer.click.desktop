@@ -1,0 +1,21 @@
+[Desktop Entry]
+Type=Application
+Exec=simplayer -a clic-double-clic
+Icon=/usr/share/icons/lliurex/apps/48/simplayer.svg
+MimeType=application/x-simplayer;
+Terminal=false
+Name=Clic-doble-clic
+Name[ca]=Clic-doble-clic
+Name[ca@valencia]=Clic-doble-clic
+Name[en_GB]=Clic-double-clic
+Name[es]=Clic-doble-clic
+GenericName=Practice with mouse clicks
+GenericName[ca]=Practica amb clics de ratolí
+GenericName[ca@valencia]=Practica amb clics de ratolí
+GenericName[es]=Practica con clics de ratón
+Comment=Practice with mouse clicks
+Comment[ca]=Practica amb clics de ratolí
+Comment[ca@valencia]=Practica amb clics de ratolí
+Comment[es]=Practica con clics de ratón
+Categories=LliureX-Infantil;
+X-DBUS-ServiceName=net.lliurex.simplayer.click
