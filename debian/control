@@ -10,7 +10,7 @@ Vcs-Git: https://github.com/lliurex/simplayer
 
 Package: simplayer-myphysicslab-activities
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, fonts-mathjax, libjs-mathjax
+Depends: ${shlibs:Depends}, ${misc:Depends}, fonts-mathjax, libjs-mathjax, simplayer
 Description: Educational activities collection
  Educational activities with offline usage
 
