@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Forces de Contacte de Cossos Rígids</title>
 
 <script>
@@ -68,7 +69,9 @@ control four "thrusters". The keys S,D,F,E control thrust on block1. The
 keys J,K,L,I -- and also the arrow keys -- control thrust on block2. You
 can also set gravity, elasticity (bounciness), and damping (friction). You can choose
 from one to six objects.</p>
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 <p>Also available are:
 <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/ContactApp.js">open source code</a>,
  and a
@@ -1073,7 +1076,36 @@ equation (6) which is what goes into <span class="html-math inline-math">
 <p id="page_history">
   This web page was first published January 2007.
 </p>
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 <div id="footer2" >
   <div id="copyright">

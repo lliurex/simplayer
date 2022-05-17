@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Cuerda</title>
 
 <script>
@@ -56,17 +57,17 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Acerca de</h2>
 
 <p class="introduction">
-Interactive simulation of a string under tension. Note that the vertical dimension is
-magnified to be able to see the deflection of the string.
+  Simulación interactiva de una cuerda bajo tensión. Tenga en cuenta que la dimensión vertical está
+  ampliada para poder ver la desviación de la cuerda.
 </p>
 
 <p class="instructions">
-Try dragging the string's left connection point. Try different shapes. Try changing
-density, tension, damping (friction), number of points, and time step. But see the
-section below about <a href="#stability">stability</a>.
+  Intente arrastrar el punto de conexión izquierdo de la cadena. Pruebe diferentes formas. Intente cambiar
+  densidad, tensión, amortiguamiento (fricción), número de puntos y paso de tiempo. También mire la
+  siguiente sección sobre <a href="#stability">estabilidad</a>.
 </p>
 
 <!--p style="clear: both;">
@@ -78,7 +79,9 @@ section below about <a href="#stability">stability</a>.
     Attribution 3.0 License</a> from
   <a href="http://www.fatcow.com/free-icons">Free FatCow-Farm Fresh Icons</a>.
 </p-->
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 <p>The math behind the simulation is shown below.  Also available are:
 <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pde/StringApp.js">open source code</a>,
 documentation and a
@@ -253,7 +256,36 @@ time step <span class="html-math inline-math">
   This web page was first published November 2016.
 </p>
 
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

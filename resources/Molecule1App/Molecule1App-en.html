@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Molecule 2</title>
 
 <script>
@@ -58,10 +59,12 @@ This simulation shows 2 masses connected by a spring and free to move in 2 dimen
 </p>
 
 <p class="instructions">
-You can change parameters in the simulation such as gravity, mass, spring stiffness, and friction (damping).  You can drag any mass with your mouse to change the starting position. 
+You can change parameters in the simulation such as gravity, mass, spring stiffness, and friction (damping).  You can drag any mass with your mouse to change the starting position.
 </p>
+<button type="button" class="technical-toggle"></button>
 
-<p>The math and physics used in this simulation are similar to the 
+<div class="technical" style="display:none;">
+<p>The math and physics used in this simulation are similar to the
 <a href="../Spring2DApp/Spring2DApp-en.html">2-D Spring</a> and
 <a href="../Double2DSpringApp/Double2DSpringApp-en.html">Double 2-D Spring</a> simulations. However the masses
 can also collide with the walls; the collision handling is similar to the
@@ -80,18 +83,47 @@ which is more customizable.
   This web page was first published September 2001.
 </p>
 
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
-    &copy; <a href="mailto:erikn@myPhysicsLab.com" 
+    &copy; <a href="mailto:erikn@myPhysicsLab.com"
     title="send comments to Erik Neumann">
     Erik Neumann</a>,  2004-2016<br>
     <span id="revised_date">revised Feb 6 2021</span>
   </div>
 </div>
 
-<!-- Call the app script after the body so that html entities are defined and 
-* the script can find them.--> 
+<!-- Call the app script after the body so that html entities are defined and
+* the script can find them.-->
 <script src="Molecule1App-en.js"></script>
 
 <script>
@@ -118,7 +150,7 @@ which is more customizable.
     app = makeMolecule1App(elem_ids);
     app.defineNames('app');
     window.addEventListener('pageshow', function(event){
-      // set language menu and compiled menus in case of back-button 
+      // set language menu and compiled menus in case of back-button
       var menu = document.getElementById('language_menu');
       if (menu) { menu.selectedIndex = 0; }
       menu = document.getElementById('compiled_menu');
@@ -141,7 +173,7 @@ which is more customizable.
 <script>var app; if (app) app.start();</script>
 <div id="footer2" >
   <div id="copyright">
-    &copy; <a href="mailto:erikn@MyPhysicsLab.com" 
+    &copy; <a href="mailto:erikn@MyPhysicsLab.com"
     title="copyright 2020 Erik Neumann">
     Erik Neumann</a> 2020, available under
     <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2</a>

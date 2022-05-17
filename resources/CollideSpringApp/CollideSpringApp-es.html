@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Colisión de Muelles</title>
 
 <script>
@@ -61,28 +62,61 @@
   cambiar parámetros como la masa, la rigidez del muelle, la longitud del resorte y la amortiguación (fricción).
   Se puede aplicar una fuerza del muelle con el ratón a cualquier bloque.
 </p>
+<button type="button" class="technical-toggle"></button>
 
-<p>Una ventaja de usar pequeños muelles rígidos para manejar colisiones es que no
-  se tiene que
-<a href="../CollideBlocksApp/CollideBlocksApp-es.html#collisions">volver atrás en el tiempo</a>
-después de detectar una colisión. Una desventaja es que tienes que tomar pasos de muy poco tiempo en los cálculos, al menos cuando los objetos están lo suficientemente cerca como para ser capaces de colisionar. Se necesitan pasos de poco tiempo porque los muelles son rígidos y pequeños.
-</p>
+<div class="technical" style="display:none;">
+  <p>An advantage of using small stiff springs to do collision handling is that you don't
+    have to
+    <a href="../CollideBlocksApp/CollideBlocksApp-es.html#collisions">back up in time</a>
+    after detecting a collision. A disadvantage is that you have to take very small time
+    steps, at least when objects are close enough to be capable of colliding. Small time
+    steps are needed because the springs are stiff and small.
+    </p>
 
-<p>El uso de resortes para el manejo de colisiones también se analiza en la página sobre
-<a href="../CollisionCombo/CollisionCombo-es.html">Múltiples Colisiones Simultáneas</a>.
-</p>
+    <p>Using springs for collision handling is also discussed on the page about
+    <a href="../CollisionCombo/CollisionCombo-es.html">Multiple Simultaneous Collisions</a>.
+    </p>
 
-<p>También está disponible:
-<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/CollideSpringApp.js">código fuente</a>,
-documentación y un
-versión compilada simple
-que es más personalizable.
-</p>
+    <p>Also available are:
+    <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/CollideSpringApp.js">open source code</a>,
+    documentation and a
+    simple-compiled version
+    which is more customizable.
+    </p>
 
-<p id="page_history">
-  Esta página web se publicó por primera vez en noviembre de 2016.
-</p>
-
+    <p id="page_history">
+      This web page was first published November 2016.
+    </p>
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

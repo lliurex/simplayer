@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
-
+<script src="../../jquery/jquery.min.js"></script>
 <script>
   document.getElementsByTagName("html")[0].style.visibility = "hidden";
 </script>
@@ -44,1061 +44,1110 @@ se ocupa de múltiples colisiones simultáneas. Los puntos de resumen son:
   <li>Las colisiones cuadradas que involucran formas rectangulares quizás no sean correctas.</li>
 </ul>
 
+<button type="button" class="technical-toggle"></button>
+
+<div class="technical" style="display:none;">
+
+  <p>The simulations discussed here use simplified rules to determine the result of a
+    collision. A more exact simulation would model the deformation of the colliding bodies
+    on a very small time scale. But that would require much more complex software and
+    models, and would not run interactively in real-time.
+    </p>
+
+    <p>The bottom line: although there isn't a single perfect solution, for most purposes
+    the <a href="#serial">serial collision handling</a> method works pretty well.</p>
+
+    <p>The book <i>Physics-Based Animation</i> by Erleben, Sporring, Henriksen, and Dohlmann
+    discusses several approaches to handling collisions. In comparing two of the methods
+    considered below, they write (on page 153):
+    </p>
+
+    <p class="quote">
+    We cannot really talk about one method being more correct or better than the other
+    because it is possible to set up physical configurations of colliding rigid bodies
+    where one of the methods computes the wanted motion and the other does not and vice
+    versa.
+    </p>
+
+    <h2>Single Collisions</h2>
+
+    <p>The theory of rigid body collisions is described at
+    <a href="../ImpulseApp/ImpulseApp-es.html#collision_physics">Physics of Collision for Rigid Bodies in 2
+    Dimensions</a>. That describes a single collision between two bodies at one collision
+    point.</p>
+
+    <p>The key idea is that we can find a
+    <a href="../ImpulseApp/ImpulseApp-es.html#collision_impulse">collision impulse</a> which reverses the
+    collision such that the final relative velocity between the bodies, <span class="html-math inline-math">
+    <i>v<sub>f</sub></i>
+    </span>, after
+    the collision is some multiple of the initial relative velocity, <span class="html-math inline-math">
+    <i>v<sub>i</sub></i>
+    </span>.
+    </p>
+
+    <div id="equation1">
+    <table class="html-math numbered-equation">
+    <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+    <i>v<sub>f</sub></i> = &minus;<i>e</i> <i>v<sub>i</sub></i>
+
+    </td><td class="equation-number">(1)</td></tr></table>
+    </div>
+
+    <p>The velocity here is the speed at which the gap distance between the objects is
+    changing &ndash; <em>their velocity relative to each other</em> (not the absolute speed
+    of the objects relative to the fixed background).</p>
+
+    <ul>
+      <li>Negative relative velocity means the objects are colliding: the gap between them
+      is becoming smaller.</li>
+
+      <li>Positive relative velocity means the objects are separating: the gap between them
+      is becoming larger.</li>
+    </ul>
+
+    <p>The elasticity <span class="html-math inline-math">
+    <i>e</i>
+    </span> is a constant between 0 and 1 that indicates how "bouncy"
+    the collision is, where <span class="html-math inline-math">
+    <i>e</i> = 1
+    </span> means perfectly elastic and <span class="html-math inline-math">
+    <i>e</i> = 0
+    </span> means
+    completely inelastic.
+    <!--For <span class="html-math inline-math">
+    <i>e</i> = 1
+    </span> the relative velocity after the collision is the exact opposite of the velocity before the collision.-->
+    </p>
 
 
-<p>Las simulaciones discutidas aquí usan reglas simplificadas para determinar el resultado de una
-  colisión. Una simulación más exacta modelaría la deformación de los cuerpos en colisión.
-  en una escala de tiempo muy pequeña. Pero eso requeriría un software y modelos mucho más complejo, además no se ejecutaría de forma interactiva en tiempo real.
-</p>
 
-<p>El resultado final: aunque no existe una única solución perfecta, para la mayoría de los propósitos
-  el método <a href="#serial">manejo de colisiones en serie</a> funciona bastante bien.</p>
+    <h2>Multiple Collisions</h2>
 
-<p>El libro <i>Physics-Based Animation</i> de Erleben, Sporring, Henriksen y Dohlmann
-  discute varios enfoques para manejar las colisiones. Al comparar dos de los métodos
-  considerados a continuación, escriben (en la página 153):
-</p>
+    <p>When there are multiple simultaneous points of contact between two or more bodies
+    then we have to modify the collision handling algorithm.</p>
 
-<p class="quote">
-  Realmente no podemos hablar de que un método sea más correcto o mejor que el otro,
-  porque es posible establecer configuraciones físicas de cuerpos rígidos en colisión
-  donde uno de los métodos calcula el movimiento deseado y el otro no y viceversa.
-</p>
+    <p>A typical case is when several bodies are in resting contact with each other and
+    then another body crashes into one member of the group. Think of the initial "break" in
+    a <a href="../BilliardsApp/BilliardsApp-es.html">game of billiards</a> where one ball collides into a large
+    group of balls that are in resting contact with each other.
+    </p>
 
-<h2>Colisiones simples</h2>
+    <p>Another case is multiple simultaneous collisions. A typical case is a rectangular
+    block colliding into a wall such that both corners are colliding. Another case is two
+    bodies colliding from separate directions into a third body.</p>
 
-<p>La teoría de las colisiones de cuerpos rígidos se describe en
-<a href="../ImpulseApp/ImpulseApp-es.html#collision_physics">Física de Colisión para Cuerpos Rígidos en 2
-  Dimensiones</a>. Ahí se describe una sola colisión entre dos cuerpos en una colisión.
-  puntual.</p>
+    <p>There are two ways to deal with multiple collisions</p>
 
-<p>La idea clave es que podemos encontrar un
-<a href="../ImpulseApp/ImpulseApp-es.html#collision_impulse">impulso de colisión</a> que invierta la
-colisión tal que la velocidad relativa final entre los cuerpos, <span class="html-math inline-math">
-<i>v<sub>f</sub></i>
-</span>, después de
-la colisión sea un múltiplo de la velocidad relativa inicial, <span class="html-math inline-math">
-<i>v<sub>i</sub></i>
-</span>.
-</p>
+    <ol>
+      <li><b>Simultaneous collision handling.</b> All the resulting velocities are
+      calculated in one step.</li>
 
-<div id="equation1">
-<table class="html-math numbered-equation">
-<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
-<i>v<sub>f</sub></i> = &minus;<i>e</i> <i>v<sub>i</sub></i>
+      <li><b>Serial or Sequential collision handling.</b> Each collision is resolved in
+      turn as though it was a single collision. The order of resolving collisions is
+      random, their effect is summed, and each collision can cause other collisions to
+      occur which are resolved instantaneously during this process.</li>
 
-</td><td class="equation-number">(1)</td></tr></table>
+    </ol>
+
+
+    <h2 id="simultaneous">Simultaneous Collision Handling</h2>
+
+    <p>One method of handling multiple collisions is called the <i>simultaneous
+    collisions</i> method. In this scheme, we predict the result at every point of
+    collision or resting contact by using <a href="#equation1">equation (1)</a>. We then
+    find the appropriate collision impulse at each point of collision of contact such that
+    the end result matches what equation (1) predicts.
+    </p>
+
+    <p>Consider a situation where there are two hockey pucks at rest and in contact with
+    each other; and then a third puck comes from the left and strikes one of the pucks.
+    (Imagine we are looking down onto an air hockey table).
+    </p>
+
+
+    <div id="container1" class="control_container" lang="en">
+      <div id="div_graph1" >
+      </div>
+      <div id="div_time_graph1" >
+      </div>
+      <div id="sim_applet1" >
+      </div>
+      <div id="sim_controls1" class="control_group">
+      </div>
+      <div id="graph_controls1" class="control_group">
+      </div>
+      <div id="time_graph_controls1" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim1">
+        <input type="checkbox" id="show_sim1">show sim
+      </label>
+      <label id="label_terminal1">
+        <input type="checkbox" id="show_terminal1">terminal
+      </label>
+      <div id="div_terminal1">
+        <textarea id="term_output1" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input1" size="80">
+        </label>
+      </div>
+    </div>
+
+    <p>We assume these hockey pucks are exactly lined up, elasticity is 1, and the pucks
+    have the same mass. There are two points of collision, the collision on the left has a
+    <span class="html-math inline-math">
+    <i>v<sub>i</sub></i> = &minus;2
+    </span>, the right collision has <span class="html-math inline-math">
+    <i>v<sub>i</sub></i> = 0
+    </span>. By using <a
+    href="#equation1">equation (1)</a> we get for the left collision <span class="html-math inline-math">
+    <i>v<sub>f</sub></i> = 2
+    </span> and
+    for the right collision <span class="html-math inline-math">
+    <i>v<sub>f</sub></i> = 0
+    </span>. So we see the left puck bounce away to the
+    left, and the pair of pucks move to the right remaining together.
+    </p>
+
+    <p>This is the wrong behavior! If you play billiards, you know what should happen: the
+    left and middle pucks should remain stationary, and the right-most puck should move
+    away. Another example of the correct behavior is seen in the toy called a <a
+    href="../NewtonsCradleApp/NewtonsCradleApp-es.html">Newton's Cradle</a>. It is a set of steel balls suspended
+    from strings, such that they are resting against each other; when you pick up one of
+    the balls at the end and let it hit the group, that ball stops and the ball at the
+    other end flies away.
+    </p>
+
+    <p>Consider just two hockey pucks, one stationary, and the other moving from the left.
+    Suppose they have the same mass, are perfectly elastic (<span class="html-math inline-math">
+    <i>e</i> = 1
+    </span>), and the motion
+    is aligned so they hit squarely. After they collide, the left puck should be
+    stationary, and the right puck should move away. Because this is a single collision, <a
+    href="#equation1">equation (1)</a> gives the correct result, with <span class="html-math inline-math">
+    <i>v<sub>f</sub></i> = &minus;<i>v<sub>i</sub></i>
+    </span>,
+    and this is what we see in the Hockey Puck simulation. In the case of three hockey
+    pucks, the same thing should happen: the velocity should transfer from the left puck to
+    the right puck, with the impact transferred thru the middle puck.
+    </p>
+
+
+    <div id="container2" class="control_container" lang="en">
+      <div id="div_graph2" >
+      </div>
+      <div id="div_time_graph2" >
+      </div>
+      <div id="sim_applet2" >
+      </div>
+      <div id="sim_controls2" class="control_group">
+      </div>
+      <div id="graph_controls2" class="control_group">
+      </div>
+      <div id="time_graph_controls2" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim2">
+        <input type="checkbox" id="show_sim2">show sim
+      </label>
+      <label id="label_terminal2">
+        <input type="checkbox" id="show_terminal2">terminal
+      </label>
+      <div id="div_terminal2">
+        <textarea id="term_output2" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input2" size="80">
+        </label>
+      </div>
+    </div>
+
+
+    <p>Another way to see this: What if the two stationary pucks are not quite touching,
+    but there is a small gap between them? Then, what happens is the "one hits one"
+    collision happening twice, separated by a small gap of time and space. The Hockey Puck
+    simulation below demonstrates this. Since you can make this gap as small as you want,
+    it seems unreasonable that the behavior suddenly changes dramatically when the pucks
+    are touching instead of separated by a tiny gap.
+    </p>
+
+
+    <div id="container3" class="control_container" lang="en">
+      <div id="div_graph3" >
+      </div>
+      <div id="div_time_graph3" >
+      </div>
+      <div id="sim_applet3" >
+      </div>
+      <div id="sim_controls3" class="control_group">
+      </div>
+      <div id="graph_controls3" class="control_group">
+      </div>
+      <div id="time_graph_controls3" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim3">
+        <input type="checkbox" id="show_sim3">show sim
+      </label>
+      <label id="label_terminal3">
+        <input type="checkbox" id="show_terminal3">terminal
+      </label>
+      <div id="div_terminal3">
+        <textarea id="term_output3" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input3" size="80">
+        </label>
+      </div>
+    </div>
+
+
+
+    <h2 id="serial">Serial Collision Handling</h2>
+
+    <div class="image" style="width: 202px; float: left;">
+    <img src="collision_handling_2.png" width="201" height="255" alt=""><br>
+    sequence of collisions
+    </div>
+
+    <div style="margin-left: 228px; max-width: 40em;">
+    <p>The <i>serial</i> collision handling method is also known by the terms
+    <i>propagating impulses</i> or <i>sequential</i> collision handling. With the serial
+    method, we imagine that each of the multiple collisions happens one at a time in
+    sequence; we resolve each collision as a single collision, and then based on the
+    resulting velocities there are subsequent collisions to resolve. All this happens
+    instantaneously. It is rather like pretending that there are tiny gaps between the
+    objects, and that they rebound against each other after the initial collision occurs.
+    </p>
+
+    <p>Consider the "one hits two" scenario, where one puck hits two motionless pucks that
+    are in contact. With the simultaneous method, we used <a href="#equation1">equation
+    (1)</a> to decide in advance what the final velocities would be at the two collision
+    points (this was described above). The serial method goes thru a process of "collision
+    resolving" where objects collide and rebound against each other, possibly many times,
+    until there are no more collisions. This process of collision resolving takes no time,
+    the idea being that because the objects are all in contact there is no distance for
+    them to travel to bump into one another.
+    </p>
+
+    <p>With the serial collision handling method, when elasticity <span class="html-math inline-math">
+    <i>e</i> = 1
+    </span>, the "one
+    hits two" scenario goes like this: assume the left puck approaches the two stationary
+    pucks with <span class="html-math inline-math">
+    <i>v<sub>i</sub></i> = &minus;2
+    </span>
+    </p>
+
+    <ul>
+      <li>first collision: left puck hits middle puck, <span class="html-math inline-math">
+    <i>v<sub>f</sub></i> = &minus;<i>v<sub>i</sub></i> = 2
+    </span>, (this is
+      the same as in the "one hits one" scenario)</li>
+
+      <li>second collision: middle puck hits right puck with <span class="html-math inline-math">
+    <i>v<sub>i</sub></i> = &minus;2
+    </span>, (again same
+      as the "one hits one" scenario)</li>
+
+    </ul>
+
+    <p>The result is that the left and middle pucks are stationary, and <span class="html-math inline-math">
+    <i>v<sub>f</sub></i> = 2
+    </span> for
+    the second collision. The simulation below runs this scenario with the serial collision
+    method; it shows that the serial method correctly handles this case, in contrast to the
+    simultaneous method.
+    </p>
+    </div>
+
+    <div style="clear: both;">
+
+
+    <div id="container4" class="control_container" lang="en">
+      <div id="div_graph4" >
+      </div>
+      <div id="div_time_graph4" >
+      </div>
+      <div id="sim_applet4" >
+      </div>
+      <div id="sim_controls4" class="control_group">
+      </div>
+      <div id="graph_controls4" class="control_group">
+      </div>
+      <div id="time_graph_controls4" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim4">
+        <input type="checkbox" id="show_sim4">show sim
+      </label>
+      <label id="label_terminal4">
+        <input type="checkbox" id="show_terminal4">terminal
+      </label>
+      <div id="div_terminal4">
+        <textarea id="term_output4" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input4" size="80">
+        </label>
+      </div>
+    </div>
+
+    <p>Curious fact: With elasticity <span class="html-math inline-math">
+    <i>e</i> = 1.
+    </span> we had only 2 collisions in the
+    sequence. But with lower elasticity, such as <span class="html-math inline-math">
+    <i>e</i> = 0.8
+    </span>, you wind up with with an
+    infinite series of smaller and smaller collisions as the middle puck collides back and
+    forth between the left and right pucks.
+    </p>
+    </div>
+
+
+    <h2>Problems with serial collisions.</h2>
+
+    <p>The most obvious "problem" with serial collisions is when we have a square block
+    instead of a round ball, and the two corners of the block hit an edge at the same
+    moment. Here is a simulation of this; first with serial collision handling and then
+    with simultaneous collision handling. Which do you think is more realistic?
+    </p>
+
+
+    <div id="container5" class="control_container" lang="en">
+      <div id="div_graph5" >
+      </div>
+      <div id="div_time_graph5" >
+      </div>
+      <div id="sim_applet5" >
+      </div>
+      <div id="sim_controls5" class="control_group">
+      </div>
+      <div id="graph_controls5" class="control_group">
+      </div>
+      <div id="time_graph_controls5" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim5">
+        <input type="checkbox" id="show_sim5">show sim
+      </label>
+      <label id="label_terminal5">
+        <input type="checkbox" id="show_terminal5">terminal
+      </label>
+      <div id="div_terminal5">
+        <textarea id="term_output5" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input5" size="80">
+        </label>
+      </div>
+    </div>
+
+    <p>Above is with serial collision handling. Below is the same situation with
+    simultaneous collision handling.
+    </p>
+
+
+    <div id="container6" class="control_container" lang="en">
+      <div id="div_graph6" >
+      </div>
+      <div id="div_time_graph6" >
+      </div>
+      <div id="sim_applet6" >
+      </div>
+      <div id="sim_controls6" class="control_group">
+      </div>
+      <div id="graph_controls6" class="control_group">
+      </div>
+      <div id="time_graph_controls6" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim6">
+        <input type="checkbox" id="show_sim6">show sim
+      </label>
+      <label id="label_terminal6">
+        <input type="checkbox" id="show_terminal6">terminal
+      </label>
+      <div id="div_terminal6">
+        <textarea id="term_output6" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input6" size="80">
+        </label>
+      </div>
+    </div>
+
+    <p>Is this really a problem with serial collision handling? It would be very rare to
+    have a collision happen in this mathematically precise way where both corners are
+    colliding with the exact same speed. With a tiny change in the angle of the block, the
+    simultaneous collision handling produces pretty much the same result as the serial
+    handling as seen in the simulation below:
+    </p>
+
+
+    <div id="container7" class="control_container" lang="en">
+      <div id="div_graph7" >
+      </div>
+      <div id="div_time_graph7" >
+      </div>
+      <div id="sim_applet7" >
+      </div>
+      <div id="sim_controls7" class="control_group">
+      </div>
+      <div id="graph_controls7" class="control_group">
+      </div>
+      <div id="time_graph_controls7" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim7">
+        <input type="checkbox" id="show_sim7">show sim
+      </label>
+      <label id="label_terminal7">
+        <input type="checkbox" id="show_terminal7">terminal
+      </label>
+      <div id="div_terminal7">
+        <textarea id="term_output7" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input7" size="80">
+        </label>
+      </div>
+    </div>
+
+    <p>Earlier in discussing the "one hits two" scenario, we used the principle that
+    "slight variations shouldn't radically change the solution". If we apply that principle
+    here, then the serial collision handler actually looks like the better of the two.
+    </p>
+
+
+    <p>Below is a situation where an object collides into two other objects at the same
+    time. Again it is the case that the serial method gives a non-symmetric result, where
+    the two collisions get different impulses because one is resolved before the other. If
+    you choose "simultaneous" from the collision handling menu, you will see that the
+    simultaneous solver gives a nice symmetric result. However if you put in a tiny
+    starting angle (like 0.01) for the left block, then the result is similar to what the
+    serial method produces.
+    </p>
+
+
+    <div id="container8" class="control_container" lang="en">
+      <div id="div_graph8" >
+      </div>
+      <div id="div_time_graph8" >
+      </div>
+      <div id="sim_applet8" >
+      </div>
+      <div id="sim_controls8" class="control_group">
+      </div>
+      <div id="graph_controls8" class="control_group">
+      </div>
+      <div id="time_graph_controls8" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim8">
+        <input type="checkbox" id="show_sim8">show sim
+      </label>
+      <label id="label_terminal8">
+        <input type="checkbox" id="show_terminal8">terminal
+      </label>
+      <div id="div_terminal8">
+        <textarea id="term_output8" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input8" size="80">
+        </label>
+      </div>
+    </div>
+
+
+    <h2>Infinite Loop with Serial Collision Handling</h2>
+
+    <p>Serial collision handling can result in an infinite loop of collisions. Here we show
+    a couple such scenarios taken from
+    <i>Physics-Based Animation</i> by Erleben, Sporring, Henriksen, and Dohlmann,
+    section 6.2.1 "Nontermination of Sequential Collision Resolving" on page 154.</p>
+
+    <p>The first example shows two billiard balls wrapped in a frame. With perfect
+    elasticity of 1.0, if an object strikes the frame, then the sequence of collisions
+    "wraps around" and never terminates.</p>
+
+
+
+    <div id="container16" class="control_container" lang="en">
+      <div id="div_graph16" >
+      </div>
+      <div id="div_time_graph16" >
+      </div>
+      <div id="sim_applet16" >
+      </div>
+      <div id="sim_controls16" class="control_group">
+      </div>
+      <div id="graph_controls16" class="control_group">
+      </div>
+      <div id="time_graph_controls16" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim16">
+        <input type="checkbox" id="show_sim16">show sim
+      </label>
+      <label id="label_terminal16">
+        <input type="checkbox" id="show_terminal16">terminal
+      </label>
+      <div id="div_terminal16">
+        <textarea id="term_output16" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input16" size="80">
+        </label>
+      </div>
+    </div>
+
+    <p>The simulation here is only able to cope with this situation because of some error
+    handling code: when too many iterations are detected then the size of the acceptable
+    "small velocity" is doubled; in the above case, this happens enough times that "small
+    velocity" is greater than the actual original colliding velocity and we exit the
+    loop. Note that <em>energy is not conserved</em> in this scenario which is another
+    indication that this simulation is not correct.</p>
+
+    <p>The error-handling code only occurs with the "lastpass" collision methods:
+    <em>serial grouped lastpass</em> or <em>serial separate lastpass</em>. If you choose
+    instead <em>serial group</em> or <em>serial separate</em> and restart the simulation
+    (click the rewind button and then the play button) then you will get an error alert
+    when the collision occurs.</p>
+
+    <p>Another example from Erleben, et al, is of a heavy ball (mass 1000) striking a light
+    ball (mass 1) which is at rest against a wall. With elasticity zero there is a sequence
+    of collisions where the velocity changes by a factor of 1000/1001 with each collision,
+    so the number of collisions is almost infinite.</p>
+
+
+    <div id="container17" class="control_container" lang="en">
+      <div id="div_graph17" >
+      </div>
+      <div id="div_time_graph17" >
+      </div>
+      <div id="sim_applet17" >
+      </div>
+      <div id="sim_controls17" class="control_group">
+      </div>
+      <div id="graph_controls17" class="control_group">
+      </div>
+      <div id="time_graph_controls17" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim17">
+        <input type="checkbox" id="show_sim17">show sim
+      </label>
+      <label id="label_terminal17">
+        <input type="checkbox" id="show_terminal17">terminal
+      </label>
+      <div id="div_terminal17">
+        <textarea id="term_output17" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input17" size="80">
+        </label>
+      </div>
+    </div>
+
+    <p>Again the simulation is only able to cope with this scenario because of the error
+    handling code that detects an infinite loop and then loosens the accuracy.</p>
+
+
+
+
+
+    <h2>A Hybrid Method:  between serial and simultaneous.</h2>
+
+    <div class="image" style="width: 227px; float: left;">
+    <img src="collision_handling_1.png" width="226" height="318" alt=""><br>
+    sequence of collisions
+    </div>
+
+    <div style="margin-left: 228px; max-width: 40em;">
+    <p>Here is a hybrid combination of the two approaches. It is like the serial method in
+    resolving a sequence of individual collisions. But for each individual collision, it
+    considers all the active collisions on that body. So we get a nice result for the "one
+    hits two" case with square blocks (see the simulation below).
+    </p>
+
+    <p>The first collision is solved simultaneously for both collisions at the corners
+    between the left and middle blocks, so it gets a nice symmetric result: after the first
+    collision the left block is stationary, and the middle block is moving to the right and
+    starting to collide with the right block (see the picture at left). Next, the second
+    collision is solved simultaneously for both corner collisions between the middle and
+    right block, with the result that the middle block is stationary and the right block is
+    moving.
+    </p>
+
+    <p>Try selecting the other collision methods from the menu to see the difference; you
+    should find that only the hybrid method gives the "correct" results.
+    </p>
+    </div>
+
+
+    <div id="container9" class="control_container" lang="en">
+      <div id="div_graph9" >
+      </div>
+      <div id="div_time_graph9" >
+      </div>
+      <div id="sim_applet9" >
+      </div>
+      <div id="sim_controls9" class="control_group">
+      </div>
+      <div id="graph_controls9" class="control_group">
+      </div>
+      <div id="time_graph_controls9" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim9">
+        <input type="checkbox" id="show_sim9">show sim
+      </label>
+      <label id="label_terminal9">
+        <input type="checkbox" id="show_terminal9">terminal
+      </label>
+      <div id="div_terminal9">
+        <textarea id="term_output9" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input9" size="80">
+        </label>
+      </div>
+    </div>
+
+    <p style="clear: both;">This hybrid method decides which collisions to consider in each
+    step as it resolves collisions serially. The criteria is something like this: Take the
+    collision with the biggest velocity, which is between body A and body B; then add in
+    any other significant collisions involving bodies A or B. <i>Significant</i> means any
+    collision with a large velocity, so resting contacts are ignored.
+    </p>
+
+    <p>This hybrid method also gives the nice symmetric result in the "one hits two
+    separate" scenario shown below.
+    </p>
+
+
+    <div id="container10" class="control_container" lang="en">
+      <div id="div_graph10" >
+      </div>
+      <div id="div_time_graph10" >
+      </div>
+      <div id="sim_applet10" >
+      </div>
+      <div id="sim_controls10" class="control_group">
+      </div>
+      <div id="graph_controls10" class="control_group">
+      </div>
+      <div id="time_graph_controls10" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim10">
+        <input type="checkbox" id="show_sim10">show sim
+      </label>
+      <label id="label_terminal10">
+        <input type="checkbox" id="show_terminal10">terminal
+      </label>
+      <div id="div_terminal10">
+        <textarea id="term_output10" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input10" size="80">
+        </label>
+      </div>
+    </div>
+
+
+
+
+
+    <h2>Problems with the hybrid method.</h2>
+
+    <p>The hybrid model doesn't correctly handle cases where there are multiple collisions
+    with unequal velocities, because it is based on using simultaneous collision handling
+    for each individual "collision event". Below is an example where there are 2
+    simultaneous collisions, but at different velocities. What should happen is that the
+    left and right pucks swap velocities, and the middle puck remains stationary.
+    </p>
+
+
+    <div id="container11" class="control_container" lang="en">
+      <div id="div_graph11" >
+      </div>
+      <div id="div_time_graph11" >
+      </div>
+      <div id="sim_applet11" >
+      </div>
+      <div id="sim_controls11" class="control_group">
+      </div>
+      <div id="graph_controls11" class="control_group">
+      </div>
+      <div id="time_graph_controls11" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim11">
+        <input type="checkbox" id="show_sim11">show sim
+      </label>
+      <label id="label_terminal11">
+        <input type="checkbox" id="show_terminal11">terminal
+      </label>
+      <div id="div_terminal11">
+        <textarea id="term_output11" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input11" size="80">
+        </label>
+      </div>
+    </div>
+
+
+    <p>The serial method gives the correct result for this case:
+    </p>
+
+
+    <div id="container12" class="control_container" lang="en">
+      <div id="div_graph12" >
+      </div>
+      <div id="div_time_graph12" >
+      </div>
+      <div id="sim_applet12" >
+      </div>
+      <div id="sim_controls12" class="control_group">
+      </div>
+      <div id="graph_controls12" class="control_group">
+      </div>
+      <div id="time_graph_controls12" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim12">
+        <input type="checkbox" id="show_sim12">show sim
+      </label>
+      <label id="label_terminal12">
+        <input type="checkbox" id="show_terminal12">terminal
+      </label>
+      <div id="div_terminal12">
+        <textarea id="term_output12" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input12" size="80">
+        </label>
+      </div>
+    </div>
+
+    <p>The correct result should be the same as if there were no middle puck; the impact
+    forces should transfer through the middle puck (because the masses are all equal and
+    elasticity is 1). Here is the situation with just 2 pucks, and any of the solvers gives
+    the same result because only a single collision is involved.
+    </p>
+
+
+    <div id="container13" class="control_container" lang="en">
+      <div id="div_graph13" >
+      </div>
+      <div id="div_time_graph13" >
+      </div>
+      <div id="sim_applet13" >
+      </div>
+      <div id="sim_controls13" class="control_group">
+      </div>
+      <div id="graph_controls13" class="control_group">
+      </div>
+      <div id="time_graph_controls13" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim13">
+        <input type="checkbox" id="show_sim13">show sim
+      </label>
+      <label id="label_terminal13">
+        <input type="checkbox" id="show_terminal13">terminal
+      </label>
+      <div id="div_terminal13">
+        <textarea id="term_output13" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input13" size="80">
+        </label>
+      </div>
+    </div>
+
+
+
+    <h2>Joints and Collision Handling</h2>
+
+    <p>In the myphysicslab 2D physics engine, joints are handled differently from normal
+    collisions and contacts between rigid bodies. A joint is a permanent rigid connection
+    between two bodies, or between a body and the (infinite mass) background. For example,
+    in constructing a pendulum there are two joints made at the pivot point; one acts
+    horizontally and the other acts vertically.
+    </p>
+    <!--B>(TO DO: MORE ABOUT JOINTS ELSEWHERE ON THE 2D PHYSICS ENGINE PAGE??)</B-->
+
+    <p>Here is an example collision scenario involving a pair of bodies that are jointed
+    together.</p>
+
+
+    <div id="container19" class="control_container" lang="en">
+      <div id="div_graph19" >
+      </div>
+      <div id="div_time_graph19" >
+      </div>
+      <div id="sim_applet19" >
+      </div>
+      <div id="sim_controls19" class="control_group">
+      </div>
+      <div id="graph_controls19" class="control_group">
+      </div>
+      <div id="time_graph_controls19" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim19">
+        <input type="checkbox" id="show_sim19">show sim
+      </label>
+      <label id="label_terminal19">
+        <input type="checkbox" id="show_terminal19">terminal
+      </label>
+      <div id="div_terminal19">
+        <textarea id="term_output19" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input19" size="80">
+        </label>
+      </div>
+    </div>
+
+    <p>The default collision handling method used in the myphysicslab simulations is called
+    "serial grouped lastpass". It is a serial collision handling method, except that when
+    joints are involved it does a simultaneous collision calculation involving all bodies
+    connected by joints that are involved on either side of the collision. As with the
+    hybrid method described above, there is still a sequence of collisions but the steps
+    involving joints are calculated using the simultaneous method.<p>
+
+
+
+
+
+
+    <h2>Spring Based Collisions</h2>
+
+    <p>A different method of handling collisions involves placing tiny but very stiff
+    springs at each collision point between objects. The simultaneous, serial and hybrid
+    methods considered above all instantaneously resolve the collision with a set of
+    impulses. In contrast, with spring based collision handling, the simulation continues
+    to run <i>during</i> the collision. Because the springs involved are very stiff, the
+    time steps taken during the collision must be very small.
+    </p>
+
+    <p>The spring method gives the correct result for the "one hits one" situation, as seen
+    in the simulation below. (This simulation is not a general rigid body simulation, but
+    does show the results of using springs in simple linear collisions.)
+    </p>
+
+
+    <div id="container14" class="control_container" lang="en">
+      <div id="div_graph14" >
+      </div>
+      <div id="div_time_graph14" >
+      </div>
+      <div id="sim_applet14" >
+      </div>
+      <div id="sim_controls14" class="control_group">
+      </div>
+      <div id="graph_controls14" class="control_group">
+      </div>
+      <div id="time_graph_controls14" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim14">
+        <input type="checkbox" id="show_sim14">show sim
+      </label>
+      <label id="label_terminal14">
+        <input type="checkbox" id="show_terminal14">terminal
+      </label>
+      <div id="div_terminal14">
+        <textarea id="term_output14" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input14" size="80">
+        </label>
+      </div>
+    </div>
+
+    <p>But for the "one hits two" situation, the spring method gives an incorrect result.
+    The left and middle block are moving after the collision, instead of remaining
+    motionless as they should.
+    </p>
+
+
+    <div id="container15" class="control_container" lang="en">
+      <div id="div_graph15" >
+      </div>
+      <div id="div_time_graph15" >
+      </div>
+      <div id="sim_applet15" >
+      </div>
+      <div id="sim_controls15" class="control_group">
+      </div>
+      <div id="graph_controls15" class="control_group">
+      </div>
+      <div id="time_graph_controls15" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim15">
+        <input type="checkbox" id="show_sim15">show sim
+      </label>
+      <label id="label_terminal15">
+        <input type="checkbox" id="show_terminal15">terminal
+      </label>
+      <div id="div_terminal15">
+        <textarea id="term_output15" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input15" size="80">
+        </label>
+      </div>
+    </div>
+
+    <p>However, if you add a small gap between the two blocks then the behavior looks correct.
+    </p>
+
+
+
+    <div id="container18" class="control_container" lang="en">
+      <div id="div_graph18" >
+      </div>
+      <div id="div_time_graph18" >
+      </div>
+      <div id="sim_applet18" >
+      </div>
+      <div id="sim_controls18" class="control_group">
+      </div>
+      <div id="graph_controls18" class="control_group">
+      </div>
+      <div id="time_graph_controls18" class="control_group">
+      </div>
+      <p>
+      <label id="label_show_sim18">
+        <input type="checkbox" id="show_sim18">show sim
+      </label>
+      <label id="label_terminal18">
+        <input type="checkbox" id="show_terminal18">terminal
+      </label>
+      <div id="div_terminal18">
+        <textarea id="term_output18" cols=80 rows=20 wrap="soft"></textarea> <br>
+        <label style="display:inline-block">command &gt;
+          <input type="text" id="term_input18" size="80">
+        </label>
+      </div>
+    </div>
+
+
+
+
+    <h2>Conclusion:  Handling multiple collisions is hard!</h2>
+
+    <p>Among the collision handling methods considered here, none give the "correct"
+    results in every situation. Although it could be argued that our expectation of getting
+    perfectly symmetric results for multiple collisions is not realistic. If you accept
+    that, then perhaps the serial collision handler is the best method.
+    </p>
+
+    <p>A more physically accurate method of collision handling would involve sophisticated
+    modeling of the properties of the objects: how they deform and rebound. Using such a
+    model with an advanced simulation technique like Finite Element Analysis can give very
+    accurate results, and these kinds of techniques are used in science and industry.
+    </p>
+
+    <p>But for the simple rigid body simulations considered here, which we want to run
+    quickly, interactively, in real time, we must accept that our simple model will not
+    always handle every complicated situation we throw at it.
+    </p>
+
+    <p>Algorithm running time is another consideration for deciding which collision
+    handling method to use; that is, how much computer processing time is needed to handle
+    the collision? In this regards, the simultaneous method shines, because it predicts the
+    results of each collision using <a href="#equation1">equation (1)</a> and does a single
+    calculation to find the impacts needed to give that result. The serial method (and
+    hybrid method) does several calculations, possibly dozens, for a collision; so it takes
+    more time. The spring-collision method needs very fine-scale times steps during the
+    collision because the springs involved are so stiff; this takes more time to compute.
+    </p>
+
+    <p>There is one more important consideration with the serial collision handler: because
+    of all the rebounding that occurs as objects bounce back and forth, it is possible to
+    get situations that never resolve. Where the sequence of collisions continues on
+    forever, which causes the software to get stuck in an infinite loop. A test can be
+    added in the software to quit the collision handling process if too many collisions
+    have occurred; but of course, then the result will not be "correct".
+    </p>
+
+    <p>Table of pro's and con's of each method.
+    </p>
+
+
+    <table border="1" width="100%">
+      <tr>
+        <th> </th>
+        <th>simultaneous</th>
+        <th>hybrid</th>
+        <th>serial</th>
+        <th>springs</th>
+      </tr>
+      <tr>
+        <th>speed</th>
+        <td>fast, only one calculation</td>
+        <td>more time to resolve sequence of collisions</td>
+        <td>more time to resolve sequence of collisions</td>
+        <td>much slower because fine-scale time steps during collisions</td>
+      </tr>
+      <tr>
+        <th>reliability</th>
+        <td>very reliable</td>
+        <td>possibility of infinite collision sequence</td>
+        <td>possibility of infinite collision sequence</td>
+        <td>possibility that springs might not resolve collision state</td>
+      </tr>
+      <tr>
+        <th>correctness in general</th>
+        <td>prediction of results is usually wrong</td>
+        <td>order of collision resolving affects results</td>
+        <td>order of collision resolving affects results</td>
+        <td>dynamics of springs don't match real collisions very well</td>
+      <tr>
+        <th>correctness for Newton's Cradle or "one hits two" pucks</th>
+        <td>incorrect</td>
+        <td>correct even with multiple collision points (blocks)</td>
+        <td>correct if single points of collision</td>
+        <td>incorrect</td>
+      </tr>
+      <tr>
+        <th>correctness for symmetric collisions like "one hits two separate"</th>
+        <td>correct</td>
+        <td>correct</td>
+        <td>incorrect</td>
+        <td>correct</td>
+      </tr>
+      <tr>
+        <th>correctness for asymmetric collisions like "two hits one asymmetric"</th>
+        <td>incorrect</td>
+        <td>incorrect</td>
+        <td>correct</td>
+        <td>incorrect</td>
+      </tr>
+    </table>
+
 </div>
-
-<p>La velocidad aquí es la velocidad a la que la distancia entre los objetos está
-  cambiando &ndash; <em>su velocidad relativa entre sí</em> (no la velocidad absoluta
-  de los objetos en relación con el fondo fijo).</p>
-
-<ul>
-  <li>Velocidad relativa negativa significa que los objetos están chocando: el espacio entre ellos
-    se está volviendo más pequeño.</li>
-
-  <li>Velocidad relativa positiva significa que los objetos se están separando: el espacio entre ellos
-    se está haciendo más grande.</li>
-</ul>
-
-<p>La elasticidad <span class="html-math inline-math">
-<i>e</i>
-</span> es una constante entre 0 y 1 que indica qué tan "rebotante"
-es la colisión, donde <span class="html-math inline-math">
-<i>e</i> = 1
-</span> significa perfectamente elástico y <span class="html-math inline-math">
-<i>e</i> = 0
-</span> significa
-completamente inelástico.
-<!--For <span class="html-math inline-math">
-<i>e</i> = 1
-</span> the relative velocity after the collision is the exact opposite of the velocity before the collision.-->
-</p>
-
-
-
-<h2>Colisiones Múltiples</h2>
-
-<p>Cuando hay múltiples puntos de contacto simultáneos entre dos o más cuerpos
-  tenemos que modificar el algoritmo de manejo de colisiones.</p>
-
-<p>Un caso típico es cuando varios cuerpos están en contacto entre sí y en reposo,
-  luego otro cuerpo choca contra un miembro del grupo. Piense en la "ruptura" inicial en
-  un <a href="../BilliardsApp/BilliardsApp-es.html">juego de billar</a> donde una bola choca con un gran
-  grupo de bolas que están en contacto entre sí y en reposo.
-</p>
-
-<p>Otro caso son las múltiples colisiones simultáneas. Un caso típico es un bloque rectangular
-  chocando contra una pared de tal manera que ambas esquinas chocan. Otro caso son dos
-  cuerpos chocando desde direcciones separadas en un tercer cuerpo.</p>
-
-<p>Hay dos formas de lidiar con colisiones múltiples</p>
-
-<ol>
-  <li><b>Manejo de colisiones simultáneas.</b> Todas las velocidades resultantes son
-    calculadas en un solo paso.</li>
-
-  <li><b>Gestión de colisiones en serie o secuenciales.</b> Cada colisión se resuelve en
-    turnos como si fuera una sola colisión. El orden de resolución de las colisiones es
-    aleatorio, su efecto se suma, y ​​cada colisión puede causar que otras colisiones que
-    ocurren se resuelvan instantáneamente durante este proceso.</li>
-
-</ol>
-
-
-<h2 id="simultaneous">Manejo de colisiones simultáneas</h2>
-
-<p>Un método para manejar múltiples colisiones se llama <i> el método de colisiones simultaneo </i>.
-  En este caso, predecimos el resultado en cada punto de
-colisión o contacto usando la <a href="#equation1">ecuación (1)</a>. Entonces
-encuentramos que el impulso de colisión apropiado en cada punto de colisión es el que
-el resultado final coincide con lo que predice la ecuación (1).
-</p>
-
-<p>Considere una situación en la que hay dos discos de hockey en reposo y en contacto entre sí;
-  y luego un tercer disco viene desde la izquierda y golpea uno de los discos.
-  (Imagínese que estamos mirando hacia abajo sobre una mesa de air hockey).
-</p>
-
-
-<div id="container1" class="control_container" lang="es">
-  <div id="div_graph1" >
-  </div>
-  <div id="div_time_graph1" >
-  </div>
-  <div id="sim_applet1" >
-  </div>
-  <div id="sim_controls1" class="control_group">
-  </div>
-  <div id="graph_controls1" class="control_group">
-  </div>
-  <div id="time_graph_controls1" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim1">
-    <input type="checkbox" id="show_sim1">show sim
-  </label>
-  <label id="label_terminal1">
-    <input type="checkbox" id="show_terminal1">terminal
-  </label>
-  <div id="div_terminal1">
-    <textarea id="term_output1" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input1" size="80">
-    </label>
-  </div>
-</div>
-
-<p>Suponemos que estos discos de hockey están exactamente alineados, la elasticidad es 1 y los discos
-  tienen la misma masa. Hay dos puntos de colisión, la colisión de la izquierda tiene un
-<span class="html-math inline-math">
-<i>v<sub>i</sub></i> = &minus;2
-</span>, la colisión derecha tiene <span class="html-math inline-math">
-<i>v<sub>i</sub></i> = 0
-</span>. Al usar la <a
-href="#equation1">ecuación (1)</a> obtenemos para la colisión izquierda <span class="html-math inline-math">
-<i>v<sub>f</sub></i> = 2
-</span> y
-para la colisión derecha <span class="html-math inline-math">
-<i>v<sub>f</sub></i> = 0
-</span>. Entonces vemos que el disco izquierdo rebota hacia la
-izquierda y el par de discos se mueven a la derecha permaneciendo juntos.
-</p>
-
-<p>¡Este es el comportamiento incorrecto! Si juegas al billar, sabes lo que debe pasar: los discos
-  de la izquierda y del medio deben permanecer estacionarios, y el disco de la extrema derecha debe moverse
-  lejos. Otro ejemplo del comportamiento correcto se ve en el juguete llamado  <a
-href="../NewtonsCradleApp/NewtonsCradleApp-es.html">Cuna de Newton</a>. Es un conjunto de bolas de acero suspendidas
-de cuerdas, de modo que estén apoyadas una contra la otra; cuando tomas una de
-las bolas del final y dejas que golpee el grupo, esa bola se detiene y la bola en el
-el otro extremo se va volando.
-</p>
-
-<p>Considere solo dos discos de hockey, uno estacionario y el otro moviéndose desde la izquierda.
-  Supongamos que tienen la misma masa, son perfectamente elásticos (<span class="html-math inline-math">
-<i>e</i> = 1
-</span>), y el movimiento está alineado para que golpeen de lleno. Después de que choquen, el disco izquierdo debe estar
-estacionario, y el disco derecho debe alejarse. Debido a que esta es una sola colisión, la <a
-href="#equation1">ecuación (1)</a> da el resultado correcto, con <span class="html-math inline-math">
-<i>v<sub>f</sub></i> = &minus;<i>v<sub>i</sub></i>
-</span>,
-y esto es lo que vemos en la simulación de discos de hockey. En el caso de tres discos de hockey, debería ocurrir lo mismo:
-la velocidad debería transferirse del disco izquierdo al disco derecho, con el impacto transferido a través del disco central.
-</p>
-
-
-<div id="container2" class="control_container" lang="es">
-  <div id="div_graph2" >
-  </div>
-  <div id="div_time_graph2" >
-  </div>
-  <div id="sim_applet2" >
-  </div>
-  <div id="sim_controls2" class="control_group">
-  </div>
-  <div id="graph_controls2" class="control_group">
-  </div>
-  <div id="time_graph_controls2" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim2">
-    <input type="checkbox" id="show_sim2">show sim
-  </label>
-  <label id="label_terminal2">
-    <input type="checkbox" id="show_terminal2">terminal
-  </label>
-  <div id="div_terminal2">
-    <textarea id="term_output2" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input2" size="80">
-    </label>
-  </div>
-</div>
-
-
-<p>Otra forma de ver esto: ¿Qué pasa si los dos discos estacionarios no se tocan del todo,
-  pero hay una pequeña brecha entre ellos? Entonces, lo que pasa es que el "uno colisiona con otro"
-  ocurre dos veces, separadas por una pequeña brecha de tiempo y espacio, el disco de hockey
-  de la siguiente simulación demuestra esto. Como se puede hacer que este espacio sea tan pequeño como se desee,
-  parece irrazonable que el comportamiento cambie de repente dramáticamente cuando los discos
-  se tocan en lugar de estar separados por un pequeño espacio.
-</p>
-
-
-<div id="container3" class="control_container" lang="es">
-  <div id="div_graph3" >
-  </div>
-  <div id="div_time_graph3" >
-  </div>
-  <div id="sim_applet3" >
-  </div>
-  <div id="sim_controls3" class="control_group">
-  </div>
-  <div id="graph_controls3" class="control_group">
-  </div>
-  <div id="time_graph_controls3" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim3">
-    <input type="checkbox" id="show_sim3">show sim
-  </label>
-  <label id="label_terminal3">
-    <input type="checkbox" id="show_terminal3">terminal
-  </label>
-  <div id="div_terminal3">
-    <textarea id="term_output3" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input3" size="80">
-    </label>
-  </div>
-</div>
-
-
-
-<h2 id="serial">Manejo de colisiones en serie</h2>
-
-<div class="image" style="width: 202px; float: left;">
-<img src="collision_handling_2.png" width="201" height="255" alt=""><br>
-secuencia de colisiones
-</div>
-
-<div style="margin-left: 228px; max-width: 40em;">
-<p>El método de manejo de colisiones <i>en serie</i> también se conoce con el nombre de método de manejo de colisiones con
-<i>propagación de impulsos</i> o <i>secuencial</i>. Con el método en serie, imaginamos que cada una de las colisiones múltiples ocurren cada una a la vez en
-secuencia; resolvemos cada colisión como una sola colisión y luego en base a las
-velocidades resultantes si hay colisiones posteriores para resolver. Todo esto pasa
-instantáneamente. Es como imaginar que hay pequeños espacios entre los
-objetos y que rebotan unos contra otros después de que ocurra la colisión inicial.
-</p>
-
-<p>Considere el escenario "uno golpea dos", donde un disco golpea dos discos inmóviles que
-  están en contacto. Con el método simultáneo, usamos <a href="#equation1">la ecuación (1)</a>
-  para decidir de antemano cuáles serían las velocidades finales en las dos puntos de colisión (esto se describió anteriormente).
-  El método en serie pasa por un proceso de "solucionador de colisiones" donde los objetos chocan y rebotan entre sí, posiblemente muchas veces,
-  hasta que no haya más colisiones. Este proceso de resolución de colisiones no lleva tiempo,
-  la idea es que debido a que los objetos están todos en contacto, no hay distancia para
-  que viajen para chocar unos con otros.
-</p>
-
-<p>Con el método de manejo de colisiones en serie, cuando la elasticidad <span class="html-math inline-math">
-<i>e</i> = 1
-</span>, el escenario "uno
-golpea dos" es así: suponga que el disco izquierdo se acerca a los dos discos estacionarios con <span class="html-math inline-math">
-<i>v<sub>i</sub></i> = &minus;2
-</span>
-</p>
-
-<ul>
-  <li>primera colisión: el disco izquierdo golpea el disco central,  <span class="html-math inline-math">
-<i>v<sub>f</sub></i> = &minus;<i>v<sub>i</sub></i> = 2
-</span>, (esto es
-lo mismo que en el escenario "uno colisiona con otro")</li>
-
-  <li>segunda colisión: el disco central golpea el disco derecho con <span class="html-math inline-math">
-<i>v<sub>i</sub></i> = &minus;2
-</span>, (otra vez lo mismo, como el escenario "uno colisiona con otro")</li>
-
-</ul>
-
-<p>El resultado es que los discos izquierdo y central están fijos y <span class="html-math inline-math">
-<i>v<sub>f</sub></i> = 2
-</span> para la segunda colisión. La siguiente simulación ejecuta este escenario con el método de colisión en serie;
-muestra que el método en serie maneja correctamente este caso, en contraste con el método simultáneo.
-</p>
-</div>
-
-<div style="clear: both;">
-
-
-<div id="container4" class="control_container" lang="es">
-  <div id="div_graph4" >
-  </div>
-  <div id="div_time_graph4" >
-  </div>
-  <div id="sim_applet4" >
-  </div>
-  <div id="sim_controls4" class="control_group">
-  </div>
-  <div id="graph_controls4" class="control_group">
-  </div>
-  <div id="time_graph_controls4" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim4">
-    <input type="checkbox" id="show_sim4">show sim
-  </label>
-  <label id="label_terminal4">
-    <input type="checkbox" id="show_terminal4">terminal
-  </label>
-  <div id="div_terminal4">
-    <textarea id="term_output4" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input4" size="80">
-    </label>
-  </div>
-</div>
-
-<p>Dato curioso: Con elasticidad <span class="html-math inline-math">
-<i>e</i> = 1.
-</span> solo tuvimos 2 colisiones en el
-secuencia. Pero con menor elasticidad, como <span class="html-math inline-math">
-<i>e</i> = 0.8
-</span>, terminas con una serie infinita de colisiones cada vez más pequeñas a medida que el disco central choca hacia atrás y
-adelante entre los discos izquierdo y derecho.
-</p>
-</div>
-
-
-<h2>Problemas con colisiones en serie.</h2>
-
-<p>El "problema" más obvio con las colisiones en serie es cuando tenemos un bloque cuadrado
-  en lugar de una bola redonda, y las dos esquinas del bloque golpean un borde al mismo tiempo.
-  Aquí hay una simulación de esto; primero con el manejo de colisiones en serie y luego
-  con manejo de colisión simultánea. ¿Cuál crees que es más realista?
-</p>
-
-
-<div id="container5" class="control_container" lang="es">
-  <div id="div_graph5" >
-  </div>
-  <div id="div_time_graph5" >
-  </div>
-  <div id="sim_applet5" >
-  </div>
-  <div id="sim_controls5" class="control_group">
-  </div>
-  <div id="graph_controls5" class="control_group">
-  </div>
-  <div id="time_graph_controls5" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim5">
-    <input type="checkbox" id="show_sim5">show sim
-  </label>
-  <label id="label_terminal5">
-    <input type="checkbox" id="show_terminal5">terminal
-  </label>
-  <div id="div_terminal5">
-    <textarea id="term_output5" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input5" size="80">
-    </label>
-  </div>
-</div>
-
-<p>Arriba está el manejo de colisiones en serie. A continuación se muestra la misma situación con
-  manejo de colisiones simultáneas.
-</p>
-
-
-<div id="container6" class="control_container" lang="es">
-  <div id="div_graph6" >
-  </div>
-  <div id="div_time_graph6" >
-  </div>
-  <div id="sim_applet6" >
-  </div>
-  <div id="sim_controls6" class="control_group">
-  </div>
-  <div id="graph_controls6" class="control_group">
-  </div>
-  <div id="time_graph_controls6" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim6">
-    <input type="checkbox" id="show_sim6">show sim
-  </label>
-  <label id="label_terminal6">
-    <input type="checkbox" id="show_terminal6">terminal
-  </label>
-  <div id="div_terminal6">
-    <textarea id="term_output6" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input6" size="80">
-    </label>
-  </div>
-</div>
-
-<p>¿Es esto realmente un problema con el manejo de colisiones en serie? Sería muy raro hacer
-  que ocurra una colisión de esta forma matemáticamente precisa donde ambas esquinas están
-  chocando con exactamente la misma velocidad. Con un pequeño cambio en el ángulo del bloque, el
-  el manejo de colisiones simultáneas produce prácticamente el mismo resultado que el manejo en serie
-  como se ve en la siguiente simulación:
-</p>
-
-
-<div id="container7" class="control_container" lang="es">
-  <div id="div_graph7" >
-  </div>
-  <div id="div_time_graph7" >
-  </div>
-  <div id="sim_applet7" >
-  </div>
-  <div id="sim_controls7" class="control_group">
-  </div>
-  <div id="graph_controls7" class="control_group">
-  </div>
-  <div id="time_graph_controls7" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim7">
-    <input type="checkbox" id="show_sim7">show sim
-  </label>
-  <label id="label_terminal7">
-    <input type="checkbox" id="show_terminal7">terminal
-  </label>
-  <div id="div_terminal7">
-    <textarea id="term_output7" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input7" size="80">
-    </label>
-  </div>
-</div>
-
-<p>Anteriormente, al analizar el escenario "uno colisiona con dos", usamos el principio de que
-  "pequeñas variaciones no deberían cambiar radicalmente la solución". Si aplicamos ese principio
-  aquí, entonces el manejador de colisiones en serie parece ser el mejor de los dos.
-</p>
-
-
-<p>A continuación se muestra una situación en la que un objeto choca contra otros dos objetos al mismo tiempo.
-  De nuevo se da el caso de que el método en serie da un resultado no simétrico, donde
-  las dos colisiones reciben impulsos diferentes porque una se resuelve antes que la otra. Si
-  elige "simultáneo" en el menú de manejo de colisiones, verá que el
-  solucionador simultáneo da un buen resultado simétrico. Sin embargo, si pones una pequeño
-  ángulo inicial (como 0.01) para el bloque izquierdo, entonces el resultado es similar a lo que el
-  produce el método en serie.
-</p>
-
-
-<div id="container8" class="control_container" lang="es">
-  <div id="div_graph8" >
-  </div>
-  <div id="div_time_graph8" >
-  </div>
-  <div id="sim_applet8" >
-  </div>
-  <div id="sim_controls8" class="control_group">
-  </div>
-  <div id="graph_controls8" class="control_group">
-  </div>
-  <div id="time_graph_controls8" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim8">
-    <input type="checkbox" id="show_sim8">show sim
-  </label>
-  <label id="label_terminal8">
-    <input type="checkbox" id="show_terminal8">terminal
-  </label>
-  <div id="div_terminal8">
-    <textarea id="term_output8" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input8" size="80">
-    </label>
-  </div>
-</div>
-
-
-<h2>Bucle infinito con gestión de colisiones en serie</h2>
-
-<p>El manejo de colisiones en serie puede resultar en un ciclo infinito de colisiones. Aquí mostramos
-  un par de estos escenarios tomados de
-<i>Physics-Based Animation</i> de Erleben, Sporring, Henriksen y Dohlmann,
-sección 6.2.1 "No terminación de la resolución de colisión secuencial" en la página 154.</p></p>
-
-<p>El primer ejemplo muestra dos bolas de billar envueltas en un marco, con una elasticidad perfecta de 1.0
-  , si un objeto golpea el marco, entonces la secuencia de colisiones
-  "envuelve" y nunca termina.</p>
-
-
-
-<div id="container16" class="control_container" lang="es">
-  <div id="div_graph16" >
-  </div>
-  <div id="div_time_graph16" >
-  </div>
-  <div id="sim_applet16" >
-  </div>
-  <div id="sim_controls16" class="control_group">
-  </div>
-  <div id="graph_controls16" class="control_group">
-  </div>
-  <div id="time_graph_controls16" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim16">
-    <input type="checkbox" id="show_sim16">show sim
-  </label>
-  <label id="label_terminal16">
-    <input type="checkbox" id="show_terminal16">terminal
-  </label>
-  <div id="div_terminal16">
-    <textarea id="term_output16" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input16" size="80">
-    </label>
-  </div>
-</div>
-
-<p>La simulación aquí solo puede hacer frente a esta situación debido a algún error del
-  código de manejo: cuando se detectan demasiadas iteraciones, el tamaño de la aceptable
-  "pequeña velocidad" se duplica; en el caso anterior, esto sucede bastantes veces hasta que la "pequeña
-  velocidad" es mayor que la velocidad de colisión original real y salimos del bucle.
-  Tenga en cuenta que <em>la energía no se conserva</em> en este escenario, lo que es otro
-  indicio de que esta simulación no es correcta.</p>
-
-<p>El código de manejo de errores solo ocurre con los métodos de colisión "lastpass":
-  <em>último paso agrupado en serie</em> o <em>último paso separado en serie</em>. Si tu eliges
-  en su lugar, <em>grupo en serie</em> o <em>en serie separado</em> y reinicias la simulación
-  (haga clic en el botón de rebobinado y luego en el botón de reproducción) recibirá una alerta de error
-  cuando ocurra la colisión.</p>
-
-<p>Otro ejemplo de Erleben, y los otros, es el de una bola pesada (masa 1000) que golpea una
-  bola ligera (masa 1) que está en reposo contra una pared. Con elasticidad cero hay una secuencia
-  de colisiones donde la velocidad cambia por un factor de 1000/1001 con cada colisión,
-  por lo que el número de colisiones es casi infinito.</p>
-
-
-<div id="container17" class="control_container" lang="es">
-  <div id="div_graph17" >
-  </div>
-  <div id="div_time_graph17" >
-  </div>
-  <div id="sim_applet17" >
-  </div>
-  <div id="sim_controls17" class="control_group">
-  </div>
-  <div id="graph_controls17" class="control_group">
-  </div>
-  <div id="time_graph_controls17" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim17">
-    <input type="checkbox" id="show_sim17">show sim
-  </label>
-  <label id="label_terminal17">
-    <input type="checkbox" id="show_terminal17">terminal
-  </label>
-  <div id="div_terminal17">
-    <textarea id="term_output17" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input17" size="80">
-    </label>
-  </div>
-</div>
-
-<p>Nuevamente, la simulación solo puede hacer frente a este escenario debido al error.
-  El código de manejo que detecta un bucle infinito y luego afloja la precisión.</p>
-
-
-
-
-
-<h2>Un método híbrido: entre en serie y simultáneo.</h2>
-
-<div class="image" style="width: 227px; float: left;">
-<img src="collision_handling_1.png" width="226" height="318" alt=""><br>
-secuencia de colisiones
-</div>
-
-<div style="margin-left: 228px; max-width: 40em;">
-<p>Esta es una combinación híbrida de los dos enfoques. Es como el método en serie para
-  resolver una secuencia de colisiones individuales. Pero para cada colisión individual,
-  considera todas las colisiones activas en ese cuerpo. Entonces obtenemos un buen resultado para el "uno
-  golpea la caja de dos" con bloques cuadrados (vea la simulación a continuación).
-</p>
-
-<p>La primera colisión se resuelve simultáneamente para ambas colisiones en las esquinas
-  entre los bloques izquierdo y central, por lo que obtiene un buen resultado simétrico: después de la primera
-  colisión, el bloque de la izquierda está estacionario, y el bloque del medio se mueve hacia la derecha y
-  comenzando a chocar con el bloque derecho (ver la imagen a la izquierda). A continuación, la segunda
-  colisión se resuelve simultáneamente para ambas colisiones de esquina entre el medio y
-  bloque derecho, con el resultado de que el bloque medio está estacionario y el bloque derecho se
-  mueve.
-</p>
-
-<p>Intente seleccionar los otros métodos de colisión del menú para ver la diferencia; usted
-  debe encontrar que sólo el método híbrido da los resultados "correctos".
-</p>
-</div>
-
-
-<div id="container9" class="control_container" lang="es">
-  <div id="div_graph9" >
-  </div>
-  <div id="div_time_graph9" >
-  </div>
-  <div id="sim_applet9" >
-  </div>
-  <div id="sim_controls9" class="control_group">
-  </div>
-  <div id="graph_controls9" class="control_group">
-  </div>
-  <div id="time_graph_controls9" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim9">
-    <input type="checkbox" id="show_sim9">show sim
-  </label>
-  <label id="label_terminal9">
-    <input type="checkbox" id="show_terminal9">terminal
-  </label>
-  <div id="div_terminal9">
-    <textarea id="term_output9" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input9" size="80">
-    </label>
-  </div>
-</div>
-
-<p style="clear: both;">Este método híbrido decide qué colisiones considerar en cada
-  paso ya que resuelve las colisiones en serie. El criterio es algo como esto: Tomar la
-  colisión con la mayor velocidad, que está entre el cuerpo A y el cuerpo B; luego agrega
-  cualquier otra colisión significativa que involucre cuerpos A o B. <i>Significativo</i> significa cualquier
-  colisión con una gran velocidad, por lo que se ignoran los contactos en reposo.
-</p>
-
-<p>Este método híbrido también da un buen resultado simétrico en el escenario "uno colisiona con dos separados" que se muestra a continuación.
-</p>
-
-
-<div id="container10" class="control_container" lang="es">
-  <div id="div_graph10" >
-  </div>
-  <div id="div_time_graph10" >
-  </div>
-  <div id="sim_applet10" >
-  </div>
-  <div id="sim_controls10" class="control_group">
-  </div>
-  <div id="graph_controls10" class="control_group">
-  </div>
-  <div id="time_graph_controls10" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim10">
-    <input type="checkbox" id="show_sim10">show sim
-  </label>
-  <label id="label_terminal10">
-    <input type="checkbox" id="show_terminal10">terminal
-  </label>
-  <div id="div_terminal10">
-    <textarea id="term_output10" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input10" size="80">
-    </label>
-  </div>
-</div>
-
-
-
-
-
-<h2>Problemas con el método híbrido.</h2>
-
-<p>El modelo híbrido no maneja correctamente los casos en los que hay múltiples colisiones
-  con velocidades desiguales, porque se basa en el manejo simultáneo de colisiones
-  para cada "evento de colisión" individual. A continuación se muestra un ejemplo donde hay 2
-  colisiones simultáneas, pero a diferentes velocidades. Lo que debe pasar es que
-  los discos izquierdo y derecho intercambian velocidades, y el disco central permanece estacionario.
-</p>
-
-
-<div id="container11" class="control_container" lang="es">
-  <div id="div_graph11" >
-  </div>
-  <div id="div_time_graph11" >
-  </div>
-  <div id="sim_applet11" >
-  </div>
-  <div id="sim_controls11" class="control_group">
-  </div>
-  <div id="graph_controls11" class="control_group">
-  </div>
-  <div id="time_graph_controls11" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim11">
-    <input type="checkbox" id="show_sim11">show sim
-  </label>
-  <label id="label_terminal11">
-    <input type="checkbox" id="show_terminal11">terminal
-  </label>
-  <div id="div_terminal11">
-    <textarea id="term_output11" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input11" size="80">
-    </label>
-  </div>
-</div>
-
-
-<p>El método en serie da el resultado correcto para este caso:
-</p>
-
-
-<div id="container12" class="control_container" lang="es">
-  <div id="div_graph12" >
-  </div>
-  <div id="div_time_graph12" >
-  </div>
-  <div id="sim_applet12" >
-  </div>
-  <div id="sim_controls12" class="control_group">
-  </div>
-  <div id="graph_controls12" class="control_group">
-  </div>
-  <div id="time_graph_controls12" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim12">
-    <input type="checkbox" id="show_sim12">show sim
-  </label>
-  <label id="label_terminal12">
-    <input type="checkbox" id="show_terminal12">terminal
-  </label>
-  <div id="div_terminal12">
-    <textarea id="term_output12" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input12" size="80">
-    </label>
-  </div>
-</div>
-
-<p>El resultado correcto debe ser el mismo que si no hubiera un disco central; el impacto
-  las fuerzas deben transferirse a través del disco central (porque las masas son todas iguales y
-  la elasticidad es 1). Aquí está la situación con solo 2 discos, y cualquiera de los solucionadores da
-  el mismo resultado porque sólo se trata de una única colisión.
-</p>
-
-
-<div id="container13" class="control_container" lang="es">
-  <div id="div_graph13" >
-  </div>
-  <div id="div_time_graph13" >
-  </div>
-  <div id="sim_applet13" >
-  </div>
-  <div id="sim_controls13" class="control_group">
-  </div>
-  <div id="graph_controls13" class="control_group">
-  </div>
-  <div id="time_graph_controls13" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim13">
-    <input type="checkbox" id="show_sim13">show sim
-  </label>
-  <label id="label_terminal13">
-    <input type="checkbox" id="show_terminal13">terminal
-  </label>
-  <div id="div_terminal13">
-    <textarea id="term_output13" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input13" size="80">
-    </label>
-  </div>
-</div>
-
-
-
-<h2>Manejo de juntas y colisiones</h2>
-
-<p>En el motor de física 2D de myphysicslab, las uniones se manejan de manera diferente a lo normal en
-  colisiones y contactos entre cuerpos rígidos. Una junta es una conexión rígida permanente
-  entre dos cuerpos, o entre un cuerpo y el fondo (masa infinita). Por ejemplo,
-  en la construcción de un péndulo se hacen dos articulaciones en el punto de pivote; uno actúa
-  horizontalmente y el otro actúa verticalmente.
-</p>
-<!--B>(PARA HACER: MÁS ACERCA DE LAS ARTICULACIONES EN OTRA PARTE DE LA PÁGINA DEL MOTOR DE FÍSICA 2D??)</B-->
-
-<p>Aquí hay un ejemplo de escenario de colisión que involucra un par de cuerpos que están unidos y juntos.</p>
-
-
-<div id="container19" class="control_container" lang="es">
-  <div id="div_graph19" >
-  </div>
-  <div id="div_time_graph19" >
-  </div>
-  <div id="sim_applet19" >
-  </div>
-  <div id="sim_controls19" class="control_group">
-  </div>
-  <div id="graph_controls19" class="control_group">
-  </div>
-  <div id="time_graph_controls19" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim19">
-    <input type="checkbox" id="show_sim19">show sim
-  </label>
-  <label id="label_terminal19">
-    <input type="checkbox" id="show_terminal19">terminal
-  </label>
-  <div id="div_terminal19">
-    <textarea id="term_output19" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input19" size="80">
-    </label>
-  </div>
-</div>
-
-<p>El método de manejo de colisiones predeterminado que se usa en las simulaciones de myphysicslab se llama
-  "último paso agrupado en serie". Es un método de manejo de colisiones en serie, excepto que cuando
-  las articulaciones están involucradas, hace un cálculo de colisión simultánea que involucra a todos los cuerpos
-  conectados por juntas que están involucradas en cualquier lado de la colisión. Al igual que con el
-  método híbrido descrito anteriormente, todavía hay una secuencia de colisiones, pero los pasos
-  las articulaciones involucradas se calculan usando el método simultáneo.<p>
-
-<h2>Colisiones basadas en muelles</h2>
-
-<p>Un método diferente para manejar las colisiones consiste en colocar pequeños pero muy rígidos
-  resortes en cada punto de colisión entre objetos. Los métodos simultáneo, en serie e híbrido
-  considerados resuelven instantáneamente la colisión con un conjunto de
-  impulsos. Por el contrario, con el manejo de colisiones basado en muelles, la simulación se continúa
-  ejecutando <i>durante</i> la colisión. Debido a que los resortes involucrados son muy rígidos,
-  los pasos de tiempo tomados durante la colisión deben ser muy pequeños.
-</p>
-
-<p>El método de muelles da el resultado correcto para la situación "uno colisiona con otro", como se ve
-  en la simulación a continuación. (Esta simulación no es una simulación general de cuerpo rígido, sino
-  muestra los resultados del uso de muelles en colisiones lineales simples).
-</p>
-
-
-<div id="container14" class="control_container" lang="es">
-  <div id="div_graph14" >
-  </div>
-  <div id="div_time_graph14" >
-  </div>
-  <div id="sim_applet14" >
-  </div>
-  <div id="sim_controls14" class="control_group">
-  </div>
-  <div id="graph_controls14" class="control_group">
-  </div>
-  <div id="time_graph_controls14" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim14">
-    <input type="checkbox" id="show_sim14">show sim
-  </label>
-  <label id="label_terminal14">
-    <input type="checkbox" id="show_terminal14">terminal
-  </label>
-  <div id="div_terminal14">
-    <textarea id="term_output14" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input14" size="80">
-    </label>
-  </div>
-</div>
-
-<p>Pero para la situación de "uno golpea dos", el método de muelles da un resultado incorrecto.
-  El bloque izquierdo y medio se mueven después de la colisión, en lugar de permanecer
-  inmóviles como deberían.
-</p>
-
-
-<div id="container15" class="control_container" lang="es">
-  <div id="div_graph15" >
-  </div>
-  <div id="div_time_graph15" >
-  </div>
-  <div id="sim_applet15" >
-  </div>
-  <div id="sim_controls15" class="control_group">
-  </div>
-  <div id="graph_controls15" class="control_group">
-  </div>
-  <div id="time_graph_controls15" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim15">
-    <input type="checkbox" id="show_sim15">show sim
-  </label>
-  <label id="label_terminal15">
-    <input type="checkbox" id="show_terminal15">terminal
-  </label>
-  <div id="div_terminal15">
-    <textarea id="term_output15" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input15" size="80">
-    </label>
-  </div>
-</div>
-
-<p>Sin embargo, si agrega un pequeño espacio entre los dos bloques, el comportamiento parece correcto.
-</p>
-
-
-
-<div id="container18" class="control_container" lang="es">
-  <div id="div_graph18" >
-  </div>
-  <div id="div_time_graph18" >
-  </div>
-  <div id="sim_applet18" >
-  </div>
-  <div id="sim_controls18" class="control_group">
-  </div>
-  <div id="graph_controls18" class="control_group">
-  </div>
-  <div id="time_graph_controls18" class="control_group">
-  </div>
-  <p>
-  <label id="label_show_sim18">
-    <input type="checkbox" id="show_sim18">show sim
-  </label>
-  <label id="label_terminal18">
-    <input type="checkbox" id="show_terminal18">terminal
-  </label>
-  <div id="div_terminal18">
-    <textarea id="term_output18" cols=80 rows=20 wrap="soft"></textarea> <br>
-    <label style="display:inline-block">command &gt;
-      <input type="text" id="term_input18" size="80">
-    </label>
-  </div>
-</div>
-
-
-
-
-<h2>Conclusión: ¡Manejar múltiples colisiones es difícil!</h2>
-
-<p>Entre los métodos de manejo de colisiones considerados aquí, ninguno da el resultado "correcto"
-  para cada situación. Aunque se podría argumentar que nuestra expectativa de obtener
-  los resultados perfectamente simétricos para colisiones múltiples no son realistas. Si usted acepta
-  eso, entonces quizás el controlador de colisión en serie sea el mejor método.
-</p>
-
-<p>Un método de manejo de colisiones físicamente más preciso implicaría
-  modelado de las propiedades de los objetos: cómo se deforman y rebotan. Usando tal
-  modelo con una técnica de simulación avanzada como el análisis de elementos finitos puede dar resultados muy
-  precisos, este tipo de técnicas se utilizan en la ciencia y la industria.
-</p>
-
-<p>Pero para las simulaciones simples de cuerpo rígido consideradas aquí, que queremos ejecutar
-  rápidamente, de forma interactiva, en tiempo real, debemos aceptar que nuestro modelo simple no
-  maneja siempre cada situación complicada que le lanzamos.
-</p>
-
-<p>El tiempo de ejecución del algoritmo es otra consideración para decidir qué método de manejo de colisiones
-  utilizar; es decir, ¿cuánto tiempo de procesamiento informático se necesita para manejar
-  la colisión? En este sentido, destaca el método simultáneo, porque predice los
-  resultados de cada colisión usando la <a href="#equation1">ecuación (1)</a> y hace un solo
-  cálculo para encontrar los impactos necesarios para dar ese resultado. El método en serie (y
-  método híbrido) hacen varios cálculos, posiblemente docenas, para una colisión; por lo que se necesita
-  más tiempo. El método de colisión de muelles necesita pasos de tiempo de escala muy fina durante la
-  colisión porque los muelles involucrados son muy rígidos; esto toma más tiempo para realizar el cálculo.
-</p>
-
-<p>Hay una consideración más importante con el controlador de colisiones en serie: debido a
-  todos los rebotes que ocurren cuando los objetos rebotan de un lado a otro, es posible
-  obtener situaciones que nunca se resuelven. Donde la secuencia de colisiones continúa
-  para siempre, lo que hace que el software se quede atascado en un bucle infinito. Una prueba puede ser
-  agregando en el software rutinas para salir del proceso de manejo de colisiones si hay demasiadas colisiones
-  ocurriendo; pero claro, entonces el resultado no será "correcto".
-</p>
-
-<p>Tabla de ventajas y desventajas de cada método.
-</p>
-
-
-<table border="1" width="100%">
-  <tr>
-    <th> </th>
-    <th>simultáneo</th>
-    <th>híbrido</th>
-    <th>serie</th>
-    <th>muelles</th>
-  </tr>
-  <tr>
-    <th>velocidad</th>
-    <td>rápido, solo un cálculo</td>
-    <td>más tiempo para resolver la secuencia de colisiones</td>
-    <td>más tiempo para resolver la secuencia de colisiones</td>
-    <td>mucho más lento debido a los pasos de tiempo de escala fina durante las colisiones</td>
-  </tr>
-  <tr>
-    <th>confiabilidad</th>
-    <td>muy confiable</td>
-    <td>posibilidad de secuencia de colisión infinita</td>
-    <td>posibilidad de secuencia de colisión infinita</td>
-    <td>posibilidad de que los muelles no resuelvan el estado de colisión</td>
-  </tr>
-  <tr>
-    <th>validez en general</th>
-    <td>la predicción de los resultados suele ser incorrecta</td>
-    <td>el orden de resolución de la colisión afecta los resultados</td>
-    <td>el orden de resolución de la colisión afecta los resultados</td>
-    <td>la dinámica de los muelles no coincide muy bien con las colisiones reales</td>
-  <tr>
-    <th>validez para la cuna de Newton o discos "uno golpea dos"</th>
-    <td>incorrecto</td>
-    <td>correcto incluso con múltiples puntos de colisión (bloques)</td>
-    <td>correcto si hay puntos únicos de colisión</td>
-    <td>incorrecto</td>
-  </tr>
-  <tr>
-    <th>validez para colisiones simétricas como "uno choca con dos separados"</th>
-    <td>correcto</td>
-    <td>correcto</td>
-    <td>incorrecto</td>
-    <td>correcto</td>
-  </tr>
-  <tr>
-    <th>validez para colisiones asimétricas como "dos golpean a uno de forma asimétrica"</th>
-     <td>incorrecto</td>
-     <td>incorrecto</td>
-     <td>correcto</td>
-     <td>incorrecto</td>
-  </tr>
-</table>
-
-
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 <div id="footer2" >
   <div id="copyright">

@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Bloques Chocando</title>
 
 <script>
@@ -61,195 +62,226 @@
   Puede cambiar parámetros como la masa, la rigidez del resorte y la fricción (amortiguación). Tú
   Puede arrastrar cualquiera de los bloques con el mouse para cambiar las posiciones iniciales.
 </p>
+<button type="button" class="technical-toggle"></button>
 
-<p>Los cálculos matemáticos detrás de la simulación se muestran a continuación. También está disponible:
-<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/CollideBlocksApp.js">código fuente</a>,
-documentación y un
-versión compilada simple
-que es más personalizable.
-</p>
+<div class="technical" style="display:none;">
+  <p>The math behind the simulation is shown below.  Also available are:
+    <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/CollideBlocksApp.js">open source code</a>,
+    documentation and a
+    simple-compiled version
+    which is more customizable.
+    </p>
 
-<h2 id="momentum">Colisiones y conservación de la cantidad de movimiento</h2>
+    <h2 id="momentum">Collisions and Conservation of Momentum</h2>
 
-<p>El resorte y el bloque de la izquierda usan el mismo modelo que la
-<a href="../SingleSpringApp/SingleSpringApp-es.html">simulación de muelle único</a>.
-Para una colisión con la pared,
-simplemente invertimos la velocidad. Para colisiones entre bloques en movimiento usamos la ley de
-conservación de la cantidad de movimiento para determinar las nuevas velocidades.
-</p>
+    <p>The spring and block on the left use the same model as the
+    <a href="../SingleSpringApp/SingleSpringApp-es.html">single spring simulation</a>.
+    For a collision with the wall, we
+    simply reverse the velocity. For collisions between moving blocks we use the law of
+    conservation of momentum to determine the new velocities.
+    </p>
 
-<p>Se definen las siguientes variables:</p>
+    <p>Define the following variables:</p>
 
-<ul class="vars">
-    <li><span class="html-math inline-math">
-<i>v</i><sub>1i</sub>, <i>v</i><sub>2i</sub> =
-</span> velocidad inicial (antes de la colisión) de los bloques</li>
-    <li><span class="html-math inline-math">
-<i>v</i><sub>1f</sub>, <i>v</i><sub>2f</sub> =
-</span> velocidad final (posterior a la colisión) de los bloques</li>
-    <li><span class="html-math inline-math">
-<i>v</i><sub>cm</sub> =
-</span> velocidad del centro de masa</li>
-    <li><span class="html-math inline-math">
-<i>v</i><sub>1cm</sub>, <i>v</i><sub>2cm</sub> =
-</span> velocidad de los bloques en el centro del marco de masa</li>
-    <li><span class="html-math inline-math">
-<i>m</i><sub>1</sub>, <i>m</i><sub>2</sub> =
-</span> masa de bloques</li>
-    <li><span class="html-math inline-math">
-<i>p</i><sub>i</sub>, <i>p</i><sub>f</sub> =
-</span> cantidad de movimiento inicial y final del sistema de bloques</li>
-</ul>
+    <ul class="vars">
+        <li><span class="html-math inline-math">
+    <i>v</i><sub>1i</sub>, <i>v</i><sub>2i</sub> =
+    </span> initial (pre-collision) velocity of blocks</li>
+        <li><span class="html-math inline-math">
+    <i>v</i><sub>1f</sub>, <i>v</i><sub>2f</sub> =
+    </span> final (post-collision) velocity of blocks</li>
+        <li><span class="html-math inline-math">
+    <i>v</i><sub>cm</sub> =
+    </span> velocity of center of mass</li>
+        <li><span class="html-math inline-math">
+    <i>v</i><sub>1cm</sub>, <i>v</i><sub>2cm</sub> =
+    </span> velocity of blocks in center of mass frame</li>
+        <li><span class="html-math inline-math">
+    <i>m</i><sub>1</sub>, <i>m</i><sub>2</sub> =
+    </span> mass of blocks</li>
+        <li><span class="html-math inline-math">
+    <i>p</i><sub>i</sub>, <i>p</i><sub>f</sub> =
+    </span> initial and final momentum of system of blocks</li>
+    </ul>
 
-<p>Encontramos la velocidad del centro de masa del sistema de 2 bloques.</p>
+    <p>We find the velocity of the center of mass of the 2-block system.</p>
 
-<div class="html-math table-equation">
-<table class="fraction">
-    <tr>
-        <td rowspan="2">
-            <i>v</i><sub>cm</sub> = &nbsp;
-        </td><td>
-            <i>m</i><sub>1</sub> <i>v</i><sub>1i</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2i</sub>
-        </td>
-    </tr><tr>
-        <td class="upper_line">
-            <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>
-        </td>
-    </tr>
-</table>
+    <div class="html-math table-equation">
+    <table class="fraction">
+        <tr>
+            <td rowspan="2">
+                <i>v</i><sub>cm</sub> = &nbsp;
+            </td><td>
+                <i>m</i><sub>1</sub> <i>v</i><sub>1i</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2i</sub>
+            </td>
+        </tr><tr>
+            <td class="upper_line">
+                <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <p>Next we find the velocity of each block in the coordinate system (frame) that is
+    moving along with the center of mass.</p>
+
+    <p class="html-math display-equation">
+    <i>v</i><sub>1cm</sub> = <i>v</i><sub>1i</sub> &minus; <i>v</i><sub>cm</sub><br>
+    <i>v</i><sub>2cm</sub> = <i>v</i><sub>2i</sub> &minus; <i>v</i><sub>cm</sub>
+    </p>
+
+    <p>Next we reflect (reverse) each velocity in this center of mass frame, and translate
+    back to the stationary coordinate system.</p>
+
+    <p class="html-math display-equation">
+    <i>v</i><sub>1f</sub> = &minus;(<i>v</i><sub>1i</sub> &minus; <i>v</i><sub>cm</sub>) + <i>v</i><sub>cm</sub><br>
+    <i>v</i><sub>2f</sub> = &minus;(<i>v</i><sub>2i</sub> &minus; <i>v</i><sub>cm</sub>) + <i>v</i><sub>cm</sub>
+    </p>
+
+    <p>If you fully expand the above you get</p>
+
+    <table class="html-math numbered-equation">
+    <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+    <table class="fraction">
+        <tr>
+            <td rowspan="2">
+                <i>v</i><sub>1f</sub> = &minus;<i>v</i><sub>1i</sub> + &nbsp;
+            </td><td>
+                2(<i>m</i><sub>1</sub> <i>v</i><sub>1i</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2i</sub>)
+            </td>
+        </tr><tr>
+            <td class="upper_line">
+                <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>
+            </td>
+        </tr>
+    </table>
+
+    </td><td class="equation-number">(1)</td></tr></table>
+
+    <table class="html-math numbered-equation">
+    <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+    <table class="fraction">
+        <tr>
+            <td rowspan="2">
+                <i>v</i><sub>2f</sub> = &minus;<i>v</i><sub>2i</sub> + &nbsp;
+            </td><td>
+                2(<i>m</i><sub>1</sub> <i>v</i><sub>1i</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2i</sub>)
+            </td>
+        </tr><tr>
+            <td class="upper_line">
+                <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>
+            </td>
+        </tr>
+    </table>
+
+    </td><td class="equation-number">(2)</td></tr></table>
+
+    <p>As a check, we can calculate the pre- and post- collision momentum, which should be
+    the same.</p>
+
+    <p class="html-math display-equation">
+    <i>p</i><sub>i</sub> = <i>m</i><sub>1</sub> <i>v</i><sub>1i</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2i</sub><br>
+    <i>p</i><sub>f</sub> = <i>m</i><sub>1</sub> <i>v</i><sub>1f</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2f</sub>
+    </p>
+
+
+    <p>If you expand <span class="html-math inline-math">
+    <i>p</i><sub>f</sub>
+    </span> using equations (1) and (2) and simplify you will see that
+    <span class="html-math inline-math">
+    <i>p</i><sub>f</sub> = <i>p</i><sub>i</sub>
+    </span> as expected.</p>
+
+
+
+
+    <h2 id="collisions">Handling Collisions in Software</h2>
+
+    <div class="image" style="width: 175px;">
+    <img src="collision.gif" width="172" height="228" alt="">
+    <br>
+    <br>
+    simulation of two balls colliding
+    </div>
+
+    <div style="margin-left: 180px; max-width: 40em;">
+
+    <p>Simulations on the computer are discrete in the sense that time advances in
+    "chunks", not smoothly. In the diagram, we calculated the state of the world at time
+    <span class="html-math inline-math">
+    <i>t</i> = 10.0
+    </span> and then at time <span class="html-math inline-math">
+    <i>t</i> = 10.1
+    </span>. But the collision
+    happened sometime inbetween. So by the time we detect a collision, the objects are
+    overlapping each other -- a physically impossible state.</p>
+
+    <p>The simulations on this website handle collisions as follows:</p>
+
+    <ul>
+
+      <li>Detect that a collision occurred</li>
+
+      <li>Re-run the simulation to very close to (but just before) the time of collision.
+         The time of collision is found by a binary search process.</li>
+
+      <li>Handle the collision by modifying the state of the simulation, such as fixing
+         the velocities as described above.</li>
+
+      <li>Continue to run the simulation up to the current 'now' time.  If additional
+         collisions happen they are handled in the same way.</li>
+
+    </ul>
+
+    </div>
+
+    <p style="clear:both;">
+    If you are not running the simulation in real time, you can take as long as you want to
+    get as much accuracy as desired. But for a real time simulation, you may need to accept
+    lower accuracy or use some fancier programming. For example, instead of using trial and
+    error to find the time of collision, you could try to predict the time of collision
+    based on the state of the system.</p>
+
+
+    <p>Other examples of simulations with collision handling are
+    <a href="../RollerFlightApp/RollerFlightApp-es.html#collision_time">Roller Coaster with Flight</a>,
+    <a href="../Molecule1App/Molecule1App-es.html">Molecule 2</a> and
+    <a href="../ImpulseApp/ImpulseApp-es.html">Rigid Body Collisions</a>.
+    </p>
+
+    <p id="page_history">
+      This web page was first published April 2001.
+    </p>
 </div>
-
-<p>Luego encontramos la velocidad de cada bloque en el sistema de coordenadas (marco) que está
-  moviéndose junto con el centro de masas.</p>
-
-<p class="html-math display-equation">
-<i>v</i><sub>1cm</sub> = <i>v</i><sub>1i</sub> &minus; <i>v</i><sub>cm</sub><br>
-<i>v</i><sub>2cm</sub> = <i>v</i><sub>2i</sub> &minus; <i>v</i><sub>cm</sub>
-</p>
-
-<p>A continuación, reflejamos (invertimos) cada velocidad en este marco del centro de masa y trasladamos
-  de vuelta al sistema de coordenadas estacionario.</p>
-
-<p class="html-math display-equation">
-<i>v</i><sub>1f</sub> = &minus;(<i>v</i><sub>1i</sub> &minus; <i>v</i><sub>cm</sub>) + <i>v</i><sub>cm</sub><br>
-<i>v</i><sub>2f</sub> = &minus;(<i>v</i><sub>2i</sub> &minus; <i>v</i><sub>cm</sub>) + <i>v</i><sub>cm</sub>
-</p>
-
-<p>Si expande completamente lo anterior obtendrá</p>
-
-<table class="html-math numbered-equation">
-<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
-<table class="fraction">
-    <tr>
-        <td rowspan="2">
-            <i>v</i><sub>1f</sub> = &minus;<i>v</i><sub>1i</sub> + &nbsp;
-        </td><td>
-            2(<i>m</i><sub>1</sub> <i>v</i><sub>1i</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2i</sub>)
-        </td>
-    </tr><tr>
-        <td class="upper_line">
-            <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>
-        </td>
-    </tr>
-</table>
-
-</td><td class="equation-number">(1)</td></tr></table>
-
-<table class="html-math numbered-equation">
-<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
-<table class="fraction">
-    <tr>
-        <td rowspan="2">
-            <i>v</i><sub>2f</sub> = &minus;<i>v</i><sub>2i</sub> + &nbsp;
-        </td><td>
-            2(<i>m</i><sub>1</sub> <i>v</i><sub>1i</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2i</sub>)
-        </td>
-    </tr><tr>
-        <td class="upper_line">
-            <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub>
-        </td>
-    </tr>
-</table>
-
-</td><td class="equation-number">(2)</td></tr></table>
-
-<p>Como verificación, podemos calcular el momento anterior y posterior a la colisión, que debe ser
-  lo mismo.</p>
-
-<p class="html-math display-equation">
-<i>p</i><sub>i</sub> = <i>m</i><sub>1</sub> <i>v</i><sub>1i</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2i</sub><br>
-<i>p</i><sub>f</sub> = <i>m</i><sub>1</sub> <i>v</i><sub>1f</sub> + <i>m</i><sub>2</sub> <i>v</i><sub>2f</sub>
-</p>
-
-
-<p>Si expande <span class="html-math inline-math">
-<i>p</i><sub>f</sub>
-</span> usando las ecuaciones (1) y (2) y simplificando verás que
-<span class="html-math inline-math">
-<i>p</i><sub>f</sub> = <i>p</i><sub>i</sub>
-</span> como se esperaba.</p>
-
-
-
-
-<h2 id="collisions">Gestión de colisiones en el software</h2>
-
-<div class="image" style="width: 175px;">
-<img src="collision.gif" width="172" height="228" alt="">
-<br>
-<br>
-simulación de dos bolas chocando
-</div>
-
-<div style="margin-left: 180px; max-width: 40em;">
-
-<p>Las simulaciones en la computadora son discretas en el sentido de que el tiempo avanza en
-  "trozos", no sin problemas. En el diagrama, calculamos el estado del mundo en el momento
-<span class="html-math inline-math">
-<i>t</i> = 10.0
-</span> y luego en el momento <span class="html-math inline-math">
-<i>t</i> = 10.1
-</span>. Pero la colisión
-sucedió en algún momento intermedio. Entonces, cuando detectamos una colisión, los objetos están
-superponiéndose entre sí, un estado físicamente imposible.</p>
-
-<p>Las simulaciones en este sitio web manejan las colisiones de la siguiente forma:</p>
-
-<ul>
-
-  <li>Detectar que ocurrió una colisión</li>
-
-  <li>Se vuelve a ejecutar la simulación muy cerca (pero justo antes) del momento de la colisión.
-    El momento de la colisión se encuentra mediante un proceso de búsqueda binaria.</li>
-
-  <li>Se controla la colisión modificando el estado de la simulación, corrigiendo
-    las velocidades como se describe arriba.</li>
-
-  <li>Se continua ejecutando la simulación hasta el momento actual 'ahora'. Si adicionalmente
-    las colisiones ocurren, se manejan de la misma forma.</li>
-
-</ul>
-
-</div>
-
-<p style="clear:both;">
-  Si no se está ejecutando la simulación en tiempo real, se puede tomar el tiempo que se desee
-  obteniendo tanta precisión como se desee, pero para una simulación en tiempo real, es posible que se deba aceptar
-  menor precisión o utilizar una programación más sofisticada. Por ejemplo, en lugar de usar prueba y
-  error para encontrar el momento de la colisión, se podría intentar predecir el momento de la colisión
-  según el estado del sistema.</p>
-
-
-<p>Otros ejemplos de simulaciones con manejo de colisiones son
-<a href="../RollerFlightApp/RollerFlightApp-es.html#collision_time">Montaña Rusa con Vuelo</a>,
-<a href="../Molecule1App/Molecule1App-es.html">Molécula 2</a> and
-<a href="../ImpulseApp/ImpulseApp-es.html">Colisiones de Cuerpo Rígido</a>.
-</p>
-
-<p id="page_history">
-  Esta página web se publicó por primera vez en abril de 2001.
-</p>
-
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

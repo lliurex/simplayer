@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Comparar Péndulos Dobles</title>
 
 <script>
@@ -62,37 +63,67 @@
   una fuerza de resorte haciendo clic con el mouse cerca de él. Puede cambiar la separación entre
   los péndulos para compararlos más fácilmente.
 </p>
+<button type="button" class="technical-toggle"></button>
 
-<p>Las dos simulaciones que se están ejecutando son:</p>
+<div class="technical" style="display:none;">
+  <p>The two simulations being run are:</p>
 
-<ol>
-  <li>La teoría teóricamente precisa
-    <a href="../RigidDoublePendulumApp/RigidDoublePendulumApp-es.html">Doble Pendulo Rígido</a>
-    se muestra en azul a la izquierda.
-  </li>
-  <li>El péndulo doble equivalente usando el
-    <a href="../explain/physics-engine-es.html">Motor de Física de Cuerpo Rígido 2D</a>
-    se muestra en rojo a la derecha.
-  </li>
-</ol>
+  <ol>
+    <li>The theoretically accurate
+      <a href="../RigidDoublePendulumApp/RigidDoublePendulumApp-es.html">RigidDoublePendulumSim</a>
+      shown in blue on the left.
+    </li>
+    <li>The equivalent double pendulum using the
+      <a href="../explain/physics-engine-es.html">2D Rigid Body Physics Engine</a>
+      shown in red on the right.
+    </li>
+  </ol>
 
-<p>El propósito es mostrar que los dos son estrechamente equivalentes, lo que demuestra la
-  Precisión del motor de física. Aunque dos métodos de simulación muy diferentes son
-  utilizado, obtenemos prácticamente el mismo resultado.
-</p>
+  <p>The purpose is to show that the two are closely equivalent, which demonstrates the
+  accuracy of the physics engine. Although two very different simulation methods are
+  used, we get pretty much the exact same result.
+  </p>
 
-<p>Los ángulos que se muestran en los gráficos se modifican para la versión del motor de física para que
-  sean equivalentes a los ángulos del doble péndulo rígido correspondiente.
-</p>
+  <p>The angles shown in the graphs are modified for the physics engine version so that
+  they are equivalent to the corresponding RigidDoublePendulumSim angles.
+  </p>
 
-<p>También está disponible:
-<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/CompareDoublePendulumApp.js">código fuente</a>,
-documentación y un
-versión compilada simple
-que es más personalizable.
-</p>
-
-
+  <p>Also available are:
+  <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/CompareDoublePendulumApp.js">open source code</a>,
+  documentation and a
+  simple-compiled version
+  which is more customizable.
+  </p>
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

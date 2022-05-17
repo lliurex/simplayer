@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<title lang="es">Solución Analítica para Muelle Único</title>
+<title lang="es">Analytic Solution for Single Spring</title>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,317 +13,322 @@
 </head>
 <body>
 
-<h1 lang="es">Solución Analítica para Muelle Único</h1>
+<h1 lang="es">Analytic Solution for Single Spring</h1>
 
 <div id="header_nav">
 </div>
 <ul id="header_bar">
 </ul>
 
-<p class="introduction">Buscamos una solución <span class="html-math inline-math">
-<i>x</i>(<i>t</i>)
-</span> que satisface la ecuación diferencial</p>
-
-<p class="html-math display-equation">
-<i>x</i>''(<i>t</i>) = &minus; <sup><i>k</i></sup>&frasl;<sub><i>m</i></sub> <i>x</i>(<i>t</i>)
-</p>
-
-<p>donde</p>
-
-<ul class="vars">
-    <li><span class="html-math inline-math">
-<i>x</i> =
-</span> posición del bloque</li>
-    <li><span class="html-math inline-math">
-<i>t</i> =
-</span> tiempo</li>
-    <li><span class="html-math inline-math">
-<i>k</i> =
-</span> rigidez del muelle</li>
-    <li><span class="html-math inline-math">
-<i>m</i> =
-</span> masa del bloque</li>
-</ul>
+<p class="introduction">We seek a solution <span class="html-math inline-math">
+  <i>x</i>(<i>t</i>)
+  </span> that satisfies the differential equation</p>
+
+  <p class="html-math display-equation">
+  <i>x</i>''(<i>t</i>) = &minus; <sup><i>k</i></sup>&frasl;<sub><i>m</i></sub> <i>x</i>(<i>t</i>)
+  </p>
 
-<p>y las condiciones iniciales</p>
+  <p>where</p>
+
+  <ul class="vars">
+      <li><span class="html-math inline-math">
+  <i>x</i> =
+  </span> position of the block</li>
+      <li><span class="html-math inline-math">
+  <i>t</i> =
+  </span> time</li>
+      <li><span class="html-math inline-math">
+  <i>k</i> =
+  </span> spring stiffness</li>
+      <li><span class="html-math inline-math">
+  <i>m</i> =
+  </span> mass of the block</li>
+  </ul>
 
-<p class="html-math display-equation">
-<i>x</i>(0) = <i>x</i><sub>0</sub> <span class="text">&nbsp; la posición en el momento cero</span>
-</p>
+  <p>and the initial conditions</p>
 
-<p class="html-math display-equation">
-<i>x</i>'(0) = <i>v</i><sub>0</sub> <span class="text">&nbsp; la velocidad en el tiempo cero</span>
-</p>
 
-<p>Por comodidad, primero definimos una nueva constante</p>
+  <p class="html-math display-equation">
+  <i>x</i>(0) = <i>x</i><sub>0</sub> <span class="text">&nbsp; the position at time zero</span>
+  </p>
 
-<p class="html-math display-equation">
-<i>c</i> = &radic;(<i>k</i>/<i>m</i>)
-</p>
+  <p class="html-math display-equation">
+  <i>x</i>'(0) = <i>v</i><sub>0</sub> <span class="text">&nbsp; the velocity at time zero</span>
+  </p>
 
-<p>entonces la ecuación diferencial se convierte</p>
+  <p>For convenience we first define a new constant</p>
 
-<table class="html-math numbered-equation">
-<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
-<i>x</i>''(<i>t</i>) = &minus;<i>c</i><sup>2</sup> <i>x</i>(<i>t</i>)
+  <p class="html-math display-equation">
+  <i>c</i> = &radic;(<i>k</i>/<i>m</i>)
+  </p>
 
-</td><td class="equation-number">(1)</td></tr></table>
+  <p>so the differential equation becomes</p>
 
+  <table class="html-math numbered-equation">
+  <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+  <i>x</i>''(<i>t</i>) = &minus;<i>c</i><sup>2</sup> <i>x</i>(<i>t</i>)
 
-<p><a href="classify-diff-eq-es.html#order">clasificamos</a> esta ecuación diferencial como <em>lineal de segundo orden</em>. Es de segundo orden porque hay una segunda derivada: <span class="html-math inline-math">
-<i>x</i>''
-</span>. Es lineal porque todas las funciones o derivadas de <span class="html-math inline-math">
-<i>x</i>
-</span> aparecen solos, solo que multiplicados por una constante. Para resolver ecuaciones de este tipo, comience asumiendo que la solución es de la forma</p>
+  </td><td class="equation-number">(1)</td></tr></table>
 
-<p class="html-math display-equation">
-<i>x</i>(<i>t</i>) = <i>e</i> <sup><i>r</i> <i>t</i></sup>
-</p>
 
+  <p>We <a href="../explain/classify-diff-eq-es.html#order">classify</a> this differential equation as <em>second order linear</em>. It is second order because there is a second derivative: <span class="html-math inline-math">
+  <i>x</i>''
+  </span>. It is linear because all the functions or derivatives of <span class="html-math inline-math">
+  <i>x</i>
+  </span> appear by themselves, only multiplied by a constant. To solve equations of this type, begin by assuming the solution is of the form</p>
 
-<p>donde <span class="html-math inline-math">
-<i>r</i>
-</span> es una constante, pero posiblemente un número complejo. La otra constante <span class="html-math inline-math">
-<i>e</i>
-</span> es la conocida constante matemática exponencial <span class="html-math inline-math">
-<i>e</i> = 2.718...
-</span> que tiene buenas propiedades para hacer cálculos. Reemplazamos esta solución propuesta en la ecuación diferencial (1) y obtenemos</p>
+  <p class="html-math display-equation">
+  <i>x</i>(<i>t</i>) = <i>e</i> <sup><i>r</i> <i>t</i></sup>
+  </p>
 
-<p class="html-math display-equation">
-<i>r</i><sup>2</sup> <i>e</i> <sup><i>r</i> <i>t</i></sup> = &minus;<i>c</i><sup>2</sup> <i>e</i> <sup><i>r</i> <i>t</i></sup>
-</p>
 
+  <p>where <span class="html-math inline-math">
+  <i>r</i>
+  </span> is a constant, but possibly a complex number. The other constant <span class="html-math inline-math">
+  <i>e</i>
+  </span> is the well-known mathematical exponential constant <span class="html-math inline-math">
+  <i>e</i> = 2.718...
+  </span> which has nice properties for doing calculus.  We plug this proposed solution into the differential equation (1) and get</p>
 
-<p>donde tomamos la segunda derivada de <span class="html-math inline-math">
-<i>e</i> <sup><i>r</i> <i>t</i></sup>
-</span> para obtener el lado izquierdo. Desde <span class="html-math inline-math">
-<i>e</i> <sup><i>r</i> <i>t</i></sup>
-</span> nunca es igual a cero, podemos dividirlo de esta ecuación para obtener</p>
+  <p class="html-math display-equation">
+  <i>r</i><sup>2</sup> <i>e</i> <sup><i>r</i> <i>t</i></sup> = &minus;<i>c</i><sup>2</sup> <i>e</i> <sup><i>r</i> <i>t</i></sup>
+  </p>
 
-<p class="html-math display-equation">
-<i>r</i><sup>2</sup> = &minus;<i>c</i><sup>2</sup>
-</p>
 
-<p>Desde <span class="html-math inline-math">
-<i>c</i> &gt; 0
-</span> la solución implica números complejos y tenemos dos valores para <span class="html-math inline-math">
-<i>r</i>
-</span></p>
+  <p>where we took the second derivative of <span class="html-math inline-math">
+  <i>e</i> <sup><i>r</i> <i>t</i></sup>
+  </span> to get the left hand side. Since <span class="html-math inline-math">
+  <i>e</i> <sup><i>r</i> <i>t</i></sup>
+  </span> is never equal to zero, we can divide it out of this equation to get</p>
 
-<p class="html-math display-equation">
-<i>r</i> = &plusmn;<i>c</i> <i>i</i>
-</p>
+  <p class="html-math display-equation">
+  <i>r</i><sup>2</sup> = &minus;<i>c</i><sup>2</sup>
+  </p>
 
-<p>donde <span class="html-math inline-math">
-<i>i</i> = &radic;&minus;1
-</span>. Entonces tenemos dos soluciones</p>
+  <p>Since <span class="html-math inline-math">
+  <i>c</i> &gt; 0
+  </span> the solution involves complex
+  numbers and we have two values for <span class="html-math inline-math">
+  <i>r</i>
+  </span></p>
 
-<table class="html-math numbered-equation">
-<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
-<i>x</i><sub>1</sub>(<i>t</i>) = <i>e</i> <sup><i>i</i> <i>c</i> <i>t</i></sup>
+  <p class="html-math display-equation">
+  <i>r</i> = &plusmn;<i>c</i> <i>i</i>
+  </p>
 
-</td><td class="equation-number">(2a)</td></tr></table>
+  <p>where <span class="html-math inline-math">
+  <i>i</i> = &radic;&minus;1
+  </span>. We then have two solutions</p>
 
-<table class="html-math numbered-equation">
-<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
-<i>x</i><sub>2</sub>(<i>t</i>) = <i>e</i> <sup>&minus;<i>i</i> <i>c</i> <i>t</i></sup>
+  <table class="html-math numbered-equation">
+  <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+  <i>x</i><sub>1</sub>(<i>t</i>) = <i>e</i> <sup><i>i</i> <i>c</i> <i>t</i></sup>
 
-</td><td class="equation-number">(2b)</td></tr></table>
+  </td><td class="equation-number">(2a)</td></tr></table>
 
+  <table class="html-math numbered-equation">
+  <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+  <i>x</i><sub>2</sub>(<i>t</i>) = <i>e</i> <sup>&minus;<i>i</i> <i>c</i> <i>t</i></sup>
 
-<p>¡Intenta introducir cualquiera de estas soluciones en la ecuación diferencial (1) y verás que funcionan! Recuerda que <span class="html-math inline-math">
-<i>i</i>
-</span> es solo un número constante. Entonces las <a href="math-refresh-es.html#derivatives">reglas de diferenciación</a> de funciones exponenciales nos dan:</p>
+  </td><td class="equation-number">(2b)</td></tr></table>
 
-<p class="html-math display-equation">
-<i>x</i><sub>1</sub>'(<i>t</i>) = (<i>i</i> <i>c</i>)<i>e</i> <sup><i>i</i> <i>c</i> <i>t</i></sup><br>
-<i>x</i><sub>1</sub>''(<i>t</i>) = (<i>i</i> <i>c</i>) <sup>2</sup> <i>e</i> <sup><i>i</i> <i>c</i> <i>t</i></sup> = &minus;<i>c</i><sup>2</sup> <i>x</i><sub>1</sub>(<i>t</i>)
-</p>
 
+  <p>Try plugging either of these solutions into the differential equation (1) and you will see that they work!  Remember that <span class="html-math inline-math">
+  <i>i</i>
+  </span> is just a constant number.  Then the <a href="../explain/math-refresh-es.html#derivatives">rules for differentiation</a> of exponential functions give us:</p>
 
-<p>que coincide con la ecuación diferencial original (1). Puede que no sepas lo que significa tener un número imaginario como exponente. Si es así, sigue leyendo...</p>
+  <p class="html-math display-equation">
+  <i>x</i><sub>1</sub>'(<i>t</i>) = (<i>i</i> <i>c</i>)<i>e</i> <sup><i>i</i> <i>c</i> <i>t</i></sup><br>
+  <i>x</i><sub>1</sub>''(<i>t</i>) = (<i>i</i> <i>c</i>) <sup>2</sup> <i>e</i> <sup><i>i</i> <i>c</i> <i>t</i></sup> = &minus;<i>c</i><sup>2</sup> <i>x</i><sub>1</sub>(<i>t</i>)
+  </p>
 
 
+  <p>which matches the original differential equation (1).  You might not know what it means to have an imaginary number as an exponent.  If so, read on...</p>
 
 
 
-<h2>Solución no imaginaria</h2>
 
-<p>Para volver del mundo de los números imaginarios (complejos) usamos la fórmula de Euler:</p>
 
-<p class="html-math display-equation">
-<i>e</i> <sup><i>i</i> <i>z</i></sup> = cos <i>z</i> + <i>i</i> sin <i>z</i>
-</p>
+  <h2>Non-imaginary Solution</h2>
 
+  <p>To return from the world of imaginary (complex) numbers we use Euler's
+  formula:</p>
 
-<p>Aplicando la fórmula de Euler a nuestras soluciones &ndash; ecuaciones (2a) y (2b) &ndash; tenemos</p>
+  <p class="html-math display-equation">
+  <i>e</i> <sup><i>i</i> <i>z</i></sup> = cos <i>z</i> + <i>i</i> sin <i>z</i>
+  </p>
 
-<p class="html-math display-equation">
-<i>x</i><sub>1</sub>(<i>t</i>) = <i>e</i> <sup><i>i</i> <i>c</i> <i>t</i></sup> = cos(<i>c</i> <i>t</i>) + <i>i</i> sin(<i>c</i> <i>t</i>)
-</p>
 
-<p class="html-math display-equation">
-<i>x</i><sub>2</sub>(<i>t</i>) = <i>e</i> <sup>&minus;<i>i</i> <i>c</i> <i>t</i></sup> = cos(&minus;<i>c</i> <i>t</i>) + <i>i</i> sin(&minus;<i>c</i> <i>t</i>)
-</p>
+  <p>Applying Euler's formula to our solutions &ndash; equations (2a) and (2b) &ndash; we have</p>
 
+  <p class="html-math display-equation">
+  <i>x</i><sub>1</sub>(<i>t</i>) = <i>e</i> <sup><i>i</i> <i>c</i> <i>t</i></sup> = cos(<i>c</i> <i>t</i>) + <i>i</i> sin(<i>c</i> <i>t</i>)
+  </p>
 
-<p>Usando algunas identidades trigonométricas básicas podemos simplificar la segunda
-  solución para ser</p>
+  <p class="html-math display-equation">
+  <i>x</i><sub>2</sub>(<i>t</i>) = <i>e</i> <sup>&minus;<i>i</i> <i>c</i> <i>t</i></sup> = cos(&minus;<i>c</i> <i>t</i>) + <i>i</i> sin(&minus;<i>c</i> <i>t</i>)
+  </p>
 
-<p class="html-math display-equation">
-<i>x</i><sub>2</sub>(<i>t</i>) = cos(<i>c</i> <i>t</i>) &minus; <i>i</i> sin(<i>c</i> <i>t</i>)
-</p>
 
+  <p>Using some basic trig identities we can simplify the second
+  solution to be</p>
 
+  <p class="html-math display-equation">
+  <i>x</i><sub>2</sub>(<i>t</i>) = cos(<i>c</i> <i>t</i>) &minus; <i>i</i> sin(<i>c</i> <i>t</i>)
+  </p>
 
-<p>>Todavía tenemos el número imaginario <span class="html-math inline-math">
-<i>i</i>
-</span> en estas
-soluciones Pero ahora podemos usar una propiedad general de las ecuaciones diferenciales lineales:</p>
 
-<blockquote><em>una combinación lineal de soluciones también es una solución</em></blockquote>
 
-<p>Una combinación lineal de cosas es simplemente la suma de esas cosas
-  multiplicado por constantes. Por ejemplo, una combinación lineal de <span class="html-math inline-math">
-<i>x</i>, <i>y</i>, <i>z</i>
-</span> podría ser</p>
+  <p>We still have the imaginary number <span class="html-math inline-math">
+  <i>i</i>
+  </span> in these
+  solutions.  But now we can use a general property of linear
+  differential equations:</p>
 
-<p class="html-math display-equation">
-2 <i>x</i> &minus; 0.333 <i>y</i> + 13 <i>z</i>
-</p>
+  <blockquote><em>a linear combination of solutions is also a solution</em></blockquote>
 
+  <p>A linear combination of things is simply the sum of those things
+  multiplied by constants. For example a linear combination of <span class="html-math inline-math">
+  <i>x</i>, <i>y</i>, <i>z</i>
+  </span> could be</p>
 
-<p>Entonces podemos formar las siguientes combinaciones lineales que también son soluciones pero no involucran <span class="html-math inline-math">
-<i>i</i>
-</span>:</p>
+  <p class="html-math display-equation">
+  2 <i>x</i> &minus; 0.333 <i>y</i> + 13 <i>z</i>
+  </p>
 
-<p class="html-math display-equation">
-<sup>1</sup>&frasl;<sub>2</sub> <i>x</i><sub>1</sub>(<i>t</i>) + <sup>1</sup>&frasl;<sub>2</sub> <i>x</i><sub>2</sub>(<i>t</i>) = cos(<i>c</i> <i>t</i>)<br>
-&minus; <sup><i>i</i></sup>&frasl;<sub>2</sub> <i>x</i><sub>1</sub>(<i>t</i>) + <sup><i>i</i></sup>&frasl;<sub>2</sub> <i>x</i><sub>2</sub>(<i>t</i>) = sin(<i>c</i> <i>t</i>)
-</p>
 
+  <p>So we can form the following linear combinations which are also solutions but don't involve <span class="html-math inline-math">
+  <i>i</i>
+  </span>:</p>
 
-<p>(recuerda que <span class="html-math inline-math">
-<i>i</i>
-</span> es solo una constante como cualquier
-otro número, por lo que podemos usarlo para formar combinaciones lineales). Ahora
-la solución general de la ecuación diferencial viene dada por una ecuación lineal
-combinación de las soluciones anteriores:</p>
+  <p class="html-math display-equation">
+  <sup>1</sup>&frasl;<sub>2</sub> <i>x</i><sub>1</sub>(<i>t</i>) + <sup>1</sup>&frasl;<sub>2</sub> <i>x</i><sub>2</sub>(<i>t</i>) = cos(<i>c</i> <i>t</i>)<br>
+  &minus; <sup><i>i</i></sup>&frasl;<sub>2</sub> <i>x</i><sub>1</sub>(<i>t</i>) + <sup><i>i</i></sup>&frasl;<sub>2</sub> <i>x</i><sub>2</sub>(<i>t</i>) = sin(<i>c</i> <i>t</i>)
+  </p>
 
-<table class="html-math numbered-equation">
-<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
-<i>x</i>(<i>t</i>) = <i>a</i> cos(<i>c</i> <i>t</i>) + <i>b</i> sin (<i>c</i> <i>t</i>)
 
-</td><td class="equation-number">(3)</td></tr></table>
+  <p>(remember that <span class="html-math inline-math">
+  <i>i</i>
+  </span> is just a constant like any
+  other number, so we can use it to form linear combinations). Now
+  the general solution to the differential equation is given by a linear
+  combination of the above solutions:</p>
 
+  <table class="html-math numbered-equation">
+  <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+  <i>x</i>(<i>t</i>) = <i>a</i> cos(<i>c</i> <i>t</i>) + <i>b</i> sin (<i>c</i> <i>t</i>)
 
-<p>donde <span class="html-math inline-math">
-<i>a</i>, <i>b</i>
-</span> son constantes. Puede verificar que esto todavía satisface la ecuación (1) conectándolo.</p>
+  </td><td class="equation-number">(3)</td></tr></table>
 
 
+  <p>where <span class="html-math inline-math">
+  <i>a</i>, <i>b</i>
+  </span> are any constants.  You can check that this still satisfies equation (1) by plugging it in.</p>
 
 
-<h2>Cumpliendo las Condiciones Iniciales</h2>
 
-<p>Todavía tenemos que satisfacer las condiciones iniciales. Usando la ecuación (3) anterior, la primera condición inicial <span class="html-math inline-math">
-<i>x</i>(0) = <i>x</i><sub>0</sub>
-</span> se convierte en</p>
 
-<p class="html-math display-equation">
-<i>a</i> cos(0) + <i>b</i> sin(0) = <i>x</i><sub>0</sub><br>
-<i>a</i> = <i>x</i><sub>0</sub>
-</p>
+  <h2>Satisfying the Initial Conditions</h2>
 
+  <p>We still need to satisfy the initial conditions. Using equation (3) above, the first initial condition <span class="html-math inline-math">
+  <i>x</i>(0) = <i>x</i><sub>0</sub>
+  </span> becomes</p>
 
-<p>Para evaluar la segunda condición inicial <span class="html-math inline-math">
-<i>x</i>'(0) = <i>v</i><sub>0</sub>
-</span> primero calculemos la derivada de nuestra solución en la ecuación (3).</p>
+  <p class="html-math display-equation">
+  <i>a</i> cos(0) + <i>b</i> sin(0) = <i>x</i><sub>0</sub><br>
+  <i>a</i> = <i>x</i><sub>0</sub>
+  </p>
 
-<p class="html-math display-equation">
-<i>x</i>'(<i>t</i>) = &minus;<i>a</i> <i>c</i> sin(<i>c</i> <i>t</i>) + <i>b</i> <i>c</i> cos(<i>c</i> <i>t</i>)
-</p>
 
+  <p>To evaluate the second initial condition <span class="html-math inline-math">
+  <i>x</i>'(0) = <i>v</i><sub>0</sub>
+  </span> let's first calculate the derivative of our solution in equation (3).</p>
 
-<p>Ahora podemos evaluar esto en el momento <span class="html-math inline-math">
-<i>t</i> = 0
-</span> y usar
-la segunda condición inicial</p>
+  <p class="html-math display-equation">
+  <i>x</i>'(<i>t</i>) = &minus;<i>a</i> <i>c</i> sin(<i>c</i> <i>t</i>) + <i>b</i> <i>c</i> cos(<i>c</i> <i>t</i>)
+  </p>
 
-<p class="html-math display-equation">
-&minus;<i>a</i> <i>c</i> sin(0) + <i>b</i> <i>c</i> cos(0) = <i>v</i><sub>0</sub><br>
-<i>b</i> <i>c</i> = <i>v</i><sub>0</sub><br>
-<i>b</i> = <sup><i>v</i><sub>0</sub> </sup>&frasl;<sub><i>c</i></sub>
-</p>
 
+  <p>Now we can evaluate this at time <span class="html-math inline-math">
+  <i>t</i> = 0
+  </span> and use
+  the second initial condition</p>
 
-<p>Ahora hemos encontrado los valores<span class="html-math inline-math">
-<i>a</i>, <i>b</i>
-</span> que coinciden con las condiciones iniciales. Entonces la solución particular es</p>
+  <p class="html-math display-equation">
+  &minus;<i>a</i> <i>c</i> sin(0) + <i>b</i> <i>c</i> cos(0) = <i>v</i><sub>0</sub><br>
+  <i>b</i> <i>c</i> = <i>v</i><sub>0</sub><br>
+  <i>b</i> = <sup><i>v</i><sub>0</sub> </sup>&frasl;<sub><i>c</i></sub>
+  </p>
 
-<table class="html-math numbered-equation">
-<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
-<i>x</i>(<i>t</i>) = <i>x</i><sub>0</sub> cos(<i>c</i> <i>t</i>) + <sup><i>v</i><sub>0</sub> </sup>&frasl;<sub><i>c</i></sub> sin(<i>c</i> <i>t</i>)
 
-</td><td class="equation-number">(4)</td></tr></table>
+  <p>Now we've found the particular <span class="html-math inline-math">
+  <i>a</i>, <i>b</i>
+  </span> which match the initial conditions.  So the particular solution is</p>
 
+  <table class="html-math numbered-equation">
+  <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+  <i>x</i>(<i>t</i>) = <i>x</i><sub>0</sub> cos(<i>c</i> <i>t</i>) + <sup><i>v</i><sub>0</sub> </sup>&frasl;<sub><i>c</i></sub> sin(<i>c</i> <i>t</i>)
 
+  </td><td class="equation-number">(4)</td></tr></table>
 
 
-<h2>Comprobación de la solución</h2>
 
-<p>Verificaremos que la ecuación (4) es la solución introduciéndola en la ecuación diferencial (1).</p>
 
-<table class="html-math numbered-equation">
-<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
-<i>x</i>''(<i>t</i>) = &minus;<i>c</i><sup>2</sup> <i>x</i>(<i>t</i>)
+  <h2>Check the Solution</h2>
 
-</td><td class="equation-number">(1)</td></tr></table>
+  <p>We will check that equation (4) is the solution by plugging it into the differential equation (1).</p>
 
-<p>Primero encontramos las derivadas de la ecuación (4).</p>
+  <table class="html-math numbered-equation">
+  <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+  <i>x</i>''(<i>t</i>) = &minus;<i>c</i><sup>2</sup> <i>x</i>(<i>t</i>)
 
-<p class="html-math display-equation">
-<i>x</i>'(<i>t</i>) = &minus;<i>x</i><sub>0</sub> <i>c</i> sin(<i>c</i> <i>t</i>) + <i>v</i><sub>0</sub> cos(<i>c</i> <i>t</i>)<br>
-<i>x</i>''(<i>t</i>) = &minus;<i>x</i><sub>0</sub> <i>c</i><sup>2</sup>cos(<i>c</i> <i>t</i>) &minus; <i>v</i><sub>0</sub> <i>c</i> sin(<i>c</i> <i>t</i>)
-</p>
+  </td><td class="equation-number">(1)</td></tr></table>
 
+  <p>First we find the derivatives of equation (4).</p>
 
-<p>Este es el lado izquierdo de la ecuación (1). Ahora calculemos el lado derecho.</p>
+  <p class="html-math display-equation">
+  <i>x</i>'(<i>t</i>) = &minus;<i>x</i><sub>0</sub> <i>c</i> sin(<i>c</i> <i>t</i>) + <i>v</i><sub>0</sub> cos(<i>c</i> <i>t</i>)<br>
+  <i>x</i>''(<i>t</i>) = &minus;<i>x</i><sub>0</sub> <i>c</i><sup>2</sup>cos(<i>c</i> <i>t</i>) &minus; <i>v</i><sub>0</sub> <i>c</i> sin(<i>c</i> <i>t</i>)
+  </p>
 
-<p class="html-math display-equation">
-&minus;<i>c</i><sup>2</sup> <i>x</i>(<i>t</i>) = &minus;<i>c</i><sup>2</sup> <span class="bigg">(</span><i>x</i><sub>0</sub> cos(<i>c</i> <i>t</i>) + <sup><i>v</i><sub>0</sub> </sup>&frasl;<sub><i>c</i></sub> sin(<i>c</i> <i>t</i>)<span class="bigg">)</span><br>
-= &minus;<i>c</i><sup>2</sup> <i>x</i><sub>0</sub> cos(<i>c</i> <i>t</i>) &minus; <i>v</i><sub>0</sub> <i>c</i> sin(<i>c</i> <i>t</i>)
-</p>
 
+  <p>This is the left hand side of equation (1). Now let's calculate the right hand side.</p>
 
-<p>y así vemos que ambos lados coinciden &ndash; por lo que nuestra solución (4) satisface la ecuación diferencial (1).</p>
+  <p class="html-math display-equation">
+  &minus;<i>c</i><sup>2</sup> <i>x</i>(<i>t</i>) = &minus;<i>c</i><sup>2</sup> <span class="bigg">(</span><i>x</i><sub>0</sub> cos(<i>c</i> <i>t</i>) + <sup><i>v</i><sub>0</sub> </sup>&frasl;<sub><i>c</i></sub> sin(<i>c</i> <i>t</i>)<span class="bigg">)</span><br>
+  = &minus;<i>c</i><sup>2</sup> <i>x</i><sub>0</sub> cos(<i>c</i> <i>t</i>) &minus; <i>v</i><sub>0</sub> <i>c</i> sin(<i>c</i> <i>t</i>)
+  </p>
 
 
+  <p>and so we see that both sides match &ndash; so our solution (4) satisfies the differential equation (1).</p>
 
-<h2>Otra Forma de la Solución</h2>
 
-<p>La solución que encontramos,</p>
 
-<table class="html-math numbered-equation">
-<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
-<i>x</i>(<i>t</i>) = <i>x</i><sub>0</sub> cos(<i>c</i> <i>t</i>) + <sup><i>v</i><sub>0</sub> </sup>&frasl;<sub><i>c</i></sub> sin(<i>c</i> <i>t</i>)
+  <h2>Another Form of the Solution</h2>
 
-</td><td class="equation-number">(4)</td></tr></table>
+  <p>The solution we found,</p>
 
-<p>puede ser desconcertante para ti, porque si jugaras con la
-  simulación verás que no importa lo que le hagas, siempre
-  presenta un movimiento sinusoidal simple. Sin embargo, la solución anterior parece
-  ser más compleja que eso. La respuesta al enigma es que la
-  solución se puede simplificar a solo una función seno usando un
-<a href="trig-identity-es.html">identidad trigonométrica</a>.
-Obtienes una función seno cuya fase está desplazada. Asumiendo <span class="html-math inline-math">
-<i>v</i><sub>0</sub> &ne; 0
-</span>, obtenemos:</p>
+  <table class="html-math numbered-equation">
+  <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+  <i>x</i>(<i>t</i>) = <i>x</i><sub>0</sub> cos(<i>c</i> <i>t</i>) + <sup><i>v</i><sub>0</sub> </sup>&frasl;<sub><i>c</i></sub> sin(<i>c</i> <i>t</i>)
 
-<p>$$x(t) = \sqrt{x_0^2 + (v_0/c)^2} \; \sin \left( c t + \tan^{-1} \frac{c x_0}{v_0} \right)$$</p>
+  </td><td class="equation-number">(4)</td></tr></table>
 
-<p>Entonces podemos ver que el comportamiento es siempre un movimiento sinusoidal simple. Si
-  la velocidad es distinta de cero al principio, entonces la onda sinusoidal estará desplazada en fase.</p>
+  <p>may be puzzling to you, because if you played with the
+  simulation you will see that no matter what you do to it, it always
+  exhibits a simple sine motion. Yet the above solution seems to
+  be more complex than that. The answer to the puzzle is that the
+  solution can be simplified to just a sine function using a
+  <a href="trig-identity-es.html">trig identity</a>.
+  You get a sine function whose phase is shifted. Assuming <span class="html-math inline-math">
+  <i>v</i><sub>0</sub> &ne; 0
+  </span>, we get:</p>
+
+  <p>$$x(t) = \sqrt{x_0^2 + (v_0/c)^2} \; \sin \left( c t + \tan^{-1} \frac{c x_0}{v_0} \right)$$</p>
+
+  <p>So we can see that the behavior is always a simple sine motion.  If
+  the velocity is non-zero at the start, then the sine wave is phase
+  shifted.</p>
 
 
 <div id="footer2" >

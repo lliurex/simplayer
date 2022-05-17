@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
-
+<script src="../../jquery/jquery.min.js"></script>
 <title>Roller Coaster</title>
 
 <script type="text/javascript" async
@@ -72,6 +72,9 @@ You can change the track shape by clicking a button below. You can drag the ball
 your mouse to change the starting position. Try modifying gravity or damping.
 </p>
 
+<button type="button" class="technical-toggle"></button>
+
+<div class="technical" style="display:none;">
 <p class="instructions">
 The "custom" track choice displays a track created from the JavaScript expressions in
 the X-equation and Y-equation text areas, using the variable "t". The track will be
@@ -716,7 +719,36 @@ to find the point in the table that minimizes the distance from the given
 <p id="page_history">
   This web page was first published April 2002.
 </p>
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

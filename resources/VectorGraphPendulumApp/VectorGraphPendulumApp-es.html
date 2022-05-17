@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Péndulo con Campo de Dirección</title>
 
 <script>
@@ -52,17 +53,17 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Acerca de</h2>
 
 <p class="introduction">
-  Physics-based simulation of a pendulum, showing both a phase graph and the direction
-  field (or slope field) associated with the differential equation.
+  Simulación basada en la física de un péndulo, que muestra un gráfico de fase y la dirección
+  (o campo de pendientes) asociado con la ecuación diferencial.
 </p>
 
 <p class="instructions">
-  Click the "Sim" tab to access parameters such as: gravity, mass or friction (damping).
-  Drag the pendulum to change the starting position. Or click below to set some
-  predefined initial conditions.
+  Haga clic en la pestaña "Simulador" para acceder a parámetros como: gravedad, masa o fricción (amortiguación).
+  Arrastre el péndulo para cambiar la posición inicial, o haga clic a continuación para establecer algunos
+  condiciones iniciales predefinidas.
 </p>
 
 <form name="form1" onsubmit="return false;">
@@ -74,7 +75,9 @@
     &nbsp;&nbsp;
     <input type="button" value="fast" onClick="app.eval('ANGLE=1.0;ANGLE_VELOCITY=8')">
 </form>
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 <p>See the page about the
   <a href="../PendulumApp/PendulumApp-es.html">single pendulum</a>
   for more about how pendulums work and the math behind this simulation. This simulation
@@ -104,6 +107,36 @@
   <li>Turn on "show energy".  When is kinetic energy highest?  When is potential energy
     highest?</li>
 </ul>
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 <script src="VectorGraphPendulumApp-es.js"></script>
 

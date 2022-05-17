@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Péndulo Caótico</title>
 
 <script>
@@ -80,215 +81,246 @@
     <input type="button" value="double loop (1.07)"  onClick="setSimParams(1.07)">
     <input type="button" value="chaos (1.15)"  onClick="setSimParams(1.15)">
 </form>
+<button type="button" class="technical-toggle"></button>
 
-<p>Los cálculos matemáticos detrás de la simulación se muestran a continuación. También está disponible:
-<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/PendulumApp.js">código fuente</a>,
-documentación y un
-versión compilada simple
-que es más personalizable.
-</p>
+<div class="technical" style="display:none;">
+  <p>The math behind the simulation is shown below.  Also available are:
+    <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/PendulumApp.js">open source code</a>,
+    documentation and a
+    simple-compiled version
+    which is more customizable.
+    </p>
 
 
-<h2>El péndulo accionado amortiguado</h2>
+    <h2>The Damped Driven Pendulum</h2>
 
-<p>El péndulo está sujeto a amortiguamiento por fricción, lo que significa que disminuirá su velocidad en función del
-  tiempo si no hay fuerza impulsora. Para ver esto, intente establecer la amplitud de la unidad en cero,
-  por lo que las únicas fuerzas son la amortiguación y la gravedad.</p>
+    <p>The pendulum is subject to frictional damping, meaning that it will slow down over
+    time if there is no driving force. To see this try setting the drive amplitude to zero,
+    so the only forces are damping and gravity.</p>
 
-<p>La fuerza impulsora se muestra como una flecha curva en la simulación. La longitud de la
-  La flecha corresponde a la cantidad de torque (fuerza de torsión) en un momento dado. La
-  dirección de la flecha, en sentido horario o antihorario, muestra la dirección de esta
-  fuerza aplicada. Se puede cambiar la amplitud (fuerza) de la fuerza impulsora o su
-  frecuencia (con qué frecuencia cambia de dirección).</p>
+    <p>The driving force is shown as a curved arrow in the simulation. The length of the
+    arrow corresponds to the amount of torque (twisting force) at a given moment. The
+    direction of the arrow, clockwise or counter-clockwise, shows the direction of this
+    applied force. You can change the amplitude (strength) of the driving force or its
+    frequency (how often it switches directions).</p>
 
-<p>No todas las combinaciones de los parámetros (longitud, gravedad, amplitud de impulso, impulso
-  frecuencia, amortiguamiento) conducirá al caos. Muchas combinaciones dan como resultado una repetición más simple del
-  comportamiento. Haga clic en el botón "bucle único" de arriba para ver esto. Tendrá que esperar alrededor de un
-  minuto para que la simulación se asiente en el ciclo.</p>
+    <p>Not all combinations of the parameters (length, gravity, drive amplitude, drive
+    frequency, damping) will lead to chaos. Many combinations result in simpler repeating
+    behavior. Click the "single loop" button above to see this. You'll need to wait about a
+    minute for the simulation to settle into the loop.</p>
 
-<p>Existe un fenómeno conocido como <i>duplicación del período</i> o <i>bifurcación</i> donde
-  aumentando lentamente uno de los parámetros, como la amplitud de la unidad, hace que el número de
-  bucles en el comportamiento repetitivo al doble. Algunos de los botones anteriores cambian la unidad
-  amplitud gradualmente para que vea que este período se duplica. Por ejemplo, obtienes un
-  bucle simple con amplitud de excitación de 1,35, bucle doble con 1,45, bucle cuádruple
-  con 1.47, y eventualmente obtienes el caos en 1.50.</p>
+    <p>There is a phenomenon known as <i>period doubling</i> or <i>bifurcation</i> where
+    slowly increasing one of the parameters, such as drive amplitude, causes the number of
+    loops in the repeating behavior to double. Some of the above buttons change the drive
+    amplitude gradually so that you see this period doubling occur. For example, you get a
+    single loop with drive amplitude of 1.35, a double loop with 1.45, a quadruple loop
+    with 1.47, and eventually you get chaos at 1.50.</p>
 
-<p>Después de que se produzcan duplicaciones de períodos suficientes, el sistema se vuelve caótico. Haga clic en uno de los
-  botones etiquetados como "caos" para configurar los parámetros y ver esto. Una cosa curiosa sobre este
-  comportamiento caótico es que no es del todo aleatorio. Si bien no se puede predecir exactamente
-  estado del sistema en un momento dado en el futuro, es posible demostrar que el
-  sistema seguirá un patrón elaborado. Estos patrones son <em>fractales</em>, que
-  son patrones que se repiten cuando los magnificas.</p>
+    <p>After enough period doublings occur, the system becomes chaotic. Click one of the
+    buttons labelled "chaos" to set the parameters and see this. A curious thing about this
+    chaotic behavior is that it is not entirely random. While you can't predict the exact
+    state of the system at a given time in the future, it is possible to show that the
+    system will follow an elaborate pattern, These patterns are <em>fractals</em>, which
+    are patterns that repeat themselves when you magnify them.</p>
 
-  <h2>Física</h2>
+    <h2>Physics</h2>
 
-<div class="image" style="width: 95px;">
-<img src="pendulum_2.gif" width="71" height="92" alt=""><br>
-variables del péndulo
+    <div class="image" style="width: 95px;">
+    <img src="pendulum_2.gif" width="71" height="92" alt=""><br>
+    pendulum variables
+    </div>
+
+    <div style="margin-left: 98px;">
+    <p>The pendulum is modeled as a point mass at the end of a massless rod. The damping
+    (friction) is proportional to the angular velocity of the pendulum. There is also an
+    external driving force which provides a periodic torque (twist). Define the following
+    variables:</p>
+
+    <ul class="vars">
+        <li><span class="html-math inline-math">
+    <i>&theta;</i> =
+    </span> angle of pendulum (<span class="html-math inline-math">
+    0 =
+    </span> vertical)</li>
+        <li><span class="html-math inline-math">
+    <i>&omega;</i> = <i>&theta;'</i> =
+    </span> angular velocity</li>
+        <li><span class="html-math inline-math">
+    <i>R</i> =
+    </span> length of rod</li>
+        <li><span class="html-math inline-math">
+    <i>m</i> =
+    </span> mass of pendulum</li>
+        <li><span class="html-math inline-math">
+    <i>g</i> =
+    </span> gravitational constant</li>
+        <li><span class="html-math inline-math">
+    <i>b</i> =
+    </span> damping (friction) constant</li>
+        <li><span class="html-math inline-math">
+    <i>A</i> =
+    </span> amplitude of driving force</li>
+        <li><span class="html-math inline-math">
+    <i>k</i> =
+    </span> constant related to frequency of driving force</li>
+        <li><span class="html-math inline-math">
+    <i>t</i> =
+    </span> time in seconds</li>
+    </ul>
+    </div>
+
+    <p>We will derive the equation of motion for the pendulum using the rotational analog
+    of Newton's second law for motion about a fixed axis, which is</p>
+
+    <table class="html-math numbered-equation">
+    <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
+    <i>I</i> <i>&alpha;</i> = &sum; <i>&tau;</i>
+
+    </td><td class="equation-number">(1)</td></tr></table>
+
+    <ul class="vars">
+        <li><span class="html-math inline-math">
+    &sum; <i>&tau;</i> =
+    </span> sum of applied torques</li>
+        <li><span class="html-math inline-math">
+    <i>I</i> =
+    </span> rotational inertia</li>
+        <li><span class="html-math inline-math">
+    <i>&alpha;</i> = <i>&theta;''</i> =
+    </span> angular acceleration</li>
+    </ul>
+
+    <p>The rotational inertia about the pivot is <span class="html-math inline-math">
+    <i>I</i> = <i>m</i> <i>R</i><sup>2</sup>
+    </span>. Torque can be
+    calculated as the vector cross product of the position vector and the force.</p>
+
+    <ul class="vars">
+        <li>torque due to gravity is <span class="html-math inline-math">
+    <i>&tau;</i> = &minus;<i>R</i> <i>m</i> <i>g</i> sin <i>&theta;</i>
+    </span>.</li>
+        <li>torque due to friction is <span class="html-math inline-math">
+    <i>&tau;</i> = &minus;<i>b</i> <i>&omega;</i>
+    </span>.</li>
+        <li>torque due to driving force is <span class="html-math inline-math">
+    <i>&tau;</i> = <i>A</i> cos(<i>k</i> <i>t</i>)
+    </span>.</li>
+    </ul>
+
+    <p>So equation (1) becomes</p>
+
+    <p class="html-math display-equation">
+    <i>m</i> <i>R</i><sup>2</sup> <i>&alpha;</i> = &minus;<i>R</i> <i>m</i> <i>g</i> sin <i>&theta;</i> &minus;
+    <span class="nobr"><i>b</i> <i>&omega;</i></span> +
+    <span class="nobr"><i>A</i> cos(<i>k</i> <i>t</i>)</span>
+    </p>
+
+    <p>which we can write as</p>
+
+    <div class="emphasized display_equation">
+    <table class="fraction">
+        <tr>
+            <td rowspan="2">
+                <i>&theta;''</i> = &minus; <sup><i>g</i></sup>&frasl;<sub><i>R</i></sub>&nbsp; sin <i>&theta;</i> + &nbsp;
+            </td><td>
+                &minus;<i>b</i> <i>&theta;'</i> + <i>A</i> cos(<i>k</i> <i>t</i>)
+            </td>
+        </tr><tr>
+            <td class="upper_line">
+                <i>m</i> <i>R</i><sup>2</sup>
+            </td>
+        </tr>
+    </table>
+    <!-- LaTeX version of the above:
+      \theta'' = -\frac{g}{R}  \sin(\theta) + \frac{ - b \; \theta' + A \cos(k \; t) }{m \; R^2}
+    -->
+
+    </div>
+
+    <p>This is the equation of motion for the driven damped pendulum.</p>
+
+
+
+
+
+    <h2 id="numerical">Numerical Solution</h2>
+
+    <p>To solve the equation of motion numerically, so that we can run the simulation, we
+    use the <a href="../explain/runge-kutta-es.html">Runge Kutta method</a>
+    for solving sets of ordinary differential equations. First we define a variable for the
+    angular velocity <span class="html-math inline-math">
+    <i>&omega;</i> = <i>&theta;'</i>
+    </span>. We also add an equation for time because time
+    appears explicitly in the equations in the driving force <span class="html-math inline-math">
+    <i>A</i> cos(<i>k</i> <i>t</i>)
+    </span>. Then
+    we can write the second order equation above as three first order equations.</p>
+
+    <p class="html-math display-equation">
+    <i>t</i>' = 1
+    </p>
+
+    <p class="html-math display-equation">
+    <i>&theta;'</i> = <i>&omega;</i>
+    </p>
+
+    <div class="html-math table-equation">
+    <table class="fraction">
+        <tr>
+            <td rowspan="2">
+                <i>&omega;'</i> = &minus; <sup><i>g</i></sup>&frasl;<sub><i>R</i></sub> sin <i>&theta;</i> + &nbsp;
+            </td><td>
+                &minus;<i>b</i> <i>&omega;</i> + <i>A</i> cos(<i>k</i> <i>t</i>)
+            </td>
+        </tr><tr>
+            <td class="upper_line">
+                <i>m</i> <i>R</i><sup>2</sup>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+
+    <p>This is the form needed for using the Runge-Kutta algorithm.</p>
+
+    <!--h2>TO DO</h2>
+    <ul>
+      <li>Add picture of the completed chaotic graph</li>
+    </ul-->
+
+    <p id="page_history">
+      This web page was first published September 2001.
+    </p>
 </div>
-
-<div style="margin-left: 98px;">
-<p>El péndulo se modela como una masa puntual al final de una barra sin masa, la amortiguación
-  (fricción) es proporcional a la velocidad angular del péndulo. También hay un
-  fuerza motriz externa que proporciona un par periódico (giro). Se definen las siguientes
-  variables:</p>
-
-<ul class="vars">
-    <li><span class="html-math inline-math">
-<i>&theta;</i> =
-</span> ángulo del péndulo (<span class="html-math inline-math">
-0 =
-</span> vertical)</li>
-    <li><span class="html-math inline-math">
-<i>&omega;</i> = <i>&theta;'</i> =
-</span> velocidad angular</li>
-    <li><span class="html-math inline-math">
-<i>R</i> =
-</span> longitud de la barra</li>
-    <li><span class="html-math inline-math">
-<i>m</i> =
-</span> masa de péndulo</li>
-    <li><span class="html-math inline-math">
-<i>g</i> =
-</span> constante gravitacional</li>
-    <li><span class="html-math inline-math">
-<i>b</i> =
-</span> constante amortiguamiento (fricción)</li>
-    <li><span class="html-math inline-math">
-<i>A</i> =
-</span> amplitud de la fuerza impulsora</li>
-    <li><span class="html-math inline-math">
-<i>k</i> =
-</span> constante relacionada con la frecuencia de la fuerza impulsora</li>
-    <li><span class="html-math inline-math">
-<i>t</i> =
-</span> tiempo en segundos</li>
-</ul>
-</div>
-
-<p>Deduciremos la ecuación de movimiento del péndulo usando el análogo rotacional
-  de la segunda ley de Newton para el movimiento alrededor de un eje fijo, que es</p>
-
-<table class="html-math numbered-equation">
-<tr><td class="equation-number">&nbsp;&nbsp;</td><td>
-<i>I</i> <i>&alpha;</i> = &sum; <i>&tau;</i>
-
-</td><td class="equation-number">(1)</td></tr></table>
-
-<ul class="vars">
-    <li><span class="html-math inline-math">
-&sum; <i>&tau;</i> =
-</span>  suma de pares aplicados</li>
-    <li><span class="html-math inline-math">
-<i>I</i> =
-</span> inercia rotacional</li>
-    <li><span class="html-math inline-math">
-<i>&alpha;</i> = <i>&theta;''</i> =
-</span> aceleración angular</li>
-</ul>
-
-<p>La inercia rotacional sobre el pivote es <span class="html-math inline-math">
-<i>I</i> = <i>m</i> <i>R</i><sup>2</sup>
-</span>. El par puede ser
-calculado como el producto cruzado vectorial del vector de posición y la fuerza.</p>
-
-<ul class="vars">
-    <li>el par debido a la gravedad es <span class="html-math inline-math">
-<i>&tau;</i> = &minus;<i>R</i> <i>m</i> <i>g</i> sin <i>&theta;</i>
-</span>.</li>
-    <li>el par debido a la fricción es <span class="html-math inline-math">
-<i>&tau;</i> = &minus;<i>b</i> <i>&omega;</i>
-</span>.</li>
-    <li>el par debido a la fuerza motriz es <span class="html-math inline-math">
-<i>&tau;</i> = <i>A</i> cos(<i>k</i> <i>t</i>)
-</span>.</li>
-</ul>
-
-<p>Entonces la ecuación (1) se convierte</p>
-
-<p class="html-math display-equation">
-<i>m</i> <i>R</i><sup>2</sup> <i>&alpha;</i> = &minus;<i>R</i> <i>m</i> <i>g</i> sin <i>&theta;</i> &minus;
-<span class="nobr"><i>b</i> <i>&omega;</i></span> +
-<span class="nobr"><i>A</i> cos(<i>k</i> <i>t</i>)</span>
-</p>
-
-<p>que podemos escribir como</p>
-
-<div class="emphasized display_equation">
-<table class="fraction">
-    <tr>
-        <td rowspan="2">
-            <i>&theta;''</i> = &minus; <sup><i>g</i></sup>&frasl;<sub><i>R</i></sub>&nbsp; sin <i>&theta;</i> + &nbsp;
-        </td><td>
-            &minus;<i>b</i> <i>&theta;'</i> + <i>A</i> cos(<i>k</i> <i>t</i>)
-        </td>
-    </tr><tr>
-        <td class="upper_line">
-            <i>m</i> <i>R</i><sup>2</sup>
-        </td>
-    </tr>
-</table>
-<!-- LaTeX version of the above:
-  \theta'' = -\frac{g}{R}  \sin(\theta) + \frac{ - b \; \theta' + A \cos(k \; t) }{m \; R^2}
--->
-
-</div>
-
-<p>Esta es la ecuación de movimiento para el péndulo impulsado amortiguado.</p>
-
-
-
-
-
-<h2 id="numerical">Solución numérica</h2>
-
-<p>Para resolver numéricamente la ecuación de movimiento, de modo que podamos ejecutar la simulación,
-  es usado el  <a href="../explain/runge-kutta-es.html">método Runge Kutta</a>
-  para resolver conjuntos de ecuaciones diferenciales ordinarias. Primero definimos una variable para la
-  velocidad angular <span class="html-math inline-math">
-<i>&omega;</i> = <i>&theta;'</i>
-</span>. También agregamos una ecuación para el tiempo porque el tiempo
-aparece explícitamente en las ecuaciones de la fuerza motriz <span class="html-math inline-math">
-<i>A</i> cos(<i>k</i> <i>t</i>)
-</span>. Entonces
-podemos escribir la ecuación de segundo orden anterior como tres ecuaciones de primer orden.</p>
-
-<p class="html-math display-equation">
-<i>t</i>' = 1
-</p>
-
-<p class="html-math display-equation">
-<i>&theta;'</i> = <i>&omega;</i>
-</p>
-
-<div class="html-math table-equation">
-<table class="fraction">
-    <tr>
-        <td rowspan="2">
-            <i>&omega;'</i> = &minus; <sup><i>g</i></sup>&frasl;<sub><i>R</i></sub> sin <i>&theta;</i> + &nbsp;
-        </td><td>
-            &minus;<i>b</i> <i>&omega;</i> + <i>A</i> cos(<i>k</i> <i>t</i>)
-        </td>
-    </tr><tr>
-        <td class="upper_line">
-            <i>m</i> <i>R</i><sup>2</sup>
-        </td>
-    </tr>
-</table>
-</div>
-
-
-<p>Esta es la forma necesaria para usar el algoritmo de Runge-Kutta.</p>
-
-<!--h2>TO DO</h2>
-<ul>
-  <li>Add picture of the completed chaotic graph</li>
-</ul-->
-
-<p id="page_history">
-  Esta página web se publicó por primera vez en septiembre de 2001.
-</p>
-
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <script src="PendulumApp-es.js"></script>
 
 <script>

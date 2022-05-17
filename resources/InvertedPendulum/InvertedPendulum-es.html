@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 
 <title>Péndulo Vibrante Invertido</title>
 
@@ -57,18 +58,20 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Acerca de</h2>
 
 <p class="introduction">
-Physics-based simulation of a vibrating pendulum with a pivot point is shaking rapidly
-up and down. Surprisingly, the position with the pendulum being vertically upright is
-stable, so this is also known as the inverted pendulum. </p>
+  La simulación basada en la física de un péndulo que vibra con un punto de pivote que se mueve rápidamente
+  arriba y abajo. Sorprendentemente, la posición con el péndulo verticalmente hacia arriba es
+  estable, por lo que esto también se conoce como el péndulo invertido. </p>
 
 <p class="instructions">
-Click and drag near the pendulum to modify its position. The anchor can also be moved.
-Enable the "show controls" checkbox to set gravity, frequency of oscillation, magnitude
-of oscillation, and damping (friction). </p>
+  Haga clic y arrastre cerca del péndulo para modificar su posición. El ancla también se puede mover.
+  Habilite la casilla de verificación "mostrar controles" para establecer la gravedad, la frecuencia de oscilación, la magnitud
+  de oscilación y amortiguamiento (fricción). </p>
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 <p>A regular non-vibrating <a href="../PendulumApp/PendulumApp-es.html">pendulum</a> is stable only when it
 is hanging straight down. In this simulation, the support pivot point of the pendulum
 is oscillating rapidly up and down. When the oscillation is rapid and of small
@@ -192,7 +195,36 @@ of oscillation.</p>
 
 </ul-->
 
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

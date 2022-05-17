@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Molécula 4</title>
 
 <script>
@@ -51,17 +52,15 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Acerca de</h2>
 
 <p class="introduction">
-This simulation shows 4 masses connected by springs and free to move in 2 dimensions.
+  Esta simulación muestra 4 masas conectadas por muelles, libres para moverse en 2 dimensiones.
 </p>
-
 <p class="instructions">
-You can change parameters in the simulation such as gravity, mass, spring stiffness, and friction (damping).  You can drag any mass with your mouse to change the starting position. The red springs can be set to have a different stiffness and length than the other springs.
-</p>  
+  Puede cambiar parámetros en la simulación, como la gravedad, la masa, la rigidez del muelle y la fricción (amortiguación). Puede arrastrar cualquier masa con el ratón para cambiar la posición inicial. Los muelles rojos se pueden configurar para que tengan una rigidez y una longitud diferentes a las de los otros muelles.</p>
 
-<p>Click the buttons below for various pre-set combinations of parameter settings.</p>
+<p>Haga clic en los botones a continuación para obtener varias combinaciones preestablecidas de configuración de parámetros.</p>
 
 <form name="form1" onsubmit="return false;">
     <input type="button" value="symmetric" onClick="setParams(3)">
@@ -74,7 +73,9 @@ You can change parameters in the simulation such as gravity, mass, spring stiffn
     <input type="button" value="tall and bouncy"
       onClick="setParams(6); app.eval('DAMPING=0;ELASTICITY=0.2;GRAVITY=1;')">
 </form>
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 <p>The math and physics used in this simulation are similar to the
 <a href="../Spring2DApp/Spring2DApp-es.html">2-D Spring</a> and
 <a href="../Double2DSpringApp/Double2DSpringApp-es.html">Double 2-D Spring</a> simulations. However the masses
@@ -105,7 +106,36 @@ which is more customizable.
 <p id="page_history">
   This web page was first published September 2001.
 </p>
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <script src="Molecule3App-es.js"></script>
 
 <script>

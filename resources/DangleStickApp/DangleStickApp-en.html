@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Dangling Stick</title>
 
 <script>
@@ -69,7 +70,9 @@ You can change parameters in the simulation such as mass, gravity, and damping. 
 drag either end of the stick with your mouse to change the starting position. The
 "reset" button puts the simulation in a motionless equilibrium.
 </p>
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 <p>Can you find the bug in this simulation? Play with it for a while and see if you can
 determine when the bug occurs. Perhaps you can even have a theory for why it occurs.
 The <a href="#dangle_bug">answer is found below</a>.</p>
@@ -359,7 +362,36 @@ need to model the spring with a non-linear force. As the spring compressed to ne
 <p id="page_history">
   This web page was first published September 2001.
 </p>
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 <div id="footer2" >
   <div id="copyright">

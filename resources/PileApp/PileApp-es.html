@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Pila</title>
 
 <script>
@@ -51,59 +52,60 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Acerca de</h2>
 
 <p class="introduction">
-Demonstration of a pile of objects falling into a corner
-using the <a href="../explain/physics-engine-es.html">2D Rigid Body Physics Engine</a>.
+  Demostración de una pila de objetos que caen en una esquina
+  usando el <a href="../explain/physics-engine-es.html">Motor de Física de Cuerpo Rígido 2D</a>.
 </p>
 
-<p>This is a good stress test for the physics engine. Click the <b>add block</b>
-button to add more blocks. Eventually the simulation will be unable to keep up with
-real time.
+<p>Esta es una buena prueba de estrés para el motor de física. Haz clic en <b>añadir bloque</b>
+  botón para añadir más bloques. Eventualmente, la simulación no podrá seguir el ritmo
+  tiempo real.
 </p>
 
-<p>To see whether the simulation is keeping up with real time click the
-<b>show clock</b> button. The clock shows two second hands: the red hand tracks real
-time and the blue hand tracks simulation time. When the red hand is ahead of the blue
-hand it means the simulation has fallen behind real time.
+<p>Para ver si la simulación se mantiene en tiempo real, haga clic en el
+  Botón <b>mostrar reloj</b>. El reloj muestra dos segunderos: la manecilla roja rastrea el tiempo real
+  y la mano azul rastrea el tiempo de simulación. Cuando la mano roja está por delante de la azul
+  lado, significa que la simulación se ha quedado atrás en tiempo real.
 </p>
 
-<p>The <b>connected blocks</b> checkbox includes two blocks that are connected by
-joints. Those are a good test of the ability to to keep joints together during a series
-of violent collisions.
+<p>La casilla <b>bloques conectados</b> incluye dos bloques que están conectados por
+  articulaciones, esas son una buena prueba de la capacidad de mantener juntas las articulaciones durante una serie
+  de colisiones violentas.
 </p>
 
-<p>Enabling the <b>endless loop</b> checkbox causes the simulation to be rebuilt every
-few seconds. The period is set by the <b>loop time</b> amount. This allows running the
-simulation over and over which is a good way to test the physics engine with many
-random situations.
+<p>Habilitar la casilla de verificación <b>bucle sin fin</b> hace que la simulación se reconstruya cada
+  pocos segundos. El período se establece por la cantidad de <b>tiempo de bucle</b>. Esto permite ejecutar la
+  simulación una y otra vez para probar el motor de física con muchas
+  situaciones aleatorias.
 </p>
 
-<p>The main performance challenge is when the blocks have settled down and are all
-lying in contact. Enable the <b>show forces</b> checkbox to see how hard the physics
-engine is working to figure out the many contact forces.
+<p>El principal desafío de rendimiento es cuando los bloques se han asentado y están todos
+  acostados en contacto. Habilite la casilla de verificación <b>mostrar fuerzas</b> para ver qué tan difícil es la física.
+  motor está trabajando para averiguar las muchas fuerzas de contacto.
 </p>
 
-<p>The physics engine performance is proportional to the the <i>number of connected
-contacts raised to the fourth power</i>. Here is an experiment that shows this:
+<p>El rendimiento del motor de física es proporcional al <i>número de uniones de contactoelevados a la cuarta potencia</i>. Aquí hay un experimento que muestra esto:
 </p>
 
 <ol>
 
-<li>Set the <b>number of blocks</b> to 15, and notice that the simulation cannot keep
-up with real time once the blocks have settled into the corner. With 15 blocks there
-are around 60 contact forces, and 60^4 = 12,960,000.
+<li>Establezca el <b>número de bloques</b> en 15 y observe que la simulación no puede seguir
+  en tiempo real una vez que los bloques se hayan asentado en la esquina. Con 15 bloques hay
+  alrededor de 60 fuerzas de contacto, y 60 ^ 4 = 12,960,000.
 </li>
 
-<li>Enable the <b>two piles</b> checkbox. Now the simulation <i>can</i> keep up with
-real time because there are two piles instead of one. With 7 or 8 blocks in each pile
-there are around 30 contacts in each pile, and 2*(30^4) = 1,620,000 which is an order
-of magnitude less calculations needed.
+<li>Habilite la casilla de verificación <b>dos montones</b>. Ahora la simulación <i>puede</i> mantenerse al día en
+  tiempo real porque hay dos montones en lugar de uno. Con 7 u 8 bloques en cada pila
+  hay alrededor de 30 contactos en cada pila, y 2*(30^4) = 1,620,000 que es de un orden
+  de magnitud menor y que requiere menos cálculo.
 </li>
 
 </ol>
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 <p>Also available are:
 <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/PileApp.js">open source code</a>,
 documentation and a
@@ -116,7 +118,36 @@ which is more customizable.
   This web page was first published November 2016.
 </p>
 
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

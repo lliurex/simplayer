@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Elipsógrafo de Arquímedes</title>
 
 <script>
@@ -51,22 +52,26 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Acerca de</h2>
 
 <p class="introduction">
-Physics-based simulation of a
-<a href="https://en.wikipedia.org/wiki/Trammel_of_Archimedes">trammel of Archimedes</a>,
-also known as a "do nothing machine" or "do nothing grinder".
-Uses the <a href="../explain/physics-engine-es.html">2D Rigid Body Physics Engine</a>.
+  Simulación basada en la física de un
+<a href="https://en.wikipedia.org/wiki/Trammel_of_Archimedes">trammel de Arquímedes</a>,
+también conocida como "máquina de no hacer nada" o "molinillo de no hacer nada".
+Utiliza el <a href="../explain/physics-engine-es.html">Motor de Física de Cuerpo Rígido 2D</a>.
 </p>
 
 <p class="instructions">
-Click near the handle with your mouse to apply a spring force. Turn on "extra block" to
-see the mechanism collide with another block. Try changing elasticity or damping. Set
-"handle force" to apply a constant force to the handle. Set "force rotation rate" to
-zero to have the mechanism reach a high rate of speed. Turn on "show forces" to see the
-various forces at work.
-</p>
+  Haga clic cerca del mango con el ratón para aplicar una fuerza al muelle. Active el "bloqueo extra" para
+  ver el mecanismo de choque con otro bloque. Intente cambiar la elasticidad o la amortiguación. Colocar
+  "fuerza del mango" para aplicar una fuerza constante al mango. Establezca la "tasa de rotación forzada" en
+  cero para que el mecanismo alcance una alta tasa de velocidad. Active "Mostrar fuerzas" para ver el
+  varias fuerzas en el trabajo.
+  </p>
+
+<button type="button" class="technical-toggle"></button>
+
+<div class="technical" style="display:none;">
 
 <p>Also available are:
 <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/DoNothingApp.js">open source code</a>,
@@ -79,7 +84,36 @@ which is more customizable.
 <p id="page_history">
   This web page was first published October 2016.
 </p>
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 <div id="footer2" >
   <div id="copyright">

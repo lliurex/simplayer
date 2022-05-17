@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<title lang="es">Solución numérica de ecuaciones diferenciales</title>
+<title lang="es">Numerical Solution of Differential Equations</title>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<h1 lang="es">Solución numérica de ecuaciones diferenciales</h1>
+<h1 lang="es">Numerical Solution of Differential Equations</h1>
 
 <div id="header_nav">
 <a class="nav_link"
@@ -24,29 +24,29 @@
 <ul id="header_bar">
 </ul>
 
-<p class="introduction">En el proceso de creación de una simulación física</a>, comenzamos inventando un modelo matemático y encontrando las ecuaciones diferenciales que encarnan la física. El siguiente paso es <em>hacer que la computadora resuelva las ecuaciones</em>, un proceso que se conoce con el nombre de <em>análisis numérico</em>.</p>
+<p class="introduction">In the process of creating a physics simulation</a> we start by inventing a mathematical model and finding the differential equations that embody the physics. The next step is <em>getting the computer to solve the equations</em>, a process that goes by the name <em>numerical analysis</em>.</p>
 
 
 
-<h2 id="analytic">Solución analítica</h2>
+<h2 id="analytic">Analytic Solution</h2>
 
-<p>Para modelos simples, se puede usar cálculo, trigonometría y otras técnicas matemáticas para encontrar una función que sea la solución exacta de la ecuación diferencial. Esto se llama la <em>solución analítica</em> (porque usa el análisis para resolverlo). También se conoce como solución de <em>formato cerrado</em>. (Por cierto, las clases universitarias sobre ecuaciones diferenciales tienen que ver con encontrar soluciones analíticas).</p>
+<p>For simple models you can use calculus, trigonometry, and other math techniques to find a function which is the exact solution of the differential equation. This is called the <em>analytic solution</em> (because you use analysis to figure it out).  It is also referred to as a <em>closed form</em> solution. (BTW, college classes on differential equations are all about finding analytic solutions).</p>
 
-<p>Se prefiere una solución analítica porque puede obtener una idea de la ecuación. Por ejemplo, en la <a href="../SingleSpringApp/SingleSpringApp-es.html#analytic">solución analítica de la simulación Single Spring</a> podemos ver cómo la masa <span class="html-math inline-math">
+<p>An analytic solution is preferred because you can get some insight from the equation.  For example, in the <a href="../SingleSpringApp/SingleSpringApp-es.html#analytic">analytic solution of the Single Spring simulation</a> we can see how mass <span class="html-math inline-math">
 <i>m</i>
-</span> o rigidez del resorte <span class="html-math inline-math">
+</span> or spring stiffness <span class="html-math inline-math">
 <i>k</i>
-</span> afecta la frecuencia de oscilación, con solo mirar la ecuación:</p>
+</span> affects the frequency of oscillation, just by looking at the equation:</p>
 
 <p>$$x(t) = x_0 \cos(\sqrt{k/m} \; t)$$</p>
 
-<p>Por el contrario, con una solución numérica tendrías que realizar muchos experimentos para descubrir relaciones como esa; al igual que en la vida real, prepararía experimentos con diferentes masas o resortes, tomaría medidas y luego haría un gráfico que mostrara cómo varía la frecuencia para diferentes masas o rigidez del resorte.</p>
+<p>In contrast, with a numerical solution you would have to run lots of experiments to figure out relationships like that; just like in real life you would set up experiments with different masses or springs, make measurements, and then make a graph that shows how frequency varies for different masses or spring stiffness.</p>
 
 
-<h2>Solución numérica</h2>
+<h2>Numerical Solution</h2>
 
-<p>La mayoría de las simulaciones de física son demasiado complicadas para poder encontrar una solución analítica.
-  En su lugar, usamos <a href="https://es.wikipedia.org/wiki/An%C3%A1lisis_num%C3%A9rico">Análisis Numérico</a> para encontrar una solución numérica aproximada, que es solo una lista de números. Los números son las variables del modelo en cada momento del tiempo. Por ejemplo, estos son los primeros momentos de la <a href="../SingleSpringApp/SingleSpringApp-es.html">simulación de Spring único</a></p>
+<p>Most physics simulations are too complicated to be able to find an analytic solution.
+Instead we use <a href="https://en.wikipedia.org/wiki/Numerical_analysis">Numerical Analysis</a> to find an approximate numerical solution, which is just a list of numbers.  The numbers are model's variables at each moment in time. For example, here are the first few moments of the <a href="../SingleSpringApp/SingleSpringApp-es.html">Single Spring simulation</a></p>
 
 <pre>
       t          x       v
@@ -62,17 +62,17 @@
   0.22500  &minus;1.70823  2.50851
   0.25000  &minus;1.64252  2.74675
 </pre>
-<p>Esta lista de números es lo que impulsa la representación visual de la simulación: para el valor actual del tiempo <span class="html-math inline-math">
+<p>This list of numbers is what drives the visual representation of the simulation: for the current value of time <span class="html-math inline-math">
 <i>t</i>
-</span> movemos el bloque a la posición dada por <span class="html-math inline-math">
+</span> we move the block to the position given by the <span class="html-math inline-math">
 <i>x</i>
-</span> variable en ese momento.</p>
+</span> variable at that time.</p>
 
-<p>¿Cómo funciona? ¿Cómo generamos esa lista de números?</p>
+<p>How does it work? How do we generate that list of numbers?</p>
 
-<p>Comenzamos con los valores iniciales de las variables, que es la primera fila de la tabla anterior. Luego usamos las ecuaciones diferenciales para la simulación para calcular las variables después de un período de tiempo muy breve. <em>La ecuación diferencial nos dice la tasa de cambio de cada variable en cualquier momento.</em> Al sumar pequeños cambios a lo largo del tiempo (también conocido como <em>integrar a lo largo del tiempo</em>), podemos predecir el futuro.</p>
+<p>We start with the initial values of the variables, which is the first row in the table above. We then use the differential equations for the simulation to calculate the variables after a very brief period of time. <em>The differential equation tells us the rate of change in each variable at any point in time.</em> By adding together small changes over time (also known as <em>integrating over time</em>) we can predict the future.</p>
 
-<p>Para la simulación de resorte único, las ecuaciones diferenciales son:</p>
+<p>For the Single Spring simulation the differential equations are:</p>
 
 <table class="html-math numbered-equation">
 <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
@@ -86,13 +86,13 @@
 
 </td><td class="equation-number">(2)</td></tr></table>
 
-<p>Los valores de los parámetros para la rigidez del resorte <span class="html-math inline-math">
+<p>The parameter values for spring stiffness <span class="html-math inline-math">
 <i>k</i>
-</span>, masa <span class="html-math inline-math">
+</span>, mass <span class="html-math inline-math">
 <i>m</i>
-</span>, y amortiguación <span class="html-math inline-math">
+</span>, and damping <span class="html-math inline-math">
 <i>b</i>
-</span> son:</p>
+</span> are:</p>
 
 <p class="html-math display-equation">
 <i>k</i> = 3.0<br>
@@ -100,7 +100,7 @@
 <i>b</i> = 0.1<br>
 </p>
 
-<p>Con estos parametros, las ecuaciones (1) y (2) se simplifican a</p>
+<p>With these parameters, equations (1) and (2) simplify to</p>
 
 <table class="html-math numbered-equation">
 <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
@@ -115,43 +115,43 @@
 </td><td class="equation-number">(4)</td></tr></table>
 
 
-<p>Las condiciones iniciales en el momento <span class="html-math inline-math">
+<p>The initial conditions at time <span class="html-math inline-math">
 <i>t</i> = 0
-</span> son</p>
+</span> are</p>
 
 <p class="html-math display-equation">
 <i>x</i> = &minus;2.0<br>
 <i>v</i> = 0.0
 </p>
 
-<p>Podemos encontrar la tasa de cambio de las variables en el tiempo <span class="html-math inline-math">
+<p>We can find the rate of change of the variables at time <span class="html-math inline-math">
 <i>t</i> = 0
-</span> sustituyendo los valores anteriores en las ecuaciones (3) y (4)</p>
+</span> by substituting the above values into equations (3) and (4)</p>
 
 <p class="html-math display-equation">
 <i>x</i>' = 0<br>
 <i>v</i>' = &minus;6 (&minus;2) &minus; 0.2 (0) = +12
 </p>
 
-<p>Dado que conocemos los valores iniciales de las variables y sus tasas de cambio, podemos predecir los valores futuros. ¡Al menos por un período de tiempo muy corto en el futuro, suponiendo que las tasas de cambio no cambien demasiado!</p>
+<p>Since we know the starting values of the variables and their rates of change, we can predict the future values. At least for a very short amount of time in the future, assuming that the rates of change do not themselves change too much!</p>
 
-<h2>Método de integración numérica de Euler</h2>
+<h2>Euler's Method of Numerical Integration</h2>
 
-<p>Para mostrar cómo funciona la integración numérica, usamos el método más simple posible: el método de Euler. Es simple pero no muy preciso. Mencionaremos métodos más precisos a continuación.</p>
+<p>To show how numerical integration works, we use the simplest possible method: Euler's method. It is simple but not very accurate. We'll mention more accurate methods below.</p>
 
-<p>Al resolver las ecuaciones diferenciales (3) y (4), suponga que conocemos el estado del sistema en el momento <span class="html-math inline-math">
+<p>In solving differential equations (3) and (4), assume we know the state of the system at time <span class="html-math inline-math">
 <i>t<sub>n</sub></i>
-</span> para tener la posición <span class="html-math inline-math">
+</span> to have position <span class="html-math inline-math">
 <i>x<sub>n</sub></i>
-</span> y velocidad <span class="html-math inline-math">
+</span> and velocity <span class="html-math inline-math">
 <i>v<sub>n</sub></i>
 </span>.</p>
 
-<p>Para obtener el estado del sistema en ese momento <span class="html-math inline-math">
+<p>To get the state of the system at time <span class="html-math inline-math">
 <i>t<sub>n+1</sub></i> = <i>t<sub>n</sub></i> + &Delta;<i>t</i>
-</span>> después de una pequeña cantidad de tiempo <span class="html-math inline-math">
+</span> after a small amount of time <span class="html-math inline-math">
 &Delta;<i>t</i>
-</span> ha transcurrido:</p>
+</span> has elapsed:</p>
 
 <table class="html-math numbered-equation">
 <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
@@ -165,25 +165,25 @@
 
 </td><td class="equation-number">(6)</td></tr></table>
 
-<p>Las ecuaciones (5) y (6) usan las tasas dadas por las ecuaciones diferenciales (3) y (4) para hacer una estimación cruda del nuevo valor después de la pequeña cantidad de que el tiempo <span class="html-math inline-math">
+<p>Equations (5) and (6) use the rates given by the differential equations (3) and (4) to make a crude estimate of the new value after the small amount of time <span class="html-math inline-math">
 &Delta;<i>t</i>
-</span> ha transcurrido.</p>
+</span> has elapsed.</p>
 
 
-<p>Ahora podemos usar las ecuaciones (5) y (6) para hacer las predicciones numéricas. Empezamos en el tiempo <span class="html-math inline-math">
+<p>Now we can use equations (5) and (6) to make the numerical predictions. We start at time <span class="html-math inline-math">
 <i>t</i> = 0
-</span> con</p>
+</span> with</p>
 
 <p class="html-math display-equation">
 <i>x<sub>0</sub></i> = &minus;2<br>
 <i>v<sub>0</sub></i> = 0
 </p>
 
-<p>Con <span class="html-math inline-math">
+<p>With <span class="html-math inline-math">
 <i>n</i> = 0
-</span> y un pequeño paso de tiempo de <span class="html-math inline-math">
+</span> and a small timestep of <span class="html-math inline-math">
 &Delta;<i>t</i> = 0.025
-</span>, las ecuaciones (5) y (6) dan el estado en el momento <span class="html-math inline-math">
+</span>, the equations (5) and (6) give the state at time <span class="html-math inline-math">
 <i>t<sub>1</sub></i> = <i>t<sub>0</sub></i> +&Delta;<i>t</i> = 0.025
 </span></p>
 
@@ -192,9 +192,9 @@
 <i>v<sub>1</sub></i> = <i>v<sub>0</sub></i> + 0.025 (&minus;6 <i>x<sub>0</sub></i> &minus; 0.2 <i>v<sub>0</sub></i>) = 0 + 0.025 (&minus;6 (&minus;2) &minus; 0.2 (0)) = 0.3
 </p>
 
-<p>Con <span class="html-math inline-math">
+<p>With <span class="html-math inline-math">
 <i>n</i> = 1
-</span> en las ecuaciones (5) y (6) podemos obtener el estado en el momento <span class="html-math inline-math">
+</span> in equations (5) and (6) we can get the state at time <span class="html-math inline-math">
 <i>t<sub>2</sub></i> = <i>t<sub>1</sub></i> + &Delta;<i>t</i> = 0.050
 </span></p>
 
@@ -203,9 +203,9 @@
 <i>v<sub>2</sub></i> = <i>v<sub>1</sub></i> + 0.025 (&minus;6 <i>x<sub>1</sub></i> &minus; 0.2 <i>v<sub>1</sub></i>) = 0.3 + 0.025 (&minus;6 (&minus;2) &minus; 0.2 (0.3)) = 0.5985
 </p>
 
-<p>Con <span class="html-math inline-math">
+<p>With <span class="html-math inline-math">
 <i>n</i> = 2
-</span> en las ecuaciones (5) y (6) podemos obtener el estado en el momento <span class="html-math inline-math">
+</span> in equations (5) and (6) we can get the state at time <span class="html-math inline-math">
 <i>t<sub>3</sub></i> = <i>t<sub>2</sub></i> + &Delta;<i>t</i> = 0.075
 </span></p>
 
@@ -215,7 +215,7 @@
 = 0.5985 + 0.025 (&minus;6 (&minus;1.9925) &minus; 0.2 (0.5985)) = 0.8943825
 </p>
 
-<p>Nuestra solución numérica aproximada hasta ahora:</p>
+<p>Our approximate numerical solution thus far:</p>
 
 <pre>
       t         x        v
@@ -224,7 +224,7 @@
   0.05000  &minus;1.99250  0.59850
   0.07500  &minus;1.97754  0.89438
 </pre>
-<p>Aquí de nuevo para comparar está la solución que se calcula en la simulación Single Spring usando el <a href="runge-kutta-es.html">Método Runge-Kutta</a></p>
+<p>Here again for comparison is the solution that is calculated in the Single Spring simulation using the highly accurate <a href="runge-kutta-en.html">Runge-Kutta Method</a></p>
 
 <pre>
       t         x        v
@@ -233,26 +233,26 @@
   0.05000  &minus;1.98507  0.59552
   0.07500  &minus;1.96651  0.88827
 </pre>
-<p>¡Nuestra sencilla solución no está tan lejos! Pero si comparamos esto con un ejemplo del mundo real de un resorte y una masa reales, veríamos que este método es muy impreciso. O si observamos si la energía se conserva, también veremos que tiene poca precisión. Para muchas simulaciones, este método es tan malo que se vuelve inestable y "explotará" con soluciones que van al infinito.</p>
+<p>Our simple-minded solution isn't that far off! But if we compare this to a real world example of an actual spring and mass, we would see that this method is very inaccurate. Or if we look at whether energy is being conserved we will also see it has poor accuracy. For many simulations, this method is so bad that it becomes unstable and will "blow up" with solutions going to infinity.</p>
 
 
 
-<h2>Otros métodos numéricos</h2>
+<h2>Other Numerical Methods</h2>
 
-<p>Existen varios métodos para integrar una ecuación diferencial a lo largo del tiempo. Tienen varias compensaciones de precisión frente a costo computacional. El artículo de Wikipedia <a href="https://es.wikipedia.org/wiki/M%C3%A9todos_num%C3%A9ricos_para_ecuaciones_diferenciales_ordinarias">Métodos numéricos para ecuaciones diferenciales ordinarias</a> describe varios de ellos.</p>
+<p>There are several methods for integrating a differential equation over time. They have various tradeoffs of accuracy vs. computational cost. The Wikipedia article <a href="https://en.wikipedia.org/wiki/Numerical_methods_for_ordinary_differential_equations">Numerical methods for ordinary differential equations</a> describes several of them.</p>
 
-<p>Los métodos utilizados en las simulaciones de myphysicslab son:</p>
+<p>The methods used in the myphysicslab simulations are:</p>
 
 <ul>
-  <li>El método de Euler. Este es el método simple que se muestra en esta página, tiene muy poca precisión.</li>
+  <li>The Euler Method. This is the simple method shown on this page, it has very poor accuracy.</li>
 
-  <li>El método de Euler modificado. Este es el método más simple que tiene una precisión y estabilidad razonables.</li>
+  <li>The Modified Euler Method. This is the simplest method that has reasonable accuracy and stability.</li>
 
-  <li>El <a href="runge-kutta-es.html">Método Runge-Kutta</a>. Esto tiene una precisión muy alta con alrededor del doble de la cantidad de cálculo necesaria para el método de Euler modificado.</li>
+  <li>The <a href="runge-kutta-es.html">Runge-Kutta Method</a>. This has very high accuracy with around twice the amount of computation needed for the Modified Euler Method.</li>
 
 </ul>
 
-<p>Estos métodos numéricos se definen con ecuaciones que pueden resultar un poco confusas. Para acostumbrarse a la notación, así es como se podría redefinit el método simple de Euler que usamos anteriormente. En forma más general podemos escribir las ecuaciones (5) y (6) así:</p>
+<p>These numerical methods are defined with equations that can get a bit confusing. To get used to the notation, here is how the simple Euler method we used above could be notated. In more general form we can write equations (5) and (6) like this:</p>
 
 <table class="html-math numbered-equation">
 <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
@@ -266,9 +266,9 @@
 
 </td><td class="equation-number">(8)</td></tr></table>
 
-<p>donde las funciones <span class="html-math inline-math">
+<p>where the functions <span class="html-math inline-math">
 <i>f</i>, <i>g</i>
-</span> son las ecuaciones diferenciales que estamos resolviendo escritas así:</p>
+</span> are from the differential equations that we are solving written like this:</p>
 
 <table class="html-math numbered-equation">
 <tr><td class="equation-number">&nbsp;&nbsp;</td><td>
@@ -282,19 +282,21 @@
 
 </td><td class="equation-number">(10)</td></tr></table>
 
-<p>El problema con el solucionador numérico simple del método de Euler es que solo usa la tasa de cambio al <em>comienzo</em> del período de tiempo desde <span class="html-math inline-math">
+<p>The problem with the simple Euler method numerical solver is that it only uses the rate of change at the <em>beginning</em> of the time period from <span class="html-math inline-math">
 <i>t<sub>n</sub></i>
-</span> a <span class="html-math inline-math">
+</span> to <span class="html-math inline-math">
 <i>t<sub>n</sub></i> + &Delta;<i>t</i>
-</span>. Sin embargo, esa tasa de cambio (la derivada) <em>¡cambia en sí misma durante este período!</em> Los métodos numéricos más precisos estiman cómo cambian las derivadas en las ecuaciones (9) y (10) durante el período de tiempo.</p>
+</span>. Yet that rate of change (the derivative) <em>is itself changing over this period!</em> The more accurate numerical methods estimate how the derivatives in equations (9) and (10) change over the time period.</p>
 
 
-<p>También hay un término medio entre estos dos métodos. Hay muchas ecuaciones <em>no lineales</em> para las que no es posible encontrar una solución analítica.
-Sin embargo, existen técnicas en las que puede encontrar análisis analíticos aproximados. Son
-soluciones que están cerca de la verdadera solución, al menos dentro de un cierto rango. Por ejemplo, un
-método denominado <em>método de perturbación</em>. La ventaja sobre una solución numérica es que
-la solución (con una ecuación) que termines teniendo (en lugar de solo una larga lista de números) es que se pueden obtener ideas de ella.
-</p>
+<!-- There is also a middle ground between these two methods. There are many important
+<em>non-linear</em> equations for which it is not possible to find an analytic
+solution. However, there are techniques where you can find approximate analytic
+solutions that are close to the true solution, at least within a certain range. One
+such method is called the <em>perturbation method</em>. The advantage over a numerical
+solution is that you wind up with an equation (instead of just a long list of numbers)
+which you can gain some insight from.
+-->
 
 
 <div id="footer2" >

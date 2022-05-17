@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Cadena de Muelles</title>
 
 <script>
@@ -62,25 +63,57 @@
   Puede cambiar el número de eslabones de la cadena, la gravedad, la masa, la rigidez del resorte y la amortiguación
   (fricción). Puede arrastrar una masa individual o los puntos finales con el ratón. Puede eliminar el punto de fijación fijo derecho.
 </p>
+<button type="button" class="technical-toggle"></button>
 
-<p>Las matemáticas y la física de esta simulación son muy similares a las que se muestran para
-<a href="../Spring2DApp/Spring2DApp-es.html">Muelle 2D</a> y
-<a href="../Double2DSpringApp/Double2DSpringApp-es.html">Doble Muelle 2D</a>. Esos cálculos se repiten
-para cada resorte y masa involucrada.
-</p>
+<div class="technical" style="display:none;">
 
-<p>También están disponible:
-<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/ChainOfSpringsApp.js">código fuente</a>,
-documentación y un
-versión compilada simple
-que es más personalizable.
-</p>
+  <p>The math and physics of this simulation are very similar to what is shown for
+    <a href="../Spring2DApp/Spring2DApp-es.html">2D Spring</a> and
+    <a href="../Double2DSpringApp/Double2DSpringApp-es.html">Double 2D Spring</a>. Those calculations are repeated
+    for each spring and mass involved.
+    </p>
 
-<p id="page_history">
-  Esta página web se publicó por primera vez en abril de 2001.
-</p>
+    <p>Also available are:
+    <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/ChainOfSpringsApp.js">open source code</a>,
+    documentation and a
+    simple-compiled version
+    which is more customizable.
+    </p>
 
+    <p id="page_history">
+      This web page was first published April 2001.
+    </p>
 
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

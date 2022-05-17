@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Péndulo de Fuerza de Reacción</title>
 
 <script>
@@ -51,18 +52,21 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Acerca de</h2>
 
 <p class="introduction">
-Simulation of a pendulum using reaction forces (on left in red), along with a
-comparison simulation using the equations of motion (on right in blue).
+  Simulación de un péndulo usando fuerzas de reacción (a la izquierda en rojo), junto con un
+  simulación de comparación utilizando las ecuaciones de movimiento (a la derecha en azul).
 </p>
 
 <p class="instructions">
-You can change parameters in the simulation such as gravity, starting angle, length of
-the rod, radius of the disk, mass, and separation between the two pendulums.
+  Puede cambiar parámetros en la simulación como la gravedad, el ángulo inicial, la longitud de
+  la varilla, el radio del disco, la masa y la separación entre los dos péndulos.
 </p>
 
+<button type="button" class="technical-toggle"></button>
+
+<div class="technical" style="display:none;">
 <p>This contrasts two very different ways of solving the same simulation:
 </p>
 
@@ -119,7 +123,36 @@ which is more customizable.
   This web page was first published November 2016.
 </p>
 
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

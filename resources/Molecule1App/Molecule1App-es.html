@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Molécula 2</title>
 
 <script>
@@ -51,16 +52,17 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Acerca de</h2>
 
 <p class="introduction">
-This simulation shows 2 masses connected by a spring and free to move in 2 dimensions.
+  Esta simulación muestra 2 masas conectadas por un muelle y están libres para moverse en 2 dimensiones.
 </p>
 
 <p class="instructions">
-You can change parameters in the simulation such as gravity, mass, spring stiffness, and friction (damping).  You can drag any mass with your mouse to change the starting position.
-</p>
+  Puede cambiar parámetros en la simulación, como la gravedad, la masa, la rigidez del resorte y la fricción (amortiguación). Puede arrastrar cualquier masa con el ratón para cambiar la posición inicial.</p>
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 <p>The math and physics used in this simulation are similar to the
 <a href="../Spring2DApp/Spring2DApp-es.html">2-D Spring</a> and
 <a href="../Double2DSpringApp/Double2DSpringApp-es.html">Double 2-D Spring</a> simulations. However the masses
@@ -79,7 +81,36 @@ which is more customizable.
 <p id="page_history">
   This web page was first published September 2001.
 </p>
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 <div id="footer2" >
   <div id="copyright">

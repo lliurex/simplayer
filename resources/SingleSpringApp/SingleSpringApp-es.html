@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Muelle Simple</title>
 
 <script>
@@ -57,18 +58,20 @@
   src="../../mathjax/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
-<h2>About</h2>
+<h2>Acerca de</h2>
 <p class="introduction">
-This simulation shows a single mass on a spring, which is connected to
-a wall. This is an example of a simple linear oscillator.
+  Esta simulación muestra una sola masa en un muelle, que está conectado a
+  una pared. Este es un ejemplo de un oscilador lineal simple.
 </p>
 
 <p class="instructions">
-You can change mass, spring stiffness, and
-friction (damping). You can drag the mass with your mouse to change the starting
-position.
+  Puede cambiar la masa, la rigidez del resorte y
+  fricción (amortiguación). Puede arrastrar la masa con el ratón para cambiar la posición inicial.
 </p>
 
+<button type="button" class="technical-toggle"></button>
+
+<div class="technical" style="display:none;">
 <p>The math behind the simulation is shown below.  Also available are:
 <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/SingleSpringApp.js">open source code</a>,
 </p>
@@ -349,7 +352,36 @@ How do mass or spring stiffness affect the period or frequency of the oscillatio
   This web page was first published April 2001.
 </p>
 
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 <script src="SingleSpringApp-es.js"></script>
 

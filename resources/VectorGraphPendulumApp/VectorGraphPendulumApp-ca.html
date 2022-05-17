@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Pèndol amb Camp de Direcció</title>
 
 <script>
@@ -74,7 +75,9 @@
     &nbsp;&nbsp;
     <input type="button" value="fast" onClick="app.eval('ANGLE=1.0;ANGLE_VELOCITY=8')">
 </form>
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 <p>See the page about the
   <a href="../PendulumApp/PendulumApp-ca.html">single pendulum</a>
   for more about how pendulums work and the math behind this simulation. This simulation
@@ -104,6 +107,36 @@
   <li>Turn on "show energy".  When is kinetic energy highest?  When is potential energy
     highest?</li>
 </ul>
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 <script src="VectorGraphPendulumApp-ca.js"></script>
 

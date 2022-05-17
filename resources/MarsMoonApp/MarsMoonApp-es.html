@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Luna de Marte</title>
 
 <script>
@@ -51,17 +52,19 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Acerca de</h2>
 
 <p class="introduction">
-Simulation of an asteroid orbiting a moon using the
-<a href="../explain/physics-engine-es.html">2D Rigid Body Physics Engine</a>.
-</p>
+  Simulación de un asteroide orbitando una luna usando el
+  <a href="../explain/physics-engine-es.html">Motor de Física de Cuerpo Rígido 2D</a>.
+  </p>
 
-<p>See if you can find the asteroid initial velocity that results in a nearly circular
-orbit without collisions.
-</p>
+  <p>Vea si puede encontrar la velocidad inicial del asteroide que resulta en una forma casi circular
+  órbita sin colisiones.
+  </p>
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 <!--
 <p class="instructions">
 You can change parameters such as gravity, moon mass, asteroid mass, initial asteroid velocity, damping, and elasticity of collisions.
@@ -116,7 +119,36 @@ which is more customizable.
   This web page was first published January 2011.
 </p>
 
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

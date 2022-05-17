@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Pèndol de Newton</title>
 
 <script>
@@ -91,7 +92,9 @@ the balls at rest. Try changing gravity, elasticity (bounciness), and damping
 two joints for each connection: one vertical, one horizontal. Each pendulum is a single
 rigid body, as opposed to being made of a flexible rope and steel ball in the real
 world toy.
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 <p>The method of collision handling for this simulation is important.  For the balls to
 be in resting contact with each other, only the "simultaneous" or "hybrid"
 <a href="../CollisionCombo/CollisionCombo-ca.html">methods of collision handling</a> work correctly.</p>
@@ -113,6 +116,36 @@ documentation and a
 simple-compiled version
 which is more customizable.
 </p>
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 
 <div id="footer2" >

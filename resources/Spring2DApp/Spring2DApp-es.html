@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Muelle 2D</title>
 
 <script>
@@ -57,18 +58,20 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Acerca de</h2>
 <p class="introduction">
-This simulation shows a single mass on a spring, which is connected to the ceiling. The
-mass is able to move in 2 dimensions, and gravity operates. Does the motion look random
-to you? Watch the graph for a while and you'll see its actually an intricate pattern.
+  Esta simulación muestra una sola masa sobre un muelle que está conectado al techo. La masa es capaz de moverse en 2 dimensiones, y la gravedad opera.
+  ¿El movimiento parece aleatorio? ¿que opina? Mire el gráfico por un momento y verá que en realidad es un patrón intrincado.
 </p>
 
 <p class="instructions">
-You can change gravity, mass, spring stiffness, and friction (damping). You can drag
-the mass with your mouse to change the starting position.
+  Puede cambiar la gravedad, la masa, la rigidez del resorte y la fricción (amortiguación). Se puede arrastrar
+  la masa con el ratón para cambiar la posición inicial.
 </p>
 
+<button type="button" class="technical-toggle"></button>
+
+<div class="technical" style="display:none;">
 <p>The math behind the simulation is shown below.  Also available are:
 <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/springs/Spring2DApp.js">open source code</a>,
 documentation and a
@@ -301,7 +304,36 @@ position of the bob, <span class="html-math inline-math">
   This web page was first published April 2001.
 </p>
 
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

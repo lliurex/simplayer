@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
-
+<script src="../../jquery/jquery.min.js"></script>
 <title>Pèndol Movible</title>
 
 <script type="text/javascript" async
@@ -74,7 +74,9 @@ periodic up/down vibrating force.
 <p>Try dragging the anchor point by clicking near it with your mouse. Whip it around
 quickly back and forth -- does the pendulum behave like you would expect?
 </p>
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 <p>The math behind the simulation is shown below.  Also available are:
 <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/MoveablePendulumApp.js">open source code</a>,
 documentation and a
@@ -442,7 +444,36 @@ v_{y_0}' = -b_0 v_{y_0} + k (\text{mouse}_y - y_0) + A \sin(\omega t)
 
 <p>Given initial conditions (starting values) for the six variables, we can integrate
 these differential equations over time to see the evolution of the system.</p>
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 <div id="footer2" >
   <div id="copyright">

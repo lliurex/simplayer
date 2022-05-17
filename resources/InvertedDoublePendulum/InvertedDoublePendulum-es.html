@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Doble Péndulo Invertido</title>
 
 <script>
@@ -52,39 +53,41 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Acerca de</h2>
 
 <p class="introduction">
-Physics-based simulation of a vibrating double pendulum whose support point is
-oscillating rapidly up and down. Surprisingly, the inverted position where the pendulum
-stands straight up is stable. </p>
+  Simulación basada en la física de un péndulo doble vibrante cuyo punto de apoyo está
+  oscilando rápidamente hacia arriba y hacia abajo. Sorprendentemente, la posición invertida donde el péndulo
+  se para derecho es estable. </p>
 
 <p class="instructions">
-Click near the pendulum to reposition it. The anchor point is also dragable. You can
-set gravity, frequency of oscillation, magnitude of oscillation, and damping
-(friction). </p>
+  Haga clic cerca del péndulo para reposicionarlo. El punto de anclaje también se puede arrastrar. Puede
+  establecer la gravedad, la frecuencia de la oscilación, la magnitud de la oscilación y la amortiguación
+  (fricción). </p>
 
-<p>Experiments to try:</p>
+<p>Experimentos para probar:</p>
 
 <ul>
-  <li>Disturb one of the pendulums from its stable inverted position. Can it recover?
-  How far can you disturb it?</li>
+  <li>Al alterar uno de los péndulos de su posición invertida estable. ¿Se puede recuperar?
+  ¿Hasta dónde puedes perturbarlo?</li>
 
-  <li>What if the masses are equal? Does that make the inverted position less
-  stable?</li>
+  <li>¿Qué pasa si las masas son iguales? ¿Eso hace que la posición invertida sea menos
+  estable?</li>
 
-  <li>When the pendulums are in some random position, how hard is it to get them back
-  to inverted?</li>
+  <li>Cuando los péndulos están en alguna posición aleatoria, ¿qué tan difícil es recuperarlos en una posición invertida?</li>
 
-  <li>What is the slowest frequency that still has the stable inverted position?</li>
+  <li>¿Cuál es la frecuencia más lenta que todavía tiene la posición invertida estable?</li>
 
-  <li>What is the range of amplitude that still has the stable inverted position?</li>
+  <li>¿Cuál es el rango de amplitud que todavía tiene la posición invertida estable?</li>
 
-  <li>For a faster or slower frequency, does the range of amplitude change?</li>
+  <li>Para una frecuencia más rápida o más lenta, ¿cambia el rango de amplitud?</li>
 
-  <li>Does the strength of gravity affect whether the inverted pendulum is stable?</li>
+  <li>¿La fuerza de la gravedad afecta a la estabilidad del péndulo invertido?</li>
 </ul>
 
+<button type="button" class="technical-toggle"></button>
+
+<div class="technical" style="display:none;">
 <p>The math for this simulation is similar to the
 <a href="../MoveableDoublePendulumApp/MoveableDoublePendulumApp-es.html">Moveable Double Pendulum</a> except that there
 is a periodic force for oscillating the anchor point. We assume the anchor/support
@@ -121,7 +124,36 @@ vertical vibration of the support point to make the inverted position stable. </
 </ul-->
 
 
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

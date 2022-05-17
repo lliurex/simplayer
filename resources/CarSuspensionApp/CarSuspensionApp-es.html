@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Suspensión del Coche</title>
 
 <script>
@@ -71,23 +72,56 @@ La carrocería del automóvil está representada por un bloque rectangular, las 
 <p>Tenga en cuenta que los muelles tienen un parámetro de amortiguación que funciona solo cuando el muelle está comprimido o expandido. El otro parámetro de amortiguamiento ralentiza el movimiento de los cuerpos a través del espacio.
 </p>
 
-<p>También está disponibles:
-<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/CarSuspensionApp.js">código fuente</a>,
-documentación y un
-versión compilada simple
-que es más personalizable.
-</p>
+<button type="button" class="technical-toggle"></button>
+
+<div class="technical" style="display:none;">
+
+  <p>Also available are:
+    <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/CarSuspensionApp.js">open source code</a>,
+    documentation and a
+    simple-compiled version
+    which is more customizable.
+    </p>
 
 
-<!--h2>TO DO:</h2>
-<ul>
-  <li>Make rod a separate object from wheels, so that wheels can collide with car body.</li>
-</ul-->
+    <!--h2>TO DO:</h2>
+    <ul>
+      <li>Make rod a separate object from wheels, so that wheels can collide with car body.</li>
+    </ul-->
 
-<p id="page_history">
-  Esta página web se publicó por primera vez en enero de 2011.
-</p>
-
+    <p id="page_history">
+      This web page was first published January 2011.
+    </p>
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 <div id="footer2" >
   <div id="copyright">

@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Cadena Colgante</title>
 
 <script>
@@ -75,44 +76,76 @@
   energía potencial?
   </li>
 </ul>
+<button type="button" class="technical-toggle"></button>
 
-<p>La cadena en reposo sigue una curva llamada
-  <a href="http://en.wikipedia.org/wiki/Catenary">Catenaria</a>.
-  Gracias al cálculo puedes predecir esta curva.
-</p>
+<div class="technical" style="display:none;">
 
-<p>Cada eslabón de la cadena es un solo cuerpo rígido. Hay "articulaciones" que unen cada eslabón de la cadena.
-  a sus vecinos o al fondo.
-</p>
+  <p>The resting chain follows a curve called a
+    <a href="http://en.wikipedia.org/wiki/Catenary">Catenary</a>.
+    With calculus you can predict this curve.
+  </p>
 
-<!--p>The <a href="../engine2D/collision-methods-en.html">method of collision handling</a> for this
-simulation is not important because there are generally no collisions between chain
-links, only contact forces.
-</p-->
+  <p>Each chain link is a single rigid body. There are "joints" attaching each chain link
+  to its neighbors or to the background.
+  </p>
 
-<p>También está disponibles:
-<a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/ChainApp.js">código fuente</a>,
-documentación y un
-versión compilada simple
-que es más personalizable.
-</p>
+  <!--p>The <a href="../engine2D/collision-methods-en.html">method of collision handling</a> for this
+  simulation is not important because there are generally no collisions between chain
+  links, only contact forces.
+  </p-->
+
+  <p>Also available are:
+  <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/engine2D/ChainApp.js">open source code</a>,
+  documentation and a
+  simple-compiled version
+  which is more customizable.
+  </p>
 
 
-<!--h2>TO DO:</h2>
-<ul>
-  <li>Set zero energy for each link to be where it is when at rest</li>
-  <li>add 1 or more free ball or block, to play with, and allow changing mass of that
-    ball/block. Maybe on a separate page have that be the default.
-  </li>
-  <li>show the catenary curve in background?  Maybe have a checkbox for that.</li>
-  <li>Reset button does NOT put the chains at rest, could calculate from catenary
-    equation.
-  </li>
-  <li>Show the catenary equation, and point out that gravity doesn't appear</li>
-  <li>Give link to page explaining how joints work</li>
-  <li>Links to other simulations and articles</li>
-</ul-->
-
+  <!--h2>TO DO:</h2>
+  <ul>
+    <li>Set zero energy for each link to be where it is when at rest</li>
+    <li>add 1 or more free ball or block, to play with, and allow changing mass of that
+      ball/block. Maybe on a separate page have that be the default.
+    </li>
+    <li>show the catenary curve in background?  Maybe have a checkbox for that.</li>
+    <li>Reset button does NOT put the chains at rest, could calculate from catenary
+      equation.
+    </li>
+    <li>Show the catenary equation, and point out that gravity doesn't appear</li>
+    <li>Give link to page explaining how joints work</li>
+    <li>Links to other simulations and articles</li>
+  </ul-->
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

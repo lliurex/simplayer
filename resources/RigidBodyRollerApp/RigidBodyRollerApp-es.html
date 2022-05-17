@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Montaña Rusa de Cuerpo Rígido</title>
 
 <script>
@@ -51,19 +52,19 @@
      </label>
    </div>
 </div>
+<button type="button" class="technical-toggle"></button>
 
-<h2>About</h2>
+
+<h2>Acerca de</h2>
 
 <p class="introduction">
-This physics-based simulation shows a rigid body attached to a curved "roller coaster" path. Uses the myPhysicsLab
-<a href="../explain/physics-engine-es.html">2D Rigid Body Physics Engine</a>.
+  Esta simulación basada en la física muestra un cuerpo rígido unido a una ruta curva de "montaña rusa". Se utiliza el <a href="../explain/physics-engine-es.html">Motor de Física de Cuerpo Rígido 2D</a>.
 </p>
 
 <p class="instructions">
-Click with your mouse to apply a spring force to the block. Several path shapes are
-available. Try changing gravity or damping.
+  Haga clic con el ratón para aplicar una fuerza de muelle al bloque. Varias formas de ruta están disponibles. Intenta cambiar la gravedad o la amortiguación.
 </p>
-
+<div class="technical" style="display:none;"></div>
 <p>This simulation uses the same math shown on the
 <a href="../RollerSingleApp/RollerSingleApp-es.html">roller coaster</a> page to make a numerical table of the path data. A special kind of joint connector called
 PathJoint is used to connect the rigid body to the path.
@@ -85,7 +86,36 @@ documentation and a simple-compiled version which is more customizable.
 <p id="page_history">
   This web page was first published November 2016.
 </p>
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

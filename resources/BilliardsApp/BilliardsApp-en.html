@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Billiards</title>
 
 <script>
@@ -83,6 +84,10 @@ simulation because edge friction is not calculated, so collisions are essentiall
 friction-less.
 </p>
 
+<button type="button" class="technical-toggle"></button>
+
+<div class="technical" style="display:none;"></div>
+
 <p>The <a href="../CollisionCombo/CollisionCombo-en.html">method of collision handling</a> for this
 simulation is important. Using the "simultaneous" method gives symmetric and
 non-realistic results. The linked article discusses why different methods of
@@ -108,6 +113,36 @@ which is more customizable.
   <li>Faster initial velocity.  Make initial velocity settable as a parameter.</li>
 </ul-->
 
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 <div id="footer2" >
   <div id="copyright">

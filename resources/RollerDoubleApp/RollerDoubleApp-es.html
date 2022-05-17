@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Montaña Rusa con Dos Bolas</title>
 
 <script>
@@ -52,19 +53,21 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Acerca de</h2>
 
 <p class="introduction">
-This simulation shows 2 balls on a roller coaster track. The 2 balls are connected by a
-spring.
+  Esta simulación muestra 2 bolas en la pista de una montaña rusa. Las 2 bolas están conectadas por un
+  muelle.
 </p>
 
 <p class="instructions">
-You can change the track shape by clicking a button below. You can drag either ball
-with your mouse to change the starting position. Try changing gravity, damping or
-spring stiffness.
+  Puede cambiar la forma de la pista haciendo clic en un botón a continuación. Puedes arrastrar cualquier bola
+  con el ratón para cambiar la posición inicial. Intente cambiar la gravedad, la amortiguación o
+  rigidez del resorte.
 </p>
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 <p>The math behind the simulation is shown below.  Also available are:
 <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/roller/RollerDoubleApp.js">open source code</a>,
 documentation and a
@@ -117,7 +120,36 @@ replaced by the position of the other ball.</p>
 <p id="page_history">
   This web page was first published October 2002.
 </p>
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 <div id="footer2" >
   <div id="copyright">

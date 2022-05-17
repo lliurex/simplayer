@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Péndulo de Newton</title>
 
 <script>
@@ -52,46 +53,45 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Acerca de</h2>
 
 <p class="introduction">
-Simulation of
+  Simulación de
 <a href="http://en.wikipedia.org/wiki/Newton's_cradle">Newton's Cradle</a>,
-a device consisting of several steel balls suspended from a cage.
-Uses the <a href="../explain/physics-engine-es.html">2D Rigid Body Physics Engine</a>.
+un dispositivo que consta de varias bolas de acero suspendidas de una jaula.
+Se utiliza el <a href="../explain/physics-engine-es.html">Motor de Física de Cuerpo Rígido 2D</a>.
 </p>
 
-<p>Each ball acts like an individual pendulum. At rest all the balls are touching. The
-surprising thing is that when you lift one of the end balls and let it hit the resting
-balls, only the ball at the other end moves, and the initial ball stops at rest.
+<p>Cada bola actúa como un péndulo individual. En reposo todas las bolas se tocan. Lo sorprendente es que cuando levantas una de las bolas finales y dejas que golpee el resto de bolas, solo se mueve la bola del otro extremo y la bola inicial se detiene en reposo.
 </p>
 
 <p class="instructions">
-Click near an object to exert a rubber band force with your mouse. Click reset to set
-the balls at rest. Try changing gravity, elasticity (bounciness), and damping
-(friction).
+  Haga clic cerca de un objeto para ejercer una fuerza elástica con el ratón. Haga clic en restablecer para configurar
+  las bolas en reposo. Intente cambiar la gravedad, la elasticidad (rebote) y la amortiguación
+  (fricción).
 </p>
 
 
-<p>Experiments to try:</p>
+<p>Experimentos para probar:</p>
 
 <ul>
-  <li>Turn on "show energy".  When is kinetic energy highest?
-    When is potential energy highest?
+  <li>Activa "Mostrar energía". ¿Cuándo es máxima la energía cinética?
+    ¿Cuándo es máxima la energía potencial?
   </li>
-  <li>Reduce elasticity (bounciness) to less than 1, for example 0.9</li>
-  <li>Make a small gap between each ball by increasing the offset to above zero,
-       for example 0.1
+  <li>Reduzca la elasticidad (rebote) a menos de 1, por ejemplo, 0,9</li>
+  <li>Haga un pequeño espacio entre cada bola aumentando el desplazamiento por encima de cero,
+       por ejemplo 0.1
   </li>
-  <li>Try using "simultaneous" collision handling method</li>
-  <li>Turn on "show forces" to see the contact forces and collision impacts.</li>
+  <li>Intente usar el método de manejo de colisiones "simultáneo"</li>
+  <li>Active "Mostrar fuerzas" para ver las fuerzas de contacto y los impactos de colisión.</li>
 </ul>
 
-<p>There are "joints" attaching each pendulum to the background,
-two joints for each connection: one vertical, one horizontal. Each pendulum is a single
-rigid body, as opposed to being made of a flexible rope and steel ball in the real
-world toy.
+<p>Hay "uniones" que unen cada péndulo al fondo, dos "uniones" para cada conexión: una vertical, una horizontal. Cada péndulo es un solo
+cuerpo rígido, a diferencia de estar hecho de una cuerda flexible y una bola de acero como en el juguete del mundo real.</p>
 
+<button type="button" class="technical-toggle"></button>
+
+<div class="technical" style="display:none;">
 <p>The method of collision handling for this simulation is important.  For the balls to
 be in resting contact with each other, only the "simultaneous" or "hybrid"
 <a href="../CollisionCombo/CollisionCombo-es.html">methods of collision handling</a> work correctly.</p>
@@ -114,6 +114,36 @@ simple-compiled version
 which is more customizable.
 </p>
 
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 <div id="footer2" >
   <div id="copyright">

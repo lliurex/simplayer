@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
+<script src="../../jquery/jquery.min.js"></script>
 <title>Doble Péndulo Movible</title>
 
 <script>
@@ -55,34 +56,36 @@
 <h2>About</h2>
 
 <p class="introduction">
-Physics-based simulation of a double pendulum whose support point is moveable.
+  Simulación basada en la física de un péndulo doble cuyo punto de apoyo es móvil.
 </p>
 
 <p class="instructions">
-Click near the support point to drag it with your mouse. You can also reposition
-the pendulum masses. You can also change gravity, damping (friction), and various
-other parameters.
+  Haga clic cerca del punto de apoyo para arrastrarlo con el mouse. También puede cambiar de posición
+  las masas del péndulo. También puede cambiar la gravedad, la amortiguación (fricción) y varios
+  otros parámetros.
 </p>
 
-<p>Experiments to try:</p>
+<p>Experimentos para probar:</p>
 
 <ul>
 
-  <li>Try dragging the anchor point by clicking near it with your mouse.
-    Whip it around quickly back and forth -- does the pendulum behave
-    as you would expect?</li>
+  <li>Intente arrastrar el punto de anclaje haciendo clic cerca de él con el ratón.
+    Agítelo rápidamente de un lado a otro: ¿el péndulo se comporta
+    como era de esperar?</li>
 
-  <li>Turn on "show energy".  When is kinetic energy high?
-    When is potential energy high?</li>
+  <li>Active "Mostrar energía". ¿Cuándo es alta la energía cinética?
+    ¿Cuándo es alta la energía potencial?</li>
 
-  <li>Set damping to zero, get the pendulum moving rapidly, and turn on "show energy".
-    You will notice the total energy decreasing slightly over time, although it should
-    stay constant. Now try slowing down time by a factor of 3 or 4
-    (which gives more accurate computation).
-    Is the energy still decreasing?  What's going on?</li>
+  <li>Establezca la amortiguación en cero, haga que el péndulo se mueva rápidamente y active "Mostrar energía".
+    Notará que la energía total disminuye ligeramente con el tiempo, aunque debería
+    Mantente constante. Ahora intente ralentizar el tiempo en un factor de 3 o 4
+    (lo que da un cálculo más preciso).
+    ¿Sigue disminuyendo la energía? ¿Qué está pasando?</li>
 
 </ul>
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 <p>The math for this simulation is similar to the regular
 <a href="../DoublePendulumApp/DoublePendulumApp-es.html">Double Pendulum</a>
 with immobile support point, except there are extra terms carried forward into the
@@ -101,7 +104,36 @@ documentation and a
 simple-compiled version
 which is more customizable.
 </p>
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 <div id="footer2" >
   <div id="copyright">
     &copy; <a href="mailto:erikn@myPhysicsLab.com"

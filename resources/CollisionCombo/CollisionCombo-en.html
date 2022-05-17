@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="../common/stylesheet1.css">
-
+<script src="../../jquery/jquery.min.js"></script>
 <script>
   document.getElementsByTagName("html")[0].style.visibility = "hidden";
 </script>
@@ -44,7 +44,9 @@ deals with multiple simultaneous collisions. The summary points are:
 
   <li>Square-on collisions involving rectangular shapes are perhaps not correct.</li>
 </ul>
+<button type="button" class="technical-toggle"></button>
 
+<div class="technical" style="display:none;">
 
 
 <p>The simulations discussed here use simplified rules to determine the result of a
@@ -1117,7 +1119,36 @@ have occurred; but of course, then the result will not be "correct".
   </tr>
 </table>
 
-
+</div>
+<script>
+  $(document).ready(function(){
+    let lang=$('html').attr('lang')
+    switch(lang){
+      case 'ca':
+      case 'en':
+      case 'es':
+        break;
+      default:
+        lang = es;
+    }
+    let msgs={
+      'ca':{'off':'Ocultar informació tècnica (en anglés)','on':'Mostrar informació tècnica (en anglés)'},
+      'es':{'off':'Ocultar información técnica (en inglés)','on':'Mostrar información técnica (en inglés)'},
+      'en':{'off':'Hide technical information','on':'Show technical information'}
+    }
+    $('.technical-toggle').html(msgs[lang]['on'])
+    $('.technical-toggle').click(function(){
+      let display=$('.technical').css('display')
+      if (display == 'none'){
+        $('.technical').show()
+        $('.technical-toggle').html(msgs[lang]['off'])
+      }else{
+        $('.technical').removeAttr('style').hide()
+        $('.technical-toggle').html(msgs[lang]['on'])
+      }
+    })
+  })
+</script>
 
 <div id="footer2" >
   <div id="copyright">

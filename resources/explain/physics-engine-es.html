@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<title lang="es">Motor de Física de Cuerpo Rígido</title>
+<title lang="es">Rigid Body Physics Engine</title>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<h1 lang="es">Motor de Física de Cuerpo Rígido</h1>
+<h1 lang="es">Rigid Body Physics Engine</h1>
 
 <div id="header_nav">
 <a class="nav_link"
@@ -21,102 +21,104 @@
 </ul>
 
 
-<p>Las simulaciones de física que se muestran en myPhysicsLab</a>
-  se dividen en dos categorías</p>
+<p>The physics simulations shown on myPhysicsLab</a>
+  fall into two categories</p>
 
-<ol>
-  <li>Especializado: diseñado para un mecanismo en particular</li>
-  <li>General: utiliza el <em>motor de física de cuerpo rígido 2D</em> que puede simular solo
-      sobre cualquier configuración</li>
+  <ol>
+  <li>Specialized - designed for one particular mechanism</li>
+  <li>General - uses the <em>2D rigid body physics engine</em> which can simulate just
+     about any configuration</li>
   </ol>
 
-  <p>Un ejemplo en la categoría "especializados" es el
-    <a href="../CartPendulumApp/CartPendulumApp-es.html">carro + péndulo</a>. Esa simulación funciona bien, pero
-    <em>solo puede simular ese mecanismo en particular</em>.
-    Puede variar la longitud del péndulo, la masa de los objetos o el resorte.
-    rigidez. Pero no puede cambiar cómo se conectan las partes, o aplicar nuevas fuerzas, o
-    chocar con otro objeto.
+  <p>An example in the "specialized" category is the
+    <a href="../CartPendulumApp/CartPendulumApp-es.html">cart + pendulum</a>. That simulation works well, but it
+    <em>can only ever simulate that particular mechanism</em>.
+    You can vary the length of the pendulum, the mass of the objects, or spring
+    stiffness. But you can't change how the parts are connected, or apply new forces, or
+    collide with another object.
   </p>
 
-  <p>Por el contrario, el motor de física de cuerpos rígidos puede modelar una amplia variedad de mecanismos.
-    Por ejemplo, aquí está el
-    <a href="../CartPendulum2App/CartPendulum2App-es.html">carro + péndulo usando el motor de física</a>.
-    Observe que puede arrastrar el carrito o el péndulo
-    presionando el botón del mouse para activar una fuerza de resorte; esto no es posible
-    en la versión especializada de la simulación.
+  <p>In contrast, the Rigid Body Physics Engine can model a wide variety of mechanisms.
+    For example, here is the
+    <a href="../CartPendulum2App/CartPendulum2App-es.html">cart + pendulum using the physics engine</a>.
+    Notice that you can drag the cart or pendulum by
+    pressing the mouse button to activate a spring force -- this is not possible
+    in the specialized version of the simulation.
   <p>
 
-    <p>Es notable que el motor de física de cuerpo rígido sea capaz de modelar tantos
-      diferentes mecanismos con buena precisión. Aquí hay algunos ejemplos más:</p>
+  <p>It is remarkable that the Rigid Body Physics Engine is able to model so many
+    different mechanisms with good accuracy.  Here are some more examples:</p>
 
-<ul>
-  <li><a href="../DoublePendulumApp/DoublePendulumApp-es.html">Péndulo Doble Especializado</a> versus
-    <a href="../DoublePendulum2App/DoublePendulum2App-es.html">Doble Péndulo usando motor físico</a>.
-    Tenga en cuenta que en la versión del motor de física puede aplicar fuerzas de resorte o colisionar
-    el bloque libre en el péndulo doble.
-  </li>
+  <ul>
+    <li><a href="../DoublePendulumApp/DoublePendulumApp-es.html">Specialized Double Pendulum</a> versus
+      <a href="../DoublePendulum2App/DoublePendulum2App-es.html">Double Pendulum using Physics Engine</a>.
+      Notice that in the physics engine version you can apply spring forces or collide
+      the free block into the double pendulum.
+    </li>
 
-  <li><a href="../CompareDoublePendulumApp/CompareDoublePendulumApp-es.html">Comparar Doble Péndulo</a>
-    muestra una al lado de la otra un péndulo doble especializado y una versión del motor de física. Nota
-    que se mantengan sincronizados durante mucho tiempo. Pero puedes interactuar con la física.
-    versión del motor, aplicando una fuerza de resorte con el ratón.
-  </li>
+    <li><a href="../CompareDoublePendulumApp/CompareDoublePendulumApp-es.html">Compare Double Pendulum</a>
+      shows side-by-side a specialized double pendulum and a physics engine version. Note
+      that they stay in sync for a long time. But you can interact with the physics
+      engine version, applying a spring force with your mouse.
+    </li>
 
-  <li><a href="../RigidBodyRollerApp/RigidBodyRollerApp-es.html">Montaña Rusa de Cuerpo Rígido</a>
-    muestra que el motor de física puede manejar situaciones similares a las
-    <a href="../RollerSingleApp/RollerSingleApp-es.html">simulaciones especializadas de montaña rusa</a>.
-  </li>
-</ul>
+    <li><a href="../RigidBodyRollerApp/RigidBodyRollerApp-es.html">RigidBody Roller Coaster</a>
+      shows that the physics engine can handle situations similar to the
+      <a href="../RollerSingleApp/RollerSingleApp-es.html">specialized roller coaster</a> simulations.
+    </li>
+  </ul>
 
 
-<h2>Acerca del motor de física</h2>
+  <h2>About the Physics Engine</h2>
 
-<p>El motor de física se compone de tres clases que se pueden usar por separado
-  (aunque casi siempre usamos el último).
-</p>
+  <p>The physics engine is composed of three classes that can be used separately
+     (though we almost always use the last one).
+  </p>
 
-<ol>
-  <li>La clase
-    RigidBodySim
-    maneja cuerpos rígidos en movimiento aplicándoles fuerzas tales
-     como resortes, gravedad, amortiguamiento.
-  Ver <a href="../RigidBodyApp/RigidBodyApp-es.html">Fuerzas del cuerpo rígido</a> para las matemáticas.
-  </li>
+  <ol>
+    <li>The
+      RigidBodySim class
+      handles moving rigid bodies by applying forces to them such
+       as springs, gravity, damping.
+    See <a href="../RigidBodyApp/RigidBodyApp-es.html">Rigid Body Forces</a> for the math.
+    </li>
 
-  <li>La clase
-    ImpulseSim
-    extiende RigidBodySim, añadiendo manejo de colisiones.
-    Ver <a href="../ImpulseApp/ImpulseApp-es.html">Colisiones del cuerpo rígido</a> para las matemáticas.
-    Ver la clase CollisionAdvance
-    la cual maneja el proceso de colisiones.
-  </li>
+    <li>The
+      ImpulseSim class
+      extends RigidBodySim, adding collision handling.
+      See <a href="../ImpulseApp/ImpulseApp-es.html">Rigid Body Collisions</a> for the math.
+      See CollisionAdvance
+      which manages the collision handling process.
+    </li>
 
-  <li>La clase
-    ContactSim
-    extiende ImpulseSim, añadiendo fuerzas de contacto que permite a los objetos empujarse unos a otros.
-    Ver <a href="../ContactApp/ContactApp-es.html">Fuerzas de contacto del cuerpo rígido</a> para las matemáticas.
-  </li>
+    <li>The
+      ContactSim class
+      extends ImpulseSim, adding contact forces that allow
+      objects to push against each other.
+      See <a href="../ContactApp/ContactApp-es.html">Rigid Body Contact Forces</a> for the math.
+    </li>
 
-</ol>
+  </ol>
 
-<p>Más información sobre cómo funciona el motor de física de cuerpo rígido se describe en varios lugares:</p>
+  <p>More information about how the rigid body physics engine works is described in several places:</p>
 
-<ul>
-  <li>Descripción general del motor de física 2D
-  </li>
+  <ul>
+    <li>2D Physics Engine Overview
+    </li>
 
-  <li>Documentación de myPhysicsLab con información detallada sobre el software.
-  </li>
+    <li>myPhysicsLab Documentation has detailed
+      information about the software.
+    </li>
 
-  <li><a href="../CollisionCombo/CollisionCombo-es.html">Manejo de métodos de colisión</a> discute
-    varios esquemas para el manejo de colisiones en simulaciones de cuerpos rígidos.
-  </li>
+    <li><a href="../CollisionCombo/CollisionCombo-es.html">Collision Handling Methods</a> discusses
+      various schemes for handling collisions in rigid body simulations.
+    </li>
 
-  <li><a href="../ReactionPendulumApp/ReactionPendulumApp-es.html">Péndulo de Fuerzas de Reacción</a> es un ejemplo
-    de encontrar fuerzas de contacto para un mecanismo simple específico (el péndulo)
-    en lugar de usar el motor de física general (y complejo).
-  </li>
-</ul>
+    <li><a href="../ReactionPendulumApp/ReactionPendulumApp-es.html">Reaction Forces Pendulum</a> is an example
+      of finding contact forces for a specific simple mechanism (the pendulum)
+      instead of using the general (and complex) physics engine.
+    </li>
+  </ul>
 
 
 
