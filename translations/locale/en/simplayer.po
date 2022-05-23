@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-16 15:01+0100\n"
-"PO-Revision-Date: 2022-03-16 15:01+0100\n"
+"POT-Creation-Date: 2022-05-23 15:54+0200\n"
+"PO-Revision-Date: 2022-05-23 15:55+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: en_US\n"
@@ -15,54 +15,112 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.3\n"
 
-msgid "Detected language"
-msgstr "Detected language"
+#: simplayer:246
+msgid "projects loaded"
+msgstr ""
 
-msgid "Loading url"
-msgstr "Loading url"
+#: simplayer:260
+msgid "Error"
+msgstr ""
 
-msgid "Missing image"
-msgstr "Missing image"
+#: simplayer:260
+msgid "Activity {} not found"
+msgstr ""
 
-msgid "Not valid!"
-msgstr "Not valid!"
+#: simplayer:261
+msgid "Activity '{}' not found"
+msgstr ""
 
-msgid "Simplayer"
-msgstr "Simplayer"
-
-msgid "Valid!"
-msgstr "Valid!"
-
-msgid "Warning"
-msgstr "Warning"
-
-msgid "activated"
-msgstr "activated"
-
-msgid "back"
-msgstr "back"
-
-msgid "biology"
-msgstr "biology"
-
-msgid "chemistry"
-msgstr "chemistry"
-
-msgid "earth-science"
-msgstr "earth-science"
-
-msgid "forward"
-msgstr "forward"
-
-msgid "home"
-msgstr "home"
-
+#: simplayer:333
 msgid "math"
 msgstr "math"
 
+#: simplayer:333
+msgid "earth-science"
+msgstr "earth-science"
+
+#: simplayer:333
+msgid "biology"
+msgstr "biology"
+
+#: simplayer:333
+msgid "physics"
+msgstr "physics"
+
+#: simplayer:333
+msgid "chemistry"
+msgstr "chemistry"
+
+#: simplayer:348
+msgid "Filter"
+msgstr ""
+
+#: simplayer:379
+msgid "activated"
+msgstr "activated"
+
+#: simplayer:429 simplayer:624
+msgid "Simplayer"
+msgstr "Simplayer"
+
+#: simplayer:438
+msgid "home"
+msgstr "home"
+
+#: simplayer:438
+msgid "back"
+msgstr "back"
+
+#: simplayer:438
+msgid "forward"
+msgstr "forward"
+
+#: simplayer:438
+msgid "Reload"
+msgstr ""
+
+#: simplayer:453 simplayer:459 simplayer:488
+msgid "English"
+msgstr ""
+
+#: simplayer:453 simplayer:455 simplayer:484 simplayer:492
+msgid "Spanish"
+msgstr ""
+
+#: simplayer:453 simplayer:457 simplayer:486 simplayer:494
+msgid "Valencian"
+msgstr ""
+
+#: simplayer:513 simplayer:520
+msgid "Warning"
+msgstr "Warning"
+
+#: simplayer:513
 msgid "object already defined, can't add"
 msgstr "object already defined, can't add"
 
-msgid "physics"
-msgstr "physics"
+#: simplayer:520
+msgid "Missing image"
+msgstr "Missing image"
+
+#: simplayer:619
+msgid "Current activity: {}"
+msgstr ""
+
+#: simplayer:631
+msgid "Loading url"
+msgstr "Loading url"
+
+#: simplayer:631
+msgid "Valid!"
+msgstr "Valid!"
+
+#: simplayer:631
+msgid "Not valid!"
+msgstr "Not valid!"
+
+#: simplayer:689
+msgid "Detected language"
+msgstr "Detected language"

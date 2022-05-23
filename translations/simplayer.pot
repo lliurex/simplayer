@@ -1,13 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# This file is put in the public domain.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: simplayer\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-17 16:22+0100\n"
+"POT-Creation-Date: 2022-05-23 15:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,53 +17,110 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Detected language"
+#: simplayer:246
+msgid "projects loaded"
 msgstr ""
 
-msgid "Loading url"
+#: simplayer:260
+msgid "Error"
 msgstr ""
 
-msgid "Missing image"
+#: simplayer:260
+msgid "Activity {} not found"
 msgstr ""
 
-msgid "Not valid!"
+#: simplayer:261
+msgid "Activity '{}' not found"
 msgstr ""
 
-msgid "Simplayer"
-msgstr ""
-
-msgid "Valid!"
-msgstr ""
-
-msgid "Warning"
-msgstr ""
-
-msgid "activated"
-msgstr ""
-
-msgid "back"
-msgstr ""
-
-msgid "biology"
-msgstr ""
-
-msgid "chemistry"
-msgstr ""
-
-msgid "earth-science"
-msgstr ""
-
-msgid "forward"
-msgstr ""
-
-msgid "home"
-msgstr ""
-
+#: simplayer:333
 msgid "math"
 msgstr ""
 
+#: simplayer:333
+msgid "earth-science"
+msgstr ""
+
+#: simplayer:333
+msgid "biology"
+msgstr ""
+
+#: simplayer:333
+msgid "physics"
+msgstr ""
+
+#: simplayer:333
+msgid "chemistry"
+msgstr ""
+
+#: simplayer:348
+msgid "Filter"
+msgstr ""
+
+#: simplayer:379
+msgid "activated"
+msgstr ""
+
+#: simplayer:429 simplayer:624
+msgid "Simplayer"
+msgstr ""
+
+#: simplayer:438
+msgid "home"
+msgstr ""
+
+#: simplayer:438
+msgid "back"
+msgstr ""
+
+#: simplayer:438
+msgid "forward"
+msgstr ""
+
+#: simplayer:438
+msgid "Reload"
+msgstr ""
+
+#: simplayer:453 simplayer:459 simplayer:488
+msgid "English"
+msgstr ""
+
+#: simplayer:453 simplayer:455 simplayer:484 simplayer:492
+msgid "Spanish"
+msgstr ""
+
+#: simplayer:453 simplayer:457 simplayer:486 simplayer:494
+msgid "Valencian"
+msgstr ""
+
+#: simplayer:513 simplayer:520
+msgid "Warning"
+msgstr ""
+
+#: simplayer:513
 msgid "object already defined, can't add"
 msgstr ""
 
-msgid "physics"
+#: simplayer:520
+msgid "Missing image"
+msgstr ""
+
+#: simplayer:619
+msgid "Current activity: {}"
+msgstr ""
+
+#: simplayer:631
+msgid "Loading url"
+msgstr ""
+
+#: simplayer:631
+msgid "Valid!"
+msgstr ""
+
+#: simplayer:631
+msgid "Not valid!"
+msgstr ""
+
+#: simplayer:689
+msgid "Detected language"
 msgstr ""

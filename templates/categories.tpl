@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class='filter'>
-<span>Filter:</span><input id='filterbox' type="text" />
+<span>{{filter_text}}:</span><input id='filterbox' type="text" />
 </div>
 <div class="wrapper">
 {% for link,banner,name in items -%}
