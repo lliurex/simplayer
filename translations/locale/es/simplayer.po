@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-23 15:54+0200\n"
-"PO-Revision-Date: 2022-05-23 15:57+0200\n"
+"POT-Creation-Date: 2022-05-23 16:09+0200\n"
+"PO-Revision-Date: 2022-05-23 16:10+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -79,20 +79,20 @@ msgid "forward"
 msgstr "adelante"
 
 #: simplayer:438
-msgid "Reload"
-msgstr "Recargar"
+msgid "reload"
+msgstr "recargar"
 
 #: simplayer:453 simplayer:459 simplayer:488
-msgid "English"
-msgstr "Inglés"
+msgid "english"
+msgstr "inglés"
 
 #: simplayer:453 simplayer:455 simplayer:484 simplayer:492
-msgid "Spanish"
-msgstr "Castellano"
+msgid "spanish"
+msgstr "castellano"
 
 #: simplayer:453 simplayer:457 simplayer:486 simplayer:494
-msgid "Valencian"
-msgstr "Valenciano"
+msgid "valencian"
+msgstr "valenciano"
 
 #: simplayer:513 simplayer:520
 msgid "Warning"

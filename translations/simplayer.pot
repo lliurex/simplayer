@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-23 15:54+0200\n"
+"POT-Creation-Date: 2022-05-23 16:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,19 +78,19 @@ msgid "forward"
 msgstr ""
 
 #: simplayer:438
-msgid "Reload"
+msgid "reload"
 msgstr ""
 
 #: simplayer:453 simplayer:459 simplayer:488
-msgid "English"
+msgid "english"
 msgstr ""
 
 #: simplayer:453 simplayer:455 simplayer:484 simplayer:492
-msgid "Spanish"
+msgid "spanish"
 msgstr ""
 
 #: simplayer:453 simplayer:457 simplayer:486 simplayer:494
-msgid "Valencian"
+msgid "valencian"
 msgstr ""
 
 #: simplayer:513 simplayer:520

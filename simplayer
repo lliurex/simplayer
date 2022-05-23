@@ -435,7 +435,7 @@ class MainWindow(QMainWindow):
         self.toolbar.setFloatable(False)
         self.toolbar.setMovable(False)
 
-        xgettext_keys=[_('home'),_('back'),_('forward'),_('Reload')]
+        xgettext_keys=[_('home'),_('back'),_('forward'),_('reload')]
         for key in ['home','back','forward','reload']:
             self.add_button(key=key)
         if DEBUG:
@@ -450,13 +450,13 @@ class MainWindow(QMainWindow):
         self.toolbar.addWidget(spacer)
 
         self.language_selector = QComboBox()
-        self.language_selector.addItems( [_('English'),_('Spanish'),_('Valencian')] )
+        self.language_selector.addItems( [_('english'),_('spanish'),_('valencian')] )
         if LANG == 'es':
-            text = _('Spanish')
+            text = _('spanish')
         elif LANG == 'ca':
-            text = _('Valencian')
+            text = _('valencian')
         else:
-            text = _('English')
+            text = _('english')
         self.language_selector.setCurrentIndex(self.language_selector.findText(text))
         self.language_selector.currentIndexChanged.connect(self.set_language)
         self.language_selector.setEditable(False)
@@ -481,17 +481,17 @@ class MainWindow(QMainWindow):
         if isinstance(index,str):
             LANG=index.lower()
             if LANG == 'es':
-                index = self.language_selector.findText(_('Spanish'))
+                index = self.language_selector.findText(_('spanish'))
             elif LANG == 'ca':
-                index = self.language_selector.findText(_('Valencian'))
+                index = self.language_selector.findText(_('valencian'))
             else:
-                index = self.language_selector.findText(_('English'))
+                index = self.language_selector.findText(_('english'))
             self.language_selector.setCurrentIndex(index)
         else:
             text = self.language_selector.currentText()
-            if text == _('Spanish'):
+            if text == _('spanish'):
                 LANG = 'es'
-            elif text == _('Valencian'):
+            elif text == _('valencian'):
                 LANG = 'ca'
             else:
                 LANG = 'en'
