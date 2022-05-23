@@ -118,8 +118,8 @@ else:
 
 set_translator(LANG)
 
-DEBUG=True
-DEBUG_REQUESTS=True
+DEBUG=False
+DEBUG_REQUESTS=False
 FIXED_PORT=16666
 FIXED_PORT=None
 USE_CACHE=True
