@@ -17,18 +17,31 @@ import signal
 
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 
-def _(*args,**kwargs):
-    for x in args:
-        print(args)
+def _(*args):
+    return args
 
-try:
-    translation = gettext.translation('simplayer',localedir='/usr/share/locale')
-    if translation:
-        translation.install()
-        _ = translation.gettext
-except FileNotFoundError:
-    print('No translation found!')
+def set_translator(lang=None):
+    global _
+    if isinstance(lang,str) or lang is None:
+        lang = [lang]
+    elif isinstance(lang,list):
+        pass
+    else:
+        pass
+    lang = [l for l in lang if l in ['en', 'es', 'ca', None]]
+    if not lang:
+        raise Exception('Invalid language parameter')
+    if lang[0] is None:
+        lang = None
+    try:
+        translation = gettext.translation('simplayer',localedir='/usr/share/locale', languages=lang)
+        if translation:
+            translation.install()
+            _ = translation.gettext
+    except FileNotFoundError:
+        print('No translation found!')
 
+set_translator()
 
 # from PySide2.QtCore import (QUrl, Signal, Slot, QObject, QSize, Qt)
 # from PySide2.QtGui import (QIcon,QPixmap)
@@ -91,10 +104,13 @@ elif lang_count['ca'] and lang_count['ca'] > lang_count['es']:
 else:
     LANG='en'
 
+set_translator(LANG)
+
 DEBUG=True
 DEBUG_REQUESTS=True
 FIXED_PORT=16666
-USE_CACHE=False
+FIXED_PORT=None
+USE_CACHE=True
 LIBRARY_DIR='/usr/lib/simplayer'
 IMAGE_DIR=f'{LIBRARY_DIR}/images'
 TEMPLATE_DIR=f'{LIBRARY_DIR}/templates'
@@ -159,6 +175,7 @@ class Handler(SimpleHTTPRequestHandler):
             content = self.server.http_server.tm.get_html(type_html='home').encode('utf8')
 
         if content:
+            currentActivity = None
             self.send_response(response_code)
             self.end_headers()
             if isinstance(content,(str,bytes)):
@@ -172,6 +189,7 @@ class Handler(SimpleHTTPRequestHandler):
                 except Exception as e2:
                     pass
                 # print(f'Fail request {self.path}')
+        # print('{} {}'.format(_('Current activity: '),currentActivity))
 
     # def list_directory(self, path):
     #     return super().list_directory(path)
@@ -229,12 +247,19 @@ class TemplateManager():
 
     def check_main_page(self):
         if self.main_activity:
+            found = False
             for project in self.projects:
                 if self.main_activity == project.split('/')[-1]:
                     prjdata=self.projects[project]
                     self.main_page=f'{project}/{prjdata.get(f"html_{LANG}")}'
                     self.main_page=self.main_page.split(LIBRARY_DIR)[-1]
+                    found = True
                     break
+            if not found:
+                # exit showing message
+                QMessageBox.critical(None,_('Error'),_("Activity {} not found").format(self.main_activity))
+                print(_("Activity '{}' not found").format(self.main_activity))
+                sys.exit(1)
 
 
     def set_webgl_enabled(self,status):
@@ -252,8 +277,16 @@ class TemplateManager():
 
     def search_categories(self):
         imagedir = f'{self.basedir}/images/categories'
-        for x in (f for f in os.listdir(imagedir) if os.path.basename(f).split('.')[-1] == 'svg' and os.path.isfile(os.path.join(imagedir,f))):
-            self.categories.setdefault(os.path.basename(x).split('.')[0],os.path.relpath(os.path.join(self.basedir,x),self.basedir))
+        default_category_image = f'{imagedir}/default_category.svg'
+        cats = list(set( cat.get('category') for cat in self.projects.values() if cat.get('category') ))
+        for cat in cats:
+            if os.path.isfile(f'{imagedir}/{cat}.svg'):
+                self.categories.setdefault(cat,f'{imagedir}/{cat}.svg')
+            else:
+                self.categories(cat,default_category_image)
+
+        # for x in (f for f in os.listdir(imagedir) if os.path.basename(f).split('.')[-1] == 'svg' and os.path.isfile(os.path.join(imagedir,f))):
+        #     self.categories.setdefault(os.path.basename(x).split('.')[0],os.path.relpath(os.path.join(self.basedir,x),self.basedir))
 
     def get_html(self,*args,**kwargs):
         type_html = kwargs.get('type_html')
@@ -380,8 +413,9 @@ class MainWindow(QMainWindow):
             # 'debug_swf': lambda: self.load_url(f'{self.get_docroot()}/resources/diza/swf?diza.swf'),
             # 'debug_code' : lambda : self.webEngineView.page().toHtml(lambda x: print(BeautifulSoup(x,features="lxml").prettify()) or self.debug_history()),
             # 'debug_ruffle': 'https://ruffle.rs/demo/',
-            _('back') : lambda : self.load_back(),
-            _('forward'): lambda : self.load_forward()
+            'back' : lambda : self.load_back(),
+            'forward': lambda : self.load_forward(),
+            'reload': lambda : self.webEngineView.reload(),
         }
 
         self.local_server_port = None
@@ -401,8 +435,8 @@ class MainWindow(QMainWindow):
         self.toolbar.setFloatable(False)
         self.toolbar.setMovable(False)
 
-        xgettext_keys=[_('home'),_('back'),_('forward')]
-        for key in ['home','back','forward']:
+        xgettext_keys=[_('home'),_('back'),_('forward'),_('Reload')]
+        for key in ['home','back','forward','reload']:
             self.add_button(key=key)
         if DEBUG:
             spacer = QWidget()
@@ -410,6 +444,23 @@ class MainWindow(QMainWindow):
             self.toolbar.addWidget(spacer)
             for d in sorted((x for x in self.mapping if 'debug_' in x)):
                 self.add_button(d)
+
+        spacer = QWidget()
+        spacer.setSizePolicy(QSizePolicy.Expanding,QSizePolicy.Preferred)
+        self.toolbar.addWidget(spacer)
+
+        self.language_selector = QComboBox()
+        self.language_selector.addItems( [_('English'),_('Spanish'),_('Valencian')] )
+        if LANG == 'es':
+            text = _('Spanish')
+        elif LANG == 'ca':
+            text = _('Valencian')
+        else:
+            text = _('English')
+        self.language_selector.setCurrentIndex(self.language_selector.findText(text))
+        self.language_selector.currentIndexChanged.connect(self.set_language)
+        self.toolbar.addWidget(self.language_selector)
+
 
         self.webEngineView = WebEngine(self)
         self.webEngineView.page().urlChanged.connect(self.urlChanged)
@@ -421,6 +472,34 @@ class MainWindow(QMainWindow):
             self.toolbar.hide()
 
         self.toolbar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+
+    def set_language(self,index):
+        global LANG
+        if isinstance(index,str):
+            LANG=index.lower()
+            if LANG == 'es':
+                index = self.language_selector.findText(_('Spanish'))
+            elif LANG == 'ca':
+                index = self.language_selector.findText(_('Valencian'))
+            else:
+                index = self.language_selector.findText(_('English'))
+            self.language_selector.setCurrentIndex(index)
+        else:
+            text = self.language_selector.currentText()
+            if text == _('Spanish'):
+                LANG = 'es'
+            elif text == _('Valencian'):
+                LANG = 'ca'
+            else:
+                LANG = 'en'
+        set_translator(LANG)
+        self.retranslate_buttons()
+        self.load_url(self.webEngineView.url())
+
+    def retranslate_buttons(self):
+        for key,button in self.objects.items():
+            if key.startswith('button_'):
+                button.setText(_(key[len('button_'):]).capitalize())
 
     def add_button(self,key=None):
         if key:
@@ -457,7 +536,7 @@ class MainWindow(QMainWindow):
             if not who:
                 who=self.sender().data()
             who = who.lower()
-            destination = self.mapping.get(_(who))
+            destination = self.mapping.get(who)
             if isinstance(destination,type(lambda x:x)):
                 destination()
             else:
@@ -489,6 +568,7 @@ class MainWindow(QMainWindow):
         # if self.history_index > 0:
         #     self.history_index-=1
         #     self.load_url(self.history[self.history_index])
+        self.browsing_history = True
         self.webEngineView.back()
         # self.webEngineView.page().triggerAction(QWebEnginePage.Back)
 
@@ -497,10 +577,49 @@ class MainWindow(QMainWindow):
         # if self.history_index < len(self.history)-1:
         #     self.history_index+=1
         #     self.load_url(self.history[self.history_index])
+        self.browsing_history = True
         self.webEngineView.forward()
         # self.webEngineView.page().triggerAction(QWebEnginePage.Forward)
 
     def load_url(self,url):
+        global currentActivity, LANG
+        currentActivity = None
+
+        if not isinstance(url,QUrl):
+            url = QUrl(url)
+
+        parts = url.path().split('/')
+        if parts and len(parts) > 2 and parts[1] == 'resources':
+            currentActivity = parts[2] if parts[2] else None
+
+        target_html = None
+        target_url = None
+        if currentActivity:
+            activity_properties = self.server.tm.projects.get(f'{RESOURCE_DIR}/{currentActivity}')
+            if self.browsing_history:
+                self.browsing_history = False
+                if len(parts) > 3:
+                    for key,value in activity_properties.items():
+                        if value == parts[3]:
+                            if key.startswith('html_'):
+                                language = key[len('html_'):]
+                                a= QSignalBlocker(self.language_selector)
+                                self.set_language(language)
+                                a.unblock()
+                                return
+                            break
+            if activity_properties and LANG in activity_properties.get('languages') and activity_properties.get(f'name_{LANG}'):
+                self.setWindowTitle(activity_properties.get(f'name_{LANG}').capitalize())
+                target_html = activity_properties.get(f'html_{LANG}')
+                target_url = f'{self.get_docroot()}/resources/{currentActivity}/{target_html}'
+                url = target_url
+            print(_('Current activity: {}').format(currentActivity))
+        else:
+            if parts and len(parts) == 2 and parts[1] == 'home' and url.hasQuery() and url.query() in self.server.tm.categories:
+                self.setWindowTitle(_(url.query()).capitalize())
+            else:
+                self.setWindowTitle(_('Simplayer').capitalize())
+
         if not isinstance(url,QUrl):
             url = QUrl(url)
         scheme=url.scheme()
@@ -508,7 +627,7 @@ class MainWindow(QMainWindow):
         if DEBUG:
             print('{} {} {}'.format(_("Loading url"),url.toString(),_("Valid!") if url.isValid() else _("Not valid!")))
         self.webEngineView.load(url)
-
+        self.browsing_history = False
     # def load(self):
     #     url = QUrl.fromUserInput(self.addressLineEdit.text())
     #     if url.isValid():
