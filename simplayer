@@ -16,6 +16,18 @@ import gettext
 import signal
 
 signal.signal(signal.SIGINT, signal.SIG_DFL)
+LANGS=['es', 'ca', 'en']
+
+def lang_fullname(lang):
+    xgettext_langs = [ _('spanish'), _('valencian'), _('english') ]
+    if lang == 'es':
+        return 'spanish'
+    elif lang == 'ca':
+        return 'valencian'
+    elif lang == 'en':
+        return 'english'
+    else:
+        return 'unknown'
 
 def _(*args):
     return args
@@ -28,7 +40,7 @@ def set_translator(lang=None):
         pass
     else:
         pass
-    lang = [l for l in lang if l in ['en', 'es', 'ca', None]]
+    lang = [l for l in lang if l in LANGS + [None]]
     if not lang:
         raise Exception('Invalid language parameter')
     if lang[0] is None:
@@ -235,7 +247,7 @@ class TemplateManager():
         self.main_page=''
         self.webgl_enabled = True
         self.basedir = LIBRARY_DIR
-        self.cache = {}
+        self.init_cache()
         self.loader = FileSystemLoader(searchpath=TEMPLATE_DIR)
         self.environment = Environment(loader=self.loader)
         self.projects = {}
@@ -245,6 +257,10 @@ class TemplateManager():
         self.check_main_page()
         print('{} {}'.format(len(self.projects),_('projects loaded')))
 
+    def init_cache(self):
+        self.cache = {}
+        for l in LANGS:
+            self.cache[l] = {}
     def check_main_page(self):
         if self.main_activity:
             found = False
@@ -264,7 +280,7 @@ class TemplateManager():
 
     def set_webgl_enabled(self,status):
         self.webgl_enabled=status
-        self.cache = {}
+        self.init_cache()
 
     def search_projects(self):
         for x in (d for d in os.listdir(RESOURCE_DIR) if os.path.isdir(f'{RESOURCE_DIR}/{d}')):
@@ -299,7 +315,7 @@ class TemplateManager():
 
         out = None
         if USE_CACHE:
-            out = self.cache.get(show)
+            out = self.cache[LANG].get(show)
 
         if out:
             return out
@@ -309,7 +325,7 @@ class TemplateManager():
             content = self.swf_html(name=name)
         else:
             content = self.category_html(show=show)
-        self.cache.setdefault(show,content)
+        self.cache[LANG].setdefault(show,content)
         return content
 
     def redirect(self,*args,**kwargs):
@@ -450,18 +466,13 @@ class MainWindow(QMainWindow):
         self.toolbar.addWidget(spacer)
 
         self.language_selector = QComboBox()
-        self.language_selector.addItems( [_('english'),_('spanish'),_('valencian')] )
-        if LANG == 'es':
-            text = _('spanish')
-        elif LANG == 'ca':
-            text = _('valencian')
-        else:
-            text = _('english')
+        self.language_selector.addItems( map(lambda x: x.capitalize(),[ _(lang_fullname(l)) for l in LANGS ]) )
+        text = _(lang_fullname(LANG)).capitalize()
         self.language_selector.setCurrentIndex(self.language_selector.findText(text))
         self.language_selector.currentIndexChanged.connect(self.set_language)
         self.language_selector.setEditable(False)
         self.language_selector.setFocusPolicy(Qt.NoFocus)
-        self.language_selector.setStyleSheet('QComboBox { border: 0px; background-color: transparent; padding: 10px; }')
+        self.language_selector.setStyleSheet('QComboBox { border: 0px; background-color: transparent; padding: 10px; width: 100px; }')
         self.toolbar.addWidget(self.language_selector)
 
 
@@ -480,21 +491,10 @@ class MainWindow(QMainWindow):
         global LANG
         if isinstance(index,str):
             LANG=index.lower()
-            if LANG == 'es':
-                index = self.language_selector.findText(_('spanish'))
-            elif LANG == 'ca':
-                index = self.language_selector.findText(_('valencian'))
-            else:
-                index = self.language_selector.findText(_('english'))
+            index = self.language_selector.findText(_(lang_fullname(LANG)).capitalize())
             self.language_selector.setCurrentIndex(index)
         else:
-            text = self.language_selector.currentText()
-            if text == _('spanish'):
-                LANG = 'es'
-            elif text == _('valencian'):
-                LANG = 'ca'
-            else:
-                LANG = 'en'
+            LANG = LANGS[index]
         set_translator(LANG)
         self.retranslate_buttons()
         self.load_url(self.webEngineView.url())
@@ -503,6 +503,8 @@ class MainWindow(QMainWindow):
         for key,button in self.objects.items():
             if key.startswith('button_'):
                 button.setText(_(key[len('button_'):]).capitalize())
+        for l in LANGS:
+            self.language_selector.setItemText(LANGS.index(l),_(lang_fullname(l)).capitalize())
 
     def add_button(self,key=None):
         if key:
