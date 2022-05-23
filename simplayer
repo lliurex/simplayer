@@ -338,15 +338,7 @@ class TemplateManager():
         content = tpl.render()
         return content
 
-    def index_html(self):
-        tpl = self.environment.get_template('index.tpl')
-        items = [ (f'home?{k}',f'images/categories/{k}.svg',_(k)) for k in sorted(self.categories.keys()) ]
-        content = tpl.render(categories=items)
-        return content
-
-    def category_html(self,*args,**kwargs):
-        category = kwargs.get('show')
-        xgettext_categories=[_('math'),_('earth-science'),_('biology'),_('physics'),_('chemistry')]
+    def color_category(self,category):
         color = '#f5f5dc'
         if category == 'math':
             color = '#ff0000'
@@ -358,6 +350,26 @@ class TemplateManager():
             color = '#0000ff'
         elif category == 'chemistry':
             color = '#820082'
+        return color
+
+    def index_html(self):
+        tpl = self.environment.get_template('index.tpl')
+        items = [ (f'home?{k}',f'images/categories/{k}.svg' if os.path.isfile(f'images/categories/{k}.svg') else f'images/categories/default_category.svg',_(k),k,self.color_category(k)) for k in sorted(self.categories.keys()) ]
+        i=len(items)
+        columns=1
+        if i == 1:
+            columns=1
+        elif i  % 3 == 0:
+            columns=3
+        else:
+            columns=2
+        content = tpl.render(categories=items,color='#e59e6d',columns=str(columns))
+        return content
+
+    def category_html(self,*args,**kwargs):
+        category = kwargs.get('show')
+        xgettext_categories=[_('math'),_('earth-science'),_('biology'),_('physics'),_('chemistry')]
+        color = self.color_category(category)
         tpl = self.environment.get_template('categories.tpl')
         items = [ (f'{os.path.relpath(k,self.basedir)}/{v.get(f"html_{LANG}")}',f'{os.path.relpath(k,self.basedir)}/{v.get(f"banner_{LANG}")}',v.get(f'name_{LANG}')) for k,v in self.projects.items() if category in v.get('category').split(',') and ( (self.webgl_enabled == False and 'webgl' not in v.get('require')) or self.webgl_enabled )]
         items.sort(key=lambda x: x[2])
