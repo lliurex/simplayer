@@ -459,6 +459,9 @@ class MainWindow(QMainWindow):
             text = _('English')
         self.language_selector.setCurrentIndex(self.language_selector.findText(text))
         self.language_selector.currentIndexChanged.connect(self.set_language)
+        self.language_selector.setEditable(False)
+        self.language_selector.setFocusPolicy(Qt.NoFocus)
+        self.language_selector.setStyleSheet('QComboBox { border: 0px; background-color: transparent; padding: 10px; }')
         self.toolbar.addWidget(self.language_selector)
 
 
