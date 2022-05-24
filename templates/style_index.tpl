@@ -61,6 +61,9 @@ grid-item:hover{
 grid-item:hover a span.title{
     color: #333333;
 }
+grid-item a span{
+    margin-top: 30px;
+}
 grid-item[name="physics"]:hover{
     background-color: #0000ff50;
 }
