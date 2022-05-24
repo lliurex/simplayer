@@ -299,7 +299,7 @@ class TemplateManager():
             if os.path.isfile(f'{imagedir}/{cat}.svg'):
                 self.categories.setdefault(cat,f'{imagedir}/{cat}.svg')
             else:
-                self.categories(cat,default_category_image)
+                self.categories.setdefault(cat,default_category_image)
 
         # for x in (f for f in os.listdir(imagedir) if os.path.basename(f).split('.')[-1] == 'svg' and os.path.isfile(os.path.join(imagedir,f))):
         #     self.categories.setdefault(os.path.basename(x).split('.')[0],os.path.relpath(os.path.join(self.basedir,x),self.basedir))
@@ -368,7 +368,7 @@ class TemplateManager():
 
     def category_html(self,*args,**kwargs):
         category = kwargs.get('show')
-        xgettext_categories=[_('math'),_('earth-science'),_('biology'),_('physics'),_('chemistry')]
+        xgettext_categories=[_('math'),_('earth-science'),_('biology'),_('physics'),_('chemistry'),_('accessibility'),_('other')]
         color = self.color_category(category)
         tpl = self.environment.get_template('categories.tpl')
         items = [ (f'{os.path.relpath(k,self.basedir)}/{v.get(f"html_{LANG}")}',f'{os.path.relpath(k,self.basedir)}/{v.get(f"banner_{LANG}")}',v.get(f'name_{LANG}')) for k,v in self.projects.items() if category in v.get('category').split(',') and ( (self.webgl_enabled == False and 'webgl' not in v.get('require')) or self.webgl_enabled )]
