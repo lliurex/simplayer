@@ -70,10 +70,10 @@ grid-item[name="physics"]:hover{
 grid-item[name="physics"] a img{
     filter: invert(9%) sepia(94%) saturate(7497%) hue-rotate(248deg) brightness(88%) contrast(145%) opacity(25%);
 }
-grid-item[name="maths"]:hover{
+grid-item[name="math"]:hover{
     background-color: #ff000050;
 }
-grid-item[name="maths"] a img{
+grid-item[name="math"] a img{
     filter: invert(23%) sepia(92%) saturate(6223%) hue-rotate(355deg) brightness(98%) contrast(120%) opacity(25%);
 }
 grid-item[name="chemistry"]:hover{
