@@ -354,7 +354,7 @@ class TemplateManager():
 
     def index_html(self):
         tpl = self.environment.get_template('index.tpl')
-        items = [ (f'home?{k}',f'images/categories/{k}.svg' if os.path.isfile(f'images/categories/{k}.svg') else f'images/categories/default_category.svg',_(k),k,self.color_category(k)) for k in sorted(self.categories.keys()) ]
+        items = [ (f'home?{k}',f'images/categories/{k}.svg' if os.path.isfile(f'{LIBRARY_DIR}/images/categories/{k}.svg') else f'images/categories/default_category.svg',_(k),k,self.color_category(k)) for k in sorted(self.categories.keys()) ]
         i=len(items)
         columns=1
         if i == 1:
