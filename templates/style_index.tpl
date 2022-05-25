@@ -29,6 +29,7 @@ grid-item img{
     filter: opacity(50%);
     border-radius: 10px;
     max-width: 100%;
+    margin: auto;
 }
 grid-item:hover img{
     /* object-fit: cover;*/
@@ -44,7 +45,7 @@ grid-item a span.title{
     text-transform: capitalize;
     text-align: center;
     font-family: sans-serif;
-    font-size: xxx-large;
+    font-size: 3vw;
 
 }
 grid-item>*{
