@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="Artwork"
+   viewBox="0 0 150 150"
+   version="1.1"
+   sodipodi:docname="accessibility.svg"
+   inkscape:version="1.1 (1:1.1+202105261517+ce6663b3b7)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview13"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="4.4"
+     inkscape:cx="66.363636"
+     inkscape:cy="74.886364"
+     inkscape:window-width="3440"
+     inkscape:window-height="1243"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Artwork" />
+  <defs
+     id="defs4">
+    <style
+       id="style2">.cls-1{fill:#036;}.cls-2{fill:#fff;}</style>
+  </defs>
+  <circle
+     class="cls-1"
+     cx="75"
+     cy="75"
+     id="circle6"
+     r="75"
+     style="fill:#666666;opacity:0.79" />
+  <circle
+     class="cls-2"
+     cx="75"
+     cy="38.51"
+     r="10.13"
+     id="circle8" />
+  <path
+     class="cls-2"
+     d="M85.57,67.31l22.21-6.12a5.36,5.36,0,0,0,3.77-6.61h0a5.44,5.44,0,0,0-6.68-3.73L80.51,57.64a18,18,0,0,1-11,0L45.13,50.85a5.44,5.44,0,0,0-6.68,3.73h0a5.36,5.36,0,0,0,3.77,6.61l22.21,6.12a4.05,4.05,0,0,1,3,3.89v7.31a23.62,23.62,0,0,1-2.36,10.31L53.14,113.48a5.33,5.33,0,0,0,2.55,7.15h0a5.44,5.44,0,0,0,7.23-2.53L75,93.2l12.12,24.9a5.44,5.44,0,0,0,7.23,2.53h0a5.33,5.33,0,0,0,2.55-7.15L85,88.82a23.62,23.62,0,0,1-2.36-10.31V71.2A4.05,4.05,0,0,1,85.57,67.31Z"
+     id="path10" />
+</svg>
