@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Energía en la pista de patinaje: Intro", "banner_es": "energy-skate-park-basics.png", "html_es": "energy-skate-park-basics_es.html", "name_ca": "Energia en la pista de patinatge: Intro", "banner_ca": "energy-skate-park-basics.png", "html_ca": "energy-skate-park-basics_ca.html", "name_en": "Energy Skate Park: Basics", "banner_en": "energy-skate-park-basics.png", "html_en": "energy-skate-park-basics_en.html", "category": "physics", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/energy-skate-park-basics", "description": "\"Energy Skate Park: Basics\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "energy-skate-park-basics.png",
+  "banner_en": "energy-skate-park-basics.png",
+  "banner_es": "energy-skate-park-basics.png",
+  "category": "physics",
+  "description": "\"Energy Skate Park: Basics\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "energy-skate-park-basics_ca.html",
+  "html_en": "energy-skate-park-basics_en.html",
+  "html_es": "energy-skate-park-basics_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Energia en la pista de patinatge: Intro",
+  "name_en": "Energy Skate Park: Basics",
+  "name_es": "Energía en la pista de patinaje: Intro",
+  "require": "",
+  "url": "https://github.com/phetsims/energy-skate-park-basics"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Polaridad de la Molécula", "banner_es": "molecule-polarity.png", "html_es": "molecule-polarity_es.html", "name_ca": "Polaritat de la molècula", "banner_ca": "molecule-polarity.png", "html_ca": "molecule-polarity_ca.html", "name_en": "Molecule Polarity", "banner_en": "molecule-polarity.png", "html_en": "molecule-polarity_en.html", "category": "chemistry,biology", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/molecule-polarity", "description": "\"Molecule Polarity\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "molecule-polarity.png",
+  "banner_en": "molecule-polarity.png",
+  "banner_es": "molecule-polarity.png",
+  "category": "chemistry,biology",
+  "description": "\"Molecule Polarity\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "molecule-polarity_ca.html",
+  "html_en": "molecule-polarity_en.html",
+  "html_es": "molecule-polarity_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Polaritat de la molècula",
+  "name_en": "Molecule Polarity",
+  "name_es": "Polaridad de la Molécula",
+  "require": "",
+  "url": "https://github.com/phetsims/molecule-polarity"
+}

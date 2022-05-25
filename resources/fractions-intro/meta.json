@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Fracciones: Intro", "banner_es": "fractions-intro.png", "html_es": "fractions-intro_es.html", "name_ca": "Fraccions: Introducció", "banner_ca": "fractions-intro.png", "html_ca": "fractions-intro_ca.html", "name_en": "Fractions: Intro", "banner_en": "fractions-intro.png", "html_en": "fractions-intro_en.html", "category": "math", "require": "", "license": "MIT License", "url": "https://github.com/phetsims/fractions-intro", "description": "\"Fractions Intro\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "fractions-intro.png",
+  "banner_en": "fractions-intro.png",
+  "banner_es": "fractions-intro.png",
+  "category": "math",
+  "description": "\"Fractions Intro\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "fractions-intro_ca.html",
+  "html_en": "fractions-intro_en.html",
+  "html_es": "fractions-intro_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "MIT License",
+  "name_ca": "Fraccions: Introducció",
+  "name_en": "Fractions: Intro",
+  "name_es": "Fracciones: Intro",
+  "require": "",
+  "url": "https://github.com/phetsims/fractions-intro"
+}

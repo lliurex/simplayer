@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Neurona", "banner_es": "neuron.png", "html_es": "neuron_es.html", "name_ca": "Neurona", "banner_ca": "neuron.png", "html_ca": "neuron_ca.html", "name_en": "Neuron", "banner_en": "neuron.png", "html_en": "neuron_en.html", "category": "biology", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/neuron", "description": "\"Neuron\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "neuron.png",
+  "banner_en": "neuron.png",
+  "banner_es": "neuron.png",
+  "category": "biology",
+  "description": "\"Neuron\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "neuron_ca.html",
+  "html_en": "neuron_en.html",
+  "html_es": "neuron_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Neurona",
+  "name_en": "Neuron",
+  "name_es": "Neurona",
+  "require": "",
+  "url": "https://github.com/phetsims/neuron"
+}

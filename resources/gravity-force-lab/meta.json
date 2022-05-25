@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Lab de Fuerza de Gravedad", "banner_es": "gravity-force-lab.png", "html_es": "gravity-force-lab_es.html", "name_ca": "Lab de força de gravetat", "banner_ca": "gravity-force-lab.png", "html_ca": "gravity-force-lab_ca.html", "name_en": "Gravity Force Lab", "banner_en": "gravity-force-lab.png", "html_en": "gravity-force-lab_en.html", "category": "physics,earth-science", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/gravity-force-lab", "description": "\"Gravity Force Lab\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "gravity-force-lab.png",
+  "banner_en": "gravity-force-lab.png",
+  "banner_es": "gravity-force-lab.png",
+  "category": "physics,earth-science",
+  "description": "\"Gravity Force Lab\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "gravity-force-lab_ca.html",
+  "html_en": "gravity-force-lab_en.html",
+  "html_es": "gravity-force-lab_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Lab de força de gravetat",
+  "name_en": "Gravity Force Lab",
+  "name_es": "Lab de Fuerza de Gravedad",
+  "require": "",
+  "url": "https://github.com/phetsims/gravity-force-lab"
+}

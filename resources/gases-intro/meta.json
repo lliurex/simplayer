@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Gases: Intro", "banner_es": "gases-intro.png", "html_es": "gases-intro_es.html", "name_ca": "Gasos: Introducció", "banner_ca": "gases-intro.png", "html_ca": "gases-intro_ca.html", "name_en": "Gases Intro", "banner_en": "gases-intro.png", "html_en": "gases-intro_en.html", "category": "physics,chemistry,earth-science", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/gases-intro", "description": "\"Gases Intro\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "gases-intro.png",
+  "banner_en": "gases-intro.png",
+  "banner_es": "gases-intro.png",
+  "category": "physics,chemistry,earth-science",
+  "description": "\"Gases Intro\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "gases-intro_ca.html",
+  "html_en": "gases-intro_en.html",
+  "html_es": "gases-intro_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Gasos: Introducció",
+  "name_en": "Gases Intro",
+  "name_es": "Gases: Intro",
+  "require": "",
+  "url": "https://github.com/phetsims/gases-intro"
+}

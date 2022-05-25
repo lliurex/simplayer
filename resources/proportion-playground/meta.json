@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Pista de juego de proporciones", "banner_es": "proportion-playground.png", "html_es": "proportion-playground_es.html", "name_ca": "Pista de joc de proporcions", "banner_ca": "proportion-playground.png", "html_ca": "proportion-playground_ca.html", "name_en": "Proportion Playground", "banner_en": "proportion-playground.png", "html_en": "proportion-playground_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/proportion-playground", "description": "\"Proportion Playground\" is an educational simulation in HTML5, by PhET Interactive Simulations at the University of Colorado Boulder."}
+{
+  "banner_ca": "proportion-playground.png",
+  "banner_en": "proportion-playground.png",
+  "banner_es": "proportion-playground.png",
+  "category": "math",
+  "description": "\"Proportion Playground\" is an educational simulation in HTML5, by PhET Interactive Simulations at the University of Colorado Boulder.",
+  "html_ca": "proportion-playground_ca.html",
+  "html_en": "proportion-playground_en.html",
+  "html_es": "proportion-playground_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Pista de joc de proporcions",
+  "name_en": "Proportion Playground",
+  "name_es": "Pista de juego de proporciones",
+  "require": "",
+  "url": "https://github.com/phetsims/proportion-playground"
+}

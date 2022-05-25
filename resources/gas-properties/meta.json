@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Propiedades de los Gases", "banner_es": "gas-properties.png", "html_es": "gas-properties_es.html", "name_ca": "Propietats dels gasos", "banner_ca": "gas-properties.png", "html_ca": "gas-properties_ca.html", "name_en": "Gas Properties", "banner_en": "gas-properties.png", "html_en": "gas-properties_en.html", "category": "physics,chemistry,earth-science", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/gas-properties", "description": "\"Gas Properties\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "gas-properties.png",
+  "banner_en": "gas-properties.png",
+  "banner_es": "gas-properties.png",
+  "category": "physics,chemistry,earth-science",
+  "description": "\"Gas Properties\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "gas-properties_ca.html",
+  "html_en": "gas-properties_en.html",
+  "html_es": "gas-properties_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Propietats dels gasos",
+  "name_en": "Gas Properties",
+  "name_es": "Propiedades de los Gases",
+  "require": "",
+  "url": "https://github.com/phetsims/gas-properties"
+}

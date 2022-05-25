@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Tour trigonométrico", "banner_es": "trig-tour.png", "html_es": "trig-tour_es.html", "name_ca": "Tour trigonomètric", "banner_ca": "trig-tour.png", "html_ca": "trig-tour_ca.html", "name_en": "Trig Tour", "banner_en": "trig-tour.png", "html_en": "trig-tour_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/trig-tour", "description": "\"Trig Tour\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "trig-tour.png",
+  "banner_en": "trig-tour.png",
+  "banner_es": "trig-tour.png",
+  "category": "math",
+  "description": "\"Trig Tour\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "trig-tour_ca.html",
+  "html_en": "trig-tour_en.html",
+  "html_es": "trig-tour_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Tour trigonomètric",
+  "name_en": "Trig Tour",
+  "name_es": "Tour trigonométrico",
+  "require": "",
+  "url": "https://github.com/phetsims/trig-tour"
+}

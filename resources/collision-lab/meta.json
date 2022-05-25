@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Laboratorio de Colisiones", "banner_es": "collision-lab.png", "html_es": "collision-lab_es.html", "name_ca": "Laboratori de col·lisions", "banner_ca": "collision-lab.png", "html_ca": "collision-lab_ca.html", "name_en": "Collision Lab", "banner_en": "collision-lab.png", "html_en": "collision-lab_en.html", "category": "physics", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/collision-lab", "description": "\"Collision Lab\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "collision-lab.png",
+  "banner_en": "collision-lab.png",
+  "banner_es": "collision-lab.png",
+  "category": "physics",
+  "description": "\"Collision Lab\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "collision-lab_ca.html",
+  "html_en": "collision-lab_en.html",
+  "html_es": "collision-lab_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Laboratori de col·lisions",
+  "name_en": "Collision Lab",
+  "name_es": "Laboratorio de Colisiones",
+  "require": "",
+  "url": "https://github.com/phetsims/collision-lab"
+}

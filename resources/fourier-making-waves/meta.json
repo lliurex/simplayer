@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Fourier: Creando Ondas", "banner_es": "fourier-making-waves.png", "html_es": "fourier-making-waves_es.html", "name_ca": "Fourier: Creant ones", "banner_ca": "fourier-making-waves.png", "html_ca": "fourier-making-waves_ca.html", "name_en": "Fourier: Making Waves", "banner_en": "fourier-making-waves.png", "html_en": "fourier-making-waves_en.html", "category": "physics,chemistry,math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/fourier-making-waves", "description": "\"Fourier: Making Waves\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "fourier-making-waves.png",
+  "banner_en": "fourier-making-waves.png",
+  "banner_es": "fourier-making-waves.png",
+  "category": "physics,chemistry,math",
+  "description": "\"Fourier: Making Waves\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "fourier-making-waves_ca.html",
+  "html_en": "fourier-making-waves_en.html",
+  "html_es": "fourier-making-waves_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Fourier: Creant ones",
+  "name_en": "Fourier: Making Waves",
+  "name_es": "Fourier: Creando Ondas",
+  "require": "",
+  "url": "https://github.com/phetsims/fourier-making-waves"
+}

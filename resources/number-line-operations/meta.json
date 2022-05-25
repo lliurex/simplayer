@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Recta Numérica: Operaciones", "banner_es": "number-line-operations.png", "html_es": "number-line-operations_es.html", "name_ca": "Recta numèrica: Operacions", "banner_ca": "number-line-operations.png", "html_ca": "number-line-operations_ca.html", "name_en": "Number Line: Operations", "banner_en": "number-line-operations.png", "html_en": "number-line-operations_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/number-line-operations", "description": "\"Number Line: Operations\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "number-line-operations.png",
+  "banner_en": "number-line-operations.png",
+  "banner_es": "number-line-operations.png",
+  "category": "math",
+  "description": "\"Number Line: Operations\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "number-line-operations_ca.html",
+  "html_en": "number-line-operations_en.html",
+  "html_es": "number-line-operations_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Recta numèrica: Operacions",
+  "name_en": "Number Line: Operations",
+  "name_es": "Recta Numérica: Operaciones",
+  "require": "",
+  "url": "https://github.com/phetsims/number-line-operations"
+}

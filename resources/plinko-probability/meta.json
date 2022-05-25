@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Probabilidad Plinko", "banner_es": "plinko-probability.png", "html_es": "plinko-probability_es.html", "name_ca": "Probabilitat Plinko", "banner_ca": "plinko-probability.png", "html_ca": "plinko-probability_ca.html", "name_en": "Plinko Probability", "banner_en": "plinko-probability.png", "html_en": "plinko-probability_en.html", "category": "physics,math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/plinko-probability", "description": "\"Plinko Probability\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "plinko-probability.png",
+  "banner_en": "plinko-probability.png",
+  "banner_es": "plinko-probability.png",
+  "category": "physics,math",
+  "description": "\"Plinko Probability\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "plinko-probability_ca.html",
+  "html_en": "plinko-probability_en.html",
+  "html_es": "plinko-probability_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Probabilitat Plinko",
+  "name_en": "Plinko Probability",
+  "name_es": "Probabilidad Plinko",
+  "require": "",
+  "url": "https://github.com/phetsims/plinko-probability"
+}

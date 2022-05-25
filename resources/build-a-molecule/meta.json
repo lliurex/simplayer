@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Construye una Molécula", "banner_es": "build-a-molecule.png", "html_es": "build-a-molecule_es.html", "name_ca": "Construeix una molècula", "banner_ca": "build-a-molecule.png", "html_ca": "build-a-molecule_ca.html", "name_en": "Build a Molecule", "banner_en": "build-a-molecule.png", "html_en": "build-a-molecule_en.html", "category": "chemistry", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/build-a-molecule", "description": "\"Build a Molecule\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "build-a-molecule.png",
+  "banner_en": "build-a-molecule.png",
+  "banner_es": "build-a-molecule.png",
+  "category": "chemistry",
+  "description": "\"Build a Molecule\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "build-a-molecule_ca.html",
+  "html_en": "build-a-molecule_en.html",
+  "html_es": "build-a-molecule_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Construeix una molècula",
+  "name_en": "Build a Molecule",
+  "name_es": "Construye una Molécula",
+  "require": "",
+  "url": "https://github.com/phetsims/build-a-molecule"
+}

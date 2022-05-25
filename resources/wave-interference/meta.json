@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Interferencia de Ondas", "banner_es": "wave-interference.png", "html_es": "wave-interference_es.html", "name_ca": "Interferència d'ones", "banner_ca": "wave-interference.png", "html_ca": "wave-interference_ca.html", "name_en": "Wave Interference", "banner_en": "wave-interference.png", "html_en": "wave-interference_en.html", "category": "physics,earth-science", "require": "", "license": "MIT License", "url": "https://github.com/phetsims/wave-interference", "description": "\"Wave Interference\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "wave-interference.png",
+  "banner_en": "wave-interference.png",
+  "banner_es": "wave-interference.png",
+  "category": "physics,earth-science",
+  "description": "\"Wave Interference\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "wave-interference_ca.html",
+  "html_en": "wave-interference_en.html",
+  "html_es": "wave-interference_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "MIT License",
+  "name_ca": "Interferència d'ones",
+  "name_en": "Wave Interference",
+  "name_es": "Interferencia de Ondas",
+  "require": "",
+  "url": "https://github.com/phetsims/wave-interference"
+}

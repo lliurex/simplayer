@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Fracciones: números mixtos", "banner_es": "fractions-mixed-numbers.png", "html_es": "fractions-mixed-numbers_es.html", "name_ca": "Fraccions: nombres mixtos", "banner_ca": "fractions-mixed-numbers.png", "html_ca": "fractions-mixed-numbers_ca.html", "name_en": "Fractions: Mixed Numbers", "banner_en": "fractions-mixed-numbers.png", "html_en": "fractions-mixed-numbers_en.html", "category": "math", "require": "", "license": "MIT License", "url": "https://github.com/phetsims/fractions-mixed-numbers", "description": "\"Fractions: Mixed Numbers\" is an educational simulation in HTML5, by PhET Interactive Simulations "}
+{
+  "banner_ca": "fractions-mixed-numbers.png",
+  "banner_en": "fractions-mixed-numbers.png",
+  "banner_es": "fractions-mixed-numbers.png",
+  "category": "math",
+  "description": "\"Fractions: Mixed Numbers\" is an educational simulation in HTML5, by PhET Interactive Simulations ",
+  "html_ca": "fractions-mixed-numbers_ca.html",
+  "html_en": "fractions-mixed-numbers_en.html",
+  "html_es": "fractions-mixed-numbers_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "MIT License",
+  "name_ca": "Fraccions: nombres mixtos",
+  "name_en": "Fractions: Mixed Numbers",
+  "name_es": "Fracciones: números mixtos",
+  "require": "",
+  "url": "https://github.com/phetsims/fractions-mixed-numbers"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Cambio de Expresiones", "banner_es": "expression-exchange.png", "html_es": "expression-exchange_es.html", "name_ca": "Canvi d'expressions", "banner_ca": "expression-exchange.png", "html_ca": "expression-exchange_ca.html", "name_en": "Expression Exchange", "banner_en": "expression-exchange.png", "html_en": "expression-exchange_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/expression-exchange", "description": "\"Expression Exchange\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "expression-exchange.png",
+  "banner_en": "expression-exchange.png",
+  "banner_es": "expression-exchange.png",
+  "category": "math",
+  "description": "\"Expression Exchange\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "expression-exchange_ca.html",
+  "html_en": "expression-exchange_en.html",
+  "html_es": "expression-exchange_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Canvi d'expressions",
+  "name_en": "Expression Exchange",
+  "name_es": "Cambio de Expresiones",
+  "require": "",
+  "url": "https://github.com/phetsims/expression-exchange"
+}

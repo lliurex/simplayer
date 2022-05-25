@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Ley de Faraday", "banner_es": "faradays-law.png", "html_es": "faradays-law_es.html", "name_ca": "Llei de Faraday", "banner_ca": "faradays-law.png", "html_ca": "faradays-law_ca.html", "name_en": "Faraday's Law", "banner_en": "faradays-law.png", "html_en": "faradays-law_en.html", "category": "physics", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/faradays-law", "description": "\"Faraday's Law\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "faradays-law.png",
+  "banner_en": "faradays-law.png",
+  "banner_es": "faradays-law.png",
+  "category": "physics",
+  "description": "\"Faraday's Law\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "faradays-law_ca.html",
+  "html_en": "faradays-law_en.html",
+  "html_es": "faradays-law_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Llei de Faraday",
+  "name_en": "Faraday's Law",
+  "name_es": "Ley de Faraday",
+  "require": "",
+  "url": "https://github.com/phetsims/faradays-law"
+}

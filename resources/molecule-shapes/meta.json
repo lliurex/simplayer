@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Forma de la Molécula", "banner_es": "molecule-shapes.png", "html_es": "molecule-shapes_es.html", "name_ca": "Forma de la molècula", "banner_ca": "molecule-shapes.png", "html_ca": "molecule-shapes_ca.html", "name_en": "Molecule Shapes", "banner_en": "molecule-shapes.png", "html_en": "molecule-shapes_en.html", "category": "chemistry", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/molecule-shapes", "description": "\"Molecule Shapes\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "molecule-shapes.png",
+  "banner_en": "molecule-shapes.png",
+  "banner_es": "molecule-shapes.png",
+  "category": "chemistry",
+  "description": "\"Molecule Shapes\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "molecule-shapes_ca.html",
+  "html_en": "molecule-shapes_en.html",
+  "html_es": "molecule-shapes_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Forma de la molècula",
+  "name_en": "Molecule Shapes",
+  "name_es": "Forma de la Molécula",
+  "require": "",
+  "url": "https://github.com/phetsims/molecule-shapes"
+}

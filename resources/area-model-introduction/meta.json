@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Modelo de Áreas: Introducción", "banner_es": "area-model-introduction.png", "html_es": "area-model-introduction_es.html", "name_ca": "Model d'àrees: Introducció", "banner_ca": "area-model-introduction.png", "html_ca": "area-model-introduction_ca.html", "name_en": "Area Model Introduction", "banner_en": "area-model-introduction.png", "html_en": "area-model-introduction_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/area-model-introduction", "description": "\"Area Model Introduction\" is an educational simulation in HTML5, by PhET Interactive Simulations "}
+{
+  "banner_ca": "area-model-introduction.png",
+  "banner_en": "area-model-introduction.png",
+  "banner_es": "area-model-introduction.png",
+  "category": "math",
+  "description": "\"Area Model Introduction\" is an educational simulation in HTML5, by PhET Interactive Simulations ",
+  "html_ca": "area-model-introduction_ca.html",
+  "html_en": "area-model-introduction_en.html",
+  "html_es": "area-model-introduction_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Model d'àrees: Introducció",
+  "name_en": "Area Model Introduction",
+  "name_es": "Modelo de Áreas: Introducción",
+  "require": "",
+  "url": "https://github.com/phetsims/area-model-introduction"
+}

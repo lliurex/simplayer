@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Lab de Péndulo", "banner_es": "pendulum-lab.png", "html_es": "pendulum-lab_es.html", "name_ca": "Lab de pèndol", "banner_ca": "pendulum-lab.png", "html_ca": "pendulum-lab_ca.html", "name_en": "Pendulum Lab", "banner_en": "pendulum-lab.png", "html_en": "pendulum-lab_en.html", "category": "physics,math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/pendulum-lab", "description": "\"Pendulum Lab\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "pendulum-lab.png",
+  "banner_en": "pendulum-lab.png",
+  "banner_es": "pendulum-lab.png",
+  "category": "physics,math",
+  "description": "\"Pendulum Lab\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "pendulum-lab_ca.html",
+  "html_en": "pendulum-lab_en.html",
+  "html_es": "pendulum-lab_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Lab de pèndol",
+  "name_en": "Pendulum Lab",
+  "name_es": "Lab de Péndulo",
+  "require": "",
+  "url": "https://github.com/phetsims/pendulum-lab"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Bajo presión", "banner_es": "under-pressure.png", "html_es": "under-pressure_es.html", "name_ca": "Sota pressió", "banner_ca": "under-pressure.png", "html_ca": "under-pressure_ca.html", "name_en": "Under Pressure", "banner_en": "under-pressure.png", "html_en": "under-pressure_en.html", "category": "physics,earth-science", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/under-pressure", "description": "\"Under Pressure\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "under-pressure.png",
+  "banner_en": "under-pressure.png",
+  "banner_es": "under-pressure.png",
+  "category": "physics,earth-science",
+  "description": "\"Under Pressure\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "under-pressure_ca.html",
+  "html_en": "under-pressure_en.html",
+  "html_es": "under-pressure_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Sota pressió",
+  "name_en": "Under Pressure",
+  "name_es": "Bajo presión",
+  "require": "",
+  "url": "https://github.com/phetsims/under-pressure"
+}

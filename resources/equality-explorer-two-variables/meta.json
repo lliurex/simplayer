@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Explorador de Igualdades: Dos variables", "banner_es": "equality-explorer-two-variables.png", "html_es": "equality-explorer-two-variables_es.html", "name_ca": "Explorador d'igualtats: Dues variables", "banner_ca": "equality-explorer-two-variables.png", "html_ca": "equality-explorer-two-variables_ca.html", "name_en": "Equality Explorer: Two Variables", "banner_en": "equality-explorer-two-variables.png", "html_en": "equality-explorer-two-variables_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/equality-explorer-two-variables", "description": "\"Equality Explorer: Two Variables\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "equality-explorer-two-variables.png",
+  "banner_en": "equality-explorer-two-variables.png",
+  "banner_es": "equality-explorer-two-variables.png",
+  "category": "math",
+  "description": "\"Equality Explorer: Two Variables\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "equality-explorer-two-variables_ca.html",
+  "html_en": "equality-explorer-two-variables_en.html",
+  "html_es": "equality-explorer-two-variables_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Explorador d'igualtats: Dues variables",
+  "name_en": "Equality Explorer: Two Variables",
+  "name_es": "Explorador de Igualdades: Dos variables",
+  "require": "",
+  "url": "https://github.com/phetsims/equality-explorer-two-variables"
+}

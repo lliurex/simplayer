@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Escala pH: Intro", "banner_es": "ph-scale-basics.png", "html_es": "ph-scale-basics_es.html", "name_ca": "Escala pH: Introducció", "banner_ca": "ph-scale-basics.png", "html_ca": "ph-scale-basics_ca.html", "name_en": "pH Scale: Basics", "banner_en": "ph-scale-basics.png", "html_en": "ph-scale-basics_en.html", "category": "chemistry", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/ph-scale-basics", "description": "\"pH Scale: Basics\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "ph-scale-basics.png",
+  "banner_en": "ph-scale-basics.png",
+  "banner_es": "ph-scale-basics.png",
+  "category": "chemistry",
+  "description": "\"pH Scale: Basics\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "ph-scale-basics_ca.html",
+  "html_en": "ph-scale-basics_en.html",
+  "html_es": "ph-scale-basics_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Escala pH: Introducció",
+  "name_en": "pH Scale: Basics",
+  "name_es": "Escala pH: Intro",
+  "require": "",
+  "url": "https://github.com/phetsims/ph-scale-basics"
+}

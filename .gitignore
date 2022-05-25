@@ -1,2 +1,5 @@
 .vscode
 untracked
+.gitignore
+translations
+retriever

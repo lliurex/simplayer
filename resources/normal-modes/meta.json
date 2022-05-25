@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Modos Normales", "banner_es": "normal-modes.png", "html_es": "normal-modes_es.html", "name_ca": "Modes normals", "banner_ca": "normal-modes.png", "html_ca": "normal-modes_ca.html", "name_en": "Normal Modes", "banner_en": "normal-modes.png", "html_en": "normal-modes_en.html", "category": "", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/normal-modes", "description": "\"Normal Modes\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "normal-modes.png",
+  "banner_en": "normal-modes.png",
+  "banner_es": "normal-modes.png",
+  "category": "",
+  "description": "\"Normal Modes\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "normal-modes_ca.html",
+  "html_en": "normal-modes_en.html",
+  "html_es": "normal-modes_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Modes normals",
+  "name_en": "Normal Modes",
+  "name_es": "Modos Normales",
+  "require": "",
+  "url": "https://github.com/phetsims/normal-modes"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Formas y Cambios de Energía", "banner_es": "energy-forms-and-changes.png", "html_es": "energy-forms-and-changes_es.html", "name_ca": "Formes i canvis d'energia", "banner_ca": "energy-forms-and-changes.png", "html_ca": "energy-forms-and-changes_ca.html", "name_en": "Energy Forms and Changes", "banner_en": "energy-forms-and-changes.png", "html_en": "energy-forms-and-changes_en.html", "category": "physics,chemistry", "require": "", "license": "MIT License", "url": "https://github.com/phetsims/energy-forms-and-changes", "description": "\"Energy Forms And Changes\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "energy-forms-and-changes.png",
+  "banner_en": "energy-forms-and-changes.png",
+  "banner_es": "energy-forms-and-changes.png",
+  "category": "physics,chemistry",
+  "description": "\"Energy Forms And Changes\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "energy-forms-and-changes_ca.html",
+  "html_en": "energy-forms-and-changes_en.html",
+  "html_es": "energy-forms-and-changes_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "MIT License",
+  "name_ca": "Formes i canvis d'energia",
+  "name_en": "Energy Forms and Changes",
+  "name_es": "Formas y Cambios de Energía",
+  "require": "",
+  "url": "https://github.com/phetsims/energy-forms-and-changes"
+}

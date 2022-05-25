@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Ópticas Geométricas", "banner_es": "geometric-optics.png", "html_es": "geometric-optics_es.html", "name_ca": "Òptiques geomètriques", "banner_ca": "geometric-optics.png", "html_ca": "geometric-optics_ca.html", "name_en": "Geometric Optics", "banner_en": "geometric-optics.png", "html_en": "geometric-optics_en.html", "category": "", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/geometric-optics", "description": "Geometric Optics is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "geometric-optics.png",
+  "banner_en": "geometric-optics.png",
+  "banner_es": "geometric-optics.png",
+  "category": "",
+  "description": "Geometric Optics is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "geometric-optics_ca.html",
+  "html_en": "geometric-optics_en.html",
+  "html_es": "geometric-optics_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Òptiques geomètriques",
+  "name_en": "Geometric Optics",
+  "name_es": "Ópticas Geométricas",
+  "require": "",
+  "url": "https://github.com/phetsims/geometric-optics"
+}

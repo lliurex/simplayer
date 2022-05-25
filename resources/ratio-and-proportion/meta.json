@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Razón y Proporción", "banner_es": "ratio-and-proportion.png", "html_es": "ratio-and-proportion_es.html", "name_ca": "Raó i proporció", "banner_ca": "ratio-and-proportion.png", "html_ca": "ratio-and-proportion_ca.html", "name_en": "Ratio and Proportion", "banner_en": "ratio-and-proportion.png", "html_en": "ratio-and-proportion_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/ratio-and-proportion", "description": "\"Proportion\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "ratio-and-proportion.png",
+  "banner_en": "ratio-and-proportion.png",
+  "banner_es": "ratio-and-proportion.png",
+  "category": "math",
+  "description": "\"Proportion\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "ratio-and-proportion_ca.html",
+  "html_en": "ratio-and-proportion_en.html",
+  "html_es": "ratio-and-proportion_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Raó i proporció",
+  "name_en": "Ratio and Proportion",
+  "name_es": "Razón y Proporción",
+  "require": "",
+  "url": "https://github.com/phetsims/ratio-and-proportion"
+}

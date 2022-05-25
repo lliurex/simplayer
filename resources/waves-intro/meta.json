@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Ondas: Intro", "banner_es": "waves-intro.png", "html_es": "waves-intro_es.html", "name_ca": "Ones: Intro", "banner_ca": "waves-intro.png", "html_ca": "waves-intro_ca.html", "name_en": "Waves Intro", "banner_en": "waves-intro.png", "html_en": "waves-intro_en.html", "category": "physics,earth-science", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/waves-intro", "description": "\"Waves Intro\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "waves-intro.png",
+  "banner_en": "waves-intro.png",
+  "banner_es": "waves-intro.png",
+  "category": "physics,earth-science",
+  "description": "\"Waves Intro\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "waves-intro_ca.html",
+  "html_en": "waves-intro_en.html",
+  "html_es": "waves-intro_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Ones: Intro",
+  "name_en": "Waves Intro",
+  "name_es": "Ondas: Intro",
+  "require": "",
+  "url": "https://github.com/phetsims/waves-intro"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Graficando Cuadráticas", "banner_es": "graphing-quadratics.png", "html_es": "graphing-quadratics_es.html", "name_ca": "Grafiant quadràtiques", "banner_ca": "graphing-quadratics.png", "html_ca": "graphing-quadratics_ca.html", "name_en": "Graphing Quadratics", "banner_en": "graphing-quadratics.png", "html_en": "graphing-quadratics_en.html", "category": "math", "require": "", "license": "MIT License", "url": "https://github.com/phetsims/graphing-quadratics", "description": "\"Graphing Quadratics\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "graphing-quadratics.png",
+  "banner_en": "graphing-quadratics.png",
+  "banner_es": "graphing-quadratics.png",
+  "category": "math",
+  "description": "\"Graphing Quadratics\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "graphing-quadratics_ca.html",
+  "html_en": "graphing-quadratics_en.html",
+  "html_es": "graphing-quadratics_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "MIT License",
+  "name_ca": "Grafiant quadràtiques",
+  "name_en": "Graphing Quadratics",
+  "name_es": "Graficando Cuadráticas",
+  "require": "",
+  "url": "https://github.com/phetsims/graphing-quadratics"
+}

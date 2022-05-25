@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Lab de condensadores: Intro", "banner_es": "capacitor-lab-basics.png", "html_es": "capacitor-lab-basics_es.html", "name_ca": "Lab de condensadors: Introducció", "banner_ca": "capacitor-lab-basics.png", "html_ca": "capacitor-lab-basics_ca.html", "name_en": "Capacitor Lab: Basics", "banner_en": "capacitor-lab-basics.png", "html_en": "capacitor-lab-basics_en.html", "category": "physics", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/capacitor-lab-basics", "description": "\"Capacitor Lab: Basics\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "capacitor-lab-basics.png",
+  "banner_en": "capacitor-lab-basics.png",
+  "banner_es": "capacitor-lab-basics.png",
+  "category": "physics",
+  "description": "\"Capacitor Lab: Basics\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "capacitor-lab-basics_ca.html",
+  "html_en": "capacitor-lab-basics_en.html",
+  "html_es": "capacitor-lab-basics_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Lab de condensadors: Introducció",
+  "name_en": "Capacitor Lab: Basics",
+  "name_es": "Lab de condensadores: Intro",
+  "require": "",
+  "url": "https://github.com/phetsims/capacitor-lab-basics"
+}

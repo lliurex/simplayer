@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Regresión de mínimos cuadrados", "banner_es": "least-squares-regression.png", "html_es": "least-squares-regression_es.html", "name_ca": "Regressió de mínims quadrats", "banner_ca": "least-squares-regression.png", "html_ca": "least-squares-regression_ca.html", "name_en": "Least-Squares Regression", "banner_en": "least-squares-regression.png", "html_en": "least-squares-regression_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/least-squares-regression", "description": "\"Least-Squares Regression\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "least-squares-regression.png",
+  "banner_en": "least-squares-regression.png",
+  "banner_es": "least-squares-regression.png",
+  "category": "math",
+  "description": "\"Least-Squares Regression\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "least-squares-regression_ca.html",
+  "html_en": "least-squares-regression_en.html",
+  "html_es": "least-squares-regression_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Regressió de mínims quadrats",
+  "name_en": "Least-Squares Regression",
+  "name_es": "Regresión de mínimos cuadrados",
+  "require": "",
+  "url": "https://github.com/phetsims/least-squares-regression"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Ley de equilibrio", "banner_es": "balancing-act.png", "html_es": "balancing-act_es.html", "name_ca": "Llei d'equilibri", "banner_ca": "balancing-act.png", "html_ca": "balancing-act_ca.html", "name_en": "Balancing Act", "banner_en": "balancing-act.png", "html_en": "balancing-act_en.html", "category": "physics,math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/balancing-act", "description": "\"Balancing Act\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "balancing-act.png",
+  "banner_en": "balancing-act.png",
+  "banner_es": "balancing-act.png",
+  "category": "physics,math",
+  "description": "\"Balancing Act\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "balancing-act_ca.html",
+  "html_en": "balancing-act_en.html",
+  "html_es": "balancing-act_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Llei d'equilibri",
+  "name_en": "Balancing Act",
+  "name_es": "Ley de equilibrio",
+  "require": "",
+  "url": "https://github.com/phetsims/balancing-act"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Concentración", "banner_es": "concentration.png", "html_es": "concentration_es.html", "name_ca": "Concentració", "banner_ca": "concentration.png", "html_ca": "concentration_ca.html", "name_en": "Concentration", "banner_en": "concentration.png", "html_en": "concentration_en.html", "category": "chemistry", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/concentration", "description": "\"Concentration\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "concentration.png",
+  "banner_en": "concentration.png",
+  "banner_es": "concentration.png",
+  "category": "chemistry",
+  "description": "\"Concentration\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "concentration_ca.html",
+  "html_en": "concentration_en.html",
+  "html_es": "concentration_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Concentració",
+  "name_en": "Concentration",
+  "name_es": "Concentración",
+  "require": "",
+  "url": "https://github.com/phetsims/concentration"
+}

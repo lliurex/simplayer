@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Construye una fracción", "banner_es": "build-a-fraction.png", "html_es": "build-a-fraction_es.html", "name_ca": "Construeix una fracció", "banner_ca": "build-a-fraction.png", "html_ca": "build-a-fraction_ca.html", "name_en": "Build a Fraction", "banner_en": "build-a-fraction.png", "html_en": "build-a-fraction_en.html", "category": "math", "require": "", "license": "MIT License", "url": "https://github.com/phetsims/build-a-fraction", "description": "\"Build a Fraction\" is an educational simulation in HTML5, by PhET Interactive Simulations "}
+{
+  "banner_ca": "build-a-fraction.png",
+  "banner_en": "build-a-fraction.png",
+  "banner_es": "build-a-fraction.png",
+  "category": "math",
+  "description": "\"Build a Fraction\" is an educational simulation in HTML5, by PhET Interactive Simulations ",
+  "html_ca": "build-a-fraction_ca.html",
+  "html_en": "build-a-fraction_en.html",
+  "html_es": "build-a-fraction_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "MIT License",
+  "name_ca": "Construeix una fracció",
+  "name_en": "Build a Fraction",
+  "name_es": "Construye una fracción",
+  "require": "",
+  "url": "https://github.com/phetsims/build-a-fraction"
+}

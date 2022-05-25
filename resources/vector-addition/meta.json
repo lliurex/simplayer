@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Adición de Vectores", "banner_es": "vector-addition.png", "html_es": "vector-addition_es.html", "name_ca": "Addició de vectors", "banner_ca": "vector-addition.png", "html_ca": "vector-addition_ca.html", "name_en": "Vector Addition", "banner_en": "vector-addition.png", "html_en": "vector-addition_en.html", "category": "physics,math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/vector-addition", "description": "“Vector Addition” is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "vector-addition.png",
+  "banner_en": "vector-addition.png",
+  "banner_es": "vector-addition.png",
+  "category": "physics,math",
+  "description": "“Vector Addition” is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "vector-addition_ca.html",
+  "html_en": "vector-addition_en.html",
+  "html_es": "vector-addition_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Addició de vectors",
+  "name_en": "Vector Addition",
+  "name_es": "Adición de Vectores",
+  "require": "",
+  "url": "https://github.com/phetsims/vector-addition"
+}

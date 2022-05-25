@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Dispersión de Rutherford", "banner_es": "rutherford-scattering.png", "html_es": "rutherford-scattering_es.html", "name_ca": "Dispersió de Rutherford", "banner_ca": "rutherford-scattering.png", "html_ca": "rutherford-scattering_ca.html", "name_en": "Rutherford Scattering", "banner_en": "rutherford-scattering.png", "html_en": "rutherford-scattering_en.html", "category": "physics,chemistry", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/rutherford-scattering", "description": "\"Rutherford Scattering\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "rutherford-scattering.png",
+  "banner_en": "rutherford-scattering.png",
+  "banner_es": "rutherford-scattering.png",
+  "category": "physics,chemistry",
+  "description": "\"Rutherford Scattering\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "rutherford-scattering_ca.html",
+  "html_en": "rutherford-scattering_en.html",
+  "html_es": "rutherford-scattering_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Dispersió de Rutherford",
+  "name_en": "Rutherford Scattering",
+  "name_es": "Dispersión de Rutherford",
+  "require": "",
+  "url": "https://github.com/phetsims/rutherford-scattering"
+}

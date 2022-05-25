@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Molaridad", "banner_es": "molarity.png", "html_es": "molarity_es.html", "name_ca": "Molaritat", "banner_ca": "molarity.png", "html_ca": "molarity_ca.html", "name_en": "Molarity", "banner_en": "molarity.png", "html_en": "molarity_en.html", "category": "chemistry", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/molarity", "description": "\"Molarity\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "molarity.png",
+  "banner_en": "molarity.png",
+  "banner_es": "molarity.png",
+  "category": "chemistry",
+  "description": "\"Molarity\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "molarity_ca.html",
+  "html_en": "molarity_en.html",
+  "html_es": "molarity_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Molaritat",
+  "name_en": "Molarity",
+  "name_es": "Molaridad",
+  "require": "",
+  "url": "https://github.com/phetsims/molarity"
+}

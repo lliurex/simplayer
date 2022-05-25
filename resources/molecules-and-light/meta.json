@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Moléculas y luz", "banner_es": "molecules-and-light.png", "html_es": "molecules-and-light_es.html", "name_ca": "Molècules i llum", "banner_ca": "molecules-and-light.png", "html_ca": "molecules-and-light_ca.html", "name_en": "Molecules and Light", "banner_en": "molecules-and-light.png", "html_en": "molecules-and-light_en.html", "category": "physics,chemistry,earth-science", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/molecules-and-light", "description": "\"Molecules and Light\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "molecules-and-light.png",
+  "banner_en": "molecules-and-light.png",
+  "banner_es": "molecules-and-light.png",
+  "category": "physics,chemistry,earth-science",
+  "description": "\"Molecules and Light\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "molecules-and-light_ca.html",
+  "html_en": "molecules-and-light_en.html",
+  "html_es": "molecules-and-light_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Molècules i llum",
+  "name_en": "Molecules and Light",
+  "name_es": "Moléculas y luz",
+  "require": "",
+  "url": "https://github.com/phetsims/molecules-and-light"
+}

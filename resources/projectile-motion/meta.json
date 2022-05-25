@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Movimiento de un Proyectil", "banner_es": "projectile-motion.png", "html_es": "projectile-motion_es.html", "name_ca": "Moviment d'un projectil", "banner_ca": "projectile-motion.png", "html_ca": "projectile-motion_ca.html", "name_en": "Projectile Motion", "banner_en": "projectile-motion.png", "html_en": "projectile-motion_en.html", "category": "physics,math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/projectile-motion", "description": "\"Projectile Motion\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "projectile-motion.png",
+  "banner_en": "projectile-motion.png",
+  "banner_es": "projectile-motion.png",
+  "category": "physics,math",
+  "description": "\"Projectile Motion\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "projectile-motion_ca.html",
+  "html_en": "projectile-motion_en.html",
+  "html_es": "projectile-motion_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Moviment d'un projectil",
+  "name_en": "Projectile Motion",
+  "name_es": "Movimiento de un Proyectil",
+  "require": "",
+  "url": "https://github.com/phetsims/projectile-motion"
+}

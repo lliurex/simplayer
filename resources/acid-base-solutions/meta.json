@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Soluciones Ácido-Base", "banner_es": "acid-base-solutions.png", "html_es": "acid-base-solutions_es.html", "name_ca": "Solucions Àcid-Base", "banner_ca": "acid-base-solutions.png", "html_ca": "acid-base-solutions_ca.html", "name_en": "Acid-Base Solutions", "banner_en": "acid-base-solutions.png", "html_en": "acid-base-solutions_en.html", "category": "chemistry", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/acid-base-solutions", "description": "\"Acid-Base Solutions\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "acid-base-solutions.png",
+  "banner_en": "acid-base-solutions.png",
+  "banner_es": "acid-base-solutions.png",
+  "category": "chemistry",
+  "description": "\"Acid-Base Solutions\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "acid-base-solutions_ca.html",
+  "html_en": "acid-base-solutions_en.html",
+  "html_es": "acid-base-solutions_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Solucions Àcid-Base",
+  "name_en": "Acid-Base Solutions",
+  "name_es": "Soluciones Ácido-Base",
+  "require": "",
+  "url": "https://github.com/phetsims/acid-base-solutions"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Reflexión y Refracción de la Luz", "banner_es": "bending-light.png", "html_es": "bending-light_es.html", "name_ca": "Reflexió i refracció de la llum", "banner_ca": "bending-light.png", "html_ca": "bending-light_ca.html", "name_en": "Bending Light", "banner_en": "bending-light.png", "html_en": "bending-light_en.html", "category": "physics", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/bending-light", "description": "\"Bending Light\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "bending-light.png",
+  "banner_en": "bending-light.png",
+  "banner_es": "bending-light.png",
+  "category": "physics",
+  "description": "\"Bending Light\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "bending-light_ca.html",
+  "html_en": "bending-light_en.html",
+  "html_es": "bending-light_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Reflexió i refracció de la llum",
+  "name_en": "Bending Light",
+  "name_es": "Reflexión y Refracción de la Luz",
+  "require": "",
+  "url": "https://github.com/phetsims/bending-light"
+}

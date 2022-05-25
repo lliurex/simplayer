@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Recta Numérica: Enteros", "banner_es": "number-line-integers.png", "html_es": "number-line-integers_es.html", "name_ca": "Recta numèrica: Enters", "banner_ca": "number-line-integers.png", "html_ca": "number-line-integers_ca.html", "name_en": "Number Line: Integers", "banner_en": "number-line-integers.png", "html_en": "number-line-integers_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/number-line-integers", "description": "\"Number Line: Integers\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "number-line-integers.png",
+  "banner_en": "number-line-integers.png",
+  "banner_es": "number-line-integers.png",
+  "category": "math",
+  "description": "\"Number Line: Integers\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "number-line-integers_ca.html",
+  "html_en": "number-line-integers_en.html",
+  "html_es": "number-line-integers_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Recta numèrica: Enters",
+  "name_en": "Number Line: Integers",
+  "name_es": "Recta Numérica: Enteros",
+  "require": "",
+  "url": "https://github.com/phetsims/number-line-integers"
+}

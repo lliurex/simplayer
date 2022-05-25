@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Interacciones Atómicas", "banner_es": "atomic-interactions.png", "html_es": "atomic-interactions_es.html", "name_ca": "Interaccions atòmiques", "banner_ca": "atomic-interactions.png", "html_ca": "atomic-interactions_ca.html", "name_en": "Atomic Interactions", "banner_en": "atomic-interactions.png", "html_en": "atomic-interactions_en.html", "category": "physics,chemistry", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/atomic-interactions", "description": "\"Atomic Interactions\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "atomic-interactions.png",
+  "banner_en": "atomic-interactions.png",
+  "banner_es": "atomic-interactions.png",
+  "category": "physics,chemistry",
+  "description": "\"Atomic Interactions\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "atomic-interactions_ca.html",
+  "html_en": "atomic-interactions_en.html",
+  "html_es": "atomic-interactions_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Interaccions atòmiques",
+  "name_en": "Atomic Interactions",
+  "name_es": "Interacciones Atómicas",
+  "require": "",
+  "url": "https://github.com/phetsims/atomic-interactions"
+}

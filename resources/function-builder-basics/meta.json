@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Generador de funciones: Intro", "banner_es": "function-builder-basics.png", "html_es": "function-builder-basics_es.html", "name_ca": "Generador de funcions: Introducció", "banner_ca": "function-builder-basics.png", "html_ca": "function-builder-basics_ca.html", "name_en": "Function Builder: Basics", "banner_en": "function-builder-basics.png", "html_en": "function-builder-basics_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/function-builder-basics", "description": "\"Function Builder: Basics\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "function-builder-basics.png",
+  "banner_en": "function-builder-basics.png",
+  "banner_es": "function-builder-basics.png",
+  "category": "math",
+  "description": "\"Function Builder: Basics\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "function-builder-basics_ca.html",
+  "html_en": "function-builder-basics_en.html",
+  "html_es": "function-builder-basics_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Generador de funcions: Introducció",
+  "name_en": "Function Builder: Basics",
+  "name_es": "Generador de funciones: Intro",
+  "require": "",
+  "url": "https://github.com/phetsims/function-builder-basics"
+}

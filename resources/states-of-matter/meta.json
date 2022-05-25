@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Estados de la materia", "banner_es": "states-of-matter.png", "html_es": "states-of-matter_es.html", "name_ca": "Estats de la matèria", "banner_ca": "states-of-matter.png", "html_ca": "states-of-matter_ca.html", "name_en": "States of Matter", "banner_en": "states-of-matter.png", "html_en": "states-of-matter_en.html", "category": "physics,chemistry", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/states-of-matter", "description": "\"States of Matter\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "states-of-matter.png",
+  "banner_en": "states-of-matter.png",
+  "banner_es": "states-of-matter.png",
+  "category": "physics,chemistry",
+  "description": "\"States of Matter\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "states-of-matter_ca.html",
+  "html_en": "states-of-matter_en.html",
+  "html_es": "states-of-matter_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Estats de la matèria",
+  "name_en": "States of Matter",
+  "name_es": "Estados de la materia",
+  "require": "",
+  "url": "https://github.com/phetsims/states-of-matter"
+}

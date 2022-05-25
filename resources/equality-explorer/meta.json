@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Explorador de Igualdades", "banner_es": "equality-explorer.png", "html_es": "equality-explorer_es.html", "name_ca": "Explorador d'igualtats", "banner_ca": "equality-explorer.png", "html_ca": "equality-explorer_ca.html", "name_en": "Equality Explorer", "banner_en": "equality-explorer.png", "html_en": "equality-explorer_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/equality-explorer", "description": "\"Equality Explorer\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "equality-explorer.png",
+  "banner_en": "equality-explorer.png",
+  "banner_es": "equality-explorer.png",
+  "category": "math",
+  "description": "\"Equality Explorer\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "equality-explorer_ca.html",
+  "html_en": "equality-explorer_en.html",
+  "html_es": "equality-explorer_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Explorador d'igualtats",
+  "name_en": "Equality Explorer",
+  "name_es": "Explorador de Igualdades",
+  "require": "",
+  "url": "https://github.com/phetsims/equality-explorer"
+}

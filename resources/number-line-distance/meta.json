@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Recta Numérica: Distancia", "banner_es": "number-line-distance.png", "html_es": "number-line-distance_es.html", "name_ca": "Recta numèrica: Distància", "banner_ca": "number-line-distance.png", "html_ca": "number-line-distance_ca.html", "name_en": "Number Line: Distance", "banner_en": "number-line-distance.png", "html_en": "number-line-distance_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/number-line-distance", "description": "\"Number Line: Distance\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "number-line-distance.png",
+  "banner_en": "number-line-distance.png",
+  "banner_es": "number-line-distance.png",
+  "category": "math",
+  "description": "\"Number Line: Distance\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "number-line-distance_ca.html",
+  "html_en": "number-line-distance_en.html",
+  "html_es": "number-line-distance_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Recta numèrica: Distància",
+  "name_en": "Number Line: Distance",
+  "name_es": "Recta Numérica: Distancia",
+  "require": "",
+  "url": "https://github.com/phetsims/number-line-distance"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Parejas de Fracciones", "banner_es": "fraction-matcher.png", "html_es": "fraction-matcher_es.html", "name_ca": "Parelles de fraccions", "banner_ca": "fraction-matcher.png", "html_ca": "fraction-matcher_ca.html", "name_en": "Fraction Matcher", "banner_en": "fraction-matcher.png", "html_en": "fraction-matcher_en.html", "category": "math", "require": "", "license": "MIT License", "url": "https://github.com/phetsims/fraction-matcher", "description": "\"Fraction Matcher\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "fraction-matcher.png",
+  "banner_en": "fraction-matcher.png",
+  "banner_es": "fraction-matcher.png",
+  "category": "math",
+  "description": "\"Fraction Matcher\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "fraction-matcher_ca.html",
+  "html_en": "fraction-matcher_en.html",
+  "html_es": "fraction-matcher_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "MIT License",
+  "name_ca": "Parelles de fraccions",
+  "name_en": "Fraction Matcher",
+  "name_es": "Parejas de Fracciones",
+  "require": "",
+  "url": "https://github.com/phetsims/fraction-matcher"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Radiación del Cuerpo Negro", "banner_es": "blackbody-spectrum.png", "html_es": "blackbody-spectrum_es.html", "name_ca": "Radiació del cos negre", "banner_ca": "blackbody-spectrum.png", "html_ca": "blackbody-spectrum_ca.html", "name_en": "Blackbody Spectrum", "banner_en": "blackbody-spectrum.png", "html_en": "blackbody-spectrum_en.html", "category": "physics,chemistry,earth-science", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/blackbody-spectrum", "description": "\"Blackbody Spectrum\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "blackbody-spectrum.png",
+  "banner_en": "blackbody-spectrum.png",
+  "banner_es": "blackbody-spectrum.png",
+  "category": "physics,chemistry,earth-science",
+  "description": "\"Blackbody Spectrum\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "blackbody-spectrum_ca.html",
+  "html_en": "blackbody-spectrum_en.html",
+  "html_es": "blackbody-spectrum_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Radiació del cos negre",
+  "name_en": "Blackbody Spectrum",
+  "name_es": "Radiación del Cuerpo Negro",
+  "require": "",
+  "url": "https://github.com/phetsims/blackbody-spectrum"
+}

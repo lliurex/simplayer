@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Lab de la ley de Beer", "banner_es": "beers-law-lab.png", "html_es": "beers-law-lab_es.html", "name_ca": "Lab de la llei de Beer", "banner_ca": "beers-law-lab.png", "html_ca": "beers-law-lab_ca.html", "name_en": "Beer's Law Lab", "banner_en": "beers-law-lab.png", "html_en": "beers-law-lab_en.html", "category": "chemistry", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/beers-law-lab", "description": "\"Beer's Law Lab\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "beers-law-lab.png",
+  "banner_en": "beers-law-lab.png",
+  "banner_es": "beers-law-lab.png",
+  "category": "chemistry",
+  "description": "\"Beer's Law Lab\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "beers-law-lab_ca.html",
+  "html_en": "beers-law-lab_en.html",
+  "html_es": "beers-law-lab_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Lab de la llei de Beer",
+  "name_en": "Beer's Law Lab",
+  "name_es": "Lab de la ley de Beer",
+  "require": "",
+  "url": "https://github.com/phetsims/beers-law-lab"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Onda en una cuerda", "banner_es": "wave-on-a-string.png", "html_es": "wave-on-a-string_es.html", "name_ca": "Onda en una corda", "banner_ca": "wave-on-a-string.png", "html_ca": "wave-on-a-string_ca.html", "name_en": "Wave on a String", "banner_en": "wave-on-a-string.png", "html_en": "wave-on-a-string_en.html", "category": "physics,chemistry,math,earth-science", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/wave-on-a-string", "description": "\"Wave on a String\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "wave-on-a-string.png",
+  "banner_en": "wave-on-a-string.png",
+  "banner_es": "wave-on-a-string.png",
+  "category": "physics,chemistry,math,earth-science",
+  "description": "\"Wave on a String\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "wave-on-a-string_ca.html",
+  "html_en": "wave-on-a-string_en.html",
+  "html_es": "wave-on-a-string_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Onda en una corda",
+  "name_en": "Wave on a String",
+  "name_es": "Onda en una cuerda",
+  "require": "",
+  "url": "https://github.com/phetsims/wave-on-a-string"
+}

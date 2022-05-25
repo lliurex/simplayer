@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Cargas y campos", "banner_es": "charges-and-fields.png", "html_es": "charges-and-fields_es.html", "name_ca": "Càrregues i camps", "banner_ca": "charges-and-fields.png", "html_ca": "charges-and-fields_ca.html", "name_en": "Charges and Fields", "banner_en": "charges-and-fields.png", "html_en": "charges-and-fields_en.html", "category": "physics", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/charges-and-fields", "description": "\"Charges And Fields\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "charges-and-fields.png",
+  "banner_en": "charges-and-fields.png",
+  "banner_es": "charges-and-fields.png",
+  "category": "physics",
+  "description": "\"Charges And Fields\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "charges-and-fields_ca.html",
+  "html_en": "charges-and-fields_en.html",
+  "html_es": "charges-and-fields_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Càrregues i camps",
+  "name_en": "Charges and Fields",
+  "name_es": "Cargas y campos",
+  "require": "",
+  "url": "https://github.com/phetsims/charges-and-fields"
+}

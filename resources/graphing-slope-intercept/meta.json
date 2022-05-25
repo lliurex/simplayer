@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Graficando Rectas Pendiente-Intersección", "banner_es": "graphing-slope-intercept.png", "html_es": "graphing-slope-intercept_es.html", "name_ca": "Grafiant rectes pendent-intersecció", "banner_ca": "graphing-slope-intercept.png", "html_ca": "graphing-slope-intercept_ca.html", "name_en": "Graphing Slope-Intercept", "banner_en": "graphing-slope-intercept.png", "html_en": "graphing-slope-intercept_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/graphing-slope-intercept", "description": "\"Graphing Slope-Intercept\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "graphing-slope-intercept.png",
+  "banner_en": "graphing-slope-intercept.png",
+  "banner_es": "graphing-slope-intercept.png",
+  "category": "math",
+  "description": "\"Graphing Slope-Intercept\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "graphing-slope-intercept_ca.html",
+  "html_en": "graphing-slope-intercept_en.html",
+  "html_es": "graphing-slope-intercept_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Grafiant rectes pendent-intersecció",
+  "name_en": "Graphing Slope-Intercept",
+  "name_es": "Graficando Rectas Pendiente-Intersección",
+  "require": "",
+  "url": "https://github.com/phetsims/graphing-slope-intercept"
+}

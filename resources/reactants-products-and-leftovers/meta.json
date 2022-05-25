@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Reactivos, productos y excedentes", "banner_es": "reactants-products-and-leftovers.png", "html_es": "reactants-products-and-leftovers_es.html", "name_ca": "Reactius, productes i excedents", "banner_ca": "reactants-products-and-leftovers.png", "html_ca": "reactants-products-and-leftovers_ca.html", "name_en": "Reactants, Products and Leftovers", "banner_en": "reactants-products-and-leftovers.png", "html_en": "reactants-products-and-leftovers_en.html", "category": "chemistry", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/reactants-products-and-leftovers", "description": "\"Reactants, Products and Leftovers\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "reactants-products-and-leftovers.png",
+  "banner_en": "reactants-products-and-leftovers.png",
+  "banner_es": "reactants-products-and-leftovers.png",
+  "category": "chemistry",
+  "description": "\"Reactants, Products and Leftovers\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "reactants-products-and-leftovers_ca.html",
+  "html_en": "reactants-products-and-leftovers_en.html",
+  "html_es": "reactants-products-and-leftovers_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Reactius, productes i excedents",
+  "name_en": "Reactants, Products and Leftovers",
+  "name_es": "Reactivos, productos y excedentes",
+  "require": "",
+  "url": "https://github.com/phetsims/reactants-products-and-leftovers"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Balanceo de Ecuaciones Químicas", "banner_es": "balancing-chemical-equations.png", "html_es": "balancing-chemical-equations_es.html", "name_ca": "Balanceig d'equacions químiques", "banner_ca": "balancing-chemical-equations.png", "html_ca": "balancing-chemical-equations_ca.html", "name_en": "Balancing Chemical Equations", "banner_en": "balancing-chemical-equations.png", "html_en": "balancing-chemical-equations_en.html", "category": "chemistry", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/balancing-chemical-equations", "description": "\"Balancing Chemical Equations\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "balancing-chemical-equations.png",
+  "banner_en": "balancing-chemical-equations.png",
+  "banner_es": "balancing-chemical-equations.png",
+  "category": "chemistry",
+  "description": "\"Balancing Chemical Equations\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "balancing-chemical-equations_ca.html",
+  "html_en": "balancing-chemical-equations_en.html",
+  "html_es": "balancing-chemical-equations_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Balanceig d'equacions químiques",
+  "name_en": "Balancing Chemical Equations",
+  "name_es": "Balanceo de Ecuaciones Químicas",
+  "require": "",
+  "url": "https://github.com/phetsims/balancing-chemical-equations"
+}

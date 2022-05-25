@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Ley de Ohm", "banner_es": "ohms-law.png", "html_es": "ohms-law_es.html", "name_ca": "Llei d'Ohm", "banner_ca": "ohms-law.png", "html_ca": "ohms-law_ca.html", "name_en": "Ohm's Law", "banner_en": "ohms-law.png", "html_en": "ohms-law_en.html", "category": "physics,math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/ohms-law", "description": "\"Ohm's Law\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "ohms-law.png",
+  "banner_en": "ohms-law.png",
+  "banner_es": "ohms-law.png",
+  "category": "physics,math",
+  "description": "\"Ohm's Law\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "ohms-law_ca.html",
+  "html_en": "ohms-law_en.html",
+  "html_es": "ohms-law_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Llei d'Ohm",
+  "name_en": "Ohm's Law",
+  "name_es": "Ley de Ohm",
+  "require": "",
+  "url": "https://github.com/phetsims/ohms-law"
+}

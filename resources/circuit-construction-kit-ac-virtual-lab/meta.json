@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Kit de Construcción de Circuitos CA - Laboratorio Virtual", "banner_es": "circuit-construction-kit-ac-virtual-lab.png", "html_es": "circuit-construction-kit-ac-virtual-lab_es.html", "name_ca": "Kit de construcció de circuits CA - Laboratori virtual", "banner_ca": "circuit-construction-kit-ac-virtual-lab.png", "html_ca": "circuit-construction-kit-ac-virtual-lab_ca.html", "name_en": "Circuit Construction Kit: AC - Virtual Lab", "banner_en": "circuit-construction-kit-ac-virtual-lab.png", "html_en": "circuit-construction-kit-ac-virtual-lab_en.html", "category": "physics", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/circuit-construction-kit-ac-virtual-lab", "description": "\"Circuit Construction Kit: AC - Virtual Lab\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "circuit-construction-kit-ac-virtual-lab.png",
+  "banner_en": "circuit-construction-kit-ac-virtual-lab.png",
+  "banner_es": "circuit-construction-kit-ac-virtual-lab.png",
+  "category": "physics",
+  "description": "\"Circuit Construction Kit: AC - Virtual Lab\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "circuit-construction-kit-ac-virtual-lab_ca.html",
+  "html_en": "circuit-construction-kit-ac-virtual-lab_en.html",
+  "html_es": "circuit-construction-kit-ac-virtual-lab_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Kit de construcció de circuits CA - Laboratori virtual",
+  "name_en": "Circuit Construction Kit: AC - Virtual Lab",
+  "name_es": "Kit de Construcción de Circuitos CA - Laboratorio Virtual",
+  "require": "",
+  "url": "https://github.com/phetsims/circuit-construction-kit-ac-virtual-lab"
+}

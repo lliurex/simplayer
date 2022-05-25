@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Masas y Resortes: Intro", "banner_es": "masses-and-springs-basics.png", "html_es": "masses-and-springs-basics_es.html", "name_ca": "Masses i ressorts: Introducció", "banner_ca": "masses-and-springs-basics.png", "html_ca": "masses-and-springs-basics_ca.html", "name_en": "Masses and Springs: Basics", "banner_en": "masses-and-springs-basics.png", "html_en": "masses-and-springs-basics_en.html", "category": "physics", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/masses-and-springs-basics", "description": "\"Masses and Springs: Basics\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "masses-and-springs-basics.png",
+  "banner_en": "masses-and-springs-basics.png",
+  "banner_es": "masses-and-springs-basics.png",
+  "category": "physics",
+  "description": "\"Masses and Springs: Basics\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "masses-and-springs-basics_ca.html",
+  "html_en": "masses-and-springs-basics_en.html",
+  "html_es": "masses-and-springs-basics_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Masses i ressorts: Introducció",
+  "name_en": "Masses and Springs: Basics",
+  "name_es": "Masas y Resortes: Intro",
+  "require": "",
+  "url": "https://github.com/phetsims/masses-and-springs-basics"
+}

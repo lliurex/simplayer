@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Visión del color", "banner_es": "color-vision.png", "html_es": "color-vision_es.html", "name_ca": "Visió del color", "banner_ca": "color-vision.png", "html_ca": "color-vision_ca.html", "name_en": "Color Vision", "banner_en": "color-vision.png", "html_en": "color-vision_en.html", "category": "physics,biology", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/color-vision", "description": "\"Color Vision\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "color-vision.png",
+  "banner_en": "color-vision.png",
+  "banner_es": "color-vision.png",
+  "category": "physics,biology",
+  "description": "\"Color Vision\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "color-vision_ca.html",
+  "html_en": "color-vision_en.html",
+  "html_es": "color-vision_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Visió del color",
+  "name_en": "Color Vision",
+  "name_es": "Visión del color",
+  "require": "",
+  "url": "https://github.com/phetsims/color-vision"
+}

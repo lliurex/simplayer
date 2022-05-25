@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Gravedad y Órbitas", "banner_es": "gravity-and-orbits.png", "html_es": "gravity-and-orbits_es.html", "name_ca": "Gravetat i òrbites", "banner_ca": "gravity-and-orbits.png", "html_ca": "gravity-and-orbits_ca.html", "name_en": "Gravity and Orbits", "banner_en": "gravity-and-orbits.png", "html_en": "gravity-and-orbits_en.html", "category": "physics,earth-science", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/gravity-and-orbits", "description": "\"Gravity And Orbits\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "gravity-and-orbits.png",
+  "banner_en": "gravity-and-orbits.png",
+  "banner_es": "gravity-and-orbits.png",
+  "category": "physics,earth-science",
+  "description": "\"Gravity And Orbits\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "gravity-and-orbits_ca.html",
+  "html_en": "gravity-and-orbits_en.html",
+  "html_es": "gravity-and-orbits_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Gravetat i òrbites",
+  "name_en": "Gravity and Orbits",
+  "name_es": "Gravedad y Órbitas",
+  "require": "",
+  "url": "https://github.com/phetsims/gravity-and-orbits"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Razón unitaria", "banner_es": "unit-rates.png", "html_es": "unit-rates_es.html", "name_ca": "Raó unitària", "banner_ca": "unit-rates.png", "html_ca": "unit-rates_ca.html", "name_en": "Unit Rates", "banner_en": "unit-rates.png", "html_en": "unit-rates_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/unit-rates", "description": "\"Unit Rates\" is an educational simulation in HTML5, by PhET Interactive Simulations. "}
+{
+  "banner_ca": "unit-rates.png",
+  "banner_en": "unit-rates.png",
+  "banner_es": "unit-rates.png",
+  "category": "math",
+  "description": "\"Unit Rates\" is an educational simulation in HTML5, by PhET Interactive Simulations. ",
+  "html_ca": "unit-rates_ca.html",
+  "html_en": "unit-rates_en.html",
+  "html_es": "unit-rates_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Raó unitària",
+  "name_en": "Unit Rates",
+  "name_es": "Razón unitaria",
+  "require": "",
+  "url": "https://github.com/phetsims/unit-rates"
+}

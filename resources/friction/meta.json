@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Fricción", "banner_es": "friction.png", "html_es": "friction_es.html", "name_ca": "Fricció", "banner_ca": "friction.png", "html_ca": "friction_ca.html", "name_en": "Friction", "banner_en": "friction.png", "html_en": "friction_en.html", "category": "physics", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/friction", "description": "\"Friction\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "friction.png",
+  "banner_en": "friction.png",
+  "banner_es": "friction.png",
+  "category": "physics",
+  "description": "\"Friction\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "friction_ca.html",
+  "html_en": "friction_en.html",
+  "html_es": "friction_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Fricció",
+  "name_en": "Friction",
+  "name_es": "Fricción",
+  "require": "",
+  "url": "https://github.com/phetsims/friction"
+}

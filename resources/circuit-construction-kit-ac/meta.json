@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Kit de Construcción de Circuitos: CA", "banner_es": "circuit-construction-kit-ac.png", "html_es": "circuit-construction-kit-ac_es.html", "name_ca": "Kit de construcció de circuits: CA", "banner_ca": "circuit-construction-kit-ac.png", "html_ca": "circuit-construction-kit-ac_ca.html", "name_en": "Circuit Construction Kit: AC", "banner_en": "circuit-construction-kit-ac.png", "html_en": "circuit-construction-kit-ac_en.html", "category": "physics", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/circuit-construction-kit-ac", "description": "\"Circuit Construction Kit: AC and DC\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "circuit-construction-kit-ac.png",
+  "banner_en": "circuit-construction-kit-ac.png",
+  "banner_es": "circuit-construction-kit-ac.png",
+  "category": "physics",
+  "description": "\"Circuit Construction Kit: AC and DC\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "circuit-construction-kit-ac_ca.html",
+  "html_en": "circuit-construction-kit-ac_en.html",
+  "html_es": "circuit-construction-kit-ac_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Kit de construcció de circuits: CA",
+  "name_en": "Circuit Construction Kit: AC",
+  "name_es": "Kit de Construcción de Circuitos: CA",
+  "require": "",
+  "url": "https://github.com/phetsims/circuit-construction-kit-ac"
+}

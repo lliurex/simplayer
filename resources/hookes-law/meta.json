@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Ley de Hooke", "banner_es": "hookes-law.png", "html_es": "hookes-law_es.html", "name_ca": "Llei de Hooke", "banner_ca": "hookes-law.png", "html_ca": "hookes-law_ca.html", "name_en": "Hooke's Law", "banner_en": "hookes-law.png", "html_en": "hookes-law_en.html", "category": "physics", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/hookes-law", "description": "\"Hooke's Law\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "hookes-law.png",
+  "banner_en": "hookes-law.png",
+  "banner_es": "hookes-law.png",
+  "category": "physics",
+  "description": "\"Hooke's Law\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "hookes-law_ca.html",
+  "html_en": "hookes-law_en.html",
+  "html_es": "hookes-law_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Llei de Hooke",
+  "name_en": "Hooke's Law",
+  "name_es": "Ley de Hooke",
+  "require": "",
+  "url": "https://github.com/phetsims/hookes-law"
+}

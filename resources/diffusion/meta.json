@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Difusión", "banner_es": "diffusion.png", "html_es": "diffusion_es.html", "name_ca": "Difusió", "banner_ca": "diffusion.png", "html_ca": "diffusion_ca.html", "name_en": "Diffusion", "banner_en": "diffusion.png", "html_en": "diffusion_en.html", "category": "physics,chemistry,earth-science", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/diffusion", "description": "\"Diffusion\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "diffusion.png",
+  "banner_en": "diffusion.png",
+  "banner_es": "diffusion.png",
+  "category": "physics,chemistry,earth-science",
+  "description": "\"Diffusion\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "diffusion_ca.html",
+  "html_en": "diffusion_en.html",
+  "html_es": "diffusion_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Difusió",
+  "name_en": "Diffusion",
+  "name_es": "Difusión",
+  "require": "",
+  "url": "https://github.com/phetsims/diffusion"
+}

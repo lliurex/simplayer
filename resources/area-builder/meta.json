@@ -1,1 +1,22 @@
-{"languages": ["es", "ca", "en"], "name_es": "Constructor de Áreas", "banner_es": "area-builder.png", "html_es": "area-builder_es.html", "name_ca": "Constructor d'àrees", "banner_ca": "area-builder.png", "html_ca": "area-builder_ca.html", "name_en": "Area Builder", "banner_en": "area-builder.png", "html_en": "area-builder_en.html", "category": "math", "require": "", "license": "GNU General Public License v3.0", "url": "https://github.com/phetsims/area-builder", "description": "\"Area Builder\" is an educational simulation in HTML5, by PhET Interactive Simulations."}
+{
+  "banner_ca": "area-builder.png",
+  "banner_en": "area-builder.png",
+  "banner_es": "area-builder.png",
+  "category": "math",
+  "description": "\"Area Builder\" is an educational simulation in HTML5, by PhET Interactive Simulations.",
+  "html_ca": "area-builder_ca.html",
+  "html_en": "area-builder_en.html",
+  "html_es": "area-builder_es.html",
+  "languages": [
+    "es",
+    "ca",
+    "en"
+  ],
+  "level": "normal",
+  "license": "GNU General Public License v3.0",
+  "name_ca": "Constructor d'àrees",
+  "name_en": "Area Builder",
+  "name_es": "Constructor de Áreas",
+  "require": "",
+  "url": "https://github.com/phetsims/area-builder"
+}
