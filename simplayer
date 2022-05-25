@@ -124,8 +124,10 @@ set_translator(LANG)
 
 DEBUG=False
 DEBUG_REQUESTS=True
-FIXED_PORT=16666
 FIXED_PORT=None
+if DEBUG:
+    FIXED_PORT=16666
+
 
 USE_CACHE=True
 LIBRARY_DIR='/usr/lib/simplayer'
@@ -203,10 +205,11 @@ class Handler(SimpleHTTPRequestHandler):
                                 self.server.http_server.webgl_detection.emit('YES')
                         elif k == 'category':
                             content = self.server.http_server.tm.get_html(type_html=v).encode('utf8')
-                        elif self.server.http_server.tm.main_page:
-                            content = self.server.http_server.tm.redirect(redirection=self.server.http_server.tm.main_page).encode('utf8')
                 if not content:
-                    content = self.server.http_server.tm.get_html(type_html='').encode('utf8')
+                    if self.server.http_server.tm.main_page:
+                        content = self.server.http_server.tm.redirect(redirection=self.server.http_server.tm.main_page).encode('utf8')
+                    else:
+                        content = self.server.http_server.tm.get_html(type_html='').encode('utf8')
             elif 'swf' == basename[:3]:
                 key = basename.split('?')[1]
                 content = self.server.http_server.tm.get_html(type_html='swf',name=key).encode('utf8')
@@ -336,7 +339,13 @@ class TemplateManager():
     def search_categories(self):
         imagedir = f'{self.basedir}/images/categories'
         default_category_image = f'{imagedir}/default_category.svg'
-        cats = list(set( cat.get('category') for cat in self.projects.values() if cat.get('category') ))
+        cats = set()
+        for prj in self.projects.values():
+            cat = prj.get('category')
+            for c in cat.split(','):
+                if c:
+                    cats.add(c)
+        cats = sorted(list(cats))
         for cat in cats:
             if os.path.isfile(f'{imagedir}/{cat}.svg'):
                 self.categories.setdefault(cat,f'{imagedir}/{cat}.svg')
@@ -603,6 +612,7 @@ class MainWindow(QMainWindow):
         self.toolbar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
         self.level_changed = False
         self.browsing_history= False
+        self.language_changed = False
 
     def get_levels(self):
         return (self.check_easy.isChecked(),self.check_normal.isChecked(),self.check_hard.isChecked())
@@ -627,6 +637,7 @@ class MainWindow(QMainWindow):
         set_translator(LANG)
         self.retranslate_buttons()
         if go:
+            self.language_changed = True
             self.webPage.setUrl(self.webEngineView.url())
 
     def retranslate_buttons(self):
@@ -717,6 +728,7 @@ class MainWindow(QMainWindow):
     def load_url(self,url):
         global currentActivity, LANG
         currentActivity = None
+        debug_print('load_url: {}'.format(url))
 
         if not isinstance(url,QUrl):
             url = QUrl(url)
@@ -746,9 +758,11 @@ class MainWindow(QMainWindow):
                             break
             if activity_properties and LANG in activity_properties.get('languages') and activity_properties.get(f'name_{LANG}'):
                 self.setWindowTitle(activity_properties.get(f'name_{LANG}').capitalize())
-                target_html = activity_properties.get(f'html_{LANG}')
-                target_url = f'{self.get_docroot()}/resources/{currentActivity}/{target_html}'
-                url = target_url
+                if self.language_changed:
+                    self.language_changed = False
+                    target_html = activity_properties.get(f'html_{LANG}')
+                    target_url = f'{self.get_docroot()}/resources/{currentActivity}/{target_html}'
+                    url = target_url
             print(_('Current activity: {}').format(currentActivity))
 
         if not isinstance(url,QUrl):
@@ -760,7 +774,7 @@ class MainWindow(QMainWindow):
         host = url.host()
         port = url.port()
         self.in_category = False
-        if path == '/home' and query:
+        if query:
             parts = query.split('&')
             query = []
             category = None
@@ -774,11 +788,12 @@ class MainWindow(QMainWindow):
                     query.append(part)
                     if k == 'category':
                         category = str(v)
-            if category:
-                self.setWindowTitle(_(category).capitalize())
-                self.in_category = category
-            else:
-                self.setWindowTitle(_('Simplayer').capitalize())
+            if path == "/home":
+                if category:
+                    self.setWindowTitle(_(category).capitalize())
+                    self.in_category = category
+                else:
+                    self.setWindowTitle(_('Simplayer').capitalize())
 
             # easy,normal,hard = self.get_levels()
             # query.append(f'easy={easy}')
@@ -796,6 +811,7 @@ class MainWindow(QMainWindow):
 
         self.browsing_history = False
         self.level_changed = False
+
         return url
 
     def loadFinished(self, status):
