@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-23 16:09+0200\n"
-"PO-Revision-Date: 2022-05-23 16:10+0200\n"
+"POT-Creation-Date: 2022-05-25 17:03+0200\n"
+"PO-Revision-Date: 2022-05-25 17:10+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -18,110 +18,150 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: simplayer:246
-msgid "projects loaded"
-msgstr "proyectos cargados"
-
-#: simplayer:260
-msgid "Error"
-msgstr "Error"
-
-#: simplayer:260
-msgid "Activity {} not found"
-msgstr "Actividad {} no encontrada"
-
-#: simplayer:261
-msgid "Activity '{}' not found"
-msgstr "Actividad '{}' no encontrada"
-
-#: simplayer:333
-msgid "math"
-msgstr "matemáticas"
-
-#: simplayer:333
-msgid "earth-science"
-msgstr "ciencias naturales"
-
-#: simplayer:333
-msgid "biology"
-msgstr "biología"
-
-#: simplayer:333
-msgid "physics"
-msgstr "física"
-
-#: simplayer:333
-msgid "chemistry"
-msgstr "química"
-
-#: simplayer:348
-msgid "Filter"
-msgstr "Filtro"
-
-#: simplayer:379
-msgid "activated"
-msgstr "activado"
-
-#: simplayer:429 simplayer:624
-msgid "Simplayer"
-msgstr "Simplayer"
-
-#: simplayer:438
-msgid "home"
-msgstr "inicio"
-
-#: simplayer:438
-msgid "back"
-msgstr "atrás"
-
-#: simplayer:438
-msgid "forward"
-msgstr "adelante"
-
-#: simplayer:438
-msgid "reload"
-msgstr "recargar"
-
-#: simplayer:453 simplayer:459 simplayer:488
-msgid "english"
-msgstr "inglés"
-
-#: simplayer:453 simplayer:455 simplayer:484 simplayer:492
+#: simplayer:21
 msgid "spanish"
 msgstr "castellano"
 
-#: simplayer:453 simplayer:457 simplayer:486 simplayer:494
+#: simplayer:21
 msgid "valencian"
 msgstr "valenciano"
 
-#: simplayer:513 simplayer:520
+#: simplayer:21
+msgid "english"
+msgstr "inglés"
+
+#: simplayer:289
+msgid "projects loaded"
+msgstr "proyectos cargados"
+
+#: simplayer:315
+msgid "Error"
+msgstr "Error"
+
+#: simplayer:315 simplayer:316
+msgid "Activity '{}' not found"
+msgstr "Actividad '{}' no encontrada"
+
+#: simplayer:362
+msgid "Cache hit"
+msgstr "Éxito de caché"
+
+#: simplayer:364
+msgid "Cache miss"
+msgstr "Fallo de caché"
+
+#: simplayer:417
+msgid "math"
+msgstr "matemáticas"
+
+#: simplayer:417
+msgid "earth-science"
+msgstr "ciencias naturales"
+
+#: simplayer:417
+msgid "biology"
+msgstr "biología"
+
+#: simplayer:417
+msgid "physics"
+msgstr "física"
+
+#: simplayer:417
+msgid "chemistry"
+msgstr "química"
+
+#: simplayer:417
+msgid "accessibility"
+msgstr "accesibilidad"
+
+#: simplayer:417
+msgid "other"
+msgstr "otro"
+
+#: simplayer:422
+msgid "Filter"
+msgstr "Filtro"
+
+#: simplayer:459
+msgid "activated"
+msgstr "activado"
+
+#: simplayer:492
+msgid "--Start History--"
+msgstr "--Inicio Historial--"
+
+#: simplayer:499
+msgid "-- End History --"
+msgstr "-- Fin Historial --"
+
+#: simplayer:526 simplayer:781
+msgid "Simplayer"
+msgstr "Simplayer"
+
+#: simplayer:535
+msgid "home"
+msgstr "inicio"
+
+#: simplayer:535
+msgid "back"
+msgstr "atrás"
+
+#: simplayer:535
+msgid "forward"
+msgstr "adelante"
+
+#: simplayer:535
+msgid "reload"
+msgstr "recargar"
+
+#: simplayer:550
+msgid "Show activities"
+msgstr "Mostrar actividades"
+
+#: simplayer:552
+msgid "easy"
+msgstr "fácil"
+
+#: simplayer:554
+msgid "normal"
+msgstr "normal"
+
+#: simplayer:556
+msgid "hard"
+msgstr "difícil"
+
+#: simplayer:574
+msgid "Language"
+msgstr "Idioma"
+
+#: simplayer:645 simplayer:652
 msgid "Warning"
 msgstr "Atención"
 
-#: simplayer:513
+#: simplayer:645
 msgid "object already defined, can't add"
 msgstr "objecto ya definido, no se puede añadir"
 
-#: simplayer:520
+#: simplayer:652
 msgid "Missing image"
 msgstr "Imagen no encontrada"
 
-#: simplayer:619
+#: simplayer:752
 msgid "Current activity: {}"
 msgstr "Actividad actual: {}"
 
-#: simplayer:631
-msgid "Loading url"
-msgstr "Cargando url"
-
-#: simplayer:631
-msgid "Valid!"
-msgstr "Válido!"
-
-#: simplayer:631
-msgid "Not valid!"
-msgstr "No válido!"
-
-#: simplayer:689
+#: simplayer:825
 msgid "Detected language"
 msgstr "Idioma detectado"
+
+#~ msgid "Activity {} not found"
+#~ msgstr "Actividad {} no encontrada"
+
+#~ msgid "Loading url"
+#~ msgstr "Cargando url"
+
+#~ msgid "Valid!"
+#~ msgstr "Válido!"
+
+#~ msgid "Not valid!"
+#~ msgstr "No válido!"
