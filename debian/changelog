@@ -1,3 +1,9 @@
+simplayer-myphysicslab-activities (0.2.1) focal; urgency=medium
+
+  * Set level hard to activities
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Wed, 25 May 2022 17:59:24 +0200
+
 simplayer-myphysicslab-activities (0.2) focal; urgency=medium
 
   * With Minimal spanish translation
