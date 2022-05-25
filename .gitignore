@@ -1,5 +1,4 @@
 .vscode
 untracked
 .gitignore
-translations
-retriever
+translations/locale
