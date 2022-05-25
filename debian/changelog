@@ -1,3 +1,9 @@
+simplayer-flash-activities (0.4.2) focal; urgency=medium
+
+  * Fix typo error
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Wed, 25 May 2022 20:55:19 +0200
+
 simplayer-flash-activities (0.4.1) focal; urgency=medium
 
   * Set level easy to activities
