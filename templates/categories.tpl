@@ -4,11 +4,15 @@
 {% include 'style.tpl' %}
 {% include 'filter.tpl' %}
 <script>
+    easy = '{{easy}}'
+    normal = '{{normal}}'
+    hard = '{{hard}}'
+
 $(document).ready(function() {
-    let params = new URLSearchParams(window.location.search)
-    let easy = params.get('easy')
-    let normal = params.get('normal')
-    let hard = params.get('hard')
+    //let params = new URLSearchParams(window.location.search)
+    //let easy = params.get('easy')
+    //let normal = params.get('normal')
+    //let hard = params.get('hard')
     if (easy == 'False') {
         $('*[level=easy]').hide()
     }else{
