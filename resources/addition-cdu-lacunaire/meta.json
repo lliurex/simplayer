@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "Adición con huecos", "banner_es": "addition-cdu-lacunaire-es.png", "html_es": "swf?addition-cdu-lacunaire-es.swf", "name_ca": "Addició amb buits", "banner_ca": "addition-cdu-lacunaire-ca.png", "html_ca": "swf?addition-cdu-lacunaire-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "addition-cdu-lacunaire-ca.png",
+  "banner_es": "addition-cdu-lacunaire-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?addition-cdu-lacunaire-ca.swf",
+  "html_es": "swf?addition-cdu-lacunaire-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "Addició amb buits",
+  "name_es": "Adición con huecos",
+  "require": "",
+  "url": ""
+}

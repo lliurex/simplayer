@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "Pizarra", "banner_es": "iep.png", "html_es": "swf?iep-es.swf", "name_ca": "Pissarra", "banner_ca": "iep.png", "html_ca": "swf?iep-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "iep.png",
+  "banner_es": "iep.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?iep-ca.swf",
+  "html_es": "swf?iep-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "Pissarra",
+  "name_es": "Pizarra",
+  "require": "",
+  "url": ""
+}

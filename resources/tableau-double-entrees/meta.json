@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "Tabla de doble entradas", "banner_es": "tableau-double-entrees-es.png", "html_es": "swf?tableau-double-entrees-es.swf", "name_ca": "Taula de doble entrades", "banner_ca": "tableau-double-entrees-ca.png", "html_ca": "swf?tableau-double-entrees-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "tableau-double-entrees-ca.png",
+  "banner_es": "tableau-double-entrees-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?tableau-double-entrees-ca.swf",
+  "html_es": "swf?tableau-double-entrees-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "Taula de doble entrades",
+  "name_es": "Tabla de doble entradas",
+  "require": "",
+  "url": ""
+}

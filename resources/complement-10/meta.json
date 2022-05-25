@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "Complemento a 10", "banner_es": "complement-10-es.png", "html_es": "swf?complement-10-es.swf", "name_ca": "Complement a 10", "banner_ca": "complement-10-ca.png", "html_ca": "swf?complement-10-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "complement-10-ca.png",
+  "banner_es": "complement-10-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?complement-10-ca.swf",
+  "html_es": "swf?complement-10-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "Complement a 10",
+  "name_es": "Complemento a 10",
+  "require": "",
+  "url": ""
+}

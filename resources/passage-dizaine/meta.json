@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "Paso por decenas", "banner_es": "passage-dizaine-es.png", "html_es": "swf?passage-dizaine-es.swf", "name_ca": "Pas per desenes", "banner_ca": "passage-dizaine-ca.png", "html_ca": "swf?passage-dizaine-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "passage-dizaine-ca.png",
+  "banner_es": "passage-dizaine-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?passage-dizaine-ca.swf",
+  "html_es": "swf?passage-dizaine-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "Pas per desenes",
+  "name_es": "Paso por decenas",
+  "require": "",
+  "url": ""
+}

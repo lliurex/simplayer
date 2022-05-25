@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "Dinero", "banner_es": "monnaie-es.png", "html_es": "swf?monnaie-es.swf", "name_ca": "Diners", "banner_ca": "monnaie-ca.png", "html_ca": "swf?monnaie-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "monnaie-ca.png",
+  "banner_es": "monnaie-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?monnaie-ca.swf",
+  "html_es": "swf?monnaie-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "Diners",
+  "name_es": "Dinero",
+  "require": "",
+  "url": ""
+}

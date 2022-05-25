@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "Balanza interactiva", "banner_es": "balance-interactive-es.png", "html_es": "swf?balance-interactive-es.swf", "name_ca": "Balança interactiva", "banner_ca": "balance-interactive-ca.png", "html_ca": "swf?balance-interactive-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "balance-interactive-ca.png",
+  "banner_es": "balance-interactive-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?balance-interactive-ca.swf",
+  "html_es": "swf?balance-interactive-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "Balança interactiva",
+  "name_es": "Balanza interactiva",
+  "require": "",
+  "url": ""
+}

@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "Ordenación", "banner_es": "ordonner-es.png", "html_es": "swf?ordonner-es.swf", "name_ca": "Ordenació", "banner_ca": "ordonner-ca.png", "html_ca": "swf?ordonner-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "ordonner-ca.png",
+  "banner_es": "ordonner-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?ordonner-ca.swf",
+  "html_es": "swf?ordonner-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "Ordenació",
+  "name_es": "Ordenación",
+  "require": "",
+  "url": ""
+}

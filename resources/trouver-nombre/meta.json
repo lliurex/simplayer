@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "Encontrar el número", "banner_es": "trouver-nombre-es.png", "html_es": "swf?trouver-nombre-es.swf", "name_ca": "Trobar el número", "banner_ca": "trouver-nombre-ca.png", "html_ca": "swf?trouver-nombre-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "trouver-nombre-ca.png",
+  "banner_es": "trouver-nombre-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?trouver-nombre-ca.swf",
+  "html_es": "swf?trouver-nombre-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "Trobar el número",
+  "name_es": "Encontrar el número",
+  "require": "",
+  "url": ""
+}

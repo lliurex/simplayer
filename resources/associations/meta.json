@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "Asociaciones", "banner_es": "associations-es.png", "html_es": "swf?associations-es.swf", "name_ca": "Associacions", "banner_ca": "associations-ca.png", "html_ca": "swf?associations-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "associations-ca.png",
+  "banner_es": "associations-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?associations-ca.swf",
+  "html_es": "swf?associations-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "Associacions",
+  "name_es": "Asociaciones",
+  "require": "",
+  "url": ""
+}

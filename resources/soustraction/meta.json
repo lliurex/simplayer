@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "La sustracción", "banner_es": "soustraction-es.png", "html_es": "swf?soustraction-es.swf", "name_ca": "La sustracció", "banner_ca": "soustraction-ca.png", "html_ca": "swf?soustraction-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "soustraction-ca.png",
+  "banner_es": "soustraction-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?soustraction-ca.swf",
+  "html_es": "swf?soustraction-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "La sustracció",
+  "name_es": "La sustracción",
+  "require": "",
+  "url": ""
+}

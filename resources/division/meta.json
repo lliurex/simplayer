@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "Divisiones", "banner_es": "division-es.png", "html_es": "swf?division-es.swf", "name_ca": "Divisions", "banner_ca": "division-ca.png", "html_ca": "swf?division-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "division-ca.png",
+  "banner_es": "division-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?division-ca.swf",
+  "html_es": "swf?division-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "Divisions",
+  "name_es": "Divisiones",
+  "require": "",
+  "url": ""
+}

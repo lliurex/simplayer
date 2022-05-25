@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "Tablas de multiplicación", "banner_es": "table-multiplication-es.png", "html_es": "swf?table-multiplication-es.swf", "name_ca": "Taules de multiplicació", "banner_ca": "table-multiplication-ca.png", "html_ca": "swf?table-multiplication-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "table-multiplication-ca.png",
+  "banner_es": "table-multiplication-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?table-multiplication-ca.swf",
+  "html_es": "swf?table-multiplication-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "Taules de multiplicació",
+  "name_es": "Tablas de multiplicación",
+  "require": "",
+  "url": ""
+}

@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "La multiplicación", "banner_es": "multiplication-es.png", "html_es": "swf?multiplication-es.swf", "name_ca": "Multiplicació", "banner_ca": "multiplication-ca.png", "html_ca": "swf?multiplication-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "multiplication-ca.png",
+  "banner_es": "multiplication-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?multiplication-ca.swf",
+  "html_es": "swf?multiplication-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "Multiplicació",
+  "name_es": "La multiplicación",
+  "require": "",
+  "url": ""
+}

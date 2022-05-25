@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "La adición", "banner_es": "addition-es.png", "html_es": "swf?addition-es.swf", "name_ca": "L'adició", "banner_ca": "addition-ca.png", "html_ca": "swf?addition-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "addition-ca.png",
+  "banner_es": "addition-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?addition-ca.swf",
+  "html_es": "swf?addition-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "L'adició",
+  "name_es": "La adición",
+  "require": "",
+  "url": ""
+}

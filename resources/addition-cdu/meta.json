@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "La adición cdu", "banner_es": "addition-cdu-es.png", "html_es": "swf?addition-cdu-es.swf", "name_ca": "L'addició cdu", "banner_ca": "addition-cdu-ca.png", "html_ca": "swf?addition-cdu-ca.swf", "category": "math", "require": "", "license": "CC BY-SA", "url": "", "description": ""}
+{
+  "banner_ca": "addition-cdu-ca.png",
+  "banner_es": "addition-cdu-es.png",
+  "category": "math",
+  "description": "",
+  "html_ca": "swf?addition-cdu-ca.swf",
+  "html_es": "swf?addition-cdu-es.swf",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "easy",
+  "license": "CC BY-SA",
+  "name_ca": "L'addició cdu",
+  "name_es": "La adición cdu",
+  "require": "",
+  "url": ""
+}
