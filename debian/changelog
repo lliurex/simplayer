@@ -1,3 +1,15 @@
+simplayer (0.3) focal; urgency=medium
+
+  * Improved request handling
+  * Support for activities with levels & new level selector
+  * Support for dynamic language change & new language selector
+  * New style frontend
+  * Dynamic window title
+  * Allow multiple running instances
+  * Updated translations
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Wed, 25 May 2022 16:57:14 +0200
+
 simplayer (0.2.2) focal; urgency=medium
 
   * Ordered list of activities
