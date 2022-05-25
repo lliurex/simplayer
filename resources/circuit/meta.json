@@ -1,1 +1,18 @@
-{"languages": ["es", "ca"], "name_es": "Circuitos", "banner_es": "circuit.png", "html_es": "circuitjs.html", "name_ca": "Circuits", "banner_ca": "circuit.png", "html_ca": "circuitjs.html", "category": "physics", "require": "", "license": "GNU General Public License v2.0", "url": "https://github.com/pfalstad/circuitjs1", "description": "\"An electronic circuit simulator."}
+{
+  "banner_ca": "circuit.png",
+  "banner_es": "circuit.png",
+  "category": "physics",
+  "description": "\"An electronic circuit simulator.",
+  "html_ca": "circuitjs.html",
+  "html_es": "circuitjs.html",
+  "languages": [
+    "es",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "GNU General Public License v2.0",
+  "name_ca": "Circuits",
+  "name_es": "Circuitos",
+  "require": "",
+  "url": "https://github.com/pfalstad/circuitjs1"
+}

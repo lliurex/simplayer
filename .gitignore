@@ -2,3 +2,4 @@
 untracked
 retriever
 .gitignore
+translations/locale
