@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Doble Muelle 2D", "banner_es": "Double2DSpringApp.png", "html_es": "Double2DSpringApp-es.html", "name_en": "Double 2D Spring", "banner_en": "Double2DSpringApp.png", "html_en": "Double2DSpringApp-en.html", "name_ca": "Doble Moll 2D", "banner_ca": "Double2DSpringApp.png", "html_ca": "Double2DSpringApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "Double2DSpringApp.png",
+  "banner_en": "Double2DSpringApp.png",
+  "banner_es": "Double2DSpringApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "Double2DSpringApp-ca.html",
+  "html_en": "Double2DSpringApp-en.html",
+  "html_es": "Double2DSpringApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Doble Moll 2D",
+  "name_en": "Double 2D Spring",
+  "name_es": "Doble Muelle 2D",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

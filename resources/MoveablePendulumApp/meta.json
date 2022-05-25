@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Péndulo Movible", "banner_es": "MoveablePendulumApp.png", "html_es": "MoveablePendulumApp-es.html", "name_en": "Moveable Pendulum", "banner_en": "MoveablePendulumApp.png", "html_en": "MoveablePendulumApp-en.html", "name_ca": "Pèndol Movible", "banner_ca": "MoveablePendulumApp.png", "html_ca": "MoveablePendulumApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "MoveablePendulumApp.png",
+  "banner_en": "MoveablePendulumApp.png",
+  "banner_es": "MoveablePendulumApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "MoveablePendulumApp-ca.html",
+  "html_en": "MoveablePendulumApp-en.html",
+  "html_es": "MoveablePendulumApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Pèndol Movible",
+  "name_en": "Moveable Pendulum",
+  "name_es": "Péndulo Movible",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

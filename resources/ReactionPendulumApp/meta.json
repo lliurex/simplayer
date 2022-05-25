@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Péndulo de Fuerza de Reacción", "banner_es": "ReactionPendulumApp.png", "html_es": "ReactionPendulumApp-es.html", "name_en": "Reaction Force Pendulum", "banner_en": "ReactionPendulumApp.png", "html_en": "ReactionPendulumApp-en.html", "name_ca": "Pèndol de Força de Reacció", "banner_ca": "ReactionPendulumApp.png", "html_ca": "ReactionPendulumApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "ReactionPendulumApp.png",
+  "banner_en": "ReactionPendulumApp.png",
+  "banner_es": "ReactionPendulumApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "ReactionPendulumApp-ca.html",
+  "html_en": "ReactionPendulumApp-en.html",
+  "html_es": "ReactionPendulumApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Pèndol de Força de Reacció",
+  "name_en": "Reaction Force Pendulum",
+  "name_es": "Péndulo de Fuerza de Reacción",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Muelle 2D", "banner_es": "Spring2DApp.png", "html_es": "Spring2DApp-es.html", "name_en": "Spring 2D", "banner_en": "Spring2DApp.png", "html_en": "Spring2DApp-en.html", "name_ca": "Moll 2D", "banner_ca": "Spring2DApp.png", "html_ca": "Spring2DApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "Spring2DApp.png",
+  "banner_en": "Spring2DApp.png",
+  "banner_es": "Spring2DApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "Spring2DApp-ca.html",
+  "html_en": "Spring2DApp-en.html",
+  "html_es": "Spring2DApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Moll 2D",
+  "name_en": "Spring 2D",
+  "name_es": "Muelle 2D",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

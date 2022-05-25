@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Comparar Péndulos Dobles", "banner_es": "CompareDoublePendulumApp.png", "html_es": "CompareDoublePendulumApp-es.html", "name_en": "Compare Double Pendulums", "banner_en": "CompareDoublePendulumApp.png", "html_en": "CompareDoublePendulumApp-en.html", "name_ca": "Comparar Pèndols Dobles", "banner_ca": "CompareDoublePendulumApp.png", "html_ca": "CompareDoublePendulumApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "CompareDoublePendulumApp.png",
+  "banner_en": "CompareDoublePendulumApp.png",
+  "banner_es": "CompareDoublePendulumApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "CompareDoublePendulumApp-ca.html",
+  "html_en": "CompareDoublePendulumApp-en.html",
+  "html_es": "CompareDoublePendulumApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Comparar Pèndols Dobles",
+  "name_en": "Compare Double Pendulums",
+  "name_es": "Comparar Péndulos Dobles",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

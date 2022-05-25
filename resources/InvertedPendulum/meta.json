@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Péndulo Vibrante Invertido", "banner_es": "InvertedPendulum.png", "html_es": "InvertedPendulum-es.html", "name_en": "Inverted Vibrant Pendulum", "banner_en": "InvertedPendulum.png", "html_en": "InvertedPendulum-en.html", "name_ca": "Pèndol Vibrant Invertit", "banner_ca": "InvertedPendulum.png", "html_ca": "InvertedPendulum-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "InvertedPendulum.png",
+  "banner_en": "InvertedPendulum.png",
+  "banner_es": "InvertedPendulum.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "InvertedPendulum-ca.html",
+  "html_en": "InvertedPendulum-en.html",
+  "html_es": "InvertedPendulum-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Pèndol Vibrant Invertit",
+  "name_en": "Inverted Vibrant Pendulum",
+  "name_es": "Péndulo Vibrante Invertido",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

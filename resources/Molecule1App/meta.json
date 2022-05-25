@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Molécula 2", "banner_es": "Molecule1App.png", "html_es": "Molecule1App-es.html", "name_en": "Molecule 2", "banner_en": "Molecule1App.png", "html_en": "Molecule1App-en.html", "name_ca": "Molècula 2", "banner_ca": "Molecule1App.png", "html_ca": "Molecule1App-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "Molecule1App.png",
+  "banner_en": "Molecule1App.png",
+  "banner_es": "Molecule1App.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "Molecule1App-ca.html",
+  "html_en": "Molecule1App-en.html",
+  "html_es": "Molecule1App-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Molècula 2",
+  "name_en": "Molecule 2",
+  "name_es": "Molécula 2",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

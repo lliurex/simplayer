@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Doble Péndulo Invertido", "banner_es": "InvertedDoublePendulum.png", "html_es": "InvertedDoublePendulum-es.html", "name_en": "Inverted Double Pendulum", "banner_en": "InvertedDoublePendulum.png", "html_en": "InvertedDoublePendulum-en.html", "name_ca": "Doble Pèndol Invertit", "banner_ca": "InvertedDoublePendulum.png", "html_ca": "InvertedDoublePendulum-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "InvertedDoublePendulum.png",
+  "banner_en": "InvertedDoublePendulum.png",
+  "banner_es": "InvertedDoublePendulum.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "InvertedDoublePendulum-ca.html",
+  "html_en": "InvertedDoublePendulum-en.html",
+  "html_es": "InvertedDoublePendulum-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Doble Pèndol Invertit",
+  "name_en": "Inverted Double Pendulum",
+  "name_es": "Doble Péndulo Invertido",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

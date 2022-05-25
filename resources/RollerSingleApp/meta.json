@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Montaña rusa", "banner_es": "RollerSingleApp.png", "html_es": "RollerSingleApp-es.html", "name_en": "Roller Coaster", "banner_en": "RollerSingleApp.png", "html_en": "RollerSingleApp-en.html", "name_ca": "Muntanya russa", "banner_ca": "RollerSingleApp.png", "html_ca": "RollerSingleApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "RollerSingleApp.png",
+  "banner_en": "RollerSingleApp.png",
+  "banner_es": "RollerSingleApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "RollerSingleApp-ca.html",
+  "html_en": "RollerSingleApp-en.html",
+  "html_es": "RollerSingleApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Muntanya russa",
+  "name_en": "Roller Coaster",
+  "name_es": "Montaña rusa",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

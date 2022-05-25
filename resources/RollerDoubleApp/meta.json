@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Montaña Rusa con Dos Bolas", "banner_es": "RollerDoubleApp.png", "html_es": "RollerDoubleApp-es.html", "name_en": "Roller Coaster with Two Balls", "banner_en": "RollerDoubleApp.png", "html_en": "RollerDoubleApp-en.html", "name_ca": "Muntanya Russa amb Dues Boles", "banner_ca": "RollerDoubleApp.png", "html_ca": "RollerDoubleApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "RollerDoubleApp.png",
+  "banner_en": "RollerDoubleApp.png",
+  "banner_es": "RollerDoubleApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "RollerDoubleApp-ca.html",
+  "html_en": "RollerDoubleApp-en.html",
+  "html_es": "RollerDoubleApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Muntanya Russa amb Dues Boles",
+  "name_en": "Roller Coaster with Two Balls",
+  "name_es": "Montaña Rusa con Dos Bolas",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

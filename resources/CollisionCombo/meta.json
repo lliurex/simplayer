@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Métodos de colisión", "banner_es": "CollisionCombo.png", "html_es": "CollisionCombo-es.html", "name_en": "Collision Methods", "banner_en": "CollisionCombo.png", "html_en": "CollisionCombo-en.html", "name_ca": "Mètodes de Col·lisió", "banner_ca": "CollisionCombo.png", "html_ca": "CollisionCombo-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "CollisionCombo.png",
+  "banner_en": "CollisionCombo.png",
+  "banner_es": "CollisionCombo.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "CollisionCombo-ca.html",
+  "html_en": "CollisionCombo-en.html",
+  "html_es": "CollisionCombo-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Mètodes de Col·lisió",
+  "name_en": "Collision Methods",
+  "name_es": "Métodos de colisión",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

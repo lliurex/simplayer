@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Billares", "banner_es": "BilliardsApp.png", "html_es": "BilliardsApp-es.html", "name_en": "Billiards", "banner_en": "BilliardsApp.png", "html_en": "BilliardsApp-en.html", "name_ca": "Billars", "banner_ca": "BilliardsApp.png", "html_ca": "BilliardsApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "BilliardsApp.png",
+  "banner_en": "BilliardsApp.png",
+  "banner_es": "BilliardsApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "BilliardsApp-ca.html",
+  "html_en": "BilliardsApp-en.html",
+  "html_es": "BilliardsApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Billars",
+  "name_en": "Billiards",
+  "name_es": "Billares",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

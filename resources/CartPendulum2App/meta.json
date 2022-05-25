@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Carro y Péndulo con Motor de Física", "banner_es": "CartPendulum2App.png", "html_es": "CartPendulum2App-es.html", "name_en": "Cart & Pendulum with Physics Engine", "banner_en": "CartPendulum2App.png", "html_en": "CartPendulum2App-en.html", "name_ca": "Carro i Pèndol amb Motor de Física", "banner_ca": "CartPendulum2App.png", "html_ca": "CartPendulum2App-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "CartPendulum2App.png",
+  "banner_en": "CartPendulum2App.png",
+  "banner_es": "CartPendulum2App.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "CartPendulum2App-ca.html",
+  "html_en": "CartPendulum2App-en.html",
+  "html_es": "CartPendulum2App-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Carro i Pèndol amb Motor de Física",
+  "name_en": "Cart & Pendulum with Physics Engine",
+  "name_es": "Carro y Péndulo con Motor de Física",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

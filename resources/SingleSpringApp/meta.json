@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Muelle Simple", "banner_es": "SingleSpringApp.png", "html_es": "SingleSpringApp-es.html", "name_ca": "Moll Simple", "banner_ca": "SingleSpringApp.png", "html_ca": "SingleSpringApp-ca.html", "name_en": "SingleSpringApp", "banner_en": "SingleSpringApp.png", "html_en": "SingleSpringApp-en.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "SingleSpringApp.png",
+  "banner_en": "SingleSpringApp.png",
+  "banner_es": "SingleSpringApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "SingleSpringApp-ca.html",
+  "html_en": "SingleSpringApp-en.html",
+  "html_es": "SingleSpringApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Moll Simple",
+  "name_en": "SingleSpringApp",
+  "name_es": "Muelle Simple",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

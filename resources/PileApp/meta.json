@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Pila", "banner_es": "PileApp.png", "html_es": "PileApp-es.html", "name_en": "Pile", "banner_en": "PileApp.png", "html_en": "PileApp-en.html", "name_ca": "Pila", "banner_ca": "PileApp.png", "html_ca": "PileApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "PileApp.png",
+  "banner_en": "PileApp.png",
+  "banner_es": "PileApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "PileApp-ca.html",
+  "html_en": "PileApp-en.html",
+  "html_es": "PileApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Pila",
+  "name_en": "Pile",
+  "name_es": "Pila",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

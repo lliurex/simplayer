@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Carro y Péndulo", "banner_es": "CartPendulumApp.png", "html_es": "CartPendulumApp-es.html", "name_en": "Cart & Pendulum", "banner_en": "CartPendulumApp.png", "html_en": "CartPendulumApp-en.html", "name_ca": "Carro i Pèndol", "banner_ca": "CartPendulumApp.png", "html_ca": "CartPendulumApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "CartPendulumApp.png",
+  "banner_en": "CartPendulumApp.png",
+  "banner_es": "CartPendulumApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "CartPendulumApp-ca.html",
+  "html_en": "CartPendulumApp-en.html",
+  "html_es": "CartPendulumApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Carro i Pèndol",
+  "name_en": "Cart & Pendulum",
+  "name_es": "Carro y Péndulo",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

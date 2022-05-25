@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Colisiones de Cuerpos Rígidos", "banner_es": "ImpulseApp.png", "html_es": "ImpulseApp-es.html", "name_en": "Rigid Body Collisions", "banner_en": "ImpulseApp.png", "html_en": "ImpulseApp-en.html", "name_ca": "Col·lisions de Cossos Rígids", "banner_ca": "ImpulseApp.png", "html_ca": "ImpulseApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "ImpulseApp.png",
+  "banner_en": "ImpulseApp.png",
+  "banner_es": "ImpulseApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "ImpulseApp-ca.html",
+  "html_en": "ImpulseApp-en.html",
+  "html_es": "ImpulseApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Col·lisions de Cossos Rígids",
+  "name_en": "Rigid Body Collisions",
+  "name_es": "Colisiones de Cuerpos Rígidos",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Fuerzas de Contacto de Cuerpos Rígidos", "banner_es": "ContactApp.png", "html_es": "ContactApp-es.html", "name_en": "Rigid Body Contact Forces", "banner_en": "ContactApp.png", "html_en": "ContactApp-en.html", "name_ca": "Forces de Contacte de Cossos Rígids", "banner_ca": "ContactApp.png", "html_ca": "ContactApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "ContactApp.png",
+  "banner_en": "ContactApp.png",
+  "banner_es": "ContactApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "ContactApp-ca.html",
+  "html_en": "ContactApp-en.html",
+  "html_es": "ContactApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Forces de Contacte de Cossos Rígids",
+  "name_en": "Rigid Body Contact Forces",
+  "name_es": "Fuerzas de Contacto de Cuerpos Rígidos",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

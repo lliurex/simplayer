@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Cadena Colgante", "banner_es": "ChainApp.png", "html_es": "ChainApp-es.html", "name_en": "Hanging Chain", "banner_en": "ChainApp.png", "html_en": "ChainApp-en.html", "name_ca": "Cadena Penjant", "banner_ca": "ChainApp.png", "html_ca": "ChainApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "ChainApp.png",
+  "banner_en": "ChainApp.png",
+  "banner_es": "ChainApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "ChainApp-ca.html",
+  "html_en": "ChainApp-en.html",
+  "html_es": "ChainApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Cadena Penjant",
+  "name_en": "Hanging Chain",
+  "name_es": "Cadena Colgante",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

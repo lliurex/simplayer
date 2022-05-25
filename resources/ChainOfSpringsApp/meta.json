@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Cadena de Muelles", "banner_es": "ChainOfSpringsApp.png", "html_es": "ChainOfSpringsApp-es.html", "name_en": "Chain Of Springs", "banner_en": "ChainOfSpringsApp.png", "html_en": "ChainOfSpringsApp-en.html", "name_ca": "Cadena de Molls", "banner_ca": "ChainOfSpringsApp.png", "html_ca": "ChainOfSpringsApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "ChainOfSpringsApp.png",
+  "banner_en": "ChainOfSpringsApp.png",
+  "banner_es": "ChainOfSpringsApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "ChainOfSpringsApp-ca.html",
+  "html_en": "ChainOfSpringsApp-en.html",
+  "html_es": "ChainOfSpringsApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Cadena de Molls",
+  "name_en": "Chain Of Springs",
+  "name_es": "Cadena de Muelles",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Bloques Chocando", "banner_es": "CollideBlocksApp.png", "html_es": "CollideBlocksApp-es.html", "name_en": "Colliding Blocks", "banner_en": "CollideBlocksApp.png", "html_en": "CollideBlocksApp-en.html", "name_ca": "Blocs Xocant", "banner_ca": "CollideBlocksApp.png", "html_ca": "CollideBlocksApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "CollideBlocksApp.png",
+  "banner_en": "CollideBlocksApp.png",
+  "banner_es": "CollideBlocksApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "CollideBlocksApp-ca.html",
+  "html_en": "CollideBlocksApp-en.html",
+  "html_es": "CollideBlocksApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Blocs Xocant",
+  "name_en": "Colliding Blocks",
+  "name_es": "Bloques Chocando",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

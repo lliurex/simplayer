@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Doble Péndulo Movible", "banner_es": "MoveableDoublePendulumApp.png", "html_es": "MoveableDoublePendulumApp-es.html", "name_en": "Moveable Double Pendulum", "banner_en": "MoveableDoublePendulumApp.png", "html_en": "MoveableDoublePendulumApp-en.html", "name_ca": "Doble Pèndol Movible", "banner_ca": "MoveableDoublePendulumApp.png", "html_ca": "MoveableDoublePendulumApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "MoveableDoublePendulumApp.png",
+  "banner_en": "MoveableDoublePendulumApp.png",
+  "banner_es": "MoveableDoublePendulumApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "MoveableDoublePendulumApp-ca.html",
+  "html_en": "MoveableDoublePendulumApp-en.html",
+  "html_es": "MoveableDoublePendulumApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Doble Pèndol Movible",
+  "name_en": "Moveable Double Pendulum",
+  "name_es": "Doble Péndulo Movible",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

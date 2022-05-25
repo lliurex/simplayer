@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Formas Poligonales", "banner_es": "PolygonTestApp.png", "html_es": "PolygonTestApp-es.html", "name_en": "Polygon Shapes", "banner_en": "PolygonTestApp.png", "html_en": "PolygonTestApp-en.html", "name_ca": "Formes Poligonals", "banner_ca": "PolygonTestApp.png", "html_ca": "PolygonTestApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "PolygonTestApp.png",
+  "banner_en": "PolygonTestApp.png",
+  "banner_es": "PolygonTestApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "PolygonTestApp-ca.html",
+  "html_en": "PolygonTestApp-en.html",
+  "html_es": "PolygonTestApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Formes Poligonals",
+  "name_en": "Polygon Shapes",
+  "name_es": "Formas Poligonales",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

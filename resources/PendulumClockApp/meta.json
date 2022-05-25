@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Reloj de Péndulo", "banner_es": "PendulumClockApp.png", "html_es": "PendulumClockApp-es.html", "name_en": "Pendulum Clock", "banner_en": "PendulumClockApp.png", "html_en": "PendulumClockApp-en.html", "name_ca": "Rellotge de Pèndol", "banner_ca": "PendulumClockApp.png", "html_ca": "PendulumClockApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "PendulumClockApp.png",
+  "banner_en": "PendulumClockApp.png",
+  "banner_es": "PendulumClockApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "PendulumClockApp-ca.html",
+  "html_en": "PendulumClockApp-en.html",
+  "html_es": "PendulumClockApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Rellotge de Pèndol",
+  "name_en": "Pendulum Clock",
+  "name_es": "Reloj de Péndulo",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Pila con Atracción", "banner_es": "PileAttractApp.png", "html_es": "PileAttractApp-es.html", "name_en": "Pile Attraction", "banner_en": "PileAttractApp.png", "html_en": "PileAttractApp-en.html", "name_ca": "Pila amb Atracció", "banner_ca": "PileAttractApp.png", "html_ca": "PileAttractApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "PileAttractApp.png",
+  "banner_en": "PileAttractApp.png",
+  "banner_es": "PileAttractApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "PileAttractApp-ca.html",
+  "html_en": "PileAttractApp-en.html",
+  "html_es": "PileAttractApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Pila amb Atracció",
+  "name_en": "Pile Attraction",
+  "name_es": "Pila con Atracción",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

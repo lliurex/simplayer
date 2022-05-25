@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Fuerzas de cuerpo rígido", "banner_es": "RigidBodyApp.png", "html_es": "RigidBodyApp-es.html", "name_en": "Rigid Body Forces", "banner_en": "RigidBodyApp.png", "html_en": "RigidBodyApp-en.html", "name_ca": "Forces de cos rígid", "banner_ca": "RigidBodyApp.png", "html_ca": "RigidBodyApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "RigidBodyApp.png",
+  "banner_en": "RigidBodyApp.png",
+  "banner_es": "RigidBodyApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "RigidBodyApp-ca.html",
+  "html_en": "RigidBodyApp-en.html",
+  "html_es": "RigidBodyApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Forces de cos rígid",
+  "name_en": "Rigid Body Forces",
+  "name_es": "Fuerzas de cuerpo rígido",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

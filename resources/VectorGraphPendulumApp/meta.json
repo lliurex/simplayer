@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Péndulo con Campo de Dirección", "banner_es": "VectorGraphPendulumApp.png", "html_es": "VectorGraphPendulumApp-es.html", "name_en": "Pendulum with Direction Field", "banner_en": "VectorGraphPendulumApp.png", "html_en": "VectorGraphPendulumApp-en.html", "name_ca": "Pèndol amb Camp de Direcció", "banner_ca": "VectorGraphPendulumApp.png", "html_ca": "VectorGraphPendulumApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "VectorGraphPendulumApp.png",
+  "banner_en": "VectorGraphPendulumApp.png",
+  "banner_es": "VectorGraphPendulumApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "VectorGraphPendulumApp-ca.html",
+  "html_en": "VectorGraphPendulumApp-en.html",
+  "html_es": "VectorGraphPendulumApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Pèndol amb Camp de Direcció",
+  "name_en": "Pendulum with Direction Field",
+  "name_es": "Péndulo con Campo de Dirección",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Cuerda", "banner_es": "StringApp.png", "html_es": "StringApp-es.html", "name_en": "String", "banner_en": "StringApp.png", "html_en": "StringApp-en.html", "name_ca": "Corda", "banner_ca": "StringApp.png", "html_ca": "StringApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "StringApp.png",
+  "banner_en": "StringApp.png",
+  "banner_es": "StringApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "StringApp-ca.html",
+  "html_en": "StringApp-en.html",
+  "html_es": "StringApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Corda",
+  "name_en": "String",
+  "name_es": "Cuerda",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

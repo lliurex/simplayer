@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Montaña Rusa de Cuerpo Rígido", "banner_es": "RigidBodyRollerApp.png", "html_es": "RigidBodyRollerApp-es.html", "name_en": "Rigid Body Roller Coaster", "banner_en": "RigidBodyRollerApp.png", "html_en": "RigidBodyRollerApp-en.html", "name_ca": "Muntanya Russa de Cos Rígid", "banner_ca": "RigidBodyRollerApp.png", "html_ca": "RigidBodyRollerApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "RigidBodyRollerApp.png",
+  "banner_en": "RigidBodyRollerApp.png",
+  "banner_es": "RigidBodyRollerApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "RigidBodyRollerApp-ca.html",
+  "html_en": "RigidBodyRollerApp-en.html",
+  "html_es": "RigidBodyRollerApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Muntanya Russa de Cos Rígid",
+  "name_en": "Rigid Body Roller Coaster",
+  "name_es": "Montaña Rusa de Cuerpo Rígido",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

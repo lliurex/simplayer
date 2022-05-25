@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Péndulo de Newton", "banner_es": "NewtonsCradleApp.png", "html_es": "NewtonsCradleApp-es.html", "name_en": "Newtons Cradle", "banner_en": "NewtonsCradleApp.png", "html_en": "NewtonsCradleApp-en.html", "name_ca": "Pèndol de Newton", "banner_ca": "NewtonsCradleApp.png", "html_ca": "NewtonsCradleApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "NewtonsCradleApp.png",
+  "banner_en": "NewtonsCradleApp.png",
+  "banner_es": "NewtonsCradleApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "NewtonsCradleApp-ca.html",
+  "html_en": "NewtonsCradleApp-en.html",
+  "html_es": "NewtonsCradleApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Pèndol de Newton",
+  "name_en": "Newtons Cradle",
+  "name_es": "Péndulo de Newton",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Elipsógrafo de Arquímedes", "banner_es": "DoNothingApp.png", "html_es": "DoNothingApp-es.html", "name_en": "Trammel of Archimedes", "banner_en": "DoNothingApp.png", "html_en": "DoNothingApp-en.html", "name_ca": "El·lipsògraf d'Arquímedes", "banner_ca": "DoNothingApp.png", "html_ca": "DoNothingApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "DoNothingApp.png",
+  "banner_en": "DoNothingApp.png",
+  "banner_es": "DoNothingApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "DoNothingApp-ca.html",
+  "html_en": "DoNothingApp-en.html",
+  "html_es": "DoNothingApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "El·lipsògraf d'Arquímedes",
+  "name_en": "Trammel of Archimedes",
+  "name_es": "Elipsógrafo de Arquímedes",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Colisión de Muelles", "banner_es": "CollideSpringApp.png", "html_es": "CollideSpringApp-es.html", "name_en": "Collide Springs", "banner_en": "CollideSpringApp.png", "html_en": "CollideSpringApp-en.html", "name_ca": "Col·lisió de Molls", "banner_ca": "CollideSpringApp.png", "html_ca": "CollideSpringApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "CollideSpringApp.png",
+  "banner_en": "CollideSpringApp.png",
+  "banner_es": "CollideSpringApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "CollideSpringApp-ca.html",
+  "html_en": "CollideSpringApp-en.html",
+  "html_es": "CollideSpringApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Col·lisió de Molls",
+  "name_en": "Collide Springs",
+  "name_es": "Colisión de Muelles",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

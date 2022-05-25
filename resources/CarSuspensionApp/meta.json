@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Suspensión del Coche", "banner_es": "CarSuspensionApp.png", "html_es": "CarSuspensionApp-es.html", "name_en": "Car Suspension", "banner_en": "CarSuspensionApp.png", "html_en": "CarSuspensionApp-en.html", "name_ca": "Suspensió del Cotxe", "banner_ca": "CarSuspensionApp.png", "html_ca": "CarSuspensionApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "CarSuspensionApp.png",
+  "banner_en": "CarSuspensionApp.png",
+  "banner_es": "CarSuspensionApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "CarSuspensionApp-ca.html",
+  "html_en": "CarSuspensionApp-en.html",
+  "html_es": "CarSuspensionApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Suspensió del Cotxe",
+  "name_en": "Car Suspension",
+  "name_es": "Suspensión del Coche",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Bastón Colgante", "banner_es": "DangleStickApp.png", "html_es": "DangleStickApp-es.html", "name_en": "Dangling Stick", "banner_en": "DangleStickApp.png", "html_en": "DangleStickApp-en.html", "name_ca": "Bastó Penjant", "banner_ca": "DangleStickApp.png", "html_ca": "DangleStickApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "DangleStickApp.png",
+  "banner_en": "DangleStickApp.png",
+  "banner_es": "DangleStickApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "DangleStickApp-ca.html",
+  "html_en": "DangleStickApp-en.html",
+  "html_es": "DangleStickApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Bastó Penjant",
+  "name_en": "Dangling Stick",
+  "name_es": "Bastón Colgante",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}

@@ -1,1 +1,22 @@
-{"languages": ["es", "en", "ca"], "name_es": "Dos Péndulos Caóticos", "banner_es": "ComparePendulumApp.png", "html_es": "ComparePendulumApp-es.html", "name_en": "Two Chaotic Pendulums", "banner_en": "ComparePendulumApp.png", "html_en": "ComparePendulumApp-en.html", "name_ca": "Dos Pèndols Caòtics", "banner_ca": "ComparePendulumApp.png", "html_ca": "ComparePendulumApp-ca.html", "category": "physics", "require": "", "license": "Apache-2.0", "url": "https://github.com/myphysicslab/myphysicslab", "description": "Real-time interactive animated physics simulations"}
+{
+  "banner_ca": "ComparePendulumApp.png",
+  "banner_en": "ComparePendulumApp.png",
+  "banner_es": "ComparePendulumApp.png",
+  "category": "physics",
+  "description": "Real-time interactive animated physics simulations",
+  "html_ca": "ComparePendulumApp-ca.html",
+  "html_en": "ComparePendulumApp-en.html",
+  "html_es": "ComparePendulumApp-es.html",
+  "languages": [
+    "es",
+    "en",
+    "ca"
+  ],
+  "level": "hard",
+  "license": "Apache-2.0",
+  "name_ca": "Dos Pèndols Caòtics",
+  "name_en": "Two Chaotic Pendulums",
+  "name_es": "Dos Péndulos Caóticos",
+  "require": "",
+  "url": "https://github.com/myphysicslab/myphysicslab"
+}
