@@ -1,3 +1,10 @@
+simplayer (0.3.1) focal; urgency=medium
+
+  * Fix categories bug
+  * Fix loop bug processing internal urls != start activity url
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Wed, 25 May 2022 20:32:08 +0200
+
 simplayer (0.3) focal; urgency=medium
 
   * Improved request handling
