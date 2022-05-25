@@ -1,3 +1,9 @@
+simplayer-phet-activities (0.3.1) focal; urgency=medium
+
+  * Set normal level to activities
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Wed, 25 May 2022 17:49:08 +0200
+
 simplayer-phet-activities (0.3) focal; urgency=medium
 
   * Added Valencian & english translations 
