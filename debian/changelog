@@ -1,3 +1,9 @@
+simplayer-circuit (0.2.4) focal; urgency=medium
+
+  * Set hard level to circuit activity
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Wed, 25 May 2022 18:10:47 +0200
+
 simplayer-circuit (0.2.3) focal; urgency=medium
 
   * Fix install file
