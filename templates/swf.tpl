@@ -18,8 +18,8 @@
         player.load("{{ html.swf }}");
         let items = ['html','body','ruffle-player']
         for (let i in items){
-            document.getElementsByTagName(items[i])[0].style.width = "100%"
-            document.getElementsByTagName(items[i])[0].style.height = "100%"
+            document.getElementsByTagName(items[i])[0].style.width = "98%"
+            document.getElementsByTagName(items[i])[0].style.height = "98%"
         }
     });
 </script>
