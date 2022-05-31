@@ -52,55 +52,37 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Sobre</h2>
 
 <p class="introduction">
-Demonstration of a pile of objects falling into a corner
-using the <a href="../explain/physics-engine-ca.html">2D Rigid Body Physics Engine</a>.
+  Demostració d'una pila d'objectes que cauen en una cantonada usant el <a href="../explain/physics-engine-ca.html">Motor de Física de Cos Rígid 2D</a>.
 </p>
 
-<p>This is a good stress test for the physics engine. Click the <b>add block</b>
-button to add more blocks. Eventually the simulation will be unable to keep up with
-real time.
+<p>Aquesta és una bona prova d'estrés per al motor de física. Fes clic a afegir bloc botó per a afegir més blocs. Eventualment, la simulació no podrà seguir el ritme temps real.
 </p>
 
-<p>To see whether the simulation is keeping up with real time click the
-<b>show clock</b> button. The clock shows two second hands: the red hand tracks real
-time and the blue hand tracks simulation time. When the red hand is ahead of the blue
-hand it means the simulation has fallen behind real time.
+<p>Per a veure si la simulació es manté en temps real, clique en el botó
+<b>mostrar rellotge</b>. El rellotge mostra dues secundàries: la busca roja rastreja el temps real i la busca blava rastreja el temps de simulació. Quan la mà roja està per davant de la blava de costat, significa que la simulació s'ha quedat arrere en temps real.
 </p>
 
-<p>The <b>connected blocks</b> checkbox includes two blocks that are connected by
-joints. Those are a good test of the ability to to keep joints together during a series
-of violent collisions.
+<p>La casella <b>blocs connectats</b> inclou dos blocs que estan connectats per articulacions, aqueixes són una bona prova de la capacitat de mantindre juntes les articulacions durant una sèrie de col·lisions violentes.
 </p>
 
-<p>Enabling the <b>endless loop</b> checkbox causes the simulation to be rebuilt every
-few seconds. The period is set by the <b>loop time</b> amount. This allows running the
-simulation over and over which is a good way to test the physics engine with many
-random situations.
+<p>Habilitar la casella de verificació <b>bucle sense fi</b> fa que la simulació es reconstruïsca cada pocs segons. El període s'estableix per la quantitat de <b>temps de bucle</b>. Això permet executar la simulació una vegada i una altra per a provar el motor de física amb moltes situacions aleatòries.
 </p>
 
-<p>The main performance challenge is when the blocks have settled down and are all
-lying in contact. Enable the <b>show forces</b> checkbox to see how hard the physics
-engine is working to figure out the many contact forces.
+<p>El principal desafiament de rendiment és quan els blocs s'han assentat i estan tots ficats al llit en contacte. Habilite la casella de verificació <b>mostrar forces</b> per a veure què tan difícil és la física. motor està treballant per a esbrinar les moltes forces de contacte.
 </p>
 
-<p>The physics engine performance is proportional to the the <i>number of connected
-contacts raised to the fourth power</i>. Here is an experiment that shows this:
+<p>El rendiment del motor de física és proporcional al <i>nombre d'unions de contacte elevades a la quarta potència</i>. Ací hi ha un experiment que mostra això:
 </p>
 
 <ol>
 
-<li>Set the <b>number of blocks</b> to 15, and notice that the simulation cannot keep
-up with real time once the blocks have settled into the corner. With 15 blocks there
-are around 60 contact forces, and 60^4 = 12,960,000.
+<li>Establisca el <b>nombre de blocs</b> en 15 i observe que la simulació no pot seguir en temps real una vegada que els blocs s'hagen assentat a la cantonada. Amb 15 blocs hi ha al voltant de 60 forces de contacte, i 60 ^ 4 = 12,960,000.
 </li>
 
-<li>Enable the <b>two piles</b> checkbox. Now the simulation <i>can</i> keep up with
-real time because there are two piles instead of one. With 7 or 8 blocks in each pile
-there are around 30 contacts in each pile, and 2*(30^4) = 1,620,000 which is an order
-of magnitude less calculations needed.
+<li>Habilite la casella de verificació <b>dos munts</b>. Ara la simulació <i>pot</i> mantindre's al dia en temps real perquè hi ha dos munts en lloc d'un. Amb 7 o 8 blocs en cada pila hi ha al voltant de  30 contactes en cada pila, i 2(30^4) = 1,620,000 que és d'un ordre de magnitud menor i que requereix menys càlcul.
 </li>
 
 </ol>

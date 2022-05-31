@@ -56,20 +56,14 @@
   src="../../mathjax/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
-<h2>About</h2>
+<h2>Sobre</h2>
 
 <p class="introduction">
-A damped driven pendulum is a chaotic system. In a chaotic system the future behavior
-is highly dependent on the exact value of the initial conditions. A tiny change in
-initial conditions can cause huge changes after a short period of time.</p>
+  Un pèndol accionat esmorteït és un sistema caòtic. En un sistema caòtic el comportament futur depén en gran manera del valor exacte de les condicions inicials. Un xicotet canvi en les condicions inicials poden causar grans canvis després d'un curt període de temps.</p>
 
-<p class="instructions"> Click the "Sim" tab to access parameters such as: drive
-amplitude, frequency, mass, gravity, and damping. You can drag the pendulum with your
-mouse to change the starting position.</p>
+<p class="instructions"> Clique en la pestanya "Simulador" per a accedir a paràmetres com: força motriu, amplitud, freqüència, massa, gravetat i amortiment. Pots arrossegar el pèndol amb el teu ratolí per a canviar la posició inicial.</p>
 
-<p>The buttons below set parameters so the simulation is either in a loop or in a
-chaotic state; the drive amplitude is different in each case and shown in parenthesis.
-It takes around a minute to settle into a loop.</p>
+<p>Els botons a continuació estableixen paràmetres perquè la simulació estiga en un bucle o en un estat caòtic; l'amplitud d'excitació és diferent en cada cas i es mostra entre parèntesi. Es tarda al voltant d'un minut a produir-se un bucle.</p>
 
 <form name="form1" onsubmit="return false;">
     <input type="button" value="single loop (1.35)"  onClick="setSimParams(1.35)">
@@ -81,6 +75,7 @@ It takes around a minute to settle into a loop.</p>
     <input type="button" value="double loop (1.07)"  onClick="setSimParams(1.07)">
     <input type="button" value="chaos (1.15)"  onClick="setSimParams(1.15)">
 </form>
+
 <button type="button" class="technical-toggle"></button>
 
 <div class="technical" style="display:none;">

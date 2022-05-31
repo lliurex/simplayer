@@ -52,17 +52,17 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Sobre</h2>
 
 <p class="introduction">
-This simulation shows 5 masses connected by springs and free to move in 2 dimensions.
+  Aquesta simulació mostra 5 masses connectades per ressorts i lliures per a moure's en 2 dimensions.
 </p>
 
 <p class="instructions">
-You can change parameters in the simulation such as gravity, mass, spring stiffness, and friction (damping).  You can drag any mass with your mouse to change the starting position. The red springs can be set to have a different stiffness and length than the other springs.
+  Pot canviar paràmetres en la simulació, com la gravetat, la massa, la rigidesa del ressort i la fricció (amortiment). Pot arrossegar qualsevol massa amb el ratolí per a canviar la posició inicial. Els ressorts rojos es poden configurar perquè tinguen una rigidesa i una longitud diferents a les dels altres ressorts.
 </p>
 
-<p>Click the buttons below for various pre-set combinations of parameter settings.</p>
+<p>Clique en els botons a continuació per a obtindre diverses combinacions preestablides de configuració de paràmetres.</p>
 
 <form name="form1" onsubmit="return false;">
     <input type="button" value="symmetric" onClick="setParams(6)">
@@ -74,6 +74,7 @@ You can change parameters in the simulation such as gravity, mass, spring stiffn
     <input type="button" value="less bouncy"
       onClick="setParams(6); app.eval('DAMPING=0; ELASTICITY=0.1; GRAVITY=1;')">
 </form>
+
 <button type="button" class="technical-toggle"></button>
 
 <div class="technical" style="display:none;">

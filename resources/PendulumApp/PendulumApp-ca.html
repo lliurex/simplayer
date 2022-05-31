@@ -55,30 +55,29 @@
   src="../../mathjax/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
-<h2>About</h2>
+<h2>Sobre</h2>
 
 <p class="introduction">
-  Physics-based simulation of a simple pendulum.
-  </p>
+  Simulació basada en la física d'un pèndol simple.
+</p>
 
-  <p class="instructions">
-  Modify gravity, mass or friction (damping). Drag the pendulum to change the starting
-  position. Or click below to set initial conditions:
-  </p>
+<p class="instructions">
+  Modificar la gravetat, la massa o la fricció (amortiment). Arrossegament el pèndol per a canviar l'inici posició. O Clique a continuació per a establir les condicions inicials:
+</p>
 
-  <form name="form1" onsubmit="return false;">
-    <input type="button" value="small" onClick="app.eval('ANGLE=0.3;ANGLE_VELOCITY=0;')">
-    &nbsp;&nbsp;
-    <input type="button" value="medium" onClick="app.eval('ANGLE=1;ANGLE_VELOCITY=0;')">
-    &nbsp;&nbsp;
-    <input type="button" value="big" onClick="app.eval('ANGLE=3;ANGLE_VELOCITY=0;')">
-    &nbsp;&nbsp;
-    <input type="button" value="fast" onClick="app.eval('ANGLE=0;ANGLE_VELOCITY=8;')">
-  </form>
+<form name="form1" onsubmit="return false;">
+  <input type="button" value="small" onClick="app.eval('ANGLE=0.3;ANGLE_VELOCITY=0;')">
+  &nbsp;&nbsp;
+  <input type="button" value="medium" onClick="app.eval('ANGLE=1;ANGLE_VELOCITY=0;')">
+  &nbsp;&nbsp;
+  <input type="button" value="big" onClick="app.eval('ANGLE=3;ANGLE_VELOCITY=0;')">
+  &nbsp;&nbsp;
+  <input type="button" value="fast" onClick="app.eval('ANGLE=0;ANGLE_VELOCITY=8;')">
+</form>
 
-  <button type="button" class="technical-toggle"></button>
+<button type="button" class="technical-toggle"></button>
 
-  <div class="technical" style="display:none;">
+<div class="technical" style="display:none;">
   <p>The math behind the simulation is shown below.  Also available are:
   <a href="https://github.com/myphysicslab/myphysicslab/blob/master/src/sims/pendulum/PendulumApp.js">open source code</a>,
   </p>

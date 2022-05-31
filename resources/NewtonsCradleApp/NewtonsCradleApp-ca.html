@@ -53,45 +53,36 @@
    </div>
 </div>
 
-<h2>About</h2>
+<h2>Sobre</h2>
 
 <p class="introduction">
-Simulation of
-<a href="http://en.wikipedia.org/wiki/Newton's_cradle">Newton's Cradle</a>,
-a device consisting of several steel balls suspended from a cage.
-Uses the <a href="../explain/physics-engine-ca.html">2D Rigid Body Physics Engine</a>.
+  Simulació de <a href="http://en.wikipedia.org/wiki/Newton's_cradle">Bressol de Newton</a>,
+  un dispositiu que consta de diverses boles d'acer suspeses d'una gàbia. S'utilitza el <a href="../explain/physics-engine-ca.html">Motor de Física de Cos Rígid 2D</a>.
 </p>
 
-<p>Each ball acts like an individual pendulum. At rest all the balls are touching. The
-surprising thing is that when you lift one of the end balls and let it hit the resting
-balls, only the ball at the other end moves, and the initial ball stops at rest.
+<p>
+  Cada bola actua com un pèndol individual. En repòs totes les boles es toquen. El sorprenent és que quan alces una de les boles finals i deixes que colpege la resta de boles, només es mou la bola de l'altre extrem i la bola inicial es deté en repòs.
 </p>
 
 <p class="instructions">
-Click near an object to exert a rubber band force with your mouse. Click reset to set
-the balls at rest. Try changing gravity, elasticity (bounciness), and damping
-(friction).
+  Clique prop d'un objecte per a exercir una força elàstica amb el ratolí. Clique a restablir per a configurar les boles en repòs. Intente canviar la gravetat, l'elasticitat (rebot) i l'amortiment (fricció).
 </p>
 
 
-<p>Experiments to try:</p>
+<p>Experiments per a provar:</p>
 
 <ul>
-  <li>Turn on "show energy".  When is kinetic energy highest?
-    When is potential energy highest?
-  </li>
-  <li>Reduce elasticity (bounciness) to less than 1, for example 0.9</li>
-  <li>Make a small gap between each ball by increasing the offset to above zero,
-       for example 0.1
-  </li>
-  <li>Try using "simultaneous" collision handling method</li>
-  <li>Turn on "show forces" to see the contact forces and collision impacts.</li>
+  <li>Activa "Mostrar energia". Quan és màxima l'energia cinètica? Quan és màxima l'energia potencial?</li>
+  <li>Reduïsca l'elasticitat (rebot) a menys de 1, per exemple, 0,9</li>
+  <li>Faça un xicotet espai entre cada bola augmentant el desplaçament per damunt de zero, per exemple 0.1</li>
+  <li>Intente usar el mètode de maneig de col·lisions "simultani"</li>
+  <li>Active "Mostrar forces" per a veure les forces de contacte i els impactes de col·lisió.</li>
 </ul>
 
-<p>There are "joints" attaching each pendulum to the background,
-two joints for each connection: one vertical, one horizontal. Each pendulum is a single
-rigid body, as opposed to being made of a flexible rope and steel ball in the real
-world toy.
+<p>
+  Hi ha "unions" que uneixen cada pèndol al fons, dues "unions" per a cada connexió: una vertical, una horitzontal. Cada pèndol és un sol cos rígid, a diferència d'estar fet d'una corda flexible i una bola d'acer com en el joguet del món real.
+</p>
+
 <button type="button" class="technical-toggle"></button>
 
 <div class="technical" style="display:none;">

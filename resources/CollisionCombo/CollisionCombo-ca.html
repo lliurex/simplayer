@@ -27,22 +27,19 @@
 
 <!--p><b>(TO DO: ADD REFERENCE TO PAGE ABOUT JOINTS WHEN WE HAVE ONE.)</b></p-->
 
-<p class="introduction">This page explains how the
-<a href="../explain/physics-engine-ca.html">2D Rigid Body Physics Engine</a>.
-deals with multiple simultaneous collisions. The summary points are:
+<p class="introduction">Aquesta pàgina explica com el
+<a href="../explain/physics-engine-ca.html">Motor de Física de Cos Rígid 2D</a>.
+s'ocupa de múltiples col·lisions simultànies. Els punts de resum són:
 </p>
 
 <ul>
-  <li>Collisions are chosen randomly and handled one at a time, until there are no
-  collisions remaining.</li>
+  <li>Les col·lisions es trien a l'atzar i es manegen una a la una cada vegada, fins que no hi haja col·lisions restants.</li>
 
-  <li>The collision impulses and their resulting effects are accumulated until all
-  collisions are resolved (without leaving the collision handling routine).</li>
+  <li>Els impulsos de col·lisió i els seus efectes resultants s'acumulen fins que tots les col·lisions es resolen (sense eixir de la rutina de maneig de col·lisions).</li>
 
-  <li>Joints are a special case, they are handled via a "simultaneous" collision
-  method.</li>
+  <li>Les articulacions són un cas especial, es manegen a través d'un mètode de col·lisió "simultània".</li>
 
-  <li>Square-on collisions involving rectangular shapes are perhaps not correct.</li>
+  <li>Les col·lisions quadrades que involucren formes rectangulars potser no són correctes.</li>
 </ul>
 
 <button type="button" class="technical-toggle"></button>
