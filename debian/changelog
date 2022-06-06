@@ -1,3 +1,12 @@
+simplayer (0.3.3) focal; urgency=medium
+
+  * Updated translations 
+  * Full gui translated on changed language 
+  * Show message if no activities are displayed 
+  * Ensure mid-translated activities always shown with fallback language
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Mon, 06 Jun 2022 10:27:05 +0200
+
 simplayer (0.3.2) focal; urgency=medium
 
   * Add accesibility icon
