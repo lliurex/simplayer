@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-25 17:03+0200\n"
-"PO-Revision-Date: 2022-05-25 17:03+0200\n"
+"POT-Creation-Date: 2022-06-06 10:14+0200\n"
+"PO-Revision-Date: 2022-06-06 10:17+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: en_US\n"
@@ -19,137 +19,145 @@ msgstr ""
 
 #: simplayer:21
 msgid "spanish"
-msgstr ""
+msgstr "spanish"
 
 #: simplayer:21
 msgid "valencian"
-msgstr ""
+msgstr "valencian"
 
 #: simplayer:21
 msgid "english"
-msgstr ""
+msgstr "english"
 
-#: simplayer:289
+#: simplayer:292
 msgid "projects loaded"
-msgstr ""
+msgstr "projects loaded"
 
-#: simplayer:315
+#: simplayer:318
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
-#: simplayer:315 simplayer:316
+#: simplayer:318 simplayer:319
 msgid "Activity '{}' not found"
-msgstr ""
+msgstr "Activity '{}' not found"
 
-#: simplayer:362
+#: simplayer:386
 msgid "Cache hit"
-msgstr ""
+msgstr "Cache hit"
 
-#: simplayer:364
+#: simplayer:388
 msgid "Cache miss"
-msgstr ""
+msgstr "Cache miss"
 
-#: simplayer:417
+#: simplayer:441
 msgid "math"
 msgstr "math"
 
-#: simplayer:417
+#: simplayer:441
 msgid "earth-science"
 msgstr "earth-science"
 
-#: simplayer:417
+#: simplayer:441
 msgid "biology"
 msgstr "biology"
 
-#: simplayer:417
+#: simplayer:441
 msgid "physics"
 msgstr "physics"
 
-#: simplayer:417
+#: simplayer:441
 msgid "chemistry"
 msgstr "chemistry"
 
-#: simplayer:417
+#: simplayer:441
 msgid "accessibility"
-msgstr ""
+msgstr "accesibility"
 
-#: simplayer:417
+#: simplayer:441
+msgid "basics"
+msgstr "basics"
+
+#: simplayer:441
 msgid "other"
-msgstr ""
+msgstr "other"
 
-#: simplayer:422
+#: simplayer:446
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
-#: simplayer:459
+#: simplayer:446
+msgid "No items to display with current settings"
+msgstr "No items to display with current settings"
+
+#: simplayer:483
 msgid "activated"
 msgstr "activated"
 
-#: simplayer:492
+#: simplayer:516
 msgid "--Start History--"
-msgstr ""
+msgstr "--Start History--"
 
-#: simplayer:499
+#: simplayer:523
 msgid "-- End History --"
-msgstr ""
+msgstr "-- End History --"
 
-#: simplayer:526 simplayer:781
+#: simplayer:550 simplayer:816
 msgid "Simplayer"
 msgstr "Simplayer"
 
-#: simplayer:535
+#: simplayer:559
 msgid "home"
 msgstr "home"
 
-#: simplayer:535
+#: simplayer:559
 msgid "back"
 msgstr "back"
 
-#: simplayer:535
+#: simplayer:559
 msgid "forward"
 msgstr "forward"
 
-#: simplayer:535
+#: simplayer:559
 msgid "reload"
-msgstr ""
+msgstr "reload"
 
-#: simplayer:550
+#: simplayer:574 simplayer:664
 msgid "Show activities"
-msgstr ""
+msgstr "Show activities"
 
-#: simplayer:552
+#: simplayer:576 simplayer:665
 msgid "easy"
-msgstr ""
+msgstr "easy"
 
-#: simplayer:554
+#: simplayer:578 simplayer:666
 msgid "normal"
-msgstr ""
+msgstr "normal"
 
-#: simplayer:556
+#: simplayer:580 simplayer:667
 msgid "hard"
-msgstr ""
+msgstr "hard"
 
-#: simplayer:574
+#: simplayer:598 simplayer:668
 msgid "Language"
-msgstr ""
+msgstr "Language"
 
-#: simplayer:645 simplayer:652
+#: simplayer:676 simplayer:683
 msgid "Warning"
 msgstr "Warning"
 
-#: simplayer:645
+#: simplayer:676
 msgid "object already defined, can't add"
 msgstr "object already defined, can't add"
 
-#: simplayer:652
+#: simplayer:683
 msgid "Missing image"
 msgstr "Missing image"
 
-#: simplayer:752
+#: simplayer:786
 msgid "Current activity: {}"
-msgstr ""
+msgstr "Current activity: {}"
 
-#: simplayer:825
+#: simplayer:861
 msgid "Detected language"
 msgstr "Detected language"
 

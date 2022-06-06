@@ -3,33 +3,7 @@
 <meta charset="utf-8">
 {% include 'style.tpl' %}
 {% include 'filter.tpl' %}
-<script>
-    easy = '{{easy}}'
-    normal = '{{normal}}'
-    hard = '{{hard}}'
-
-$(document).ready(function() {
-    //let params = new URLSearchParams(window.location.search)
-    //let easy = params.get('easy')
-    //let normal = params.get('normal')
-    //let hard = params.get('hard')
-    if (easy == 'False') {
-        $('*[level=easy]').hide()
-    }else{
-        $('*[level=easy]').show()
-    }
-    if (normal == 'False') {
-        $('*[level=normal]').hide()
-    }else{
-        $('*[level=normal]').show()
-    }
-    if (hard == 'False') {
-        $('*[level=hard]').hide()
-    }else{
-        $('*[level=hard]').show()
-    }
-})
-</script>
+{% include 'levels.tpl' %}
 </head>
 <body>
 <div class='filter'>

@@ -123,7 +123,7 @@ else:
 set_translator(LANG)
 
 DEBUG=False
-DEBUG_REQUESTS=True
+DEBUG_REQUESTS=False
 FIXED_PORT=None
 if DEBUG:
     FIXED_PORT=16666
@@ -325,10 +325,25 @@ class TemplateManager():
         self.init_cache()
 
     def search_projects(self):
+        needed = { 'banner': '', 'html': '' , 'name': ''}
         for x in (d for d in os.listdir(RESOURCE_DIR) if os.path.isdir(f'{RESOURCE_DIR}/{d}')):
             prj = f'{RESOURCE_DIR}/{x}'
             try:
                 f = json.load(open(os.path.join(prj,'meta.json'),'r'))
+                # ensure full tree with all languages
+                for language in LANGS:
+                    for key in needed.keys():
+                        if f.get(f'{key}_{language}'):
+                            needed[key] = f.get(f'{key}_{language}')
+                    if needed['banner'] and needed['html'] and needed['name']:
+                        break
+                for language in LANGS:
+                    if language not in f.get('languages'):
+                        f['languages'].append(language)
+                    for key in needed.keys():
+                        if not f.get(f'{key}_{language}'):
+                            f[f'{key}_{language}'] = needed[key]
+                # ensure level on all activities
                 level = f.get('level')
                 if not level or level not in ['easy','normal','hard']:
                     f['level'] = 'normal'
@@ -423,12 +438,12 @@ class TemplateManager():
 
     def category_html(self,*args,**kwargs):
         category = kwargs.get('show')
-        xgettext_categories=[_('math'),_('earth-science'),_('biology'),_('physics'),_('chemistry'),_('accessibility'),_('other')]
+        xgettext_categories=[_('math'),_('earth-science'),_('biology'),_('physics'),_('chemistry'),_('accessibility'),_('basics'),_('other')]
         color = self.color_category(category)
         tpl = self.environment.get_template('categories.tpl')
         items = [ (f'{os.path.relpath(k,self.basedir)}/{v.get(f"html_{LANG}")}',f'{os.path.relpath(k,self.basedir)}/{v.get(f"banner_{LANG}")}',v.get(f'name_{LANG}'),v.get('level')) for k,v in self.projects.items() if category in v.get('category').split(',') and ( (self.webgl_enabled == False and 'webgl' not in v.get('require')) or self.webgl_enabled )]
         items.sort(key=lambda x: x[2])
-        content = tpl.render(items=items,color=color,filter_text=_('Filter'),easy=EASY,normal=NORMAL,hard=HARD)
+        content = tpl.render(items=items,color=color,filter_text=_('Filter'),easy=EASY,normal=NORMAL,hard=HARD,msg=_('No items to display with current settings'))
         return content
 
     def swf_html(self,*args,**kwargs):
@@ -646,6 +661,11 @@ class MainWindow(QMainWindow):
                 button.setText(_(key[len('button_'):]).capitalize())
         for l in LANGS:
             self.language_selector.setItemText(LANGS.index(l),_(lang_fullname(l)).capitalize())
+        self.label.setText(_('Show activities').capitalize()+':')
+        self.check_easy.setText(_('easy').capitalize())
+        self.check_normal.setText(_('normal').capitalize())
+        self.check_hard.setText(_('hard').capitalize())
+        self.label_language.setText(_('Language').capitalize()+':')
 
     def add_button(self,key=None):
         if key:

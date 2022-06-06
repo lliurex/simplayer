@@ -53,4 +53,10 @@ grid-item{
 grid-item:hover{
     background-color: {{color}}50;
 }
+span.msg{
+    text-align: center;
+    width: 300%;
+    font-size: 2vw;
+    font-family: sans-serif;
+}
 </style>
