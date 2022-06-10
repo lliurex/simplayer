@@ -1,3 +1,9 @@
+simplayer-flash-activities (0.4.3) focal; urgency=medium
+
+  * Change category for accesibility -> basics
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Fri, 10 Jun 2022 14:05:01 +0200
+
 simplayer-flash-activities (0.4.2) focal; urgency=medium
 
   * Fix typo error
