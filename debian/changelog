@@ -1,3 +1,9 @@
+simplayer-flash-activities (0.4.3-lliurex19) bionic; urgency=medium
+
+  * Backported from focal (LliureX 21)
+  
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Wed, 16 Nov 2022 11:08:24 +0100
+
 simplayer-flash-activities (0.4.3) focal; urgency=medium
 
   * Change category for accesibility -> basics
