@@ -1,3 +1,9 @@
+libjs-ruffle (0.1.0.220510-lliurex19) bionic; urgency=medium
+
+  * Backported from focal (LliureX 21)
+  
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Wed, 16 Nov 2022 11:00:42 +0100
+
 libjs-ruffle (0.1.0.220510) focal; urgency=medium
 
   * Bump version to 2022/05/10
