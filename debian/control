@@ -10,7 +10,7 @@ Vcs-Git: https://github.com/lliurex/simplayer
 
 Package: simplayer
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, python3, python3-urllib3, python3-jinja2, python3-bs4, python3-pyside2.qtcore, python3-pyside2.qtgui, python3-pyside2.qtwidgets, python3-pyside2.qtwebenginewidgets, python3-pyside2.qtwebenginecore, python3-pyside2.qtwebchannel, libjs-ruffle, libjs-jquery
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3, python3-urllib3, python3-jinja2, python3-bs4, python3-pyside2.qtcore, python3-pyside2.qtgui, python3-pyside2.qtwidgets, python3-pyside2.qtwebenginewidgets, python3-pyside2.qtwebenginecore, python3-pyside2.qtwebchannel, python3-pyside2.qtprintsupport, libjs-ruffle, libjs-jquery
 Recommends: simplayer-phet-activities, simplayer-flash-activities, simplayer-circuit, simplayer-myphysicslab-activities
 Description: Browser for educational activities
  Browser for educational activities
