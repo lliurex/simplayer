@@ -1,3 +1,9 @@
+simplayer (0.3.4-lliurex19) bionic; urgency=medium
+
+  * Backported from focal (LliureX 21)
+  
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Wed, 16 Nov 2022 10:51:16 +0100
+
 simplayer (0.3.4) focal; urgency=medium
 
   * App icon updated
