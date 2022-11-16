@@ -1,3 +1,9 @@
+simplayer-circuit (0.2.5-lliurex19) bionic; urgency=medium
+
+  * Backported from focal (LliureX 21)
+  
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Wed, 16 Nov 2022 11:04:55 +0100
+
 simplayer-circuit (0.2.5) focal; urgency=medium
 
   * Fix multiple language start url
