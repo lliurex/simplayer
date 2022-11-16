@@ -1,3 +1,9 @@
+simplayer-phet-activities (0.3.1-lliurex19) bionic; urgency=medium
+
+  * Backported from focal (LliureX 21)
+  
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Wed, 16 Nov 2022 11:11:22 +0100
+
 simplayer-phet-activities (0.3.1) focal; urgency=medium
 
   * Set normal level to activities
