@@ -484,7 +484,8 @@ class WebEngine(QWebEngineView):
 
     def set_interceptor(self):
         self.interceptor = Interceptor()
-        self.page().setUrlRequestInterceptor(self.interceptor)
+        #self.page().setUrlRequestInterceptor(self.interceptor)
+        self.page().profile().setRequestInterceptor(self.interceptor)
 
 class CustomPage(QWebEnginePage):
     def __init__(self,*args,**kwargs):
@@ -600,7 +601,9 @@ class MainWindow(QMainWindow):
         self.toolbar.addWidget(self.label_language)
 
         self.language_selector = QComboBox()
-        self.language_selector.addItems( map(lambda x: x.capitalize(),[ _(lang_fullname(l)) for l in LANGS ]) )
+        #self.language_selector.addItems( map(lambda x: x.capitalize(),[ _(lang_fullname(l)) for l in LANGS ]) )
+        for l in LANGS:
+            self.language_selector.addItem(_(lang_fullname(l)).capitalize())
         text = _(lang_fullname(LANG)).capitalize()
         self.language_selector.setCurrentIndex(self.language_selector.findText(text))
         self.language_selector.currentIndexChanged.connect(self.set_language)
