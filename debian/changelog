@@ -1,3 +1,9 @@
+simplayer-myphysicslab-activities (1.2.2) jammy; urgency=medium
+
+  * Initial Jammy release
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Wed, 30 Nov 2022 14:02:47 +0100
+
 simplayer-myphysicslab-activities (0.2.2) focal; urgency=medium
 
   * Updated ca translations
