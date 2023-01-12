@@ -1,3 +1,9 @@
+simplayer (0.3.5-lliurex19) bionic; urgency=medium
+
+  * Disable context menu
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Thu, 12 Jan 2023 21:33:58 +0100
+
 simplayer (0.3.4-lliurex19) bionic; urgency=medium
 
   * Backported from focal (LliureX 21)
