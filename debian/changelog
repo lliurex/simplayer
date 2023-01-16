@@ -1,9 +1,3 @@
-simplayer-flash-activities (1.4.3) jammy; urgency=medium
-
-  * Initial Jammy release
-
- -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Wed, 30 Nov 2022 13:55:53 +0100
-
 simplayer-flash-activities (0.4.3) focal; urgency=medium
 
   * Change category for accesibility -> basics
