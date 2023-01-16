@@ -1,8 +1,8 @@
-simplayer (1.3.4) jammy; urgency=medium
+simplayer (0.3.5) focal; urgency=medium
 
-  * Initial Jammy release
+  * Disable context menu
 
- -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Wed, 30 Nov 2022 13:44:20 +0100
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Thu, 12 Jan 2023 10:29:38 +0100
 
 simplayer (0.3.4) focal; urgency=medium
 
