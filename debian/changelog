@@ -1,3 +1,10 @@
+libjs-ruffle (1.0.0.221128) jammy; urgency=medium
+
+  * Bump version to 2022/11/28
+  * Initial release for Jammy
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Fri, 01 Sep 2023 09:17:36 +0200
+
 libjs-ruffle (0.1.0.220510) focal; urgency=medium
 
   * Bump version to 2022/05/10
