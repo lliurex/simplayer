@@ -1,3 +1,9 @@
+simplayer-circuit (0.12.5) jammy; urgency=medium
+
+  * Initial release for Jammy
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Fri, 01 Sep 2023 09:23:10 +0200
+
 simplayer-circuit (0.2.5) focal; urgency=medium
 
   * Fix multiple language start url
