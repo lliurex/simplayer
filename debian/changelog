@@ -1,3 +1,9 @@
+simplayer-phet-activities (0.23.1) noble; urgency=medium
+
+  * Initial release for Noble
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Fri, 13 Sep 2024 14:18:42 +0200
+
 simplayer-phet-activities (0.13.1) jammy; urgency=medium
 
   * Initial release for Jammy
