@@ -1,3 +1,9 @@
+simplayer-myphysicslab-activities (0.22.2) noble; urgency=medium
+
+  * Initial release for Noble
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Fri, 13 Sep 2024 14:12:37 +0200
+
 simplayer-myphysicslab-activities (0.12.2) jammy; urgency=medium
 
   * Initial release for Jammy
