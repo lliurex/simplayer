@@ -79,7 +79,8 @@ try:
 except:
     pass
 
-LANG, ENCODING = locale.getdefaultlocale()
+#LANG, ENCODING = locale.getdefaultlocale()
+LANG, ENCODING = locale.getlocale()
 LANG2 = os.getenv('LANG')
 LANG3 = os.getenv('LANGUAGE')
 
