@@ -17,5 +17,5 @@ Comment=Electrical circuit simulator
 Comment[ca]=Simulador de circuits elèctrics
 Comment[ca@valencia]=Simulador de circuits elèctrics
 Comment[es]=Simulador de circuitos eléctricos
-Categories=LliureX-Laboratory;
+Categories=Education;
 X-DBUS-ServiceName=net.lliurex.simplayer.circuit
