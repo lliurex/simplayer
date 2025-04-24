@@ -17,5 +17,5 @@ Comment=Practice with mouse clicks
 Comment[ca]=Practica amb clics de ratolí
 Comment[ca@valencia]=Practica amb clics de ratolí
 Comment[es]=Practica con clics de ratón
-Categories=LliureX-Infantil;
+Categories=Education;
 X-DBUS-ServiceName=net.lliurex.simplayer.click
